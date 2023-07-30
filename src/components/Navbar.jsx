@@ -72,7 +72,7 @@ const Navbar = () => {
                                                     Dashboard
                                                 </p>
                                             </Link>
-                                        ) : (
+                                        ) : (isAuthenticated) && (
                                             <Link
                                                 to={(site ? site : '') + '/user/dashboard'}
                                                 className='text-md block tracking-wide hover:text-primary'
@@ -139,9 +139,9 @@ const Navbar = () => {
                             <button className='text-lg opacity-75' onClick={logout}>Logout</button>
                         )
                     }
-                        <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
-                            Start my free trial
-                        </button>
+                    <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
+                        Start my free trial
+                    </button>
                 </div>
                 <div className='block md:hidden cursor-pointer' onClick={handleClick}>
                     {

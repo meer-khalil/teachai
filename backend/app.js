@@ -67,22 +67,29 @@ app.use('/api/v1', payment);
 app.use('/api/v1', chat);
 
 
-// app.get('/', (req, res) => {
-//     res.json({
-//         message: 'Server is Running!'
-//     })
-// })
 
-console.log(path.join(__dirname, '..', 'build', 'index.html'));
+
+// console.log(path.join(__dirname, '..', 'build', 'index.html'));
 
 // const path = require('path')
-let root = path.join(__dirname, '..', 'build/')
-app.use(express.static(root))
-app.use(function (req, res, next) {
-    if (req.method === 'GET' && req.accepts('html') && !req.is('json') && !req.path.includes('.')) {
-        res.sendFile('index.html', { root })
-    } else next()
-})
+let environment = 'dev';
+if (environment === 'dev') {
+
+    app.get('/', (req, res) => {
+        res.json({
+            message: 'Server is Running!'
+        })
+    })
+} else {
+    let root = path.join(__dirname, '..', 'build/')
+    app.use(express.static(root))
+    app.use(function (req, res, next) {
+        if (req.method === 'GET' && req.accepts('html') && !req.is('json') && !req.path.includes('.')) {
+            res.sendFile('index.html', { root })
+        } else next()
+    })
+}
+
 
 // error middleware
 // app.use(errorMiddleware);

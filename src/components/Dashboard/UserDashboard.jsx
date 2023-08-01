@@ -24,15 +24,15 @@ const UserDashboard = () => {
     if (!isAuthenticated) return <div>Loading....</div>
 
     return (
-        <div className=' max-w-[1440px] mx-auto'>
+        <div className=' max-w-[1640px] mx-auto'>
             <div className="relative overflow-hidden flex flex-col md:flex-row">
 
-                <div className="flex-[2.5] relative">
+                <div className="flex-[2] relative">
                     <Aside />
                 </div>
 
                 <main className="mt-40 min-h-screen md:mt-0 overflow-auto flex-[10]">
-                    <div className="px-2 md:px-6 py-8">
+                    <div className="px-2 md:px-6 pt-2">
 
                         <Routes>
                             <Route path='/' element={<Dashboard />} />

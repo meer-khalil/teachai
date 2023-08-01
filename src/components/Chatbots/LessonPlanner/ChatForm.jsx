@@ -48,7 +48,7 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
         })
     }
     return (
-        <div className='mr-2'>
+        <div className='mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
 
                 <div className='flex flex-col mb-5'>

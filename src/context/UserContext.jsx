@@ -14,6 +14,8 @@ export const UserProvider = ({ children }) => {
     const [users, setUsers] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+    const [categoryOpen, setCategoryOpen] = useState('')
+
     const login = async (user) => {
         try {
             const res = await axios.post((backend_url ? backend_url : '') + '/login', user);
@@ -46,7 +48,7 @@ export const UserProvider = ({ children }) => {
                 navigate('/')
             }
         } catch (error) {
-            console.error('Failed to register user:', error);
+            console.error('Failed to register user:', error?.response.data);
         }
     };
 
@@ -141,7 +143,9 @@ export const UserProvider = ({ children }) => {
             getUserData,
             users,
             getAllUsers,
-            isAdmin
+            isAdmin,
+            categoryOpen,
+            setCategoryOpen
         }}>
             {children}
         </UserContext.Provider>

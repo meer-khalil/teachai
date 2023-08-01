@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import ChatForm from './ChatForm'
 import axios from 'axios'
@@ -14,6 +14,7 @@ const LessonPlanner = () => {
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,15 +54,14 @@ const LessonPlanner = () => {
 
     }
 
-
     return (
         <div className='border-b-2 border-black pb-24'>
             <div className=' flex flex-col md:flex-row gap-5'>
 
-                <div className='border-r border-secondary max-w-[250px]'>
+                <div className='border-r border-secondary max-w-[350px]'>
                     <Header
                         heading={'General Lesson Planner'}
-                        desc={'Create Engaging lesson plans effortlessly'}
+                        desc={'Which teachers assistance would you like?'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />
@@ -81,7 +81,7 @@ const LessonPlanner = () => {
                                 <div>
                                     <div className='relative'>
 
-                                        <div className='overflow-y-scroll h-[70vh]'>
+                                        <div className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
                                             {
                                                 answer.map((el, i) => (
                                                     <>
@@ -132,8 +132,8 @@ const LessonPlanner = () => {
                         }
                     </div>
                     {
-                        (answer.length > 0 || answer.length == 0) && (
-                            <div className='flex-1'>
+                        (answer.length > 0) && (
+                            <div className='flex-[0.75]'>
                                 <h2 className=' text-2xl font-bold mb-5'>
                                     Follow Up Prompts
                                 </h2>

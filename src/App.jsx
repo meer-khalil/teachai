@@ -59,7 +59,6 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
 
 
-
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/login" element={<Login />} />

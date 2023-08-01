@@ -23,7 +23,7 @@ const Navbar = () => {
     }
     return (
         <div className=''>
-            <header className='flex justify-between pt-5 pb-5 px-4 md:px-8 items-center  relative max-w-[1440px] mx-auto'>
+            <header className='flex justify-between pt-5 pb-5 px-2 md:px-4 items-center  relative max-w-[1640px] mx-auto'>
                 <Link to='/'>
                     {/* <div className='text-3xl ml-8 tracking-wider'>Khalil Ahmad</div> */}
                     <img src={logo} className='h-8 ' alt="logo" />

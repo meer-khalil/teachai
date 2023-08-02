@@ -22,7 +22,7 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
 
                 console.log('Here is the answer: ', res.data.answer);
 
-                setAnswer([res.data.answer])
+                setAnswer([{ answer: res.data.answer }])
 
 
 

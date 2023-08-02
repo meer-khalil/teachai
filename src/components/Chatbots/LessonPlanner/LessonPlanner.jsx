@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import html2pdf from "html2pdf.js";
 
 import ChatForm from './ChatForm'
 import axios from 'axios'
@@ -16,6 +17,21 @@ const LessonPlanner = () => {
     const [message, setMessage] = useState(null)
 
 
+    const exportToPdf = () => {
+        let element = document.getElementById("chat_content");
+      
+        const opt = {
+          margin: 10,
+          filename: "exported_content.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          output: "save", // Set the output option to "save" for download
+        };
+        alert('hello')
+        html2pdf().from(element).set(opt).save();
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -25,7 +41,6 @@ const LessonPlanner = () => {
             prompt
         }
 
-        setPrompt('')
 
         try {
             let res = await axios.post(`${backend_url}/lessonplanner`, data, {
@@ -38,7 +53,8 @@ const LessonPlanner = () => {
 
                 console.log('Here is the answer: ', res.data.answer);
 
-                setAnswer([...answer, res.data.answer])
+                setAnswer([...answer, { question: prompt, answer: res.data.answer }])
+                setPrompt('')
 
 
 
@@ -81,14 +97,18 @@ const LessonPlanner = () => {
                                 <div>
                                     <div className='relative'>
 
-                                        <div className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
+                                        <div id='chat_content' className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
                                             {
                                                 answer.map((el, i) => (
                                                     <>
-                                                        <div key={i} dangerouslySetInnerHTML={{ __html: el }} />
                                                         {
-                                                            ((i !== answer.length - 1) && (answer.length > 1)) && <h4 className='mt-20 mb-3 text-xl font-bold'>{`Modification(${i})`}</h4>
+                                                            el?.question && (
+                                                                <h4 className='mt-20 mb-3 text-xl font-bold'>
+                                                                    {el.question}
+                                                                </h4>
+                                                            )
                                                         }
+                                                        <div key={i} dangerouslySetInnerHTML={{ __html: el.answer }} />
                                                     </>
                                                 ))
                                             }
@@ -98,6 +118,7 @@ const LessonPlanner = () => {
                                                 <Loading message={message} />
                                             )
                                         }
+
                                     </div>
 
                                     <form
@@ -158,22 +179,14 @@ const LessonPlanner = () => {
                     }
                 </div>
             </div>
-            {/* <div className='max-w-[1440px] mx-auto overflow-hidden pl-10'>
-                <div className=' bg-gray-300 mt-20 px-8 py-5 w-8/12'>
-                    {
-                        [
-                            'Thanks for the lesson plan! Can you suggest some additional hands-on activities to help students better understand? ',
-                            'Teacher: I appreciate the lesson plan. Can you recommend other videos or multimedia resources that I can use to supplement the lesson? ',
-                            "Thank you for the lesson plan. I'd like to include a short assessment at the end of the lesson to check my students' understanding of the water cycle. Can you provide some sample questions or ideas for the assessment?"
-                        ].map((item, i) => (
-                            <div className=' mb-4'>
-                                <h4 className=' font-bold text-xl'>Example {i + 1}</h4>
-                                <p className='text-lg'>Teacher: {item}</p>
-                            </div>
-                        ))
-                    }
+            <div className='flex justify-end gap-5 items-center'>
+                <h3 className=' text-2xl font-bold uppercase'>Export</h3>
+                <div className=' flex gap-3'>
+                    <button className='px-5 py-2 rounded bg-orange-400  text-white' onClick={exportToPdf}>PDF</button>
+                    <button className='px-5 py-2 rounded bg-orange-400  text-white'>DOCS</button>
+                    <button className='px-5 py-2 rounded bg-orange-400  text-white'>Excel</button>
                 </div>
-            </div> */}
+            </div>
         </div>
     )
 }

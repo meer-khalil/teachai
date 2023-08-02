@@ -27,7 +27,7 @@ export const UserProvider = ({ children }) => {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 setIsAuthenticated(true)
                 setUser(res.data);
-                navigate('/')
+                navigate('/user/dashboard')
             }
         } catch (error) {
             console.error('Failed to register user:', error?.response?.data);

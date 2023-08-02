@@ -30,7 +30,7 @@ export const Home = () => {
 
 
   return (
-    <div className='max-w-[1440px] mx-auto overflow-hidden'>
+    <div className='max-w-[1640px] mx-auto overflow-hidden'>
       
       <Hero />
 

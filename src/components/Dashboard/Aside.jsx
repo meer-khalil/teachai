@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import './Aside.css';
 import { UserContext } from '../../context/UserContext';
+import AsideCategories from './components/AsideCategories';
 
 const Aside = () => {
     const { pathname } = useLocation();
@@ -38,13 +39,12 @@ const Aside = () => {
                             </svg>
                             Chatbots
                         </Link>
-                        {
-
+                        {/* {
                             <div className=' pl-3 pr-2 overflow-y-scroll h-[40vh]'>
                                 <Productivity />
                             </div>
-
-                        }
+                        } */}
+                        <AsideCategories />
                     </li>
 
                     <li>
@@ -56,10 +56,13 @@ const Aside = () => {
                             Credits
                         </Link>
                         {/* <br /> */}
-                        <div className=' mx-4'>
+                        <div className=' mx-4 mt-2'>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
                                 <div className=' bg-blue-500 h-full w-2'></div>
                             </div>
+                            <p className=' text-blue-600 font-bold text-xs mt-2'>
+                                No monthly credits used
+                            </p>
                         </div>
                     </li>
 

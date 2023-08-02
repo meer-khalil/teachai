@@ -139,9 +139,21 @@ const Navbar = () => {
                             <button className='text-lg opacity-75' onClick={logout}>Logout</button>
                         )
                     }
-                    <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
-                        Start my free trial
-                    </button>
+                    {
+                        !isAuthenticated ? (
+                            <Link to='/login'>
+                                <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
+                                    Start my free trial
+                                </button>
+                            </Link>
+                        ) : (
+                            <Link to='/login'>
+                                <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
+                                    upgrade plan
+                                </button>
+                            </Link>
+                        )
+                    }
                 </div>
                 <div className='block md:hidden cursor-pointer' onClick={handleClick}>
                     {

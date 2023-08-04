@@ -6,8 +6,17 @@ import { backend_url } from '../../../util/variables';
 
 import Cross from '../../SVGs/Cross'
 import Edit from '../../SVGs/Edit'
+import Chatbots from './Chatbots';
+import { Route, Routes } from 'react-router-dom';
+import History from './History';
 
 
+
+const Check = () => {
+  return (
+    <h1>Hello Khalil</h1>
+  );
+}
 const ChatHistory = () => {
 
   const [posts, setPosts] = useState(null)
@@ -89,7 +98,10 @@ const ChatHistory = () => {
 
   return (
     <div>
-      Hello History
+      <Routes>
+        <Route path='/' element={<Chatbots />} />
+        <Route path='chatbot/*' element={<History />} />
+      </Routes>
     </div>
   )
   return (

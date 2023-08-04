@@ -45,7 +45,7 @@ const Chatbots = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <div>
       <Header
-        heading={"Chatbots"}
+        heading={"Chatbots History"}
         desc={"Which teachers assistance would you like?"}
       />
       <Categories

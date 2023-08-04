@@ -6,7 +6,7 @@ import './Aside.css';
 import { UserContext } from '../../context/UserContext';
 import AsideCategories from './components/AsideCategories';
 
-const Aside = () => {
+const Aside = ({ selectedCategory, setSelectedCategory }) => {
     const { pathname } = useLocation();
 
     const { logout } = useContext(UserContext)
@@ -44,7 +44,7 @@ const Aside = () => {
                                 <Productivity />
                             </div>
                         } */}
-                        <AsideCategories />
+                        <AsideCategories selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
                     </li>
 
                     <li>
@@ -61,7 +61,7 @@ const Aside = () => {
                                 <div className=' bg-blue-500 h-full w-2'></div>
                             </div>
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                No monthly credits used
+                                No daily credits used
                             </p>
                         </div>
                     </li>

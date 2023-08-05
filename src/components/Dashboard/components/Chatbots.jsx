@@ -7,40 +7,11 @@ import Header from './Header';
 import Categories from './Categories';
 
 
-// bots images
-import bot1 from '../../../images/bots/1.Lesson Planning - Lisa.png'
-import bot2 from '../../../images/bots/2.Quiz - Qasim.png'
-import bot3 from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 
 
-const data = [
-  {
-    title: 'Lesson Planner Assistant',
-    description: '4,729 curated designresources to energize your creative workflow',
-    icon: bot1,
-    url: 'lesson-planner',
-    category: 'Lesson Planning'
-  },
 
-  {
-    title: 'Quiz Generator Assistant',
-    description: "4,729 curated design resources to energize your creative workflow",
-    icon: bot2,
-    url: "quiz",
-    category: 'category 2'
-  },
 
-  { title: "Control everything in one place", description: '4,729 curated designresources to energize your creative workflow', icon: bot3 },
-  { title: 'General Assistant', description: '4,729 curated designresources to energize your creative workflow', icon: bot1 },
-  { title: 'Super Smart Search', description: "4,729 curated design resources to energize your creative workflow", icon: bot2 },
-  { title: "Control everything in one place", description: '4,729 curated designresources to energize your creative workflow', icon: bot3 },
-
-]
-
-const Chatbots = ({ selectedCategory, setSelectedCategory }) => {
-
-  const [chatbots, setChatbots] = useState(data);
-
+const Chatbots = () => {
 
   return (
     <div>
@@ -48,15 +19,8 @@ const Chatbots = ({ selectedCategory, setSelectedCategory }) => {
         heading={"Chatbots"}
         desc={"Which teachers assistance would you like?"}
       />
-      <Categories
-        data={data}
-        setChatbots={setChatbots}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
-      <Productivity
-        chatbots={chatbots}
-      />
+      <Categories />
+      <Productivity />
     </div>
   );
 };

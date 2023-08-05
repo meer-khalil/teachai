@@ -12,6 +12,7 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
     const { logout } = useContext(UserContext)
 
     console.log('PathNam: ', pathname);
+
     return (
         <aside className="absolute left-0 top-0 right-0 bottom-0 ">
             <div className="">
@@ -44,7 +45,7 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                                 <Productivity />
                             </div>
                         } */}
-                        <AsideCategories selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                        <AsideCategories />
                     </li>
 
                     <li>

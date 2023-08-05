@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { backend_url } from './variables';
 
 const api = axios.create({
-  baseURL: 'https://www.teachassistai.com/api/v1', // Replace this with your desired base URL
+  baseURL: backend_url, // Replace this with your desired base URL
   headers: {
     'Content-Type': 'application/json',
   }

@@ -1,18 +1,10 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { ChatbotContext } from '../../../context/ChatbotContext'
 
-const Categories = ({ data, setChatbots, selectedCategory, setSelectedCategory }) => {
+const Categories = () => {
 
-    const handleClick = (category) => {
-        setSelectedCategory(category);
 
-        if (category === 'All') {
-            setChatbots(data)
-            return
-        }
-
-        let temp = data.filter((e) => e.category?.toLowerCase() === category.toLowerCase())
-        setChatbots(temp)
-    }
+    const { chatbots, filterChatbots, selectedCategory } = useContext(ChatbotContext);
 
     return (
         <div className='my-5'>
@@ -29,7 +21,7 @@ const Categories = ({ data, setChatbots, selectedCategory, setSelectedCategory }
                     ].map((el, i) => (
                         <div
                             className={` min-w-min border border-secondary rounded-full px-3 cursor-pointer ${selectedCategory === el ? 'bg-black text-white' : ''}`}
-                            onClick={() => handleClick(el)}
+                            onClick={() => filterChatbots(el)}
                         >
                             <p className={`${selectedCategory === el ? 'text-white' : ''}`}>
                                 {el}

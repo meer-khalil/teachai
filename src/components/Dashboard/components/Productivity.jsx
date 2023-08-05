@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 
 import ProductivityItem from './ProductivityItem'
-const Productivity = ({ chatbots }) => {
+import { useContext } from 'react'
+import { ChatbotContext } from '../../../context/ChatbotContext'
+const Productivity = () => {
 
+    const { chatbots } = useContext(ChatbotContext);
+    
     return (
         <div className='flex flex-col my-5 px-4 md:px-0 gap-5 py-7'>
 

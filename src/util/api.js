@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api/v1', // Replace this with your desired base URL
+  baseURL: 'https://www.teachassistai.com/api/v1', // Replace this with your desired base URL
   headers: {
     'Content-Type': 'application/json',
   }

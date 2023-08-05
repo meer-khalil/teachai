@@ -2,19 +2,30 @@ const Chatbot = require('../models/chatbotModel');
 const ChatHistory = require('../models/chatHistoryModel')
 
 exports.createChatHistory = async (chatbot_name, user_id, answer, res) => {
-    const temp = await Chatbot.findOne({ name: chatbot_name });
+    try {
 
-    const data = await ChatHistory.create({
-        user: user_id,
-        chatbot: temp._id,
-        content: [{ answer }]
-    })
-    console.log('Created: ', data);
+        const temp = await Chatbot.findOne({ name: chatbot_name });
+        console.log('Temp for CreateChatHistory: ', temp);
 
-    res.status(200).json({
-        answer,
-        chat_id: data._id
-    })
+        
+        const data = await ChatHistory.create({
+            user: user_id,
+            chatbot: temp._id,
+            content: [{ answer }]
+        })
+        console.log('Created: ', data);
+
+        res.status(200).json({
+            answer,
+            chat_id: data._id
+        })
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({
+            message: "Error while creaing History",
+            error: error
+        })
+    }
 }
 
 exports.updateChatHistory = async (chat_id, answer, res) => {

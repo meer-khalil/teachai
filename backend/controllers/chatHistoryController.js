@@ -3,81 +3,81 @@ const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const Chatbot = require('../models/chatbotModel');
 const ChatHistory = require('../models/chatHistoryModel')
 
-exports.createChatHistory = asyncErrorHandler(
-    async (req, res, next) => {
+// exports.createChatHistory = asyncErrorHandler(
+//     async (req, res, next) => {
 
-        const { chatbot_name, answer } = req.body
-        const user_id = req.user._id
+//         const { chatbot_name, answer } = req.body
+//         const user_id = req.user._id
 
-        try {
-            const temp = await Chatbot.findOne({ name: chatbot_name });
-            // console.log('Here is chatbot: \n', temp);
+//         try {
+//             const temp = await Chatbot.findOne({ name: chatbot_name });
+//             // console.log('Here is chatbot: \n', temp);
 
-            const data = await ChatHistory.create({
-                user: user_id,
-                chatbot: temp._id,
-                content: [{ answer }]
-            })
+//             const data = await ChatHistory.create({
+//                 user: user_id,
+//                 chatbot: temp._id,
+//                 content: [{ answer }]
+//             })
 
-            console.log('Created: \n', data);
+//             console.log('Created: \n', data);
 
-            res.status(200).json({
-                success: true,
-                message: `History created for chatbot: ${chatbot_name} `,
-                data
-            })
-        } catch (error) {
-            console.log('Error: \n', error);
-            res.status(500).json({
-                success: false,
-                message: "Error While fetching History for Chatbot"
-            })
-        }
-    }
-)
+//             res.status(200).json({
+//                 success: true,
+//                 message: `History created for chatbot: ${chatbot_name} `,
+//                 data
+//             })
+//         } catch (error) {
+//             console.log('Error: \n', error);
+//             res.status(500).json({
+//                 success: false,
+//                 message: "Error While fetching History for Chatbot"
+//             })
+//         }
+//     }
+// )
 
-exports.updateChatHistory = asyncErrorHandler(
-    async (req, res, next) => {
+// exports.updateChatHistory = asyncErrorHandler(
+//     async (req, res, next) => {
 
-        const { chat_id, answer } = req.body
+//         const { chat_id, answer } = req.body
 
-        try {
+//         try {
 
-            // console.log('Here is chatbot: \n', temp);
+//             // console.log('Here is chatbot: \n', temp);
 
-            const update = { $push: { answers: newItem } };
-            const options = { new: true };
+//             const update = { $push: { answers: newItem } };
+//             const options = { new: true };
 
-            const updatedDocument = await ChatHistory.findOneAndUpdate(chat_id, update, options);
+//             const updatedDocument = await ChatHistory.findOneAndUpdate(chat_id, update, options);
 
-            if (updatedDocument) {
+//             if (updatedDocument) {
 
-                console.log('Updated document:', updatedDocument);
-                res.status(200).json({
-                    success: true,
-                    message: `History Updated `,
-                    data: updatedDocument
-                })
+//                 console.log('Updated document:', updatedDocument);
+//                 res.status(200).json({
+//                     success: true,
+//                     message: `History Updated `,
+//                     data: updatedDocument
+//                 })
 
-            } else {
+//             } else {
 
-                console.log('Document not found.');
-                res.status(404).json({
-                    success: true,
-                    message: 'Document not found.'
-                })
-            }
+//                 console.log('Document not found.');
+//                 res.status(404).json({
+//                     success: true,
+//                     message: 'Document not found.'
+//                 })
+//             }
 
 
-        } catch (error) {
-            console.log('Error: \n', error);
-            res.status(500).json({
-                success: false,
-                message: "Error While fetching History for Chatbot"
-            })
-        }
-    }
-)
+//         } catch (error) {
+//             console.log('Error: \n', error);
+//             res.status(500).json({
+//                 success: false,
+//                 message: "Error While fetching History for Chatbot"
+//             })
+//         }
+//     }
+// )
 
 exports.getChatHistory = asyncErrorHandler(
     async (req, res, next) => {

@@ -28,9 +28,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 setLoading(false)
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data?.message);
 
-            alert('Error While fetching response for LessonPlanner!')
+            alert('Error: ', error)
             setLoading(false)
 
         }

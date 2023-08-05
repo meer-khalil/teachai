@@ -100,7 +100,7 @@ const ChatHistory = () => {
     <div>
       <Routes>
         <Route path='/' element={<Chatbots />} />
-        <Route path='chatbot/*' element={<History />} />
+        <Route path='/:chatbot/*' element={<History />} />
       </Routes>
     </div>
   )

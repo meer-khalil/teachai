@@ -18,7 +18,7 @@ const data = [
     title: 'Lesson Planner Assistant',
     description: '4,729 curated designresources to energize your creative workflow',
     icon: bot1,
-    url: 'lesson-planner',
+    url: 'Lesson Planner',
     category: 'Lesson Planning'
   },
 

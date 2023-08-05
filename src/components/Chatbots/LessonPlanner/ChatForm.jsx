@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { backend_url } from '../../../util/variables';
+import api from '../../../util/api';
 
 
-const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
+const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
 
@@ -11,20 +11,19 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
         e.preventDefault();
         console.log(data);
         setLoading(true)
+        let _body = {
+            body: data
+        }
+
         try {
-            let res = await axios.post(`${backend_url}/lessonplanner`, data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            let res = await api.post(`/lessonplanner`, _body)
 
             if (res.statusText === 'OK') {
 
+                console.log('Response from chatform: ', res);
                 console.log('Here is the answer: ', res.data.answer);
-
+                setChatID(res.data.chat_id)
                 setAnswer([{ answer: res.data.answer }])
-
-
 
                 setLoading(false)
             }

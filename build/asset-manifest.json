@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.00814fba.css",
-    "main.js": "/static/js/main.48e20e39.js",
+    "main.css": "/static/css/main.8aae602d.css",
+    "main.js": "/static/js/main.94f480af.js",
     "static/js/787.187497ca.chunk.js": "/static/js/787.187497ca.chunk.js",
     "static/media/4.Comprehension Lesson Generator - Cara.png": "/static/media/4.Comprehension Lesson Generator - Cara.8cc5f8a5e896426ae4b1.png",
     "static/media/1.Lesson Planning - Lisa.png": "/static/media/1.Lesson Planning - Lisa.7a1fc06582c938599c80.png",
@@ -20,12 +20,12 @@
     "index.html": "/index.html",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.00814fba.css.map": "/static/css/main.00814fba.css.map",
-    "main.48e20e39.js.map": "/static/js/main.48e20e39.js.map",
+    "main.8aae602d.css.map": "/static/css/main.8aae602d.css.map",
+    "main.94f480af.js.map": "/static/js/main.94f480af.js.map",
     "787.187497ca.chunk.js.map": "/static/js/787.187497ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.00814fba.css",
-    "static/js/main.48e20e39.js"
+    "static/css/main.8aae602d.css",
+    "static/js/main.94f480af.js"
   ]
 }

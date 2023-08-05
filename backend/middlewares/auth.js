@@ -5,7 +5,7 @@ const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
 
-    // console.log('\n\n\nAuthorization:  ', req.headers, '\n\n\n');
+    // console.log('\n\n\nAuthorization:  ', req.headers.authorization, '\n\n\n');
 
     const token  = req.headers?.authorization?.split('Bearer ')[1];
 

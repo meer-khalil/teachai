@@ -1,12 +1,11 @@
-import { useContext } from "react"
-import { Link } from "react-router-dom"
-import { UserContext } from "../../../context/UserContext"
+import { Link, useLocation } from "react-router-dom"
 
 const ProductivityItem = ({ el }) => {
 
+    const { pathname } = useLocation();
 
     return (
-        <Link to={`/user/dashboard/history/${el?.url ? el.url : ""}`} >
+        <Link to={`${pathname}/${el?.url ? el.url : ""}`} >
             <div className={`flex flex-col gap-5 rounded-xl px-5 py-5`}
                 style={{
                     boxShadow: '0px 0px 38px -11px rgba(0,0,0,0.35)'

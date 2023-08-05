@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { createContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { backend_url } from '../util/variables';
+import api from '../util/api';
 
 export const UserContext = createContext();
 
@@ -24,7 +25,7 @@ export const UserProvider = ({ children }) => {
 
             if (res.data.success) {
                 localStorage.setItem("teachai_token", res.data.token)
-                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 setIsAuthenticated(true)
                 setUser(res.data);
                 navigate('/user/dashboard')
@@ -42,7 +43,7 @@ export const UserProvider = ({ children }) => {
 
             if (res.data.success) {
                 localStorage.setItem('("teachai_token', res.data.token);
-                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 setIsAuthenticated(true)
                 setUser(res.data);
                 navigate('/')
@@ -62,6 +63,7 @@ export const UserProvider = ({ children }) => {
             console.log('User Logout successfully:', res);
 
             if (res.data.success) {
+                delete api.defaults.headers.common['Authorization'];
                 localStorage.removeItem("teachai_token")
                 setIsAuthenticated(false)
                 setUser(null);
@@ -82,7 +84,9 @@ export const UserProvider = ({ children }) => {
         if (storedToken) {
             // Use the stored token for authentication
             console.log('Token is stored');
-            axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+            console.log('\n\n\nToken: ', storedToken);
+            console.log('Api: \n', api);
             setIsAuthenticated(true)
             getUserData()
         } else {

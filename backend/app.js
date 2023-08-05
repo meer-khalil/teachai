@@ -57,6 +57,7 @@ const post = require('./routes/postRoute');
 // const order = require('./routes/orderRoute');
 const payment = require('./routes/paymentRoute');
 const chat = require('./routes/chatRoute');
+const chatHistory = require('./routes/chatHistoryRoute');
 
 
 
@@ -65,7 +66,7 @@ app.use('/api/v1', post);
 // app.use('/api/v1', order);
 app.use('/api/v1', payment);
 app.use('/api/v1', chat);
-
+app.use('/api/v1', chatHistory);
 
 
 

@@ -10,7 +10,6 @@ import Chatbots from './components/Chatbots'
 
 const UserDashboard = () => {
 
-    const { pathname } = useLocation()
 
     const [selectedCategory, setSelectedCategory] = useState('');
 

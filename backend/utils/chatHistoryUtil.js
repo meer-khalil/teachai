@@ -40,6 +40,10 @@ exports.updateChatHistory = async (chat_id, answer, res) => {
         })
     }
     catch (error) {
+        res.status(200).json({
+            message: "Error While Updating the history. (catch)",
+            error: error
+        })
         console.log('\n\n\nError: \n', error);
     }
 }

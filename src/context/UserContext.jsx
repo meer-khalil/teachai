@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false)
+    const [pdfAnswer, setPdfAnswer] = useState([])
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -149,7 +149,9 @@ export const UserProvider = ({ children }) => {
             getAllUsers,
             isAdmin,
             categoryOpen,
-            setCategoryOpen
+            setCategoryOpen,
+            pdfAnswer,
+            setPdfAnswer
         }}>
             {children}
         </UserContext.Provider>

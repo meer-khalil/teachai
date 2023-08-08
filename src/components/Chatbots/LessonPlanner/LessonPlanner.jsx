@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react'
-import html2pdf from "html2pdf.js";
+import React, { useContext, useRef, useState } from 'react'
+import jsPDF from 'jspdf';
 
 import ChatForm from './ChatForm'
-import axios from 'axios'
 
 import Loading from './Loading'
 import { backend_url } from '../../../util/variables'
@@ -12,29 +11,58 @@ import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
+import { UserContext } from '../../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+
+// import { saveAs } from 'file-saver';
+// import { HtmlToDocx } from 'html-docx-js';
 
 const LessonPlanner = () => {
 
 
+    const navigate = useNavigate();
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-    const exportToPdf = () => {
-        let element = document.getElementById("chat_content");
+    const { setPdfAnswer } = useContext(UserContext)
+    const reportTemplateRef = useRef(null);
 
-        const opt = {
-            margin: 10,
-            filename: "exported_content.pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-            output: "save", // Set the output option to "save" for download
-        };
-        alert('hello')
-        html2pdf().from(element).set(opt).save();
+    const exportToPdf = async () => {
+        let pdf = new jsPDF('p', 'pt', 'a4');
+        let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
+
+        // Calculate the scale factor to fit the content within the PDF
+        let pdfWidth = pdf.internal.pageSize.width;
+        let elementWidth = element.scrollWidth;
+        let margin = 18; // Set a margin to avoid the content touching the edges of the PDF
+        let scaleFactor = (pdfWidth - margin * 2) / elementWidth;
+
+        pdf.html(element, {
+            x: margin,
+            y: margin,
+            html2canvas: {
+                scale: scaleFactor,
+                windowHeight: element.scrollHeight,
+                windowWidth: element.scrollWidth,
+                useCORS: true
+            },
+            autoPaging: 'text',
+            callback: function () {
+                window.open(pdf.output('bloburl')); // For debugging
+            }
+        });
+
+    };
+
+
+    const exportToDocx = async () => {
+        // let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
+        // const convertedDoc = HtmlToDocx.asBlob(element.outerHTML);
+        // saveAs(convertedDoc, 'document.doc');
+        console.log('setup to download docx');
     };
 
     const handleSubmit = async (e) => {
@@ -94,7 +122,7 @@ const LessonPlanner = () => {
 
                 </div>
 
-                <div className='max-h-[90vh] pb-5 flex flex-1 gap-3'>
+                <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
                     <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
                         <div className=' border-b-2 flex gap-3'>
                             <button className=' bg-slate-300 px-4 py-2'>Output</button>
@@ -105,7 +133,7 @@ const LessonPlanner = () => {
                                 <div>
                                     <div className='relative'>
 
-                                        <Answer answer={answer} />
+                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
                                         {loading && <Loading />}
 
                                     </div>
@@ -136,6 +164,7 @@ const LessonPlanner = () => {
 
             <ExportButtons
                 exportToPdf={exportToPdf}
+                exportToDocx={exportToDocx}
             />
 
         </div>

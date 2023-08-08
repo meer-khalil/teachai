@@ -4,15 +4,24 @@
   "private": true,
   "dependencies": {
     "@react-hook/media-query": "^1.1.1",
+    "@react-pdf/renderer": "^3.1.12",
     "@stripe/react-stripe-js": "^2.1.1",
     "@stripe/stripe-js": "^1.54.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "docx": "^8.2.2",
+    "file-saver": "^2.0.5",
+    "fs": "^0.0.1-security",
+    "html-docx-js": "^0.3.1",
+    "html-to-docx": "^1.8.0",
+    "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.9.0",
     "i": "^0.3.7",
-    "npm": "^9.7.2",
+    "install": "^0.13.0",
+    "jspdf": "^2.5.1",
+    "npm": "^9.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0",
@@ -45,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "react-docx": "^1.0.1",
     "tailwind-scrollbar": "^3.0.4",
     "tailwindcss": "^3.3.2"
   }

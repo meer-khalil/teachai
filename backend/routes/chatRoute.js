@@ -11,7 +11,9 @@ const {
     videoToQuiz,
     videoSummarize,
     mathLesson,
-    mathQuizEvaluate
+    mathQuizEvaluate,
+    mathQuizGenerator,
+    mathQuizAnswer
 } = require('../controllers/chatController')
 
 const router = express.Router()

@@ -38,10 +38,48 @@ const data = [
         url: 'lessonComp',
         category: 'Lesson Planning'
     },
-    { 
-        title: 'Super Smart Search', description: "4,729 curated design resources to energize your creative workflow", icon: bot2 },
-    { title: "Control everything in one place", description: '4,729 curated designresources to energize your creative workflow', icon: bot3 },
-
+    {
+        title: 'Math Quiz',
+        description: "4,729 curated design resources to energize your creative workflow",
+        icon: bot2,
+        url: 'mathquiz',
+        category: "Student Engagement & Activity Ideas"
+    },
+    {
+        title: "Math Lesson Planner",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'math-lesson-planner',
+        category: 'Lesson Planning'
+    },
+    {
+        title: "Video to notes Bot",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'video-summarize',
+        category: 'Digital Learning & Teaching Tools'
+    },
+    {
+        title: "Video to Quiz Bot",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'video-to-quiz',
+        category: ''
+    },
+    {
+        title: "Detect AI-Writing & Plagiarism BOT",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'plagrism',
+        category: 'Assessment & Progress Monitoring'
+    },
+    {
+        title: "PowerPoint Presentation ",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'powerpoint-presentation',
+        category: 'Digital Learning & Teaching Tools'
+    }
 ]
 
 export const ChatbotContext = createContext()

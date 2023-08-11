@@ -10,6 +10,10 @@ import Chatbots from './components/Chatbots'
 import { ChatbotProvider } from '../../context/ChatbotContext'
 import Essay from '../Chatbots/Essay/Essay'
 import LessonComprehension from '../Chatbots/LessonComprehension/LessonComprehension'
+import MathQuiz from '../Chatbots/MathQuiz/MathQuiz'
+import MathLessonPlanner from '../Chatbots/MathLessonPlanner/MathLessonPlanner'
+import VideoToNotes from '../Chatbots/VideoToNotes/VideoToNotes'
+import VideoToQuiz from '../Chatbots/VideoToQuiz/VideoToQuiz'
 
 const UserDashboard = () => {
 
@@ -42,6 +46,10 @@ const UserDashboard = () => {
                                 <Route path={`chatbot/quiz`} element={<Quiz />} />
                                 <Route path={`chatbot/essay`} element={<Essay />} />
                                 <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
+                                <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
+                                <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
+                                <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
+                                <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
                             </Routes>
 
                         </div>

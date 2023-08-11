@@ -1,6 +1,18 @@
 const express = require('express')
 const { isAuthenticatedUser } = require('../middlewares/auth')
-const { lessonPlanner, quiz, gradeEssay, gradeEssayRubric, lessonCompQuestion, lessonCompChat, lessonCompAnswer } = require('../controllers/chatController')
+const { 
+    lessonPlanner, 
+    quiz, 
+    gradeEssay, 
+    gradeEssayRubric, 
+    lessonCompQuestion, 
+    lessonCompChat, 
+    lessonCompAnswer, 
+    videoToQuiz,
+    videoSummarize,
+    mathLesson,
+    mathQuizEvaluate
+} = require('../controllers/chatController')
 
 const router = express.Router()
 
@@ -34,20 +46,21 @@ router.route('/lessonComp/answer').post( isAuthenticatedUser, lessonCompAnswer)
 /*
 Maths Quiz Bot
 */
-// router.route('/mathquiz/gen').post( isAuthenticatedUser, lessonCompAnswer)
-// router.route('/mathquiz/evaluate').post( isAuthenticatedUser, lessonCompAnswer)
-// router.route('/mathquiz/answer').post( isAuthenticatedUser, lessonCompAnswer)
+router.route('/mathquiz/gen').post( isAuthenticatedUser, mathQuizGenerator)
+router.route('/mathquiz/evaluate').post( isAuthenticatedUser, mathQuizEvaluate)
+router.route('/mathquiz/answer').post( isAuthenticatedUser, mathQuizAnswer)
 
 
 /*
     Maths Lesson Planner Bot
 */
-// router.route('/math/lesson').post( isAuthenticatedUser, lessonCompAnswer)
+router.route('/math/lesson').post( isAuthenticatedUser, mathLesson)
 
 
 /*
     Video to Note Summary Bot
 */ 
-// router.route('/math/lesson').post( isAuthenticatedUser, lessonCompAnswer)
+router.route('/video/summarize').post( isAuthenticatedUser, videoSummarize)
+router.route('/video/quiz').post( isAuthenticatedUser, videoToQuiz)
 
 module.exports = router

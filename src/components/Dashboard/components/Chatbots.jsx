@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import axios from 'axios';
 
 import { backend_url } from '../../../util/variables';
@@ -11,12 +10,15 @@ const Chatbots = () => {
 
   return (
     <div>
+
       <Header
         heading={"Chatbots"}
         desc={"Which teachers assistance would you like?"}
       />
+
       <Categories />
       <Productivity />
+
     </div>
   );
 };

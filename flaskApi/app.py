@@ -166,14 +166,17 @@ def index():
 @app.route("/mathquiz/gen", methods=["POST"])
 def gen_quiz():
     data = request.get_json()
+    user_id = data["id"]
+    data = data['prompt']
     mathproblem = data["mathproblem"]
     multiple = data["type"]
-    user_id = data["id"]
+
     #mathproblem = request.form.get("mathproblem")
     #multiple = request.form.get("type")
     #user_id = request.form.get("id")
     mathquiz = mathapi.generate_quiz(mathproblem, multiple, user_id)
     # Return the result as JSON
+
     result = {"mathquiz": mathquiz}
     return jsonify(result), 200
 
@@ -216,11 +219,15 @@ def summarizevid():
 @app.route('/video/quiz', methods = ['POST'])
 def videoquiz():
   data = request.get_json()
-  print('Recieved Data: ', data)
-  vidUrl =  data['url']
   user_id =  data['id']
+  data = data['prompt']
+
+  print('Recieved Data: ', data)
+  
+  vidUrl =  data['url']
   num_questions =  data['num_question']
   quiz_type =  data['quiz_type']
+  
   #vidUrl =  request.form['url']
   #user_id =  request.form['id']
   #num_questions =  request.form['num_questions']

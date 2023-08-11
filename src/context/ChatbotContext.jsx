@@ -21,12 +21,25 @@ const data = [
         description: "4,729 curated design resources to energize your creative workflow",
         icon: bot2,
         url: "quiz",
-        category: 'category 2'
+        category: 'Student Engagement & Activity Ideas'
     },
 
-    { title: "Control everything in one place", description: '4,729 curated designresources to energize your creative workflow', icon: bot3 },
-    { title: 'General Assistant', description: '4,729 curated designresources to energize your creative workflow', icon: bot1 },
-    { title: 'Super Smart Search', description: "4,729 curated design resources to energize your creative workflow", icon: bot2 },
+    {
+        title: "Essay Grading",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot3,
+        url: 'essay',
+        category: 'Assessment & Progress Monitoring'
+    },
+    {
+        title: 'Comprehension Lesson Generator Bot',
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: bot1,
+        url: 'lessonComp',
+        category: 'Lesson Planning'
+    },
+    { 
+        title: 'Super Smart Search', description: "4,729 curated design resources to energize your creative workflow", icon: bot2 },
     { title: "Control everything in one place", description: '4,729 curated designresources to energize your creative workflow', icon: bot3 },
 
 ]

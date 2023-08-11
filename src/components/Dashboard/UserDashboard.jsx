@@ -8,6 +8,8 @@ import LessonPlanner from '../Chatbots/LessonPlanner/LessonPlanner'
 import Quiz from '../Chatbots/Quiz/Quiz'
 import Chatbots from './components/Chatbots'
 import { ChatbotProvider } from '../../context/ChatbotContext'
+import Essay from '../Chatbots/Essay/Essay'
+import LessonComprehension from '../Chatbots/LessonComprehension/LessonComprehension'
 
 const UserDashboard = () => {
 
@@ -38,6 +40,8 @@ const UserDashboard = () => {
                                 <Route path={`chatbots`} element={<Chatbots />} />
                                 <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
                                 <Route path={`chatbot/quiz`} element={<Quiz />} />
+                                <Route path={`chatbot/essay`} element={<Essay />} />
+                                <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
                             </Routes>
 
                         </div>

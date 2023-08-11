@@ -7,10 +7,6 @@ import Header from './Header';
 import Categories from './Categories';
 
 
-
-
-
-
 const Chatbots = () => {
 
   return (

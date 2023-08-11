@@ -11,6 +11,7 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
     const chatbot_name = 'Lesson Planner';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
+
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id
@@ -56,3 +57,312 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
         })
     }
 })
+
+
+exports.quiz = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    const chatbot_name = 'Quiz Generator';
+
+    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/quiz`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+
+                if (chat_id) {
+
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
+
+                } else {
+
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
+                }
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/quiz'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from Catch'
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+
+
+/* Essay Grading */ 
+exports.gradeEssay = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    const chatbot_name = 'Essay Grading';
+
+    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/gradeEssay`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+
+                if (chat_id) {
+
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
+
+                } else {
+
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
+                }
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/gradeEssay'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from Catch',
+                error: error
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+
+
+exports.gradeEssayRubric = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    // const chatbot_name = 'Quiz Generator';
+
+    // console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    // console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/gradeEssay/rubric`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+                res.status(200).json({
+                    ...data
+                })
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/quiz'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from api/gradeEssary/rubric'
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+
+
+exports.lessonCompQuestion = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    const chatbot_name = 'Lesson Comprehension';
+
+    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/lessonComp/questions`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+
+                if (chat_id) {
+
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.questions }, res)
+
+                } else {
+
+                    createChatHistory(chatbot_name, req.user._id, data.questions, res);
+                }
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/lessonComp/questions'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from Catch api/lessonComp/questions'
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+
+
+exports.lessonCompChat = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    const chatbot_name = 'Lesson Comprehension';
+
+    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/lessonComp/chat`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+
+                if (chat_id) {
+
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
+
+                } else {
+
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
+                }
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/quiz'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from Catch'
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+
+
+exports.lessonCompAnswer = asyncErrorHandler(async (req, res, next) => {
+    
+    console.log('Here is body: ', req.body);
+
+    const { chat_id, body } = req.body
+    const chatbot_name = 'Lesson Comprehension';
+
+    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    let data = {
+        prompt: body.prompt ? body.prompt : body,
+        id: req.user._id
+    }
+
+    console.log('Request Made!');
+
+    if (data) {
+        try {
+            const response = await api.post(`/lessonComp/questions`, data)
+
+            if (response.statusText === 'OK') {
+
+                const data = response.data
+
+                if (chat_id) {
+
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
+
+                } else {
+
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
+                }
+
+            } else {
+                res.status(500).json({
+                    message: 'Error from else, after calling to api/quiz'
+                })
+            }
+        } catch (error) {
+            console.log('Error From Catch: ', error);
+            res.status(500).json({
+                message: 'Error from Catch'
+            })
+        }
+
+    } else {
+        res.status(500).json({
+            message: "Kindly provide the data!"
+        })
+    }
+})
+

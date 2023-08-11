@@ -87,7 +87,7 @@ exports.getChatHistory = asyncErrorHandler(
         try {
 
             // const temp = await Chatbot.findById(chatIdObject);
-            // console.log('Temp: ', temp);
+            console.log('\n\n\nChat ID: ', chatid);
 
             const chatbotHistory = await ChatHistory.findOne({
                 _id: chatid

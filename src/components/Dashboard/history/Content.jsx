@@ -22,8 +22,9 @@ const Content = () => {
 
 
     useEffect(() => {
+        console.log('\n\n\nChatID: \n\n', chatbotid);
         getHistory();
-    }, [])
+    }, [chatbotid])
 
     return (
         <>

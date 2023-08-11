@@ -1,17 +1,61 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import jsPDF from 'jspdf';
+
 import ChatForm from './ChatForm'
-import axios from 'axios'
+
 import Loading from './Loading'
-import { backend_url } from '../../../util/variables'
-import Header from '../../Dashboard/components/Header'
+import Header from '../Header'
+import api from '../../../util/api';
+import Answer from '../Answer';
+import ShortForm from './ShortForm';
+import ExamplePrompts from '../ExamplePrompts';
+import ExportButtons from './ExportButtons';
+
 
 const Quiz = () => {
-
 
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
+    const [chatID, setChatID] = useState('')
+
+    const reportTemplateRef = useRef(null);
+
+    const exportToPdf = async () => {
+        let pdf = new jsPDF('p', 'pt', 'a4');
+        let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
+
+        // Calculate the scale factor to fit the content within the PDF
+        let pdfWidth = pdf.internal.pageSize.width;
+        let elementWidth = element.scrollWidth;
+        let margin = 18; // Set a margin to avoid the content touching the edges of the PDF
+        let scaleFactor = (pdfWidth - margin * 2) / elementWidth;
+
+        pdf.html(element, {
+            x: margin,
+            y: margin,
+            html2canvas: {
+                scale: scaleFactor,
+                windowHeight: element.scrollHeight,
+                windowWidth: element.scrollWidth,
+                useCORS: true
+            },
+            autoPaging: 'text',
+            callback: function () {
+                window.open(pdf.output('bloburl')); // For debugging
+            }
+        });
+
+    };
+
+
+    const exportToDocx = async () => {
+        // let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
+        // const convertedDoc = HtmlToDocx.asBlob(element.outerHTML);
+        // saveAs(convertedDoc, 'document.doc');
+        console.log('setup to download docx');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,62 +63,59 @@ const Quiz = () => {
         setLoading(true);
 
         let data = {
-            prompt
+            body: {
+                prompt
+            },
+            chat_id: chatID
         }
 
-        setPrompt('')
 
         try {
-            let res = await axios.post(`${backend_url}/lessonplanner`, data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            let res = await api.post(`/quiz`, data);
 
             if (res.statusText === 'OK') {
 
                 console.log('Here is the answer: ', res.data.answer);
 
-                setAnswer([...answer, res.data.answer])
+                setAnswer([...answer, { question: prompt, answer: res.data.answer }])
+                setPrompt('')
 
-                setMessage("Here is Your Data!");
-                setTimeout(() => {
-                    setMessage(null);
-                    setLoading(false)
-                }, 2000)
-                // alert('Here is your response with modification')
+
+
+                setLoading(false)
+
             }
         } catch (error) {
-            console.log("error: ", error);
-            setMessage("There is an Error While making Request!");
-            setTimeout(() => {
-                setMessage(null);
-                setLoading(false)
-            }, 6000)
-            // alert('Here is your Error From Catch after giving prompt')
+            console.log("error: ", error?.response?.data);
+            alert('Error While fetching response for LessonPlanner!')
+            setLoading(false)
         }
 
     }
 
-
     return (
         <div className='border-b-2 border-black pb-24'>
-            <div className='max-w-[1440px] mx-auto overflow-hidden'>
-                <div className='mx-2 md:mx-8 flex flex-col md:flex-row gap-5'>
+            <div className=' flex flex-col md:flex-row gap-5'>
 
-                    <div className='flex-1 border-r border-secondary'>
-                        <Header
-                            heading={'Quiz Generator'}
-                            desc={'Create a zbrdst Quiz with ease.'}
-                        />
+                <div className='border-r border-secondary max-w-[350px]'>
+                    <Header
+                        heading={'Quiz Generator'}
+                        desc={'Which teachers assistance would you like?'}
+                    />
 
-                        <hr className='h-[2px] bg-secondary' />
+                    <hr className='h-[2px] bg-secondary' />
 
-                        <ChatForm setAnswer={setAnswer} setLoading={setLoading} setMessage={setMessage} />
+                    <ChatForm
+                        setAnswer={setAnswer}
+                        setLoading={setLoading}
+                        setMessage={setMessage}
+                        setChatID={setChatID}
+                    />
 
-                    </div>
+                </div>
 
-                    <div style={{ flex: 3 }} className=' max-h-[90vh] pb-5 '>
+                <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
+                    <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
                         <div className=' border-b-2 flex gap-3'>
                             <button className=' bg-slate-300 px-4 py-2'>Output</button>
                             <button className=' px-4 py-2'>History</button>
@@ -84,43 +125,16 @@ const Quiz = () => {
                                 <div>
                                     <div className='relative'>
 
-                                        <div className='overflow-y-scroll h-[70vh]'>
-                                            {
-                                                answer.map((el, i) => (
-                                                    <>
-                                                        <div key={i} dangerouslySetInnerHTML={{ __html: el }} />
-                                                        {
-                                                            ((i !== answer.length - 1) && (answer.length > 1)) && <h4 className='mt-20 mb-3 text-xl font-bold'>{`Modification(${i})`}</h4>
-                                                        }
-                                                    </>
-                                                ))
-                                            }
-                                        </div>
-                                        {
-                                            loading && (
-                                                <Loading message={message} />
-                                            )
-                                        }
+                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        {loading && <Loading />}
+
                                     </div>
 
-                                    <form
-                                        onSubmit={handleSubmit}
-                                        className='flex gap-4 mt-10'
-                                    >
-                                        <input
-                                            type="text"
-                                            className='w-full px-3 h-10'
-                                            name='prompt'
-                                            placeholder='Write your prompt...'
-                                            value={prompt}
-                                            onChange={(e) => setPrompt(e.target.value)} />
-                                        <button
-                                            className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'
-                                            disabled={prompt ? false : true}
-                                        >
-                                            Submit
-                                        </button>
-                                    </form>
+                                    <ShortForm
+                                        prompt={prompt}
+                                        setPrompt={setPrompt}
+                                        handleSubmit={handleSubmit}
+                                    />
                                 </div>
                             )
                                 : (
@@ -134,26 +148,19 @@ const Quiz = () => {
 
                         }
                     </div>
+
+                    {(answer.length > 0) && <ExamplePrompts />}
+
                 </div>
             </div>
-            <div className='max-w-[1440px] mx-auto overflow-hidden pl-10'>
-                <div className=' bg-gray-300 mt-20 px-8 py-5 w-8/12'>
-                    {
-                        [
-                            'Thanks for the lesson plan! Can you suggest some additional hands-on activities to help students better understand? ',
-                            'Teacher: I appreciate the lesson plan. Can you recommend other videos or multimedia resources that I can use to supplement the lesson? ',
-                            "Thank you for the lesson plan. I'd like to include a short assessment at the end of the lesson to check my students' understanding of the water cycle. Can you provide some sample questions or ideas for the assessment?"
-                        ].map((item, i) => (
-                            <div className=' mb-4'>
-                                <h4 className=' font-bold text-xl'>Example {i + 1}</h4>
-                                <p className='text-lg'>Teacher: {item}</p>
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
+
+            <ExportButtons
+                exportToPdf={exportToPdf}
+                exportToDocx={exportToDocx}
+            />
+
         </div>
     )
 }
 
-export default Quiz;
+export default Quiz

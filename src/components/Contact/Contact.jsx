@@ -1,9 +1,17 @@
 import React from 'react'
 import Form from './Form'
+import { Helmet } from 'react-helmet'
 
 const Contact = () => {
     return (
         <section className=" max-w-[1440px] mx-auto">
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Contact Us | Teach Assist AI</title>
+            </Helmet>
+
+
             <div className="py-8 lg:py-16 px-3 md:px-4 mx-auto max-w-screen-md">
 
                 <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-primary">

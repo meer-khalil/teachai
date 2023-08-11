@@ -26,8 +26,6 @@ import Success from "./components/Stripe/Success";
 import Cancel from "./components/Stripe/Cancel";
 import Stripe from "./components/Stripe/Stripe";
 import UserDashboard from "./components/Dashboard/UserDashboard";
-import LessonPlanner from "./components/Chatbots/LessonPlanner/LessonPlanner";
-import Quiz from "./components/Chatbots/Quiz/Quiz";
 import YourComponent from "./components/Pdf/YourComponent";
 
 export default function App() {

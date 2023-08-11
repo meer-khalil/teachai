@@ -43,13 +43,20 @@ def lessonplanner():
 @app.route('/quiz', methods = ['POST', 'GET'])
 def quiz():
     data = request.get_json()
+    
+    print(data)
+    
     user_id = data['id']
+
+    data = data['prompt']
+    
     grade = data['grade']
     quiz_topic = data['topic']
     subject = data['subject']
     summary = data['summary']
     quiz_type = data['type']
     qn = data['questionnumber']
+
     #user_id = request.form['id']
     #grade = request.form['grade']
     #quiz_topic = request.form['topic']
@@ -57,6 +64,7 @@ def quiz():
     #summary = request.form['summary']
     #quiz_type = request.form['type']
     #qn = request.form['questionnumber']
+    
     user_input = f"Generate a quiz for grade {grade}, subject: {subject}, topic: {quiz_topic}, type: {quiz_type}, note: {summary}, number of questions: {qn}"
  
     res = {}
@@ -68,8 +76,10 @@ def grade():
     data = request.get_json()
     user_id = data['id']
     user_input = data['prompt']
+
     #user_id = request.form['id']
     #user_input = request.form['prompt']
+
     res = {}
     res['answer'] = aiapi.grade(user_input, user_id)
     return jsonify(res), 200
@@ -78,16 +88,45 @@ def grade():
 @app.route('/gradeEssay/rubric', methods=['POST'])
 def rubric():
     data = request.get_json()
-    essay_question = data["essay_question"]
     user_id = data["id"]
+
+    data = data['prompt']
+    essay_question = data["essay_question"]
     grade = data["grade"]
+
     #essay_question = request.form.get("essay_question")
     #user_id = request.form.get("user_id")
     #grade = request.form.get("grade")
+    
     essay_question = essay_question + "for grade:" + grade
     rubric = aiapi.generate_rubric(essay_question, user_id)
     result = {"rubric": rubric}
     return jsonify(result), 200
+
+
+@app.route("/lessonComp/questions", methods=['POST'])
+def gen_questions():
+    data = request.get_json()
+
+    #writeup = request.form.get("writeup")
+    #user_id = request.form.get("user_id")
+    #notes = request.form.get("notes")
+    
+    user_id = data["id"]
+    data = data['prompt']
+    writeup = data["writeup"]
+    qtype = data["qtype"]
+    qnumber = data["qnumber"]
+
+    notes = f"question type: {qtype}, number of questions: {qnumber}"
+
+    # Generate questions
+    questions = aiapi.generate_questions(writeup, user_id, notes)
+    # Return the result as JSON
+    result = {"questions": questions}
+    return jsonify(result), 200
+
+
 
 @app.route('/lessonComp/chat', methods = ['POST'])
 def gen_questions_chat():
@@ -95,28 +134,13 @@ def gen_questions_chat():
     data = request.get_json()
     user_id = data['id']
     user_input = data['prompt']
+
     #user_id = request.form['id']
     #user_input = request.form['prompt']
+    
     res = {}
     res['answer'] = aiapi.generate_questions(user_input, user_id)
     return jsonify(res), 200
-
-@app.route("/lessonComp/questions", methods=['POST'])
-def gen_questions():
-    data = request.get_json()
-    #writeup = request.form.get("writeup")
-    #user_id = request.form.get("user_id")
-    #notes = request.form.get("notes")
-    writeup = data["writeup"]
-    user_id = data["id"]
-    qtype = data["qtype"]
-    qnumber = data["qnumber"]
-    notes = f"question type: {qtype}, number of questions: {qnumber}"
-    # Generate questions
-    questions = aiapi.generate_questions(writeup, user_id, notes)
-    # Return the result as JSON
-    result = {"questions": questions}
-    return jsonify(result), 200
 
 @app.route("/lessonComp/answer", methods=["POST"])
 def answer():

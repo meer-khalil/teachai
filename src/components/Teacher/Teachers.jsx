@@ -17,6 +17,7 @@ import bot6 from '../../images/bots/6.Video to notes - Vincent .png'
 import history from '../../images/history.jpg'
 
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const data = [
     { title: 'General Assistant', description: '4,729 curated designresources to energize your creative workflow', icon: bot1 },
@@ -35,6 +36,10 @@ const Teachers = () => {
     return (
         <div className=' max-w-[1440px] mx-auto'>
 
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>AI Teachers | Teach Assist AI</title>
+            </Helmet>
             <div className='flex flex-col-reverse md:flex-row items-center mt-5 md:py-20 px-3 md:px-10 rounded-2xl'>
                 <div className='flex-1'>
                     <div className='md:mx-8 pt-8 md:pt-0'>
@@ -73,14 +78,14 @@ const Teachers = () => {
                     data={data}
                     description={"With our AI teachers, special education and English as a second language (ESL) instruction are revolutionized. These intelligent bots provide personalized support and resources to meet the unique needs of students in these areas. With our AI teachers, educators gain access to specialized strategies, adaptive materials, and personalized interventions, enhancing their ability to support students with special education requirements or those learning English as a second language. Leveraging AI technology, special education and ESL instruction become more effective and accessible, ensuring every student receives the necessary support for academic success."}
                 />
-                <Grid 
-                    title="Digital Learning & Teaching Tools" 
-                    data={data} 
-                    description={"Our AI teachers revolutionize digital learning and teaching tools. With their advanced capabilities, educators gain access to a wide range of interactive resources and platforms. From virtual simulations to personalized learning tools, AI teachers enhance engagement and cater to diverse learning needs. Experience the transformative power of AI in education."}    
+                <Grid
+                    title="Digital Learning & Teaching Tools"
+                    data={data}
+                    description={"Our AI teachers revolutionize digital learning and teaching tools. With their advanced capabilities, educators gain access to a wide range of interactive resources and platforms. From virtual simulations to personalized learning tools, AI teachers enhance engagement and cater to diverse learning needs. Experience the transformative power of AI in education."}
                 />
-                <Grid 
-                    title="Assessment & Progress Monitoring" 
-                    data={data} 
+                <Grid
+                    title="Assessment & Progress Monitoring"
+                    data={data}
                     description={"With our AI teachers, assessment and progress monitoring are transformed. These advanced bots offer efficient and accurate assessment tools, automated grading systems, and personalized feedback. Educators can track student progress effectively and make data-driven decisions to support growth. Embrace the power of AI teachers for streamlined assessment and monitoring of progress."}
                 />
 

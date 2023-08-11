@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
 const data = [
@@ -71,6 +72,11 @@ const Pricing = () => {
     return (
         <div className=' max-w-[1440px] mx-auto'>
 
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Pricing| Teach Assist AI</title>
+            </Helmet>
+
             <section class="">
 
                 <div className='my-10'>
@@ -108,7 +114,7 @@ const Pricing = () => {
                             No payment information needed, Change Plans Anytime. Cancel at any time
                         </p>
                     </div>
-                    
+
                     <div class="grid grid-cols-1 lg:grid-cols-4 md:mx-5 gap-5 gap-y-5">
 
                         {

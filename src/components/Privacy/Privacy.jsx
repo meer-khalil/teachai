@@ -1,8 +1,15 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 const Privacy = () => {
     return (
         <div className=' max-w-[1440px] mx-auto'>
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Privacy | Teach Assist AI</title>
+            </Helmet>
+
             <h1 className='text-center text-4xl font-extrabold my-10'>Privacy</h1>
             <div className=' mx-5 md:mx-10 pt-20'>
                 <div className='mb-10'>
@@ -85,7 +92,7 @@ const Privacy = () => {
 
                     <h3 className='text-3xl font-semibold'>Contact Us   </h3>
                     <p className='pl-0 text-xl mr-10 text-justify mt-4'>
-                        If you have any queries or suggestions about our Privacy Policy, feel free to contact us at 
+                        If you have any queries or suggestions about our Privacy Policy, feel free to contact us at
                         <a href="/" className=' underline text-blue-600 ml-4'>support@AITeacherTool.com.au.</a>
                     </p>
                 </div>

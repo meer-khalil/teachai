@@ -1,9 +1,17 @@
 import React from 'react'
 import Values from './Values'
+import { Helmet } from 'react-helmet'
 
 const About = () => {
   return (
     <div className=' max-w-[1440px] mx-auto mb-16'>
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>About | Teach Assist AI</title>
+      </Helmet>
+
+
       <div className='mt-10 mb-16'>
         <h1 className=' text-3xl md:text-4xl my-8 font-extrabold text-center text-secondary'>
           About AI Teacher Tool

@@ -1,10 +1,17 @@
 import React from 'react'
 import Banner from './Banner'
 import Banner2 from './Banner2'
+import { Helmet } from 'react-helmet'
 
 const Affliate = () => {
   return (
     <div className=' max-w-[1440px] mx-auto'>
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Affiliate Program | Teach Assist AI</title>
+      </Helmet>
+
       <div className='mx-3 md:mx-8'>
         <Banner />
         <div>

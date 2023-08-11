@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { backend_url } from '../../util/variables'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const Blog = () => {
 
@@ -25,6 +26,11 @@ const Blog = () => {
 
     return (
         <div className=' max-w-[1440px] mx-auto'>
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Blogs | Teach Assist AI</title>
+            </Helmet>
 
             <div className="mx-32">
 

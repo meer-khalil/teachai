@@ -1,44 +1,36 @@
-import axios from 'axios';
 import React, { useState } from 'react'
-import { backend_url } from '../../../util/variables';
+import api from '../../../util/api';
 
 
-const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
+const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
-        setLoading(true);
-        
+        setLoading(true)
+        let _body = {
+            body: data
+        }
+
         try {
-            let res = await axios.post(`${backend_url}/quiz`, data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            let res = await api.post(`/quiz`, _body)
 
             if (res.statusText === 'OK') {
 
+                console.log('Response from chatform: ', res);
                 console.log('Here is the answer: ', res.data.answer);
+                setChatID(res.data.chat_id)
+                setAnswer([{ answer: res.data.answer }])
 
-                setAnswer([res.data.answer])
-
-                setMessage("Here is Your Data!");
-                setTimeout(() => {
-                    setMessage(null);
-                    setLoading(false)
-                }, 2000)
+                setLoading(false)
             }
         } catch (error) {
-            console.log("error: ", error);
-            setMessage("There is an Error While making Request!");
 
-            setTimeout(() => {
-                setMessage(null);
-                setLoading(false)
-            }, 6000)
+            alert('Error: ', error)
+            setLoading(false)
+
         }
 
     }
@@ -53,11 +45,24 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
         })
     }
     return (
-        <div className='mr-5'>
+        <div className='mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
 
                 <div className='flex flex-col mb-5'>
-                    <label htmlFor="topic" className=' text-lg'>
+                    <label htmlFor="gradeLevel" className='font-medium'>
+                        Grade
+                    </label>
+                    <input
+                        type="text"
+                        id='grade'
+                        name='grade'
+                        onChange={handleChange}
+                        className='px-2 h-8 rounded border  bg-white outline-none'
+                    />
+                </div>
+
+                <div className='flex flex-col mb-5'>
+                    <label htmlFor="topic" className='font-medium'>
                         Topic
                     </label>
                     <input
@@ -66,54 +71,13 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
                         placeholder='Type here'
                         name='topic'
                         onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
+                        className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>
 
-                <div className='flex flex-col mb-5'>
-                    <label htmlFor="gradeLevel" className=' text-lg'>
-                        Grade Level
-                    </label>
-                    <input
-                        type="text"
-                        id='gradeLevel'
-                        name='gradeLevel'
-                        onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
-                    />
-                </div>
 
                 <div className='flex flex-col mb-5'>
-                    <label htmlFor="numberOfQuestions" className=' text-lg'>
-                        Number of Questions
-                    </label>
-                    <input
-                        type="text"
-                        id='numberOfQuestions'
-                        name='numberOfQuestions'
-                        onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
-                    />
-                </div>
-
-                <div className='flex flex-col mb-5'>
-                    <label htmlFor="quizType" className=' text-lg'>
-                        Quiz Type
-                    </label>
-                    <select
-                        id="quizType"
-                        name='quizType'
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    >
-                        <option selected>Choose a Type</option>
-                        <option value="Multiple Choice">Multiple Choice</option>
-                        <option value="True or False">True or False</option>
-                    </select>
-                </div>
-
-                <div className='flex flex-col mb-5'>
-                    <label htmlFor="subject" className=' text-lg'>
+                    <label htmlFor="subject" className='font-medium'>
                         Subject
                     </label>
                     <input
@@ -121,25 +85,51 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
                         id='subject'
                         name='subject'
                         onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
+                        className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>
 
                 <div className='flex flex-col mb-5'>
-                    <label htmlFor="shortSummaryLearningObjectives" className=' text-lg'>
-                        Short Summary Learning Objectives
+                    <label htmlFor="summary" className='font-medium'>
+                        Summary
                     </label>
                     <input
                         type="text"
-                        id='shortSummaryLearningObjectives'
-                        name='shortSummaryLearningObjectives'
+                        id='summary'
+                        name='summary'
                         onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
+                        className='px-2 h-8 rounded border  bg-white outline-none'
+                    />
+                </div>
+
+
+                <div className='flex flex-col mb-5'>
+                    <label htmlFor="type" className='font-medium'>
+                        Type
+                    </label>
+                    <input
+                        type="text"
+                        id='type'
+                        name='type'
+                        onChange={handleChange}
+                        className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>
 
                 <div className='flex flex-col mb-5'>
-                    <label htmlFor="language" className=' text-lg'>
+                    <label htmlFor="questionnumber" className='font-medium'>
+                        Questions Number
+                    </label>
+                    <input
+                        type="text"
+                        id='questionnumber'
+                        name='questionnumber'
+                        onChange={handleChange}
+                        className='px-2 h-8 rounded border  bg-white outline-none'
+                    />
+                </div>
+                <div className='flex flex-col mb-5'>
+                    <label htmlFor="language" className='font-medium'>
                         Language
                     </label>
                     <input
@@ -147,10 +137,9 @@ const ChatForm = ({ setAnswer, setLoading, setMessage }) => {
                         id='language'
                         name='language'
                         onChange={handleChange}
-                        className='px-2 h-10 border  bg-white outline-none'
+                        className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>
-
                 <div>
                     <button className='px-5 py-2 rounded-lg bg-secondary text-white'>submit</button>
                 </div>

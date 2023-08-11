@@ -1,9 +1,16 @@
 import React from 'react'
 import Question from './Question'
+import { Helmet } from 'react-helmet'
 
 const FAQ = () => {
     return (
         <div className=' max-w-[1440px] mx-auto'>
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>FAQ | Teach Assist AI</title>
+            </Helmet>
+
             <div className='mx-2 md:mx-5'>
 
                 <h1 className='text-center text-4xl my-10 font-extrabold text-primary'>Frequently Asked Questions</h1>

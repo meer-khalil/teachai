@@ -14,6 +14,7 @@ import Productivity from './Productivity';
 import TestimonialSlider from './Testimonial/TestimonialSlider';
 import { UserContext } from '../../context/UserContext';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 export const Home = () => {
@@ -31,19 +32,24 @@ export const Home = () => {
 
   return (
     <div className='max-w-[1640px] mx-auto overflow-hidden'>
-      
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Teach Assist AI</title>
+      </Helmet>
+
       <Hero />
 
       {/* <Logos /> */}
-      
+
       <Productivity />
-      
+
       <Stats />
-      
+
       {/* <Steps /> */}
-      
+
       <Features />
-      
+
       <History />
 
       <Benefits />

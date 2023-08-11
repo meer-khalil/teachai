@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 
 const data = [
@@ -47,6 +48,13 @@ const data = [
 const Terms = () => {
     return (
         <div className=' max-w-[1440px] mx-auto'>
+
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Terms | Teach Assist AI</title>
+            </Helmet>
+
+
             <h1 className='text-center text-4xl font-extrabold my-10'>
                 Terms & Conditions
             </h1>

@@ -73,7 +73,7 @@ app.use('/api/v1', chatHistory);
 // console.log(path.join(__dirname, '..', 'build', 'index.html'));
 
 // const path = require('path')
-let environment = 'dev';
+let environment = 'prod';
 if (environment === 'dev') {
 
     app.get('/', (req, res) => {

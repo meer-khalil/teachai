@@ -11,6 +11,8 @@ import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 
+import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
+
 
 const Essay = () => {
 
@@ -99,6 +101,8 @@ const Essay = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Elsa'}
+                        image={_3_AutomatedEssay}
                         heading={'Essay Grading'}
                         desc={'Which teachers assistance would you like?'}
                     />

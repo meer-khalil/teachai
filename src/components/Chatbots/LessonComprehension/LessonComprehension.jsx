@@ -12,6 +12,9 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 
 
+import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
+
+
 const LessonComprehension = () => {
 
     const [answer, setAnswer] = useState([])
@@ -99,6 +102,8 @@ const LessonComprehension = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Cara'}
+                        image={_4_ComprehensionLesson}
                         heading={'Lesson Comprehension'}
                         desc={'Which teachers assistance would you like?'}
                     />

@@ -12,6 +12,9 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 
 
+import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
+
+
 const MathQuiz = () => {
 
     const [answer, setAnswer] = useState([])
@@ -99,6 +102,8 @@ const MathQuiz = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Matthew'}
+                        image={_5_MathsQuiz}
                         heading={'Lesson Comprehension'}
                         desc={'Which teachers assistance would you like?'}
                     />

@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 // import { saveAs } from 'file-saver';
 // import { HtmlToDocx } from 'html-docx-js';
 
+import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy .png'
+
 const MathLessonPlanner = () => {
 
 
@@ -105,6 +107,8 @@ const MathLessonPlanner = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Lucy'}
+                        image={_6_MathLessonPlanner}
                         heading={'General Lesson Planner'}
                         desc={'Which teachers assistance would you like?'}
                     />

@@ -12,6 +12,9 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 
 
+
+import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
+
 const Quiz = () => {
 
     const [answer, setAnswer] = useState([])
@@ -99,6 +102,8 @@ const Quiz = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Qasim'}
+                        image={_2_Quiz}
                         heading={'Quiz Generator'}
                         desc={'Which teachers assistance would you like?'}
                     />

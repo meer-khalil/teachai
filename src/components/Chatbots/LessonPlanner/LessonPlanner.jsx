@@ -12,15 +12,13 @@ import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 import { UserContext } from '../../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
 
-// import { saveAs } from 'file-saver';
-// import { HtmlToDocx } from 'html-docx-js';
+
+import  _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
 
 const LessonPlanner = () => {
 
 
-    const navigate = useNavigate();
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -107,8 +105,10 @@ const LessonPlanner = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Lisa'}
                         heading={'General Lesson Planner'}
                         desc={'Which teachers assistance would you like?'}
+                        image={_1_LessonPlanning}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

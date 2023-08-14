@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 // import { saveAs } from 'file-saver';
 // import { HtmlToDocx } from 'html-docx-js';
 
+import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
+
 const VideoToQuiz = () => {
 
 
@@ -105,6 +107,8 @@ const VideoToQuiz = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Hunter'}
+                        image={_8_VideotoQuizBot}
                         heading={'Video To Quiz'}
                         desc={'Which teachers assistance would you like?'}
                     />

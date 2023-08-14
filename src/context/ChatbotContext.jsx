@@ -76,7 +76,7 @@ const data = [
         title: "Video to Quiz",
         description: '4,729 curated designresources to energize your creative workflow',
         icon: _8_VideotoQuizBot,
-        name: 'Bot',
+        name: 'Hunter',
         url: 'video-to-quiz',
         category: 'Digital Learning & Teaching Tools'
     },

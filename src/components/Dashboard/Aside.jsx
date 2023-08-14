@@ -45,7 +45,7 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                                 <Productivity />
                             </div>
                         } */}
-                        <AsideCategories />
+                        {/* <AsideCategories /> */}
                     </li>
 
                     <li>

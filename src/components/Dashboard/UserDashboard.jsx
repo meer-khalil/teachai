@@ -44,6 +44,7 @@ const UserDashboard = () => {
                                 <Route path={`history/*`} element={<ChatHistory />} />
 
                                 <Route path={`chatbots`} element={<Chatbots />} />
+
                                 <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
                                 <Route path={`chatbot/quiz`} element={<Quiz />} />
                                 <Route path={`chatbot/essay`} element={<Essay />} />
@@ -51,7 +52,9 @@ const UserDashboard = () => {
                                 <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
                                 <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
                                 <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
+
                                 <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
+                            
                             </Routes>
 
                         </div>

@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 // import { saveAs } from 'file-saver';
 // import { HtmlToDocx } from 'html-docx-js';
 
+import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent .png'
+
 const VideoToNotes = () => {
 
 
@@ -105,6 +107,8 @@ const VideoToNotes = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
+                        name={'Vincent'}
+                        image={_7_VideotoNotes}
                         heading={'Video To Notes'}
                         desc={'Which teachers assistance would you like?'}
                     />

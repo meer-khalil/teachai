@@ -40,7 +40,9 @@ const UserDashboard = () => {
 
                             <Routes>
                                 <Route path='/' element={<Dashboard />} />
+                                
                                 <Route path={`history/*`} element={<ChatHistory />} />
+
                                 <Route path={`chatbots`} element={<Chatbots />} />
                                 <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
                                 <Route path={`chatbot/quiz`} element={<Quiz />} />

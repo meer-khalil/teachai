@@ -110,7 +110,7 @@ const VideoToNotes = () => {
                         name={'Vincent'}
                         image={_7_VideotoNotes}
                         heading={'Video To Notes'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to assist you in summarizing videos effectively for your convenience.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

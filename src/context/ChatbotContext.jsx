@@ -17,7 +17,7 @@ import _10_PowerPoint from '../images/bots/10.PowerPoint Presentation - Priyanka
 const data = [
     {
         title: 'Lesson Planning',
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The lesson planner assistant chatbot optimizes teaching tasks, providing tailored and efficient support to enhance classroom productivity and organization',
         icon: _1_LessonPlanning,
         name: 'Lisa',
         url: 'lesson-planner',
@@ -25,7 +25,7 @@ const data = [
     },
     {
         title: 'Math Quiz',
-        description: "4,729 curated design resources to energize your creative workflow",
+        description: "QuizBot offers grade-specific quizzes on various subjects, with options like multiple-choice, true/false, and open-ended questions, fostering interactive learning in multiple languages.",
         icon: _2_Quiz,
         name: "Qasim",
         url: "quiz",
@@ -34,7 +34,7 @@ const data = [
 
     {
         title: "Automated Essay Scoring and Feedback",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The Essay Grading bot evaluates essays, considering the question, grade level, and language, using default or custom rubrics for comprehensive assessment.',
         icon: _3_AutomatedEssay,
         name: 'Elsa',
         url: 'essay',
@@ -42,7 +42,7 @@ const data = [
     },
     {
         title: 'Comprehension Lesson Generator',
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The Comprehension Lesson Generator Bot creates lessons with custom write-ups, questions in various formats, fostering language proficiency and understanding.',
         icon: _4_ComprehensionLesson,
         name: 'Cara',
         url: 'lessonComp',
@@ -50,7 +50,7 @@ const data = [
     },
     {
         title: 'Maths Quiz',
-        description: "4,729 curated design resources to energize your creative workflow",
+        description: "The Maths Quiz bot generates grade-appropriate math quizzes, featuring problems, varied question types, and language options to enhance mathematical skills.",
         icon: _5_MathsQuiz,
         name: 'Matthew',
         url: 'mathquiz',
@@ -58,7 +58,7 @@ const data = [
     },
     {
         title: "Math Lesson Planner",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The Math Lesson Planner bot designs lessons: choose topic, grade, duration, key objectives, and language, for well-structured math teaching plans.',
         icon: _6_MathLessonPlanner,
         name: 'Lucy',
         url: 'math-lesson-planner',
@@ -66,7 +66,7 @@ const data = [
     },
     {
         title: "Video to notes",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'Effortlessly condense videos into concise teacher-friendly summaries with the Video-to-Notes Bot, enhancing lesson planning and content understanding. ',
         icon: _7_VideotoNotes,
         name: 'Vincent',
         url: 'video-summarize',
@@ -74,7 +74,7 @@ const data = [
     },
     {
         title: "Video to Quiz",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The Detect AI-Writing & Plagiarism Bot ensures originality by identifying AI-generated content and detecting plagiarism, maintaining academic integrity.',
         icon: _8_VideotoQuizBot,
         name: 'Hunter',
         url: 'video-to-quiz',
@@ -82,15 +82,15 @@ const data = [
     },
     {
         title: "Detect AI-Writing & Plagiarism",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'The Detect AI-Writing & Plagiarism Bot ensures originality by identifying AI-generated content and detecting plagiarism, maintaining academic integrity.',
         icon: _9_DetectAI,
         name: 'Ali',
         url: 'plagrism',
         category: 'Assessment & Progress Monitoring'
     },
-    {
+    {   
         title: "PowerPoint Presentation",
-        description: '4,729 curated designresources to energize your creative workflow',
+        description: 'Create dynamic PowerPoint presentations effortlessly through the user-friendly inputs of the Presentation Bot, simplifying content delivery and engagement.',
         icon: _10_PowerPoint,
         name: 'Priyanka',
         url: 'powerpoint-presentation',

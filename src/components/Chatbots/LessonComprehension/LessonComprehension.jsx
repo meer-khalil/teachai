@@ -105,7 +105,7 @@ const LessonComprehension = () => {
                         name={'Cara'}
                         image={_4_ComprehensionLesson}
                         heading={'Lesson Comprehension'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to offer assistance with generating comprehension lessons tailored to your needs.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

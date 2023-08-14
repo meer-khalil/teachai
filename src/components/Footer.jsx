@@ -35,7 +35,7 @@ const Footer = () => {
                             }
                         </div>
                         <div className='flex-nowrap'>
-                            CopyRight 2023 Business Name
+                            Copyright 2023 Teach Assist AI
                             |
                             <Link
                                 className='underline text-blue-600 mx-2'

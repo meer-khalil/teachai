@@ -104,7 +104,7 @@ const Essay = () => {
                         name={'Elsa'}
                         image={_3_AutomatedEssay}
                         heading={'Essay Grading'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Let me provide you with assistance for your essay grading tasks.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

@@ -14,7 +14,7 @@ const Categories = () => {
                         "All",
                         "Lesson Planning",
                         "Student Engagement & Activity Ideas",
-                        "Special Education & Inclusive Practice",
+                        "Special Education & English Second Language",
                         "Communication & Professional Learning",
                         "Digital Learning & Teaching Tools",
                         "Assessment & Progress Monitoring"

@@ -105,7 +105,7 @@ const Quiz = () => {
                         name={'Qasim'}
                         image={_2_Quiz}
                         heading={'Quiz Generator'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to offer assistance with your quiz creation tasks.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

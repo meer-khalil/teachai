@@ -110,7 +110,7 @@ const MathLessonPlanner = () => {
                         name={'Lucy'}
                         image={_6_MathLessonPlanner}
                         heading={'General Lesson Planner'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to aid you in designing well-structured math lessons that align with your goals and requirements.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

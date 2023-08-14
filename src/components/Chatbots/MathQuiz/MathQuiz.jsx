@@ -105,7 +105,7 @@ const MathQuiz = () => {
                         name={'Matthew'}
                         image={_5_MathsQuiz}
                         heading={'Lesson Comprehension'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to assist you in creating math quizzes that meet your requirements.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

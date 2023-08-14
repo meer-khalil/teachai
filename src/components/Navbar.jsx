@@ -31,7 +31,7 @@ const Navbar = () => {
                 <div className='flex gap-14 items-center'>
                     {
                         menu && (
-                            <div className={`absolute md:static right-0 top-[5rem] w-full h-screen md:h-auto z-10 bg-gray-400 md:bg-transparent flex flex-col gap-20`}>
+                            <div className={`absolute md:static right-0 top-[5rem] w-full h-screen md:h-auto z-10 bg-white md:bg-transparent flex flex-col gap-20`}>
                                 <ul
                                     className=' md:bg-transparent text-white md:text-secondary pt-10 md:pt-3 md:pb-3 rounded flex flex-col md:flex-row gap-3 md:gap-5'>
                                     {
@@ -116,13 +116,15 @@ const Navbar = () => {
                                     }
                                 </ul>
                                 {
-                                    (window.innerWidth < 680) && <div className=' py-10 mx-5 flex flex-col gap-5'>
-                                        <button className=' bg-secondary text-white py-5 mx-12 rounded-lg'>
-                                            Get started for free
-                                        </button>
-                                        <button className=' border-secondary  text-secondary border-2 py-5 mx-12 rounded-lg'>
-                                            what how it works
-                                        </button>
+                                    (window.innerWidth < 680) && <div>
+                                        <div className=' py-10 flex flex-col gap-5 max-w-[400px] mx-auto'>
+                                            <button className=' bg-secondary text-white py-5 mx-7 rounded-lg'>
+                                                Get started for free
+                                            </button>
+                                            <button className=' border-secondary  text-secondary border-2 py-5 mx-7 rounded-lg'>
+                                                what how it works
+                                            </button>
+                                        </div>
                                     </div>
                                 }
                             </div>

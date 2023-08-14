@@ -107,7 +107,7 @@ const LessonPlanner = () => {
                     <Header
                         name={'Lisa'}
                         heading={'General Lesson Planner'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Let me provide you with assistance for your lesson planning needs.'}
                         image={_1_LessonPlanning}
                     />
 

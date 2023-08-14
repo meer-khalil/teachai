@@ -2,86 +2,97 @@ import { createContext, useState } from "react";
 
 
 // bots images
-import  lessonPlanning_bot from '../images/bots/1.Lesson Planning - Lisa.png'
-import quiz_bot from '../images/bots/2.Quiz - Qasim.png'
-import automatedEssay from '../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
-import comprehension from '../images/bots/4.Comprehension Lesson Generator - Cara.png'
-import maths from '../images/bots/5.Maths - Matthew.png'
-import video from '../images/bots/6.Video to notes - Vincent .png'
-import writting from '../images/bots/7.Detect AI-Writing & Plagiarism - Ali.png'
-import powerpoint from '../images/bots/8.PowerPoint Presentation - Priyanka .png'
+import  _1_LessonPlanning from '../images/bots/1.Lesson Planning - Lisa.png'
+import _2_Quiz from '../images/bots/2.Quiz - Qasim.png'
+import _3_AutomatedEssay from '../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
+import _4_ComprehensionLesson from '../images/bots/4.Comprehension Lesson Generator - Cara.png'
+import _5_MathsQuiz from '../images/bots/5.Maths Quiz - Matthew.png'
+import _6_MathLessonPlanner from '../images/bots/6.Math Lesson Planner - Lucy .png'
+import _7_VideotoNotes from '../images/bots/7.Detect AI-Writing & Plagiarism - Ali.png'
+import _8_VideotoQuizBot from '../images/bots/8.PowerPoint Presentation - Priyanka .png'
+import _9_DetectAI from '../images/bots/9.Detect AI-Writing & Plagiarism - Ali.png'
+import _10_PowerPoint from '../images/bots/10.PowerPoint Presentation - Priyanka .png'
 
 
 const data = [
     {
-        title: 'Lesson Planner Assistant',
+        title: 'Lesson Planning',
         description: '4,729 curated designresources to energize your creative workflow',
-        icon: lessonPlanning_bot,
+        icon: _1_LessonPlanning,
+        name: 'Lisa',
         url: 'lesson-planner',
-        category: 'Lesson Planning'
-    },
-
-    {
-        title: 'Quiz Generator Assistant',
-        description: "4,729 curated design resources to energize your creative workflow",
-        icon: quiz_bot,
-        url: "quiz",
-        category: 'Student Engagement & Activity Ideas'
-    },
-
-    {
-        title: "Essay Grading",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: automatedEssay,
-        url: 'essay',
-        category: 'Assessment & Progress Monitoring'
-    },
-    {
-        title: 'Comprehension Lesson Generator Bot',
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: comprehension,
-        url: 'lessonComp',
         category: 'Lesson Planning'
     },
     {
         title: 'Math Quiz',
         description: "4,729 curated design resources to energize your creative workflow",
-        icon: maths,
+        icon: _2_Quiz,
+        name: "Qasim",
+        url: "quiz",
+        category: 'Student Engagement & Activity Ideas'
+    },
+
+    {
+        title: "Automated Essay Scoring and Feedback",
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: _3_AutomatedEssay,
+        name: 'Elsa',
+        url: 'essay',
+        category: 'Assessment & Progress Monitoring'
+    },
+    {
+        title: 'Comprehension Lesson Generator',
+        description: '4,729 curated designresources to energize your creative workflow',
+        icon: _4_ComprehensionLesson,
+        name: 'Cara',
+        url: 'lessonComp',
+        category: 'Lesson Planning'
+    },
+    {
+        title: 'Maths Quiz',
+        description: "4,729 curated design resources to energize your creative workflow",
+        icon: _5_MathsQuiz,
+        name: 'Matthew',
         url: 'mathquiz',
         category: "Student Engagement & Activity Ideas"
     },
     {
         title: "Math Lesson Planner",
         description: '4,729 curated designresources to energize your creative workflow',
-        icon: lessonPlanning_bot,
+        icon: _6_MathLessonPlanner,
+        name: 'Lucy',
         url: 'math-lesson-planner',
         category: 'Lesson Planning'
     },
     {
-        title: "Video to notes Bot",
+        title: "Video to notes",
         description: '4,729 curated designresources to energize your creative workflow',
         icon: video,
+        name: 'Vincent',
         url: 'video-summarize',
         category: 'Digital Learning & Teaching Tools'
     },
     {
-        title: "Video to Quiz Bot",
+        title: "Video to Quiz",
         description: '4,729 curated designresources to energize your creative workflow',
         icon: video,
+        name: 'Bot',
         url: 'video-to-quiz',
-        category: ''
+        category: 'Digital Learning & Teaching Tools'
     },
     {
-        title: "Detect AI-Writing & Plagiarism BOT",
+        title: "Detect AI-Writing & Plagiarism",
         description: '4,729 curated designresources to energize your creative workflow',
         icon: writting,
+        name: 'Ali',
         url: 'plagrism',
         category: 'Assessment & Progress Monitoring'
     },
     {
-        title: "PowerPoint Presentation ",
+        title: "PowerPoint Presentation",
         description: '4,729 curated designresources to energize your creative workflow',
         icon: powerpoint,
+        name: 'Priyanka',
         url: 'powerpoint-presentation',
         category: 'Digital Learning & Teaching Tools'
     }

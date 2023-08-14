@@ -11,8 +11,8 @@ import bot1 from '../../images/bots/1.Lesson Planning - Lisa.png'
 import bot2 from '../../images/bots/2.Quiz - Qasim.png'
 import bot3 from '../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import bot4 from '../../images/bots/4.Comprehension Lesson Generator - Cara.png'
-import bot5 from '../../images/bots/5.Maths - Matthew.png'
-import bot6 from '../../images/bots/6.Video to notes - Vincent .png'
+import bot5 from '../../images/bots/5.Maths Quiz - Matthew.png'
+import bot6 from '../../images/bots/6.Math Lesson Planner - Lucy .png'
 
 import history from '../../images/history.jpg'
 

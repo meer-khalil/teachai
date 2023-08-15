@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-import logo from '../images/logo.jpeg'
+import logo from '../images/logo-removebg-preview.png'
 import Menu from './SVGs/Menu';
 import Cross from './SVGs/Cross';
 import { UserContext } from '../context/UserContext';

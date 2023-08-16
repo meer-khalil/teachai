@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const data = [
     {
-        title: 'Free',
+        title: '7-Days Trial',
         subTitle: 'No Credit Payment Needed',
         price: 0,
         teamSize: 1,
@@ -19,7 +19,7 @@ const data = [
     },
     {
         title: 'Starter',
-        price: 10,
+        price: 9.99,
         teamSize: 1,
         premiumSupport: '6 months',
         freeUpdates: '6 months',
@@ -33,7 +33,7 @@ const data = [
     },
     {
         title: 'Professional',
-        price: 20,
+        price: 14.99,
         teamSize: 1,
         premiumSupport: '6 months',
         freeUpdates: '6 months',
@@ -50,19 +50,12 @@ const data = [
     },
     {
         title: 'Enterprise Package',
-        price: 99,
+        price: undefined,
         teamSize: 1,
         premiumSupport: '6 months',
         freeUpdates: '6 months',
         features: [
-            'Access to All the Chatbots',
-            'Unlimited chat requests per day',
-            '20 memeber seat',
-            'Write in 30+ languages',
-            '24/7 live chat support',
-            '1 weeks memory retention of past chats',
-            'Extract responses to word document/pdf/google doc/excel',
-            'Custom bot branding(white labling)'
+            "Let's work together and create a plan that's for your school for your teachers",
         ]
 
     }
@@ -134,10 +127,16 @@ const Pricing = () => {
 
                                     <div class="flex items-baseline md:mt-4 mb-2 border-b-2 border-gray-200 pb-6 md:pb-16">
                                         {
-                                            (el.price === 0) ? (
+                                            (el?.price === 0) ? (
                                                 <span class="mr-2 text-5xl font-extrabold">
                                                     Free
                                                 </span>
+                                            ) : (el.price === undefined) ? (
+
+                                                <span class="mr-2 text-5xl font-extrabold">
+                                                    Contact Us
+                                                </span>
+
                                             ) : (
                                                 <>
                                                     <span class="mr-2 text-5xl font-extrabold">
@@ -148,7 +147,6 @@ const Pricing = () => {
                                             )
                                         }
                                     </div>
-
 
 
                                     <ul class="mb-8 space-y-4 text-left">

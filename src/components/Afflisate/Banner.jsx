@@ -12,7 +12,7 @@ const Banner = () => {
                         Maximize earning potential with 20% recurring commission for customer referrals for a year
                     </h1>
 
-                    <p className='text-secondary text-sm md:text-lg md:pr-32 text-justify'>
+                    <p className='text-secondary text-sm md:text-xl md:pr-32'>
                         For a whole year, receive a 20% recurring commission for any client you recommend to us. You may advertise our services and generate a regular stream of cash with ease thanks to our effective tracking system and ready-made marketing materials.
                     </p>
                     <div className='flex gap-5 items-center mt-8'>

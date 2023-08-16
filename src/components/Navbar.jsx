@@ -75,7 +75,7 @@ const Navbar = () => {
                                             </Link>
                                         ) : (isAuthenticated) && (
                                             <Link
-                                                to={(site ? site : '') + '/user/dashboard'}
+                                                to={(site ? site : '') + '/user/dashboard/chatbots'}
                                                 className='text-md block tracking-wide hover:text-primary'
                                                 onClick={() => {
                                                     if (window.innerWidth < 680) {
@@ -123,7 +123,7 @@ const Navbar = () => {
                                                 Get started for free
                                             </button>
                                             <button className=' border-secondary  text-secondary border-2 py-5 mx-7 rounded-lg'>
-                                                what how it works
+                                                Watch how it works
                                             </button>
                                         </div>
                                     </div>

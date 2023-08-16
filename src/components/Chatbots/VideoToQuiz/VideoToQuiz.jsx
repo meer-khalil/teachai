@@ -110,7 +110,7 @@ const VideoToQuiz = () => {
                         name={'Hunter'}
                         image={_8_VideotoQuizBot}
                         heading={'Video To Quiz'}
-                        desc={'Which teachers assistance would you like?'}
+                        desc={'Allow me to help you craft interactive quizzes from videos, enhancing engagement and learning experiences effortlessly.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

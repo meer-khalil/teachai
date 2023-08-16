@@ -1,5 +1,7 @@
 import history from '../../images/history.jpg'
-
+import Cloud from '../SVGs/Cloud'
+import Control from '../SVGs/Control'
+import Data from '../SVGs/Data'
 const History = () => {
 
 
@@ -34,20 +36,29 @@ const History = () => {
                     [
                         {
                             title: 'Effortless Prompting',
-                            desc: 'Say goodbye to prompt troubles. Our solution handles it all for you.'
+                            desc: 'Say goodbye to prompt troubles. Our solution handles it all for you.',
+                            icon: <Cloud />
                         },
                         {
                             title: 'Capture and Access',
-                            desc: 'AI Teacher chatbots capture and store your chat history, ensuring easy retrieval.'
+                            desc: 'AI Teacher chatbots capture and store your chat history, ensuring easy retrieval.',
+                            icon: <Data />
                         },
                         {
                             title: 'Extract Text, Multiple Formats',
-                            desc: 'Seamlessly extract chatbot text to Excel, Word, PDF, and Google Docs for versatile use.'
+                            desc: 'Seamlessly extract chatbot text to Excel, Word, PDF, and Google Docs for versatile use.',
+                            icon: <Control />
                         },
                     ].map((el, i) => (
-                        <div className='mb-5'>
-                            <h4 className='text-xl font-semibold text-primary'>{el.title}</h4>
-                            <p className='text-secondary text-xl'>{el.desc}</p>
+                        <div className='mb-8 ml-5'>
+                            <div className='flex gap-3'>
+                                {el.icon}
+                                <div className=''>
+                                    <h4 className='text-xl font-semibold text-primary'>{el.title}</h4>
+                                    <p className='text-secondary text-xl'>{el.desc}</p>
+                                </div>
+                            </div>
+                            <hr className=' bg-gray-200 h-1 mt-5' />
                         </div>
                     ))
                 }

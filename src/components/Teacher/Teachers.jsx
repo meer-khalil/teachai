@@ -70,8 +70,9 @@ const Teachers = () => {
                     description={"AI teachers also greatly benefit communication and professional learning. These intelligent bots facilitate seamless collaboration among educators, eliminating communication barriers and enabling efficient sharing of ideas and resources. Additionally, AI-powered platforms offer personalized professional development opportunities, providing tailored learning materials and insights for continuous growth. With these AI teachers, educators can enhance communication channels and engage in targeted professional learning, fostering a culture of collaboration and ongoing professional advancement."}
                 />
                 <Grid
-                    title="Special Education & Inclusive Practice"
+                    title="Special Education & English Second Language"
                     data={data}
+                    description={'With our AI teachers, special education and English as a second language (ESL) instruction are revolutionized. These intelligent bots provide personalized support and resources to meet the unique needs of students in these areas. With our AI teachers, educators gain access to specialized strategies, adaptive materials, and personalized interventions, enhancing their ability to support students with special education requirements or those learning English as a second language. Leveraging AI technology, special education and ESL instruction become more effective and accessible, ensuring every student receives the necessary support for academic success.'}
                 />
                 <Grid
                     title="Student Engagement & Activity Ideas"

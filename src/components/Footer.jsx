@@ -4,11 +4,13 @@ import logo from '../images/logo-removebg-preview.png'
 import facebook from '../images/Icons/facebook.svg'
 import insta from '../images/Icons/insta.svg'
 import linkedin from '../images/Icons/linkedin.svg'
-import twitter from '../images/Icons/twitter.svg'
+import twitter from '../images/Icons/twitter.jpeg'
 
 import { Link } from 'react-router-dom'
 
 import { site } from '../util/variables'
+
+
 
 const Footer = () => {
 
@@ -23,15 +25,39 @@ const Footer = () => {
                         </Link>
                         <p
                             className=' mt-10 md:mr-20 text-sm text-justify text-secondary'>
-                                Teach Assist AI is your dedicated personal assistant, enhancing your efficiency and productivity as an educator. Our advanced AI engine handles all the mundane tasks, liberating your time to focus on what truly counts – teaching, learning, and fostering authentic connections with your students.
+                            Teach Assist AI is your dedicated personal assistant, enhancing your efficiency and productivity as an educator. Our advanced AI engine handles all the mundane tasks, liberating your time to focus on what truly counts – teaching, learning, and fostering authentic connections with your students.
                             Experience the freedom to prioritize what matters most, while Teach Assist AI streamlines your workload and empowers you to create impactful educational experiences.
                         </p>
                         <div className="flex gap-5 my-5">
 
                             {
-                                [facebook, insta, linkedin, twitter].map((el, i) => (
-                                    <img src={el} alt="Icon" />
-                                ))
+                                [
+                                    {
+                                        icon: facebook,
+                                        url: 'https://www.facebook.com/teachassistai'
+                                    },
+                                    {
+                                        icon: insta,
+                                        url: 'https://www.instagram.com/teachassist_ai'
+                                    }
+                                    ,
+                                    {
+                                        icon: linkedin,
+                                        url: 'TBC'
+                                    }
+                                    ,
+                                    { icon: twitter, url: 'https://twitter.com/teachassist_ai' }].map((el, i, arr) => (
+                                        <a href={el.url} target='_blank'>
+                                            {
+                                                (i === arr.length - 1) ? (
+
+                                                    <img src={el.icon} className=' h-8 rounded w-9 mt-2' alt="Icon" />
+                                                ) : (
+                                                    <img src={el.icon} clas alt="Icon" />
+                                                )
+                                            }
+                                        </a>
+                                    ))
                             }
                         </div>
                         <div className='flex-nowrap'>

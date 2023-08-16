@@ -19,31 +19,31 @@ const FAQ = () => {
                     {
                         [
                             {
-                                question: 'What is AI Teacher Tool?',
-                                answer: 'AI Teacher Tool is an AI-powered educational platform specifically designed to support teachers in their classrooms. Our technology helps streamline tasks, reduce teacher workload, and enhance the teaching and learning experience.'
+                                question: 'What is Teach Assist AI?',
+                                answer: 'Teach Assist AI is an AI-powered educational platform specifically designed to support teachers in their classrooms. Our technology helps streamline tasks, reduce teacher workload, and enhance the teaching and learning experience.'
                             },
                             {
-                                question: 'What services does AI Teacher Tool offer?',
-                                answer: 'AI Teacher Tool offers a range of tools and services to assist teachers in their educational endeavours. These include curriculum development, lesson planning assistance, classroom management tools, and AI-generated teaching resources.'
+                                question: 'What services does Teach Assist AI offer?',
+                                answer: 'Teach Assist AI offers a range of tools and services to assist teachers in their educational endeavours. These include curriculum development, lesson planning assistance, classroom management tools, and AI-generated teaching resources.'
                             },
                             {
-                                question: 'How does AI Teacher Tool help reduce teacher workload? ',
-                                answer: 'AI Teacher Tool reduces teacher workload by automating mundane tasks and providing initial drafts of teaching resources. Our AI engine generates topics for classroom discussions and produces draft materials, saving teachers significant time and effort. It is important to note that teachers review and modify the generated content to ensure accuracy and suitability for their needs.'
+                                question: 'How does Teach Assist AI help reduce teacher workload?',
+                                answer: 'Teach Assist AI reduces teacher workload by automating mundane tasks and providing initial drafts of teaching resources. Our AI engine generates topics for classroom discussions and produces draft materials, saving teachers significant time and effort. It is important to note that teachers review and modify the generated content to ensure accuracy and suitability for their needs.'
                             },
                             {
-                                question: 'Is my personal information safe with AI Teacher Tool?',
-                                answer: 'Yes, we prioritize the safety and privacy of your personal information. AI Teacher Tool does not share any of your personal information with third parties, including OpenAI. For more details, you can refer to our Privacy Policy.'
+                                question: 'Is my personal information safe with Teach Assist AI?',
+                                answer: 'Yes, we prioritize the safety and privacy of your personal information. Teach Assist AI does not share any of your personal information with third parties, including OpenAI. For more details, you can refer to our Privacy Policy.'
                             },
                             {
                                 question: 'How does Teach Assist AI work?',
                                 answer: 'Teach Assist AI utilizes advanced AI technology to provide teachers with tools and resources for curriculum development, lesson planning, classroom management, and more. Our platform is designed to be intuitive and user-friendly, catering to teachers of all technology comfort levels.',
                             },
                             {
-                                question: 'What makes AI Teacher Tool unique compared to other educational platforms?',
-                                answer: 'AI Teacher Tool stands out by offering innovative AI-powered solutions specifically designed to address the needs and challenges faced by teachers. Our platform provides personalized support and resources that empower teachers to create engaging and effective learning experiences.',
+                                question: 'What makes Teach Assist AI unique compared to other educational platforms?',
+                                answer: 'Teach Assist AI stands out by offering innovative AI-powered solutions specifically designed to address the needs and challenges faced by teachers. Our platform provides personalized support and resources that empower teachers to create engaging and effective learning experiences.',
                             },
                             {
-                                question: 'How do I sign up for AI Teacher Tool?',
+                                question: 'How do I sign up for Teach Assist AI?',
                                 answer: 'Signing up for Teach Assist AI is easy. Simply visit our website and follow the instructions to create your account. From there, you can access our platform and explore the available features and resources.',
                             },
                             {
@@ -64,10 +64,10 @@ const FAQ = () => {
                             },
                             {
                                 question: 'How does Teach Assist AI ensure data security?',
-                                answer: 'We prioritize the security of your data. AI Teacher Tool employ the latest encryption technologies and follow strict data protection protocols to keep your information safe and secure.'
+                                answer: 'We prioritize the security of your data. AI Teacher Tool employ the latest encryption technologies and follow strict data protection protocols to keep your information safe and secure'
                             },
                             {
-                                question: 'Is Teach Assist AI a suitable solution for schools? ',
+                                question: 'Is Teach Assist AI a suitable solution for schools?',
                                 answer: "Absolutely! We offer a dedicated plan designed specifically for schools. With this plan, up to 20 teachers can gain access to Teach Assist AI. Additionally, we provide the option to white-label the tool, allowing you to customize it according to your school's branding and requirements. Our flexible approach ensures that the tool can be tailored to meet your unique needs and preferences.",
                             },
                         ].map((el, i) => (

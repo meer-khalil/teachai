@@ -42,7 +42,6 @@ const Affliate = () => {
           </ul>
           <h3 className=' text-xl md:text-2xl text-center md:mx-40 my-8 font-semibold text-primary'>
             Don't miss out on this opportunity to take your business to the next level. Join our partner program today and experience the benefits for yourself.
-            How Does It Work?
           </h3>
         </div>
 

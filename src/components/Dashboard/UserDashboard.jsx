@@ -39,7 +39,7 @@ const UserDashboard = () => {
                         <div className="px-2 md:px-6 pt-2">
 
                             <Routes>
-                                <Route path='/' element={<Dashboard />} />
+                                {/* <Route path='/' element={<Dashboard />} /> */}
                                 
                                 <Route path={`history/*`} element={<ChatHistory />} />
 

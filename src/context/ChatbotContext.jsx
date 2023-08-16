@@ -33,7 +33,7 @@ const data = [
     },
 
     {
-        title: "Automated Essay Scoring and Feedback",
+        title: "Essay Grading",
         description: 'The Essay Grading bot evaluates essays, considering the question, grade level, and language, using default or custom rubrics for comprehensive assessment.',
         icon: _3_AutomatedEssay,
         name: 'Elsa',
@@ -74,7 +74,7 @@ const data = [
     },
     {
         title: "Video to Quiz",
-        description: 'The Detect AI-Writing & Plagiarism Bot ensures originality by identifying AI-generated content and detecting plagiarism, maintaining academic integrity.',
+        description: 'Transform videos into interactive quizzes using the Video to Quiz Bot, crafting questions in chosen formats and languages effortlessly.',
         icon: _8_VideotoQuizBot,
         name: 'Hunter',
         url: 'video-to-quiz',

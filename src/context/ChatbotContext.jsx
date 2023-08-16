@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 
 // bots images
-import  _1_LessonPlanning from '../images/bots/1.Lesson Planning - Lisa.png'
+import _1_LessonPlanning from '../images/bots/1.Lesson Planning - Lisa.png'
 import _2_Quiz from '../images/bots/2.Quiz - Qasim.png'
 import _3_AutomatedEssay from '../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import _4_ComprehensionLesson from '../images/bots/4.Comprehension Lesson Generator - Cara.png'
@@ -88,7 +88,7 @@ const data = [
         url: 'plagrism',
         category: 'Assessment & Progress Monitoring'
     },
-    {   
+    {
         title: "PowerPoint Presentation",
         description: 'Create dynamic PowerPoint presentations effortlessly through the user-friendly inputs of the Presentation Bot, simplifying content delivery and engagement.',
         icon: _10_PowerPoint,
@@ -107,6 +107,12 @@ export const ChatbotProvider = ({ children }) => {
     const [selectedCategory, setSelectedCategory] = useState('');
 
 
+    let homebots = data.slice(0, 6);
+
+    const getBots = (category) => {
+        return data.filter((el) => el.category.includes(category) || category.includes(el.category))
+    }
+
     const filterChatbots = (category) => {
         setSelectedCategory(category);
 
@@ -124,7 +130,9 @@ export const ChatbotProvider = ({ children }) => {
             data,
             chatbots,
             filterChatbots,
-            selectedCategory
+            selectedCategory,
+            homebots,
+            getBots
         }}>
             {children}
         </ChatbotContext.Provider>

@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Productivity from '../Home/Productivity'
+import { ChatbotContext, ChatbotProvider } from '../../context/ChatbotContext'
+import { UserContext } from '../../context/UserContext'
 
 // import Cloud from '../SVGs/Cloud'
 // import Globe from '../SVGs/Globe'
 // import Performance from '../SVGs/Performance'
 
-const Grid = ({ title, data, description }) => {
+const Grid = ({ title, description }) => {
+
+    const { getBots } = useContext(ChatbotContext)
+
     return (
+
         <div className='mt-10 mb-10 md:mb-32 border-b-2 border-b-gray-600 pb-20 mx-3 md:mx-10'>
 
             <h3 className='text-3xl font-semibold my-8 text-primary text-center md:text-start'>
@@ -19,7 +26,7 @@ const Grid = ({ title, data, description }) => {
             <div className='grid grid-cols-1 md:grid-cols-3 rounded-3xl justify-center items-center gap-10'>
                 {
 
-                    data.map((el, i) => (
+                    getBots(title)?.map((el, i) => (
 
                         <div className={`flex flex-col gap-5 rounded-xl px-5 py-5`}
                             style={{
@@ -39,9 +46,11 @@ const Grid = ({ title, data, description }) => {
                         </div>
                     ))
                 }
+
             </div>
 
         </div>
+
     )
 }
 

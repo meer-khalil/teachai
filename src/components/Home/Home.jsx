@@ -15,6 +15,7 @@ import TestimonialSlider from './Testimonial/TestimonialSlider';
 import { UserContext } from '../../context/UserContext';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { ChatbotProvider } from '../../context/ChatbotContext';
 
 
 export const Home = () => {
@@ -31,47 +32,49 @@ export const Home = () => {
 
 
   return (
-    <div className='max-w-[1640px] mx-auto overflow-hidden'>
+    <ChatbotProvider>
+      <div className='max-w-[1640px] mx-auto overflow-hidden'>
 
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Teach Assist AI</title>
-      </Helmet>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Teach Assist AI</title>
+        </Helmet>
 
-      <Hero />
+        <Hero />
 
-      {/* <Logos /> */}
+        {/* <Logos /> */}
 
-      <Productivity />
+        <Productivity />
 
-      <Stats />
+        <Stats />
 
-      {/* <Steps /> */}
+        {/* <Steps /> */}
 
-      <Features />
+        <Features />
 
-      <History />
+        <History />
 
-      <Benefits />
+        <Benefits />
 
-      <Integration />
+        <Integration />
 
-      <div className='md:px-10'>
-        <Feature
-          title="Transforming Videos Into Notes"
-          description="Our innovative platform empowers you to effortlessly create guided notes from any YouTube video, regardless of its length. Utilizing advanced technology, we accurately summarize video content, enabling you to capture key information and insights in a condensed format. Take your learning to the next level with the option to generate custom questions based on the video, facilitating active engagement. Say goodbye to tedious note-taking and embrace the efficiency of video-based learning."
-          buttonText="See More"
-        />
+        <div className='md:px-10'>
+          <Feature
+            title="Transforming Videos Into Notes"
+            description="Our innovative platform empowers you to effortlessly create guided notes from any YouTube video, regardless of its length. Utilizing advanced technology, we accurately summarize video content, enabling you to capture key information and insights in a condensed format. Take your learning to the next level with the option to generate custom questions based on the video, facilitating active engagement. Say goodbye to tedious note-taking and embrace the efficiency of video-based learning."
+            buttonText="See More"
+          />
+        </div>
+
+        <FindOut />
+
+        {/* <Solo /> */}
+        <h1 className='text-3xl md:text-4xl text-center font-extrabold tracking-tight md:mt-12 mb-5 md:mb-10 text-primary'>
+          What People Say
+        </h1>
+        <TestimonialSlider />
       </div>
-
-      <FindOut />
-
-      {/* <Solo /> */}
-      <h1 className='text-3xl md:text-4xl text-center font-extrabold tracking-tight md:mt-12 mb-5 md:mb-10 text-primary'>
-        What People Say
-      </h1>
-      <TestimonialSlider />
-    </div>
+    </ChatbotProvider>
   )
 }
 

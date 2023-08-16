@@ -8,7 +8,7 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Planner';
+    const chatbot_name = 'Lesson Planning';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
 
@@ -64,7 +64,7 @@ exports.quiz = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Quiz Generator';
+    const chatbot_name = 'Math Quiz';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -216,7 +216,7 @@ exports.lessonCompQuestion = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Comprehension Lesson Generator';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -371,7 +371,7 @@ exports.mathQuizGenerator = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Math Quiz Generator';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -423,7 +423,7 @@ exports.mathQuizEvaluate = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Math Quiz Generator';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -475,7 +475,7 @@ exports.mathQuizAnswer = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Math Quiz Generator';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -527,7 +527,7 @@ exports.mathLesson = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Math Lesson';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {

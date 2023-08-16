@@ -1,6 +1,6 @@
 import React from 'react'
 
-import logo from '../images/logo.png'
+import logo from '../images/logo-removebg-preview.png'
 import facebook from '../images/Icons/facebook.svg'
 import insta from '../images/Icons/insta.svg'
 import linkedin from '../images/Icons/linkedin.svg'
@@ -19,7 +19,7 @@ const Footer = () => {
                     <div className=''>
                         <Link to='/'>
                             {/* <div className='text-3xl ml-8 tracking-wider'>Khalil Ahmad</div> */}
-                            <img src={logo} className='h-8 ' alt="logo" />
+                            <img src={logo} className='h-16 ' alt="logo" />
                         </Link>
                         <p
                             className=' mt-10 md:mr-20 text-sm text-justify text-secondary'>

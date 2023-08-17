@@ -12,7 +12,7 @@ const data = [
         freeUpdates: '6 months',
         features: [
             'Access To All Chatbots',
-            'Free 5 Chat requests per day',
+            'Free 10 Chat requests per day',
             '1 member',
             'Write in 30+ languages'
         ]
@@ -28,7 +28,10 @@ const data = [
             '60 chat requests per day',
             '1 memeber seat',
             'Write in 30+ languages',
-            '24/7 live chat support'
+            '24/7 live chat support',
+            'All Grade Levels',
+            'Upload Files 5gb',
+            '10 files uploads'
         ]
     },
     {
@@ -44,7 +47,10 @@ const data = [
             'Write in 30+ languages',
             '24/7 live chat support',
             '2 weeks memory retention of past chats',
-            'Extract responses to word document/pdf/google doc/excel'
+            'Extract responses to word document/pdf/google doc/excel',
+            'All Grade Levels',
+            'Upload Files 10gb',
+            '20 Files Upload'
         ]
 
     },

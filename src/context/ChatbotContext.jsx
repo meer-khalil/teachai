@@ -24,7 +24,7 @@ const data = [
         category: 'Lesson Planning'
     },
     {
-        title: 'Math Quiz',
+        title: 'General Quiz',
         description: "QuizBot offers grade-specific quizzes on various subjects, with options like multiple-choice, true/false, and open-ended questions, fostering interactive learning in multiple languages.",
         icon: _2_Quiz,
         name: "Qasim",

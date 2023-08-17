@@ -64,11 +64,11 @@ const FAQ = () => {
                             },
                             {
                                 question: 'How does Teach Assist AI ensure data security?',
-                                answer: 'We prioritize the security of your data. AI Teacher Tool employ the latest encryption technologies and follow strict data protection protocols to keep your information safe and secure'
+                                answer: 'We prioritize the security of your data. Teach Assist AI employ the latest encryption technologies and follow strict data protection protocols to keep your information safe and secure'
                             },
                             {
                                 question: 'Is Teach Assist AI a suitable solution for schools?',
-                                answer: "Absolutely! We offer a dedicated plan designed specifically for schools. With this plan, up to 20 teachers can gain access to Teach Assist AI. Additionally, we provide the option to white-label the tool, allowing you to customize it according to your school's branding and requirements. Our flexible approach ensures that the tool can be tailored to meet your unique needs and preferences.",
+                                answer: "Certainly! We have a specialized plan tailored for educational institutions. This plan includes access to Teach Assist AI, and we also offer white-labeling for branding alignment. Our flexible approach ensures customization to match your school's needs precisely. Don't hesitate to reach out to explore these tailored solutions!",
                             },
                         ].map((el, i) => (
                             <Question key={i} question={el.question} answer={el.answer} />

@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from 'react'
-import jsPDF from 'jspdf';
 
 import ChatForm from './ChatForm'
 
@@ -18,6 +17,8 @@ import  _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.pn
 
 const LessonPlanner = () => {
 
+    const componentRef = useRef(null)
+
 
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
@@ -28,32 +29,6 @@ const LessonPlanner = () => {
     const { setPdfAnswer } = useContext(UserContext)
     const reportTemplateRef = useRef(null);
 
-    const exportToPdf = async () => {
-        let pdf = new jsPDF('p', 'pt', 'a4');
-        let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
-
-        // Calculate the scale factor to fit the content within the PDF
-        let pdfWidth = pdf.internal.pageSize.width;
-        let elementWidth = element.scrollWidth;
-        let margin = 18; // Set a margin to avoid the content touching the edges of the PDF
-        let scaleFactor = (pdfWidth - margin * 2) / elementWidth;
-
-        pdf.html(element, {
-            x: margin,
-            y: margin,
-            html2canvas: {
-                scale: scaleFactor,
-                windowHeight: element.scrollHeight,
-                windowWidth: element.scrollWidth,
-                useCORS: true
-            },
-            autoPaging: 'text',
-            callback: function () {
-                window.open(pdf.output('bloburl')); // For debugging
-            }
-        });
-
-    };
 
 
     const exportToDocx = async () => {
@@ -131,9 +106,9 @@ const LessonPlanner = () => {
                         {
                             (answer.length > 0) ? (
                                 <div>
-                                    <div className='relative'>
+                                    <div className='relative' ref={componentRef}>
 
-                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        <Answer  reportTemplateRef={reportTemplateRef} answer={answer}/>
                                         {loading && <Loading />}
 
                                     </div>
@@ -162,10 +137,7 @@ const LessonPlanner = () => {
                 </div>
             </div>
 
-            <ExportButtons
-                exportToPdf={exportToPdf}
-                exportToDocx={exportToDocx}
-            />
+            <ExportButtons componentToPrint={componentRef} answer={answer}/>
 
         </div>
     )

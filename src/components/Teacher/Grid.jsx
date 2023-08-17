@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Productivity from '../Home/Productivity'
 import { ChatbotContext, ChatbotProvider } from '../../context/ChatbotContext'
 import { UserContext } from '../../context/UserContext'
@@ -10,6 +10,12 @@ import { UserContext } from '../../context/UserContext'
 const Grid = ({ title, description }) => {
 
     const { getBots } = useContext(ChatbotContext)
+    const [chatbots, setChatbots] = useState(null)
+
+    useEffect(() => {
+        let bots = getBots(title)
+        setChatbots(bots)
+    }, [])
 
     return (
 
@@ -26,7 +32,7 @@ const Grid = ({ title, description }) => {
             <div className='grid grid-cols-1 md:grid-cols-3 rounded-3xl justify-center items-center gap-10'>
                 {
 
-                    getBots(title)?.map((el, i) => (
+                    chatbots?.map((el, i) => (
 
                         <div className={`flex flex-col gap-5 rounded-xl px-5 py-5`}
                             style={{

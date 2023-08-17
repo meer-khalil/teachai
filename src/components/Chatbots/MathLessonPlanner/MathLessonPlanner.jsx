@@ -109,7 +109,7 @@ const MathLessonPlanner = () => {
                     <Header
                         name={'Lucy'}
                         image={_6_MathLessonPlanner}
-                        heading={'General Lesson Planner'}
+                        heading={'Math Lesson Planner'}
                         desc={'Allow me to aid you in designing well-structured math lessons that align with your goals and requirements.'}
                     />
 

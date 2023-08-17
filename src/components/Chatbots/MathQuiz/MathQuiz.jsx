@@ -104,7 +104,7 @@ const MathQuiz = () => {
                     <Header
                         name={'Matthew'}
                         image={_5_MathsQuiz}
-                        heading={'Lesson Comprehension'}
+                        heading={'Maths Quiz'}
                         desc={'Allow me to assist you in creating math quizzes that meet your requirements.'}
                     />
 

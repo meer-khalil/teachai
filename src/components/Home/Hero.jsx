@@ -18,8 +18,8 @@ const Hero = () => {
                     </h1>
 
                     <p
-                        className='text-secondary text-justify md:text-lg'>
-                        Streamline your teacher workload and prioritize your students with an efficient tool that harnesses the power of AI. Wether you're seasoned pro or starting out. It simplifies and enhances your teaching experience.
+                        className='text-secondary md:text-lg'>
+                        Streamline your teacher workload and prioritize your students with an efficient tool that harnesses the power of AI. whether you're seasoned pro or starting out. It simplifies and enhances your teaching experience.
                     </p>
 
                     <div className='flex gap-5 items-center mt-8'>

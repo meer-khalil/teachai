@@ -20,9 +20,10 @@ const Footer = () => {
             <footer className=' mx-10 md:mx-20 flex flex-col-reverse md:flex-row justify-between gap-5'>
                 <div style={{ flex: 2 }}>
                     <div className=''>
-                        <Link to='/'>
+                        <Link to='/' className=' flex items-center gap-3'>
                             {/* <div className='text-3xl ml-8 tracking-wider'>Khalil Ahmad</div> */}
                             <img src={logo} className='h-16 ' alt="logo" />
+                            <h2 className=' text-primary text-2xl font-bold'>Teach Assist <span className=' text-orange-600'>AI</span></h2>
                         </Link>
                         <p
                             className=' mt-10 md:mr-20 text-sm text-justify text-secondary'>
@@ -47,26 +48,26 @@ const Footer = () => {
                                         url: 'TBC'
                                     }
                                     ,
-                                    { 
-                                        icon: tiktok, 
-                                        url: 'https://twitter.com/teachassist_ai' 
-                                    } ,
-                                    { 
-                                        icon: twitter, 
-                                        url: 'https://www.tiktok.com/@teachassistai' 
+                                    {
+                                        icon: tiktok,
+                                        url: 'https://twitter.com/teachassist_ai'
+                                    },
+                                    {
+                                        icon: twitter,
+                                        url: 'https://www.tiktok.com/@teachassistai'
                                     }
                                 ].map((el, i, arr) => (
-                                        <a href={el.url} target='_blank'>
-                                            {
-                                                (i === arr.length - 1) ? (
+                                    <a href={el.url} target='_blank'>
+                                        {
+                                            (i === arr.length - 1) ? (
 
-                                                    <img src={el.icon} className=' h-8 rounded w-9 mt-2' alt="Icon" />
-                                                ) : (
-                                                    <img src={el.icon} clas alt="Icon" />
-                                                )
-                                            }
-                                        </a>
-                                    ))
+                                                <img src={el.icon} className=' h-8 rounded w-9 mt-2' alt="Icon" />
+                                            ) : (
+                                                <img src={el.icon} clas alt="Icon" />
+                                            )
+                                        }
+                                    </a>
+                                ))
                             }
                         </div>
                         <div className='flex-nowrap'>

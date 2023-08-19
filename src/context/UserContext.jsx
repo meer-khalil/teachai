@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
                 api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 setIsAuthenticated(true)
                 setUser(res.data);
-                navigate('/user/dashboard')
+                navigate('/user/dashboard/chatbots')
             }
         } catch (error) {
             console.error('Failed to register user:', error?.response?.data);

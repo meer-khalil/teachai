@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import image from '../../images/check.avif'
+import image from '../../images/login.jpeg'
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 

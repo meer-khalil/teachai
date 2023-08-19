@@ -18,7 +18,7 @@ const Integration = () => {
                         Automated Essay Scoring and Feedback
                     </h1>
 
-                    <p className='text-secondary text-center md:text-justify text-lg md:pr-32'>
+                    <p className='text-secondary text-center md:text-left text-lg md:pr-32'>
                         This powerful tool utilizes natural language processing techniques to extract main ideas, applies a scoring algorithm based on grammar, coherence, idea development, and alignment with the essay question, and generates comprehensive feedback. With customizable marking rubrics and the ability to detect AI-writing and plagiarism, our chatbot simplifies essay assessment and provides valuable suggestions for improvement.
                         Streamline your essay grading process and empower your students to excel with our AI Essay Marking and Feedback chatbot.
                     </p>

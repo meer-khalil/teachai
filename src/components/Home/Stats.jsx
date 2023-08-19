@@ -17,7 +17,7 @@ const Stats = () => {
                             Simplify Teaching with AI
                         </h1>
 
-                        <p className='text-white text-lg text-justify'>
+                        <p className='text-white text-lg'>
                             With our AI Teacher chatbots, creating high quality classrooms resources become a breeze, saving you hours of research and design. Simply input your desired topic, and the chatbot will generate an array of materials, including lesson plans, activities, worksheets, and more. Our advanced language processing algorithms enable a comprehensive understanding of the teacher's input input.
                         </p>
 

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.8e22a2ec.css",
-    "main.js": "/static/js/main.1d966499.js",
+    "main.css": "/static/css/main.e2bb1194.css",
+    "main.js": "/static/js/main.02976aa8.js",
     "static/js/787.187497ca.chunk.js": "/static/js/787.187497ca.chunk.js",
     "static/media/4.Comprehension Lesson Generator - Cara.png": "/static/media/4.Comprehension Lesson Generator - Cara.8cc5f8a5e896426ae4b1.png",
     "static/media/1.Lesson Planning - Lisa.png": "/static/media/1.Lesson Planning - Lisa.7a1fc06582c938599c80.png",
@@ -20,6 +20,7 @@
     "static/media/pdf.png": "/static/media/pdf.465e068c2ec54afe740a.png",
     "static/media/feature-3.avif": "/static/media/feature-3.3b17d50a4f13e729d4f4.avif",
     "static/media/history.jpg": "/static/media/history.85b6791291f7ee7c3a47.jpg",
+    "static/media/login.jpeg": "/static/media/login.852f0021d3406cfd14b6.jpeg",
     "static/media/check.avif": "/static/media/check.e829aaab917116b13c90.avif",
     "static/media/hero_image.jpg": "/static/media/hero_image.1267f42577e7450a158e.jpg",
     "static/media/twitter.jpeg": "/static/media/twitter.c27fa53715c3ee9b10a7.jpeg",
@@ -30,12 +31,12 @@
     "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.8e22a2ec.css.map": "/static/css/main.8e22a2ec.css.map",
-    "main.1d966499.js.map": "/static/js/main.1d966499.js.map",
+    "main.e2bb1194.css.map": "/static/css/main.e2bb1194.css.map",
+    "main.02976aa8.js.map": "/static/js/main.02976aa8.js.map",
     "787.187497ca.chunk.js.map": "/static/js/787.187497ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e22a2ec.css",
-    "static/js/main.1d966499.js"
+    "static/css/main.e2bb1194.css",
+    "static/js/main.02976aa8.js"
   ]
 }

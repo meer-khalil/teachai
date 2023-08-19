@@ -41,7 +41,7 @@ const data = [
         category: 'Assessment & Progress Monitoring'
     },
     {
-        title: 'Comprehension Lesson Generator',
+        title: 'Comprehension Lesson',
         description: 'The Comprehension Lesson Generator Bot creates lessons with custom write-ups, questions in various formats, fostering language proficiency and understanding.',
         icon: _4_ComprehensionLesson,
         name: 'Cara',

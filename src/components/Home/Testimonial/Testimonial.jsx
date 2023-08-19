@@ -11,7 +11,7 @@ function Testimonial({ review }) {
                     <div className='flex flex-col justify-center items-center'>
                         <blockquote>
                             <p
-                                class=" text-lg text-justify text-secondary">"
+                                class=" text-lg text-start text-secondary">"
                                 {review ? review.comment : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora facere dicta quidem, beatae accusantium, commodi quas quos, officia maiores quibusdam enim eum iure reiciendis perspiciatis id. Aut aliquam culpa et."}
                             </p>
                         </blockquote>

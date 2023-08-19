@@ -28,7 +28,7 @@ const data = [
             '60 chat requests per day',
             '1 memeber seat',
             'Write in 30+ languages',
-            '24/7 live chat support',
+            '24/7 live chat support',
             'All Grade Levels',
             'Upload Files 5gb',
             '10 files uploads'

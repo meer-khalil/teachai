@@ -64,9 +64,10 @@ exports.quiz = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Math Quiz';
+    const chatbot_name = 'General Quiz';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
+    
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id

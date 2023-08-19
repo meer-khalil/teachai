@@ -1,10 +1,9 @@
 
-function Answer({reportTemplateRef, answer }) {
-
+function Answer({ answer }) {
 
   return (
     <div>
-      <div id='chat_content' ref={reportTemplateRef} className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
+      <div id='chat_content' className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
         {
           answer?.map((el, i) => (
             <div className="chat_content_item">
@@ -20,7 +19,6 @@ function Answer({reportTemplateRef, answer }) {
           ))
         }
       </div>
-      {/* <button className="button" onClick={handleGeneratePdf}>Generate PDF</button> */}
     </div>
   );
 }

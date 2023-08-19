@@ -9,8 +9,8 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
-import { UserContext } from '../../../context/UserContext';
+import ExportButtons from '../ExportButtons';
+
 
 
 import  _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
@@ -25,18 +25,6 @@ const LessonPlanner = () => {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
-
-    const { setPdfAnswer } = useContext(UserContext)
-    const reportTemplateRef = useRef(null);
-
-
-
-    const exportToDocx = async () => {
-        // let element = document.getElementById('chat_content'); // Replace 'idName' with the id of your HTML element
-        // const convertedDoc = HtmlToDocx.asBlob(element.outerHTML);
-        // saveAs(convertedDoc, 'document.doc');
-        console.log('setup to download docx');
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -108,7 +96,7 @@ const LessonPlanner = () => {
                                 <div>
                                     <div className='relative' ref={componentRef}>
 
-                                        <Answer  reportTemplateRef={reportTemplateRef} answer={answer}/>
+                                        <Answer  answer={answer}/>
                                         {loading && <Loading />}
 
                                     </div>

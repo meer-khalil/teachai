@@ -4,16 +4,18 @@ import Dashboard from './components/Dashboard'
 import ChatHistory from './history/ChatHistory'
 import { UserContext } from '../../context/UserContext'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import LessonPlanner from '../Chatbots/LessonPlanner/LessonPlanner'
-// import Quiz from '../Chatbots/Quiz/Quiz'
 import Chatbots from './components/Chatbots'
 import { ChatbotProvider } from '../../context/ChatbotContext'
-// import Essay from '../Chatbots/Essay/Essay'
-// import LessonComprehension from '../Chatbots/LessonComprehension/LessonComprehension'
-// import MathQuiz from '../Chatbots/MathQuiz/MathQuiz'
-// import MathLessonPlanner from '../Chatbots/MathLessonPlanner/MathLessonPlanner'
-// import VideoToNotes from '../Chatbots/VideoToNotes/VideoToNotes'
-// import VideoToQuiz from '../Chatbots/VideoToQuiz/VideoToQuiz'
+
+
+import LessonPlanner from '../Chatbots/LessonPlanner/LessonPlanner'
+import Quiz from '../Chatbots/Quiz/Quiz'
+import Essay from '../Chatbots/Essay/Essay'
+import LessonComprehension from '../Chatbots/LessonComprehension/LessonComprehension'
+import MathQuiz from '../Chatbots/MathQuiz/MathQuiz'
+import MathLessonPlanner from '../Chatbots/MathLessonPlanner/MathLessonPlanner'
+import VideoToNotes from '../Chatbots/VideoToNotes/VideoToNotes'
+import VideoToQuiz from '../Chatbots/VideoToQuiz/VideoToQuiz'
 
 const UserDashboard = () => {
 
@@ -47,14 +49,16 @@ const UserDashboard = () => {
 
                                 <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
 
-                                {/* <Route path={`chatbot/quiz`} element={<Quiz />} />
+                                <Route path={`chatbot/quiz`} element={<Quiz />} />
+
                                 <Route path={`chatbot/essay`} element={<Essay />} />
+                                
                                 <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
                                 <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
                                 <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
                                 <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
 
-                                <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} /> */}
+                                <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
                             
                             </Routes>
 

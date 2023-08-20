@@ -3,15 +3,12 @@ import React, { useContext, useRef, useState } from 'react'
 import ChatForm from './ChatForm'
 
 import Loading from './Loading'
-import { backend_url } from '../../../util/variables'
 import Header from '../Header'
 import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
-import { UserContext } from '../../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import ExportButtons from '../ExportButtons';
 
 // import { saveAs } from 'file-saver';
 // import { HtmlToDocx } from 'html-docx-js';

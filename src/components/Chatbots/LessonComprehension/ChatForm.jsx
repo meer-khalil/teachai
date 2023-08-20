@@ -51,7 +51,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="writeUp" className='font-medium'>
-                        Write Up
+                        Write-up
                     </label>
                     <input
                         type="text"
@@ -64,7 +64,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="question" className='font-medium'>
-                        Question Type
+                        Question Type (Eg 1. multiple choice 2. true or false etc)
+
                     </label>
                     <input
                         type="text"
@@ -79,7 +80,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="qnumber" className='font-medium'>
-                        Question Number
+                        Number of Questions
                     </label>
                     <input
                         type="text"

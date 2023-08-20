@@ -78,7 +78,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="quiz_type" className='font-medium'>
-                        Quiz Type
+                    Quiz Type (Eg: multiple choice, true or false etc)
                     </label>
                     <input
                         type="text"

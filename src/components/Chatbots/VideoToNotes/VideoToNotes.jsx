@@ -9,12 +9,8 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
-import { UserContext } from '../../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import ExportButtons from '../ExportButtons';
 
-// import { saveAs } from 'file-saver';
-// import { HtmlToDocx } from 'html-docx-js';
 
 import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent .png'
 

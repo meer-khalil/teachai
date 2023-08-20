@@ -74,7 +74,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="gradeLevel" className='font-medium'>
-                        Grade
+                        Grade Level
                     </label>
                     <input
                         type="text"
@@ -104,36 +104,37 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                     <label
                         htmlFor="essayContent"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        className="block mb-2 text-sm font-medium text-gray-900">
                         Essay Content
                     </label>
                     <textarea
                         id="essayContent"
                         rows="4"
                         name='essayContent'
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Write your thoughts here..."
                         onChange={handleChange}
                     >
                     </textarea>
-
+                    <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
                 </div>
 
                 <div className='flex flex-col mb-5'>
                     <label
                         htmlFor="essayContent"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        className="block mb-2 text-sm font-medium text-gray-900">
                         Rubric
                     </label>
                     <textarea
                         id="essayContent"
                         rows="4"
                         name='rubric'
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Write your thoughts here..."
                         onChange={handleChange}
                     >
                     </textarea>
+
                     <label htmlFor="defaultRubric" className='flex gap-2 cursor-pointer'>
                         <input type="checkbox" id='defaultRubric' onChange={(e) => {
                             if (e.target.checked) {

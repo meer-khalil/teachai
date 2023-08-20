@@ -50,7 +50,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="gradeLevel" className='font-medium'>
-                        Grade
+                        Grade Level
                     </label>
                     <input
                         type="text"
@@ -63,7 +63,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="topic" className='font-medium'>
-                        Topic
+                        Quiz Topic
                     </label>
                     <input
                         type="text"
@@ -91,7 +91,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="summary" className='font-medium'>
-                        Summary
+                    Short Summary Learning Objectives
                     </label>
                     <input
                         type="text"
@@ -105,7 +105,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="type" className='font-medium'>
-                        Type
+                    Quiz Type (Eg: multiple choice, true or false etc)
                     </label>
                     <input
                         type="text"
@@ -118,7 +118,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="questionnumber" className='font-medium'>
-                        Questions Number
+                    Number of Questions
                     </label>
                     <input
                         type="text"

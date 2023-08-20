@@ -51,7 +51,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="summary" className='font-medium'>
-                        Summary of Video
+                        Video URL
                     </label>
                     <input
                         type="text"

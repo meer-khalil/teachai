@@ -8,7 +8,7 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
+import ExportButtons from '../ExportButtons';
 
 
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
@@ -125,7 +125,6 @@ const MathQuiz = () => {
             </div>
 
             <ExportButtons />
-            <button className=' bg-blue-300 p-2'>Reveal Answers</button>
         </div>
     )
 }

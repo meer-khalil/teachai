@@ -73,6 +73,7 @@ export const Home = () => {
           What People Say
         </h1>
         <TestimonialSlider />
+        
       </div>
     </ChatbotProvider>
   )

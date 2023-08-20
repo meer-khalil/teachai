@@ -54,8 +54,11 @@ const UserDashboard = () => {
                                 <Route path={`chatbot/essay`} element={<Essay />} />
                                 
                                 <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
+
                                 <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
+                                
                                 <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
+                                
                                 <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
 
                                 <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />

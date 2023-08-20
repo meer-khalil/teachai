@@ -8,7 +8,7 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
+import ExportButtons from '../ExportButtons';
 
 
 import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
@@ -125,8 +125,6 @@ const LessonComprehension = () => {
             </div>
 
             <ExportButtons />
-            
-            <button className=' bg-blue-300 p-2'>Reveal Answers</button>
         </div>
     )
 }

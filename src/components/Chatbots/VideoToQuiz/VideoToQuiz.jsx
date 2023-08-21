@@ -10,9 +10,6 @@ import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
-// import { saveAs } from 'file-saver';
-// import { HtmlToDocx } from 'html-docx-js';
-
 import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
 
 const VideoToQuiz = () => {

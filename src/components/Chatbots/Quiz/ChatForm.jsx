@@ -136,6 +136,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         type="text"
                         id='language'
                         name='language'
+                        placeholder='English'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

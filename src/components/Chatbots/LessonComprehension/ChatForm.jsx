@@ -51,15 +51,24 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="writeUp" className='font-medium'>
-                        Write-up
+                        Text Input
                     </label>
-                    <input
+                    <textarea
+                        id='writeUp'
+                        name='writeup'
+                        rows="4"
+                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Write your thoughts here..."
+                        onChange={handleChange}
+                    >
+                    </textarea>
+                    {/* <input
                         type="text"
                         id='writeUp'
                         name='writeup'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
-                    />
+                    /> */}
                 </div>
 
                 <div className='flex flex-col mb-5'>
@@ -100,6 +109,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         type="text"
                         id='language'
                         name='language'
+                        placeholder='English'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

@@ -17,7 +17,7 @@ const History = () => {
 
                     <img src={history} alt="History" className='rounded-[1rem]' />
 
-                    <h1 className='text-4xl md:text-4xl mb-6 mt-2  font-extrabold text-secondary'>
+                    <h1 className='text-4xl text-center md:text-start md:text-4xl mb-6 mt-2  font-extrabold text-secondary'>
                         Teach Smart, Teach Efficient
                         {/* :Harness the Power of AI Assistance */}
                     </h1>

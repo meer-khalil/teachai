@@ -1,6 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { backend_url } from '../../util/variables'
+import api from '../../util/api'
 
 const data = [
     {
@@ -68,6 +70,18 @@ const data = [
 ]
 
 const Pricing = () => {
+
+    const processPayment = (plan) => {
+        api.post('/payment/process', {plan})
+            .then(response => {
+                window.location.href = response.data.url
+                console.log('Response:', response.data); 
+            })
+            .catch(error => {
+                console.error('Error:', error.message);
+            });
+    }
+
     return (
         <div className=' max-w-[1440px] mx-auto'>
 
@@ -166,7 +180,11 @@ const Pricing = () => {
                                             ))
                                         }
                                     </ul>
-                                    <a href="/" class="text-secondary  font-medium rounded-lg text-sm px-5 py-2.5 text-center border-2 border-secondary hover:bg-secondary hover:text-white">Get started</a>
+                                    <button
+                                        onClick={() => processPayment(el.title)}
+                                        class="text-secondary  font-medium rounded-lg text-sm px-5 py-2.5 text-center border-2 border-secondary hover:bg-secondary hover:text-white">
+                                        Get started
+                                    </button>
                                 </div>
                             ))
                         }

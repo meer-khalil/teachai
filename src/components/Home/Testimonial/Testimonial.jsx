@@ -3,7 +3,7 @@ import React from 'react'
 
 function Testimonial({ review }) {
     return (
-        <section class="mt-10 rounded-[1rem] w-full h-96" style={{
+        <section class="mt-10 rounded-[1rem] w-full md:h-96" style={{
             boxShadow: '0px 0px 38px -11px rgba(0,0,0,0.35)'
         }}>
             <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">

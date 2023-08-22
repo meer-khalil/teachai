@@ -21,9 +21,9 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
     const sig = req.headers['stripe-signature'];
 
     let event;
-    // console.log('Webhook: ', req.body);
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        console.log('Here is the Event!: ',event);
     } catch (err) {
         console.log('Stripe Error: ', err.message);
         res.status(400).send(`Webhook Error: ${err.message}`);
@@ -38,13 +38,24 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
             // Then define and call a function to handle the event payment_intent.succeeded
             break;
         // ... handle other event types
+        case 'checkout.session.completed':
+            const checkoutSessionCompleted = event.data.object;
+            console.log('Checkout Session: ', checkoutSessionCompleted)
+            stripe.customers.retrieve(checkoutSessionCompleted.customer).then((customer) => {
+                console.log(customer);
+            }).catch((err) => {
+                console.log('Error: ', err.message);
+            })
+            // Then define and call a function to handle the event payment_intent.succeeded
+            break;
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
 
     // Return a 200 response to acknowledge receipt of the event
-    res.send();
+    res.send().end();
 }))
+
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());

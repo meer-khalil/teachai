@@ -21,37 +21,44 @@ const site = 'http://localhost:3000'
 
 const stripe = require('../config/stripe');
 
-const storeItems = new Map([
-    [1, { priceInCent: 1000, name: 'Learn React' }],
-    [2, { priceInCent: 5000, name: 'Learn Next' }],
+const plans = new Map([
+    ['Starter', { priceInCent: 9900, name: 'Standard Plan' }],
+    ['Professional', { priceInCent: 14900, name: 'Professional Plan' }
+    ],
 ])
 
 exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 
 
+    console.log(plans);
+    let plan = plans.get(req.body.plan);
+    console.log(plan);
+    const customer = await stripe.customers.create({
+        metadata: {
+            userId: req.user._id,
+            plan: JSON.stringify(plan)
+        }
+    })
     try {
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             mode: 'payment',
-            line_items: req.body.items.map((item) => {
-                const storedItem = storeItems.get(item.id)
-                return {
-                    price_data: {
-                        currency: "usd",
-                        product_data: {
-                            name: storedItem.name
-                        },
-                        unit_amount: storedItem.priceInCent
+            customer: customer.id,
+            line_items: [{
+                price_data: {
+                    currency: 'usd',
+                    unit_amount: plan.priceInCent,
+                    product_data: {
+                        name: plan.name
                     },
-                    quantity: item.quantity
-                }
-            }),
+                },
+                quantity: 1,
+            }],
             success_url: `${site}/success`,
             cancel_url: `${site}/cancel`
         })
 
-        // console.log('Session: ', session);
         res.status(200).json({
             success: true,
             url: session.url

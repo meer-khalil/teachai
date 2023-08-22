@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const sendToken = require('../utils/sendToken');
 const ErrorHandler = require('../utils/errorHandler');
+const Usage = require('../models/usageModel');
 // const sendEmail = require('../utils/sendEmail');
 // const crypto = require('crypto');
 // const cloudinary = require('cloudinary');
@@ -24,6 +25,12 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
         password
     });
 
+    const usage = await Usage.create({
+        user: user._id,
+        plan: 'free',
+        usageCount: 1
+    });
+    
     sendToken(user, 201, res);
 });
 

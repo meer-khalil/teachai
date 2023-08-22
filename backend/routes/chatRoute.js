@@ -15,6 +15,7 @@ const {
     mathQuizGenerator,
     mathQuizAnswer
 } = require('../controllers/chatController')
+const { requestLimit } = require('../middlewares/requestLimit')
 
 const router = express.Router()
 
@@ -22,47 +23,47 @@ const router = express.Router()
 /*
     Lesson Planning Bot
 */ 
-router.route('/lessonplanner').post( isAuthenticatedUser, lessonPlanner)
+router.route('/lessonplanner').post(isAuthenticatedUser, requestLimit, lessonPlanner)
 
 /*
     General Quiz Bot
 */ 
-router.route('/quiz').post( isAuthenticatedUser, quiz)
+router.route('/quiz').post( isAuthenticatedUser, requestLimit, quiz)
 
 
 /*
     Automated Essay Scoring and Feedback Bot
 */ 
-router.route('/gradeEssay').post( isAuthenticatedUser, gradeEssay)
-router.route('/gradeEssay/rubric').post( isAuthenticatedUser, gradeEssayRubric)
+router.route('/gradeEssay').post( isAuthenticatedUser, requestLimit, gradeEssay)
+router.route('/gradeEssay/rubric').post( isAuthenticatedUser, requestLimit, gradeEssayRubric)
 
 
 /*
     Comprehension Lesson Generator Bot
 */
-router.route('/lessonComp/questions').post( isAuthenticatedUser, lessonCompQuestion)
-router.route('/lessonComp/chat').post( isAuthenticatedUser, lessonCompChat)
-router.route('/lessonComp/answer').post( isAuthenticatedUser, lessonCompAnswer)
+router.route('/lessonComp/questions').post( isAuthenticatedUser, requestLimit, lessonCompQuestion)
+router.route('/lessonComp/chat').post( isAuthenticatedUser, requestLimit, lessonCompChat)
+router.route('/lessonComp/answer').post( isAuthenticatedUser, requestLimit, lessonCompAnswer)
 
 
 /*
 Maths Quiz Bot
 */
-router.route('/mathquiz/gen').post( isAuthenticatedUser, mathQuizGenerator)
-router.route('/mathquiz/evaluate').post( isAuthenticatedUser, mathQuizEvaluate)
-router.route('/mathquiz/answer').post( isAuthenticatedUser, mathQuizAnswer)
+router.route('/mathquiz/gen').post( isAuthenticatedUser, requestLimit, mathQuizGenerator)
+router.route('/mathquiz/evaluate').post( isAuthenticatedUser, requestLimit, mathQuizEvaluate)
+router.route('/mathquiz/answer').post( isAuthenticatedUser, requestLimit, mathQuizAnswer)
 
 
 /*
     Maths Lesson Planner Bot
 */
-router.route('/math/lesson').post( isAuthenticatedUser, mathLesson)
+router.route('/math/lesson').post( isAuthenticatedUser, requestLimit, mathLesson)
 
 
 /*
     Video to Note Summary Bot
 */ 
-router.route('/video/summarize').post( isAuthenticatedUser, videoSummarize)
-router.route('/video/quiz').post( isAuthenticatedUser, videoToQuiz)
+router.route('/video/summarize').post( isAuthenticatedUser, requestLimit, videoSummarize)
+router.route('/video/quiz').post( isAuthenticatedUser, requestLimit, videoToQuiz)
 
 module.exports = router

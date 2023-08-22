@@ -28,6 +28,8 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
                             
     const sig = req.headers['stripe-signature'];
 
+    console.log('/n/n Here is the Request: (Signature:) ', sig);
+    
     let event;
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);

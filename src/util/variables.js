@@ -4,7 +4,7 @@
 
 const site = 'https://www.teachassistai.com'
 const backend_url = 'https://www.teachassistai.com/api/v1'
-const endpointSecret = 'we_1NhoMsLFLZPxO7T9Mu48Zh6H'
+const endpointSecret = 'whsec_5xhyaOqY5fjrVWRe0gsudFduIAAJBIz9'
 
 module.exports = {
     site,

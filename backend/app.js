@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path')
 // const errorMiddleware = require('./middlewares/error');
 const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
-
+const { endpointSecret } = require('../src/util/variables');
 const stripe = require('./config/stripe');
 
 const app = express();
@@ -19,7 +19,12 @@ app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), as
     // const endpointSecret = "whsec_f12b383d9fb79b803eb705dc657de6028b5e2287f8d3a9c61762b971c3ccc4a6";
 
     // production level secret
-    const endpointSecret = "whsec_zbMBCwDjvfM41907uqLfJs3TnTJHABrd";
+    // const endpointSecret = "whsec_zbMBCwDjvfM41907uqLfJs3TnTJHABrd";
+    // whsec_5xhyaOqY5fjrVWRe0gsudFduIAAJBIz9                           
+    // we_1NhoMsLFLZPxO7T9Mu48Zh6H
+    /*
+        secret is imported from 'utils/variables.js'
+    */ 
                             
     const sig = req.headers['stripe-signature'];
 
@@ -72,6 +77,7 @@ const post = require('./routes/postRoute');
 const payment = require('./routes/paymentRoute');
 const chat = require('./routes/chatRoute');
 const chatHistory = require('./routes/chatHistoryRoute');
+
 
 
 

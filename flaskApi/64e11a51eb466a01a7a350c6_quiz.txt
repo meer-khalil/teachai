@@ -1,0 +1,31 @@
+Here is your quiz on "Derivation" (multiple choice):
+
+Title: Derivation Quiz (Multiple Choice)
+
+Question 1:
+Find the derivative of the function f(x) = 2x^3 - 5x^2 + 4x - 3.
+a) 6x^2 - 10x + 4
+b) 6x^2 - 10x + 1
+c) 6x^2 - 10x - 1
+d) 6x^2 - 10x
+
+Question 2:
+What is the derivative of g(x) = cos(x) - 2sin(x)?
+a) -sin(x) - 3cos(x)
+b) -sin(x) - 2cos(x)
+c) -cos(x) - 2sin(x)
+d) -cos(x) - 3sin(x)
+
+Question 3:
+Given h(x) = 3x^4 + 2x^2 - x, what is h'(x), the derivative of h(x)?
+a) 12x^3 + 4x - 1
+b) 12x^3 + 4x^2 - 1
+c) 12x^3 + 2x^2 - 1
+d) 12x^4 + 4x - 1
+
+Question 4:
+Find the derivative of the function f(x) = e^x - ln(x^2).
+a) e^x - 1/x^2
+b) e^x - 1
+c) e^x - 2/x
+d

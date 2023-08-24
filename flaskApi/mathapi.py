@@ -171,7 +171,7 @@ Begin the quiz with the phrase "Here is your quiz", add title of the quiz wich i
     messages.append(message)
     with open(filename, "w") as outfile:
         json.dump(messages, outfile)
-    with open(quizfilename, "w") as f:
+    with open(quizfilename, "w", encoding='utf-8') as f:
         f.write(message['content'])
     return message['content'].replace('\n','<br>' )
 

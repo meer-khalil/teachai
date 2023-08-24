@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
+
+import './DisabledButton.css';
 
 // import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -11,6 +13,15 @@ export default function Signup() {
   // const navigate = useNavigate();
   const { register } = useContext(UserContext);
 
+
+  // Initialize state using the useState hook
+  const [allow, setAllow] = useState(false);
+
+
+  // Function to update the 'allow' state
+  const handleCheckboxChange = () => {
+    setAllow(!allow);
+  };
 
   const handleSubmit = async (event) => {
 
@@ -119,9 +130,17 @@ export default function Signup() {
               />
             </div>
           </div>
+          <div className="flex items-start gap-2 my-7">
+            <input type="checkbox" id="terms" className=" h-5 w-5" onChange={handleCheckboxChange} />
+            <label htmlFor="terms" className=" text-white">
+              I agree to the Terms and Conditions, Privacy Policy, and Cookie Policy
+            </label>
+          </div>
 
           <div className="flex justify-end">
-            <button className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
+            <button
+              disabled={!allow}
+              className={`${!allow ? 'disabled-button' : ''} border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded`}>
               Sign Up
             </button>
 

@@ -39,7 +39,7 @@ const MathQuiz = () => {
 
 
         try {
-            let res = await api.post(`/lessonComp/chat`, data);
+            let res = await api.post(`/mathquiz/gen`, data);
 
             if (res.statusText === 'OK') {
 

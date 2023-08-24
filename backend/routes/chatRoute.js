@@ -13,7 +13,8 @@ const {
     mathLesson,
     mathQuizEvaluate,
     mathQuizGenerator,
-    mathQuizAnswer
+    mathQuizAnswer,
+    mathLessonPlanner
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 
@@ -23,12 +24,12 @@ const router = express.Router()
 /*
     Lesson Planning Bot
 */ 
-router.route('/lessonplanner').post(isAuthenticatedUser, requestLimit, lessonPlanner)
+router.route('/lessonplanner').post(isAuthenticatedUser, lessonPlanner)
 
 /*
     General Quiz Bot
 */ 
-router.route('/quiz').post( isAuthenticatedUser, requestLimit, quiz)
+router.route('/quiz').post( isAuthenticatedUser, quiz)
 
 
 /*
@@ -57,13 +58,13 @@ router.route('/mathquiz/answer').post( isAuthenticatedUser, requestLimit, mathQu
 /*
     Maths Lesson Planner Bot
 */
-router.route('/math/lesson').post( isAuthenticatedUser, requestLimit, mathLesson)
+router.route('/math/lesson').post( isAuthenticatedUser, mathLessonPlanner)
 
 
 /*
     Video to Note Summary Bot
 */ 
-router.route('/video/summarize').post( isAuthenticatedUser, requestLimit, videoSummarize)
+router.route('/video/summarize').post( isAuthenticatedUser, videoSummarize)
 router.route('/video/quiz').post( isAuthenticatedUser, requestLimit, videoToQuiz)
 
 module.exports = router

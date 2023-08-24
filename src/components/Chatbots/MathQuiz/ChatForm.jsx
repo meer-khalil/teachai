@@ -78,6 +78,19 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
 
                 <div className='flex flex-col mb-5'>
+                    <label htmlFor="numberofquestions" className='font-medium'>
+                        Number of Questions
+                    </label>
+                    <input
+                        type="text"
+                        id='numberofquestions'
+                        name='numberofquestions'
+                        onChange={handleChange}
+                        className='px-2 h-8 rounded border  bg-white outline-none'
+                    />
+                </div>
+
+                <div className='flex flex-col mb-5'>
                     <label htmlFor="gradeLevel" className='font-medium'>
                         Grade Level
                     </label>

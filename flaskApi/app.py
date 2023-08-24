@@ -30,8 +30,6 @@ app.register_error_handler(404, page_not_found)
 def lessonplanner():
     data = request.get_json()
 
-    print('Here is your Data: ', data)
-
     question = data['prompt']    
     user_id = data['id']    
     # question = request.form['prompt']
@@ -43,9 +41,7 @@ def lessonplanner():
 @app.route('/quiz', methods = ['POST', 'GET'])
 def quiz():
     data = request.get_json()
-    
-    print(data)
-    
+
     user_id = data['id']
 
     data = data['prompt']
@@ -166,6 +162,9 @@ def index():
 @app.route("/mathquiz/gen", methods=["POST"])
 def gen_quiz():
     data = request.get_json()
+
+    print('\n\nMath Quiz Generator Data: ', data, '\n\n')
+    
     user_id = data["id"]
     data = data['prompt']
     mathproblem = data["mathproblem"]
@@ -176,7 +175,7 @@ def gen_quiz():
     #user_id = request.form.get("id")
     mathquiz = mathapi.generate_quiz(mathproblem, multiple, user_id)
     # Return the result as JSON
-
+    print('mathQuiz: ', mathquiz)
     result = {"mathquiz": mathquiz}
     return jsonify(result), 200
 
@@ -203,9 +202,9 @@ def lesson():
 @app.route('/video/summarize', methods = ['POST'])
 def summarizevid():
     data = request.get_json()
-    print('Recieved Data: ', data)
-    url =  data['url']
     user_id =  data['id']
+    data = data["prompt"]
+    url =  data['url']
     userinput = data['userinput']
     #url = request.form['url']
     #user_id = request.form['id']
@@ -221,8 +220,6 @@ def videoquiz():
   data = request.get_json()
   user_id =  data['id']
   data = data['prompt']
-
-  print('Recieved Data: ', data)
   
   vidUrl =  data['url']
   num_questions =  data['num_question']
@@ -239,7 +236,7 @@ def videoquiz():
 @app.route('/video/answers', methods = ['POST'])
 def videoquizanswers():
   data = request.get_json()
-  print('Recieved Data: ', data)
+
   vidUrl =  data['url']
   user_id =  data['id']
   #vidUrl =  request.form['url']
@@ -251,7 +248,7 @@ def videoquizanswers():
 @app.route('/video/chat', methods = ['POST'])
 def videochat():
   data = request.get_json()
-  print('Recieved Data: ', data)
+
   vidUrl =  data['url']
   user_id =  data['id']
   prompt = data['prompt']

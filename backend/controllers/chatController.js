@@ -375,28 +375,30 @@ exports.mathQuizGenerator = asyncErrorHandler(async (req, res, next) => {
     const chatbot_name = 'Math Quiz Generator';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
+
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id
     }
 
-    console.log('Request Made!');
+    console.log('Request Made!: ', data);
 
     if (data) {
         try {
-            const response = await api.post(`/lessonComp/questions`, data)
+            const response = await api.post(`/mathquiz/gen`, data)
 
             if (response.statusText === 'OK') {
 
                 const data = response.data
+                console.log('Quiz Response: ', data);
 
                 if (chat_id) {
 
-                    updateChatHistory(chat_id, { question: body.prompt, answer: data.questions }, res)
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.mathquiz }, res)
 
                 } else {
 
-                    createChatHistory(chatbot_name, req.user._id, data.questions, res);
+                    createChatHistory(chatbot_name, req.user._id, data.mathquiz, res);
                 }
 
             } else {
@@ -523,12 +525,12 @@ exports.mathQuizAnswer = asyncErrorHandler(async (req, res, next) => {
 })
 
 
-exports.mathLesson = asyncErrorHandler(async (req, res, next) => {
+exports.mathLessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Math Lesson';
+    const chatbot_name = 'Math Lesson Planner';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
     let data = {
@@ -540,7 +542,7 @@ exports.mathLesson = asyncErrorHandler(async (req, res, next) => {
 
     if (data) {
         try {
-            const response = await api.post(`/lessonComp/questions`, data)
+            const response = await api.post(`/math/lesson`, data)
 
             if (response.statusText === 'OK') {
 
@@ -548,11 +550,11 @@ exports.mathLesson = asyncErrorHandler(async (req, res, next) => {
 
                 if (chat_id) {
 
-                    updateChatHistory(chat_id, { question: body.prompt, answer: data.questions }, res)
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
 
                 } else {
 
-                    createChatHistory(chatbot_name, req.user._id, data.questions, res);
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
                 }
 
             } else {
@@ -580,15 +582,22 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
     console.log('Here is body: ', req.body);
 
     const { chat_id, body } = req.body
-    const chatbot_name = 'Lesson Comprehension';
+    const chatbot_name = 'Video To Notes';
+
+    if (body.prompt) {
+        body.prompt.userinput = "Give me the notes for this video"
+    } else {
+        body.userinput = "Give me the notes for this video"
+    }
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
+        
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id
     }
 
-    console.log('Request Made!');
+    console.log('Request Made!: ', data);
 
     if (data) {
         try {
@@ -601,11 +610,11 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
 
                 if (chat_id) {
 
-                    updateChatHistory(chat_id, { question: body.prompt, answer: data.questions }, res)
+                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
 
                 } else {
 
-                    createChatHistory(chatbot_name, req.user._id, data.questions, res);
+                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
                 }
 
             } else {

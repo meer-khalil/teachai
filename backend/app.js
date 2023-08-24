@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const path = require('path')
 // const errorMiddleware = require('./middlewares/error');
 const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
-const { endpointSecret } = require('../src/util/variables');
 const stripe = require('./config/stripe');
 
 const app = express();
@@ -15,21 +14,15 @@ const app = express();
 app.use(cors());
 app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), asyncErrorHandler(async (req, res) => {
 
-    // This is your Stripe CLI webhook secret for testing your endpoint locally.
-    // const endpointSecret = "whsec_f12b383d9fb79b803eb705dc657de6028b5e2287f8d3a9c61762b971c3ccc4a6";
+    const endpointSecret = 'whsec_f12b383d9fb79b803eb705dc657de6028b5e2287f8d3a9c61762b971c3ccc4a6'
+    
+    // for production
+    // const endpointSecret = 'whsec_5xhyaOqY5fjrVWRe0gsudFduIAAJBIz9'
 
-    // production level secret
-    // const endpointSecret = "whsec_zbMBCwDjvfM41907uqLfJs3TnTJHABrd";
-    // whsec_5xhyaOqY5fjrVWRe0gsudFduIAAJBIz9                           
-    // we_1NhoMsLFLZPxO7T9Mu48Zh6H
-    /*
-        secret is imported from 'utils/variables.js'
-    */ 
-                            
     const sig = req.headers['stripe-signature'];
 
     console.log('/n/n Here is the Request: (Signature:) ', sig);
-    
+
     let event;
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);

@@ -57,7 +57,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         type="text"
                         id='summary'
                         placeholder='Type here'
-                        name='summary'
+                        name='url'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

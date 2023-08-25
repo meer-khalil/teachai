@@ -19,13 +19,17 @@ const Hero = () => {
 
                     <p
                         className='text-secondary md:text-lg'>
-                        Streamline your teacher workload and prioritize your students with an efficient tool that harnesses the power of AI. whether you're seasoned pro or starting out. It simplifies and enhances your teaching experience.
+                        Streamline your teacher workload and prioritize your students with an efficient tool that harnesses the power of AI. Whether you're a seasoned pro or starting out, Teach Assist AI simplifies and enhances your teaching experience.
+                        <br />
+                        <br />
+                        Teach Assist AI offers a diverse array of specialized AI chatbots designed to deliver comprehensive support and assistance across various educational lessons and subjects. Discern and choose the AI chatbots that align most effectively with your instructional requirements.
+
                     </p>
 
                     <div className='flex gap-5 items-center mt-8'>
 
                         <button className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary'>
-                            Try it free
+                            Try for free for 7 days
                         </button>
 
                         <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>

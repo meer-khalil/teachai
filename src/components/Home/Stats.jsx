@@ -18,7 +18,7 @@ const Stats = () => {
                         </h1>
 
                         <p className='text-white text-lg'>
-                            With our AI Teacher chatbots, creating high quality classrooms resources become a breeze, saving you hours of research and design. Simply input your desired topic, and the chatbot will generate an array of materials, including lesson plans, activities, worksheets, and more. Our advanced language processing algorithms enable a comprehensive understanding of the teacher's input input.
+                        With our AI Teacher chatbots, creating high quality classrooms resources becomes a breeze, saving you hours of times. Simply input your desired topic, and the chatbot will generate an array of materials, including, learning intentions, lesson plans, activities, worksheets, and more. Our advanced language processing algorithms enable a comprehensive understanding of the teacher's input. 
                         </p>
 
                         <div className='flex gap-5 items-center mt-8'>

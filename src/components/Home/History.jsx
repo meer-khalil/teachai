@@ -36,7 +36,7 @@ const History = () => {
                     [
                         {
                             title: 'Effortless Prompting',
-                            desc: 'Say goodbye to prompt troubles. Our solution handles it all for you.',
+                            desc: 'Say goodbye to prompt troubles. Our solution handles it all for you by providing input fills to effectively meet your teaching requirements.',
                             icon: <Cloud />
                         },
                         {

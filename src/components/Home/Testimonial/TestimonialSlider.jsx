@@ -158,8 +158,6 @@ export default function TestimonialSlider() {
   const isMobile = useMediaQuery('(max-width: 680px)');
 
 
-  const [count, setCount] = useState(0)
-
   const containerStyle = {
     paddingBottom: '100px',
     // backgroundColor: 'gray',
@@ -192,7 +190,7 @@ export default function TestimonialSlider() {
           320: {
             slidesPerView: 1,
             spaceBetween: 70,
-
+            autoplay: true
           },
           // when window width is >= 480px
           // 480: {

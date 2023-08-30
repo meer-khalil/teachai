@@ -13,7 +13,7 @@ const BlogPost = () => {
 
     const fetchPost = async () => {
         try {
-            const { data } = await axios.get((backend_url ? backend_url : '') + `/post/${postId}`)
+            const { data } = await axios.get(`/post/${postId}`)
             setPost(data.post)
         } catch (error) {
             alert('Hello Posts blog Error')

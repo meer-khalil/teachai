@@ -1,12 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
-
-import { backend_url } from '../../../../util/variables'
 
 import Cross from '../../../SVGs/Cross'
 import Edit from '../../../SVGs/Edit'
 import ImageSelector from './ImageSelector';
+import api from '../../../../util/api';
 
 const Posts = () => {
 
@@ -32,23 +29,23 @@ const Posts = () => {
     };
 
     try {
-      console.log('check');
-      let word = /data:image/
-      if (!word.test(image)) {
-        putData.image = post.image
-      }
+
       console.log('Put Data: ', putData);
-      const res = await axios.put((backend_url ? backend_url : '') + `/admin/post/${post._id}`, putData)
+      const res = await api.put(`/admin/post/${post._id}`, putData)
+      
       console.log('CHeck the data: ', res);
+      
       if (res.data.success) {
+
         console.log('Blog post updated successfully');
         alert('Hello updated post')
+
         // Reset form fields if needed
         setTitle('');
         setShortDescription('');
         setLongDescription('');
         setImage('');
-        // setWhich('allposts')
+
         setPost(null)
         fetchPosts()
       }
@@ -61,7 +58,7 @@ const Posts = () => {
 
 
   const fetchPosts = async () => {
-    const { data } = await axios.get((backend_url ? backend_url : '') + '/posts')
+    const { data } = await api.get('/posts')
     setPosts(data.posts)
     console.log('Data: ', data);
   }
@@ -69,15 +66,14 @@ const Posts = () => {
   const deletePost = async (id) => {
     try {
       console.log('Going to delete: ', id);
-      const { data } = await axios.delete(`http://localhost:4000/api/v1/admin/post/${id}`);
+      const { data } = await api.delete(`/admin/post/${id}`);
       console.log('Data: ', data);
-      if (data.success) {
-        let temp = posts.filter((el) => el._id !== id)
-        setPosts(temp)
-      }
+
+      let temp = posts.filter((el) => el._id !== id)
+      setPosts(temp)
+
     } catch (error) {
       console.error('Error deleting post:', error);
-      // Handle the error (e.g., display an error message)
     }
   };
 
@@ -128,6 +124,7 @@ const Posts = () => {
               </div>
 
               <ImageSelector image={image} setImage={setImage} uimage={post?.image.url} />
+
               <div className='mt-10 flex justify-end'>
                 <button type="submit" className='border-2 border-secondary px-5 py-3 bg-transparent hover:bg-primary hover:text-white'>Update Post</button>
               </div>

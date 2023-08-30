@@ -13,7 +13,9 @@ const Affliate = () => {
       </Helmet>
 
       <div className='mx-3 md:mx-8'>
+
         <Banner />
+        
         <div>
           <h1 className=' text-3xl md:text-4xl mb-6 mt-2  font-extrabold text-primary'>
             Why Partner with Teach Assist AI?

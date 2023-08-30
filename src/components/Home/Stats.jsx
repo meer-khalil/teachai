@@ -1,6 +1,4 @@
-
-
-import stats_image from '../../images/stat.jpg'
+import stats_image from '../../images/Edited/webp/stat.webp'
 
 const Stats = () => {
 

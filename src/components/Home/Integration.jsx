@@ -1,4 +1,4 @@
-import hero_image from '../../images/hero_image.jpg'
+import hero_image from '../../images/Edited/webp/hero_image.webp'
 
 const Integration = () => {
 

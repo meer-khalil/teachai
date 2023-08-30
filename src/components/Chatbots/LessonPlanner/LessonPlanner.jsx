@@ -3,7 +3,6 @@ import React, { useContext, useRef, useState } from 'react'
 import ChatForm from './ChatForm'
 
 import Loading from './Loading'
-import { backend_url } from '../../../util/variables'
 import Header from '../Header'
 import api from '../../../util/api';
 import Answer from '../Answer';

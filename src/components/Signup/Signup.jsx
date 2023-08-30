@@ -6,7 +6,7 @@ import './DisabledButton.css';
 // import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
-import login from '../../images/check.avif'
+import login from '../../images/check.webp'
 
 export default function Signup() {
 
@@ -38,13 +38,7 @@ export default function Signup() {
       firstName: formData.get('firstName'),
       lastName: formData.get('lastName'),
       email: formData.get('email'),
-      password: formData.get('password'),
-      // role: 'buyer',
-      // cardName: formData.get('cardName') || 'Khalil Ahmad',
-      // cardNumber: formData.get('cardNumber') || '1234 1234 1234 1234',
-      // cardMonth: formData.get('cardMonth') || '09',
-      // cardYear: formData.get('cardYear') || '23',
-      // cardCvv: formData.get('cardCvv') || '123',
+      password: formData.get('password')
     }
 
     register(data)

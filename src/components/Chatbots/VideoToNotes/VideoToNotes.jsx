@@ -12,7 +12,7 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
 
-import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent .png'
+import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent.png'
 
 const VideoToNotes = () => {
 

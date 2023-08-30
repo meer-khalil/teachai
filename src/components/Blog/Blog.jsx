@@ -39,12 +39,13 @@ const Blog = () => {
                 <p className=' text-secondary text-sm md:text-lg text-justify'>
                     Welcome to the Teach Assist AI Blog, your go-to online resource for staying informed about the latest platform updates, helpful tips and tricks, and intriguing insights. As an educator, we understand the importance of continuous learning and staying up to date with the latest trends in education technology. Our blog is designed to provide you with valuable resources, inspiration, and practical knowledge to enhance your teaching experience with AI teachers from Teach Assist AI. Whether you're seeking innovative ideas for lesson planning, strategies to promote student engagement with AI teachers, or guidance on utilizing AI in the classroom, our blog is here to support and inspire you on your educational journey. Stay connected, explore our articles, and discover how Teach Assist AI can transform your teaching practice.
                 </p>
-                <div className=' flex flex-col gap-5 mt-10'>
+
+                <div className=' grid grid-cols-3 gap-5 mt-10'>
 
                     {
                         posts?.map((post) => (
                             <Link to={`/blogs/${post._id}`}>
-                                <div className='flex gap-5'>
+                                <div className='flex flex-col gap-5'>
                                     <div className='flex-1 h-56 overflow-hidden bg-cover'>
                                         <img src={post.image.url} alt="post" className=' w-full h-full' />
                                     </div>

@@ -13,11 +13,11 @@ import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
-import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy .png'
-import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent .png'
+import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
+import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent.png'
 import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
 import _9_DetectAI from '../../../images/bots/9.Detect AI-Writing & Plagiarism - Ali.png'
-import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Priyanka .png'
+import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Priyanka.png'
 
 
 const data = [
@@ -103,6 +103,7 @@ const data = [
         category: 'Digital Learning & Teaching Tools'
     }
 ]
+
 const Chatbots = ({ selectedCategory, setSelectedCategory }) => {
 
   const [chatbots, setChatbots] = useState(data);

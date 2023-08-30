@@ -1,7 +1,8 @@
 import Feature from './Feature'
-import feature1 from '../../images/check.avif'
-import feature2 from '../../images/feature-2.avif'
-import feature3 from '../../images/feature-3.avif'
+import feature1 from '../../images/check.webp'
+import feature2 from '../../images/feature-2.webp'
+import feature3 from '../../images/feature-3.webp'
+
 
 const features = [
     {

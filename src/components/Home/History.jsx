@@ -1,4 +1,4 @@
-import history from '../../images/history.jpg'
+import history from '../../images/Edited/webp/history.webp'
 import Cloud from '../SVGs/Cloud'
 import Control from '../SVGs/Control'
 import Data from '../SVGs/Data'

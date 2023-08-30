@@ -58,36 +58,39 @@ const Navbar = () => {
                                         ))
                                     }
                                     {
-                                        (isAuthenticated && user?.role === 'admin') ? (
-                                            <Link
-                                                to={(site ? site : '') + '/admin/dashboard'}
-                                                className='text-md block tracking-wide hover:text-primary'
-                                                onClick={() => {
-                                                    if (window.innerWidth < 680) {
-                                                        setMenu(false)
-                                                    }
-                                                }}
+                                        isAuthenticated && (
 
-                                            >
-                                                <p className='pl-5 text-2xl md:text-lg'>
-                                                    Dashboard
-                                                </p>
-                                            </Link>
-                                        ) : (isAuthenticated) && (
-                                            <Link
-                                                to={(site ? site : '') + '/user/dashboard/chatbots'}
-                                                className='text-md block tracking-wide hover:text-primary'
-                                                onClick={() => {
-                                                    if (window.innerWidth < 680) {
-                                                        setMenu(false)
-                                                    }
-                                                }}
+                                            (user?.role === 'admin') ? (
+                                                <Link
+                                                    to={(site ? site : '') + '/admin/dashboard/users'}
+                                                    className='text-md block tracking-wide hover:text-primary'
+                                                    onClick={() => {
+                                                        if (window.innerWidth < 680) {
+                                                            setMenu(false)
+                                                        }
+                                                    }}
 
-                                            >
-                                                <p className='pl-5 text-2xl md:text-lg'>
-                                                    Dashboard
-                                                </p>
-                                            </Link>
+                                                >
+                                                    <p className='pl-5 text-2xl md:text-lg'>
+                                                        Dashboard
+                                                    </p>
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    to={(site ? site : '') + '/user/dashboard/chatbots'}
+                                                    className='text-md block tracking-wide hover:text-primary'
+                                                    onClick={() => {
+                                                        if (window.innerWidth < 680) {
+                                                            setMenu(false)
+                                                        }
+                                                    }}
+
+                                                >
+                                                    <p className='pl-5 text-2xl md:text-lg'>
+                                                        Dashboard
+                                                    </p>
+                                                </Link>
+                                            )
                                         )
                                     }
                                     {

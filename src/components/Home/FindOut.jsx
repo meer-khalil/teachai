@@ -1,13 +1,11 @@
+import hero_image from '../../images/Edited/webp/hero_image.webp'
 
-import hero_image from '../../images/hero_image.jpg'
 const FindOut = () => {
 
     return (
         <div className='flex flex-col-reverse md:flex-row items-center pt-5 px-2 md:px-0 mb-20'>
             <div className='flex-1'>
                 <div className='md:mx-8 mt-5 md:mt-0'>
-
-                    {/* <p className='text-secondary text-center md:text-start'>RISK-FREE 30 DAY TRIAL</p> */}
 
                     <h1 className=' text-3xl md:text-4xl mb-6 mt-2 md:mr-20  font-extrabold text-primary text-center md:text-start'>
                         Transform Teaching Topics into PowerPoint Slides

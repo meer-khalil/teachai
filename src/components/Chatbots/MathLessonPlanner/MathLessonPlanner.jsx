@@ -14,7 +14,7 @@ import ExportButtons from '../ExportButtons';
 // import { saveAs } from 'file-saver';
 // import { HtmlToDocx } from 'html-docx-js';
 
-import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy .png'
+import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
 
 const MathLessonPlanner = () => {
 

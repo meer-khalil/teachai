@@ -1,7 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
-import { backend_url } from '../../util/variables'
 import api from '../../util/api'
 
 const data = [

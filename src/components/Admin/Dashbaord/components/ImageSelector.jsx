@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 const ImageSelector = ({ image, setImage, uimage }) => {
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(uimage);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         setImagePath(file)
+        uimage = null
         setSelectedImage(file);
     };
 
     const setImagePath = (file) => {
         let reader = new FileReader()
         reader.readAsDataURL(file)
-
 
         reader.onload = () => {
             setImage(reader.result)
@@ -25,9 +25,9 @@ const ImageSelector = ({ image, setImage, uimage }) => {
 
     return (
         <div className="flex items-center justify-center w-full h-40 bg-gray-200 rounded-lg overflow-hidden cursor-pointer relative">
-            {(selectedImage || uimage) ? (
+            {(selectedImage) ? (
                 <img
-                    src={ uimage? uimage : URL.createObjectURL(selectedImage)}
+                    src={selectedImage?.includes ? selectedImage : URL.createObjectURL(selectedImage)}
                     alt="Selected"
                     className="object-cover w-full h-full"
                 />

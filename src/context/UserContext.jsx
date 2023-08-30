@@ -17,21 +17,28 @@ export const UserProvider = ({ children }) => {
 
     const [categoryOpen, setCategoryOpen] = useState('')
 
-    const login = async (user) => {
+    const login = async (credentials) => {
         try {
-            const res = await axios.post((backend_url ? backend_url : '') + '/login', user);
+            const { data } = await axios.post((backend_url ? backend_url : '') + '/login', credentials);
 
-            console.log('User Loggedin successfully:', res.data);
+            console.log('Here is the data for User: ', data);
+            const { token, user } = data;
 
-            if (res.data.success) {
-                localStorage.setItem("teachai_token", res.data.token)
-                api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-                setIsAuthenticated(true)
-                setUser(res.data);
+            localStorage.setItem("teachai_token", token)
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            setIsAuthenticated(true)
+            setUser(user);
+
+            if (user.role === 'admin') {
+
+                navigate('/admin/dashboard/users')
+            } else {
+
                 navigate('/user/dashboard/chatbots')
             }
+
         } catch (error) {
-            console.error('Failed to register user:', error?.response?.data);
+            console.error('Failed to Login:', error.message);
         }
     };
 
@@ -72,7 +79,7 @@ export const UserProvider = ({ children }) => {
                 navigate('/')
             }
         } catch (error) {
-            console.error('Failed to register user:', error);
+            console.error('Failed To Logout:', error.message);
             navigate('/signup')
         }
     };
@@ -80,16 +87,22 @@ export const UserProvider = ({ children }) => {
     const isLoggedin = () => {
         // Check if the token exists in local storage
         const storedToken = localStorage.getItem('teachai_token');
+        const user = localStorage.getItem('teachai_user')
 
         if (storedToken) {
             // Use the stored token for authentication
             console.log('Token is stored');
             api.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
             console.log('\n\n\nToken: ', storedToken);
-            console.log('Api: \n', api);
             setIsAuthenticated(true)
-            getUserData()
-        } else {
+
+            if (user) {
+                setUser(JSON.parse(user))
+            } else {
+                getUserData()
+            }
+        }
+        else {
             if (!location.pathname === '/') {
                 navigate('/login')
             }
@@ -97,40 +110,32 @@ export const UserProvider = ({ children }) => {
 
     }
 
-    const isAdmin = async () => {
-        await isLoggedin()
-        setTimeout(() => {
-            if (!(user?.role === 'admin')) {
-                navigate("/")
-            }
-        }, 4000)
-    }
 
     const getUserData = async () => {
         try {
-            const res = await axios.get((backend_url ? backend_url : '') + '/me');
 
-            console.log('UserData retrieved successfully:', res.data);
+            const { data } = await api.get((backend_url ? backend_url : '') + '/me');
 
-            if (res.data.success) {
-                setUser(res.data.user);
-            }
+            const { user } = data
+            setUser(user);
+            localStorage.setItem('teachai_user', JSON.stringify(user))
+
+
         } catch (error) {
-            console.error('Failed to register user:', error);
+            console.error('Failed to Get User Data:', error.message);
         }
     }
 
     const getAllUsers = () => {
 
-        axios.get((backend_url ? backend_url : '') + '/admin/users')
-            .then((response) => {
+        api.get((backend_url ? backend_url : '') + '/admin/users')
+            .then(({ data }) => {
                 // Handle the response data
-                const users = response.data.users;
+                const { users } = data
                 setUsers(users)
                 console.log('Users:', users);
             })
             .catch((error) => {
-                // Handle the error
                 console.error('Error retrieving users:', error);
             });
 
@@ -147,7 +152,6 @@ export const UserProvider = ({ children }) => {
             getUserData,
             users,
             getAllUsers,
-            isAdmin,
             categoryOpen,
             setCategoryOpen,
             pdfAnswer,

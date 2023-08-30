@@ -4,7 +4,7 @@ import { ChatbotContext } from '../../../context/ChatbotContext'
 const Categories = () => {
 
 
-    const { chatbots, filterChatbots, selectedCategory } = useContext(ChatbotContext);
+    const { filterChatbots, selectedCategory } = useContext(ChatbotContext);
 
     return (
         <div className='my-5'>

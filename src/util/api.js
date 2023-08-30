@@ -9,13 +9,13 @@ const api = axios.create({
 });
 
 
-api.interceptors.request.use((config) => {
-  console.log('Request Headers:', config.headers);
-  return config;
-}, (error) => {
-  console.error('Request Error:', error);
-  return Promise.reject(error);
-});
+// api.interceptors.request.use((config) => {
+//   console.log('Request Headers:', config.headers);
+//   return config;
+// }, (error) => {
+//   console.error('Request Error:', error);
+//   return Promise.reject(error);
+// });
 
 
 export default api;

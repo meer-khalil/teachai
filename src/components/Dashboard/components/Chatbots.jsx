@@ -1,6 +1,3 @@
-import axios from 'axios';
-
-import { backend_url } from '../../../util/variables';
 import Productivity from './Productivity';
 import Header from './Header';
 import Categories from './Categories';

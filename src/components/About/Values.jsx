@@ -6,10 +6,6 @@ import Together from '../SVGs/Together'
 import Circle from '../SVGs/Circle'
 import Managment from '../SVGs/Managment'
 
-// import Cloud from '../SVGs/Cloud'
-// import Globe from '../SVGs/Globe'
-// import Performance from '../SVGs/Performance'
-
 const Values = () => {
     return (
         <div className='mt-16 md:mt-32'>

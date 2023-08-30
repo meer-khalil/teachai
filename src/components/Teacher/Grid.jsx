@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Productivity from '../Home/Productivity'
-import { ChatbotContext, ChatbotProvider } from '../../context/ChatbotContext'
-import { UserContext } from '../../context/UserContext'
+import { ChatbotContext } from '../../context/ChatbotContext'
 
 // import Cloud from '../SVGs/Cloud'
 // import Globe from '../SVGs/Globe'

@@ -49,13 +49,13 @@ exports.getPostDetails = asyncErrorHandler(async (req, res, next) => {
 // Create Product ---ADMIN
 exports.createPost = asyncErrorHandler(async (req, res, next) => {
     try {
+        
         let body = req.body;
         let user = req.user;
 
         
         let imageLink;
         
-        console.log('Hello, I am here');
         try {
             const result = await cloudinary.v2.uploader.upload(body.image, {
                 folder: 'posts',
@@ -156,8 +156,6 @@ exports.updateProduct = asyncErrorHandler(async (req, res, next) => {
 
 // Delete Product ---ADMIN
 exports.deletePost = asyncErrorHandler(async (req, res, next) => {
-
-    console.log('Entered!');
     
     try {
         const post = await Post.findOne({ _id: req.params.id });

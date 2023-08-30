@@ -1,7 +1,6 @@
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import api from "../../../util/api";
 import { useEffect, useState } from "react";
-import Answer from "../../Chatbots/Answer";
 import Content from "./Content";
 
 

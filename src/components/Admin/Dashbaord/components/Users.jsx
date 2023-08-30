@@ -3,8 +3,8 @@ import { useContext } from 'react'
 import { UserContext } from '../../../../context/UserContext'
 
 const Users = () => {
-  const { users } = useContext(UserContext)
 
+  const { users } = useContext(UserContext)
 
   return (
     <div className="container mx-auto">

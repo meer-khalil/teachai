@@ -1,6 +1,3 @@
-
-import hero_image from '../../images/hero_image.jpg'
-
 const Feature = ({ title, description, buttonText, image, index }) => {
 
     return (
@@ -24,7 +21,7 @@ const Feature = ({ title, description, buttonText, image, index }) => {
                 </div>
             </div>
             <div className='flex-1'>
-                <img src={image ? image : hero_image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
+                <img src={image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
             </div>
         </div>
     )

@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 
-import image from '../../images/login.jpeg'
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
+
+import image from '../../images/Edited/webp/login.webp'
 
 
 export default function Login() {

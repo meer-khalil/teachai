@@ -62,7 +62,7 @@ export default function App() {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
 
         <Route path="/user/dashboard/*" element={
           <UserDashboard />
@@ -78,7 +78,7 @@ export default function App() {
         <Route path="/success" element={<Success />} />
 
         <Route path="/cancel" element={<Cancel />} />
-        
+
         <Route path="/pdf" element={<YourComponent />} />
 
       </Routes>

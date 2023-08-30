@@ -1,5 +1,4 @@
-
-import history from '../../images/history.jpg'
+import history from '../../images/Edited/webp/history.webp'
 
 const Banner2 = () => {
 

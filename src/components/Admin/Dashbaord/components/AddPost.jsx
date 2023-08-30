@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import ImageSelector from './ImageSelector';
-import { backend_url } from '../../../../util/variables';
+import api from '../../../../util/api';
 
-const AddPost = ({ setWhich }) => {
+const AddPost = () => {
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [longDescription, setLongDescription] = useState('');
@@ -25,7 +24,7 @@ const AddPost = ({ setWhich }) => {
 
     try {
 
-      const res = await axios.post((backend_url ? backend_url : '') + '/admin/post/new', postData)
+      const res = await api.post('/admin/post/new', postData)
       console.log('CHeck the data: ', res);
       if (res.data.success) {
         console.log('Blog post created successfully');
@@ -35,7 +34,6 @@ const AddPost = ({ setWhich }) => {
         setShortDescription('');
         setLongDescription('');
         setImage('');
-        setWhich('allposts')
       }
 
     } catch (error) {

@@ -1,7 +1,7 @@
 require('dotenv').config()
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 
-const site = 'http://localhost:3000'
+const site = 'https://www.teachassistai.com'
 
 const stripe = require('../config/stripe');
 
@@ -41,7 +41,7 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
                 },
                 quantity: 1,
             }],
-            success_url: `${site}/success`,
+            success_url: `${site}/user/dashboard/chatbots`,
             cancel_url: `${site}/cancel`
         })
 

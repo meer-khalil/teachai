@@ -30,6 +30,8 @@ app.register_error_handler(404, page_not_found)
 def lessonplanner():
     data = request.get_json()
 
+    print('data: ', data)
+
     question = data['prompt']    
     user_id = data['id']    
     # question = request.form['prompt']

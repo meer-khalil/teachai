@@ -15,8 +15,9 @@ exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
         const usage = await Usage.findOne({ user: id });
 
         if (usage) {
-
+            console.log('Usage: ', usage);
             if (usage.usageCount <= requestLimits[usage.plan]) {
+                console.log('Requested Updated: by 1');
                 usage.usageCount++;
                 await usage.save();
                 next();
@@ -30,7 +31,8 @@ exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
                     await usage.save();
                     next();
                 }
-
+                
+                console.log('going to call 429');
                 return res.status(429).json({ error: 'Request limit exceeded' });
             }
 

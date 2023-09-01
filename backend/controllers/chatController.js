@@ -14,7 +14,7 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
     let data = {
         prompt: body.prompt ? body.prompt : body,
-        id: req.user._id
+        id: req.user.id
     }
 
     console.log('Request Made!');
@@ -33,12 +33,9 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
                 } else {
 
-                    createChatHistory(chatbot_name, req.user._id, data.answer, res);
+                    createChatHistory(chatbot_name, req.user.id, data.answer, res);
                 }
 
-                // res.status(200).json({
-                //     ...data
-                // })
             } else {
                 res.status(500).json({
                     message: 'Error from else, after calling to api/lessonplanner'

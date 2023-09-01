@@ -24,12 +24,12 @@ const router = express.Router()
 /*
     Lesson Planning Bot
 */ 
-router.route('/lessonplanner').post(isAuthenticatedUser, lessonPlanner)
+router.route('/lessonplanner').post(isAuthenticatedUser,requestLimit, lessonPlanner)
 
 /*
     General Quiz Bot
 */ 
-router.route('/quiz').post( isAuthenticatedUser, quiz)
+router.route('/quiz').post( isAuthenticatedUser, requestLimit, quiz)
 
 
 /*

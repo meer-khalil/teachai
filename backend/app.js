@@ -7,58 +7,99 @@ const path = require('path')
 // const errorMiddleware = require('./middlewares/error');
 const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
 const stripe = require('./config/stripe');
-
+const Payment = require('./models/paymentModel');
+const Usage = require('./models/usageModel');
 const app = express();
 
 
 app.use(cors());
-app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), asyncErrorHandler(async (req, res) => {
 
-    const endpointSecret = 'whsec_f12b383d9fb79b803eb705dc657de6028b5e2287f8d3a9c61762b971c3ccc4a6'
-    
-    // for production
-    // const endpointSecret = 'whsec_5xhyaOqY5fjrVWRe0gsudFduIAAJBIz9'
+// Match the raw body to content type application/json
+// If you are using Express v4 - v4.16 you need to use body-parser, not express, to retrieve the request body
+app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (request, response) => {
 
-    const sig = req.headers['stripe-signature'];
+    // console.log('Here is your WebhooKL: ', request.body);
 
-    console.log('/n/n Here is the Request: (Signature:) ', sig);
+    console.log('Here is your Webhook Request: ');
 
-    let event;
-    try {
-        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-        console.log('Here is the Event!: ',event);
-    } catch (err) {
-        console.log('Stripe Error: ', err.message);
-        res.status(400).send(`Webhook Error: ${err.message}`);
-        return;
-    }
+    const event = request.body;
 
     // Handle the event
     switch (event.type) {
         case 'payment_intent.succeeded':
-            const paymentIntentSucceeded = event.data.object;
-            console.log('Payment Intent: ', paymentIntentSucceeded)
-            // Then define and call a function to handle the event payment_intent.succeeded
+            const paymentIntent = event.data.object;
+            // Then define and call a method to handle the successful payment intent.
+            // handlePaymentIntentSucceeded(paymentIntent);
             break;
-        // ... handle other event types
+        case 'payment_method.attached':
+            const paymentMethod = event.data.object;
+            // Then define and call a method to handle the successful attachment of a PaymentMethod.
+            // handlePaymentMethodAttached(paymentMethod);
+            break;
         case 'checkout.session.completed':
             const checkoutSessionCompleted = event.data.object;
-            console.log('Checkout Session: ', checkoutSessionCompleted)
-            stripe.customers.retrieve(checkoutSessionCompleted.customer).then((customer) => {
-                console.log(customer);
-            }).catch((err) => {
-                console.log('Error: ', err.message);
-            })
-            // Then define and call a function to handle the event payment_intent.succeeded
+            console.log('Completed: ', checkoutSessionCompleted);
+
+            stripe.customers
+                .retrieve(checkoutSessionCompleted.customer)
+                .then(async (customer) => {
+                    console.log("Customer: ", customer);
+                    let userId = customer.metadata.userId;
+                    let plan = customer.metadata.plan
+                    plan = JSON.parse(plan)
+                    let payment = await Payment.create({
+                        payment: checkoutSessionCompleted,
+                        user: userId
+                    });
+
+                    console.log('Entry Added: ', payment);
+
+                    let temp = await Usage.find({ user: userId })
+                    console.log('Usage Entry ID: ', temp[0].id);
+
+                    if (temp[0]) {
+
+                        try {
+                            const updatedUsage = await Usage.findByIdAndUpdate(temp[0].id, {
+                                plan: plan['name'],
+                                usageLimit: plan['limit'],
+                                payment: true
+                            });
+
+                            if (updatedUsage) {
+                                console.log('Usage plan updated:', updatedUsage);
+                            } else {
+                                console.log('Usage not found or no updates were made.');
+                            }
+                        } catch (err) {
+                            console.error('Error updating user plan:', err);
+                        }
+                    } else {
+                        let usage = await Usage.create({
+                            user: userId,
+                            plan: plan['name'],
+                            usageLimit: plan['limit'],
+                            payment: true
+                        })
+
+                        console.log('Usage Crearted: ', usage);
+
+                    }
+
+                }).catch((err) => {
+                    console.log('Error: ', err.message);
+                })
+            // Then define and call a method to handle the successful attachment of a PaymentMethod.
+            // handlePaymentMethodAttached(paymentMethod);
             break;
+        // ... handle other event types
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
 
-    // Return a 200 response to acknowledge receipt of the event
-    res.send().end();
-}))
-
+    // Return a response to acknowledge receipt of the event
+    response.json({ received: true });
+});
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.json());
@@ -83,11 +124,6 @@ app.use('/api/v1', payment);
 app.use('/api/v1', chat);
 app.use('/api/v1', chatHistory);
 
-
-
-// console.log(path.join(__dirname, '..', 'build', 'index.html'));
-
-// const path = require('path')
 let environment = 'prod';
 if (environment === 'dev') {
 

@@ -1,15 +1,25 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import * as XLSX from "xlsx";
 
-// import * as DOX from "htm"
+import Login from "./GoogleButtons/Login";
+import Logout from "./GoogleButtons/Logout";
+import { gapi } from "gapi-script";
+
 
 import doc from "../../images/Icons/doc.png";
 import docs from "../../images/Icons/docs.png";
 import excel from "../../images/Icons/excel.png";
 import pdf from "../../images/Icons/pdf.png";
 
+
+const CLIENT_ID = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
+const API_KEY = "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"
+const SCOPES = "https://www.googleapis.com/auth/drive";
+
 const ExportButtons = ({ componentToPrint, answer }) => {
+
+
   const generateDocx = () => {
     let documentFileContent = "Title: Lisa The General Lesson Planner\n\n";
     for (let i = 0; i < answer.length; i++) {
@@ -107,16 +117,116 @@ const ExportButtons = ({ componentToPrint, answer }) => {
         }`,
   });
 
-  const handleDoc = () => {
-    console.log("Converting to Docx");
-    console.log(typeof `${componentToPrint.current}`);
+  const handleGoogleDocClick = () => {
+    if (gapi.auth.getToken()) {
+      handleGoogleDoc()
+    } else {
+      alert('You are not loggedin');
+    }
+  }
+
+  const handleGoogleDoc = () => {
+
+    let tag = 'Test';
+    let fileName = tag + ' ' + getDateString() + " " + getTimeString();
+    let accessToken = gapi.auth.getToken().access_token
+
+
+    let documentFileContent = "Title: Lisa The General Lesson Planner\n\n";
+    for (let i = 0; i < answer.length; i++) {
+      if (i == 0) {
+        documentFileContent += answer[i]["answer"] + "\n\n";
+        continue;
+      }
+
+      documentFileContent += "Question: " + answer[i]["question"] + "\n";
+      documentFileContent += "Answer: " + answer[i]["answer"] + "\n\n";
+    }
+
+    documentFileContent = documentFileContent.replace(/<br\s*\/?>/g, "\n\n");
+
+
+
+
+    fetch("https://docs.googleapis.com/v1/documents?title=" + fileName, {
+      method: 'POST',
+      headers: new Headers({ 'Authorization': "Bearer " + accessToken }),
+      
+    })
+      .then((res) => res.json())
+      .then((val) => {
+        fetch(`https://docs.googleapis.com/v1/documents/${ val.documentId}:batchUpdate`, {
+            method: 'POST',
+            headers: new Headers({
+              'Authorization': 'Bearer ' + accessToken,
+              'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+              requests: [
+                {
+                  insertText: {
+                    location: {
+                      index: 1, // Index where you want to insert the text (1 for beginning)
+                    },
+                    text: documentFileContent,
+                  },
+                },
+              ],
+            }),
+          })
+          .then((updateResponse) => {
+            if (updateResponse.ok) {
+              console.log('Text inserted successfully.');
+              console.log(updateResponse);
+              // window.open(updateResponse.url.replace(":batchUpdate"))
+            } else {
+              console.error('Error inserting text:', updateResponse.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error('Error updating the document:', error);
+          });
+        console.log('Value: ', val);
+        console.log('Value: ', val.documentId);
+        window.open('https://docs.google.com/document/d/' + val.documentId + "/edit")
+        // window.open('https://docs.google.com/document/d/' + val.documentId + "/edit", "_blank")
+      })
+
   };
 
-  //   const handle
+
+  // helper Functions
+  const zerofill = (i) => { return (i < 10 ? "0" : '') + i; }
+  const getDateString = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = zerofill(date.getMonth() + 1);
+    const day = zerofill(date.getDate());
+    return year + '-' + month + '-' + day
+  }
+  const getTimeString = () => {
+    const date = new Date();
+    return date.toLocaleTimeString();
+  }
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        scope: SCOPES
+      })
+    };
+
+    gapi.load("client:auth2", start)
+  }, [])
 
   return (
     <div className="flex justify-end gap-5 items-center">
-      <div className=" flex gap-3">
+      <div>
+        {/* <Logout /> */}
+      </div>
+      <div className=" flex gap-3 relative overflow-hidden">
         {[
           {
             image: excel,
@@ -130,6 +240,10 @@ const ExportButtons = ({ componentToPrint, answer }) => {
             image: doc,
             fn: generateDocx,
           },
+          {
+            image: docs,
+            fn: handleGoogleDocClick,
+          }
         ].map((el, i) => {
           return (
             <img
@@ -141,6 +255,7 @@ const ExportButtons = ({ componentToPrint, answer }) => {
             />
           );
         })}
+        <Login />
       </div>
     </div>
   );

@@ -7,8 +7,16 @@ const usageSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    plan: String,
+    plan: {
+        type: String,
+        default: 'Free'
+    },
     usageCount: Number,
+    usageLimit: Number,
+    payment: {
+        type: Boolean,
+        default: false
+    },
     lastUpdated: { type: Date, default: Date.now }
 })
 

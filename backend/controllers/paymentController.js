@@ -41,7 +41,7 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
                 },
                 quantity: 1,
             }],
-            success_url: `${site}/user/dashboard/chatbots`,
+            success_url: `${site}/success`,
             cancel_url: `${site}/cancel`
         })
 

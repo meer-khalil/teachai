@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Helmet } from 'react-helmet'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../../util/api'
+import { UserContext } from '../../context/UserContext'
 
 const data = [
     {
@@ -70,11 +71,17 @@ const data = [
 
 const Pricing = () => {
 
+    const navigate = useNavigate();
+    const { user } = useContext(UserContext);
+
     const processPayment = (plan) => {
-        api.post('/payment/process', {plan})
+        if (!user) {
+            navigate("/login")
+        }
+        api.post('/payment/process', { plan })
             .then(response => {
                 window.location.href = response.data.url
-                console.log('Response:', response.data); 
+                console.log('Response:', response.data);
             })
             .catch(error => {
                 console.error('Error:', error.message);

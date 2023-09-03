@@ -81,6 +81,7 @@ export const UserProvider = ({ children }) => {
             if (res.data.success) {
                 delete api.defaults.headers.common['Authorization'];
                 localStorage.removeItem("teachai_token")
+                localStorage.removeItem("teachai_user")
                 setIsAuthenticated(false)
                 setUser(null);
                 toast('Logout Successfuly!')

@@ -31,13 +31,12 @@ const BlogPost = () => {
     // ...
 
     return (
-        <div className=' max-w-[1440px] mx-auto'>
+        <div className=' max-w-[1440px] mx-auto mt-12'>
             <div className=' mx-3 md:mx-8'>
-
                 {
                     post ? (
                         <div className='lg:w-[66%] mx-auto'>
-                            <h3 className='text-3xl md:text-4xl'>{post.title}</h3>
+                            <h3 className='text-3xl md:text-4xl font-bold my-4'>{post.title}</h3>
                             <img src={post.image.url} className=' h-auto w-full' alt="" />
                             <div className=' my-5'>
                                 <p className=' text-lg md:text-xl'>{post.longDescription}</p>

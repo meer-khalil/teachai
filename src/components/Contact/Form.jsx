@@ -2,7 +2,7 @@ import React from 'react'
 
 const Form = () => {
     return (
-        <form action="#" className="space-y-8 border px-10 py-8 rounded-lg shadow-lg shadow-black-500 bg-white">
+        <form action="mailto:info@teachassistai.com" method="post" enctype="text/plain" className="space-y-8 border px-10 py-8 rounded-lg shadow-lg shadow-black-500 bg-white">
 
             <div className='flex flex-col md:flex-row gap-7 md:gap-10'>
                 <div className='flex-1'>

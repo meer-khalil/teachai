@@ -47,7 +47,7 @@ const Blog = () => {
                             <Link to={`/blogs/${post._id}`}>
                                 <div className='flex flex-col gap-5'>
                                     <div className='flex-1 h-56 overflow-hidden bg-cover'>
-                                        <img src={post.image.url} alt="post" className=' w-full h-full' />
+                                        <img src={post.image.url} alt="post" className='w-full h-full' />
                                     </div>
                                     <div style={{ flex: 2 }}>
                                         <h3 className='text-2xl font-semibold tracking-widest text-primary'>{post.title}</h3>

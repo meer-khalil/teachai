@@ -72,7 +72,6 @@ export default function App() {
 
         <Route path="/blogs/:postId" element={<BlogPost />} />
 
-
         <Route path="/payment" element={<Stripe />} />
 
         <Route path="/success" element={<Success />} />

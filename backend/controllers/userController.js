@@ -18,12 +18,21 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     } = req.body
 
 
-    const user = await User.create({
-        firstName,
-        lastName,
-        email,
-        password
-    });
+    let user = ''
+    try {
+        
+        user = await User.create({
+            firstName,
+            lastName,
+            email,
+            password
+        });
+
+    } catch (error) {
+        res.status(409).json({
+            error
+        })
+    }
 
     console.log('UserCreated: ', user);
     console.log('UserCreated(id): ', user.id);

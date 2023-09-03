@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ImageSelector from './ImageSelector';
 import api from '../../../../util/api';
+import { toast } from 'react-toastify';
 
 const AddPost = () => {
   const [title, setTitle] = useState('');
@@ -12,7 +13,6 @@ const AddPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     const postData = {
       title,
@@ -28,7 +28,7 @@ const AddPost = () => {
       console.log('CHeck the data: ', res);
       if (res.data.success) {
         console.log('Blog post created successfully');
-        alert('Hello created post')
+        toast("Post Created Successfuly!")
         // Reset form fields if needed
         setTitle('');
         setShortDescription('');
@@ -37,7 +37,7 @@ const AddPost = () => {
       }
 
     } catch (error) {
-      alert('Error')
+      toast("Failed to Create Post!")
       console.error('Error creating blog post:', error);
     }
   };

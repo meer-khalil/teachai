@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { backend_url } from '../util/variables';
 import api from '../util/api';
+import { toast } from 'react-toastify';
 
 export const UserContext = createContext();
 
@@ -29,6 +30,8 @@ export const UserProvider = ({ children }) => {
             setIsAuthenticated(true)
             setUser(user);
 
+            toast("LoggedIn Successfully")
+
             if (user.role === 'admin') {
 
                 navigate('/admin/dashboard/users')
@@ -39,6 +42,7 @@ export const UserProvider = ({ children }) => {
 
         } catch (error) {
             console.error('Failed to Login:', error.message);
+            toast("Email or Password is Wrong!")
         }
     };
 
@@ -56,6 +60,11 @@ export const UserProvider = ({ children }) => {
                 navigate('/')
             }
         } catch (error) {
+            if (error.response.status) {
+                toast("Email is Already Used!")
+                // toast("Use Another Email! Thank You!")
+            }
+            console.log("Error", error.response.status);
             console.error('Failed to register user:', error?.response.data);
         }
     };
@@ -74,6 +83,7 @@ export const UserProvider = ({ children }) => {
                 localStorage.removeItem("teachai_token")
                 setIsAuthenticated(false)
                 setUser(null);
+                toast('Logout Successfuly!')
                 navigate('/')
             } else {
                 navigate('/')

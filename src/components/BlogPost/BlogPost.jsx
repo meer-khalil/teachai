@@ -2,9 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { backend_url } from '../../util/variables';
+import { toast } from 'react-toastify';
+import api from '../../util/api';
 
 const BlogPost = () => {
-    // Access the dynamic value from the route parameters
 
     const [post, setPost] = useState(null)
 
@@ -13,10 +14,11 @@ const BlogPost = () => {
 
     const fetchPost = async () => {
         try {
-            const { data } = await axios.get(`/post/${postId}`)
+            const { data } = await api.get(`/post/${postId}`)
             setPost(data.post)
         } catch (error) {
-            alert('Hello Posts blog Error')
+            console.log('Error: ', error);
+            toast('Error While Getting Post Data')
         }
     }
 

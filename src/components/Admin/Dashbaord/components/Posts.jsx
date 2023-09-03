@@ -4,6 +4,7 @@ import Cross from '../../../SVGs/Cross'
 import Edit from '../../../SVGs/Edit'
 import ImageSelector from './ImageSelector';
 import api from '../../../../util/api';
+import { toast } from 'react-toastify';
 
 const Posts = () => {
 
@@ -32,19 +33,17 @@ const Posts = () => {
 
       console.log('Put Data: ', putData);
       const res = await api.put(`/admin/post/${post._id}`, putData)
-      
+
       console.log('CHeck the data: ', res);
-      
+
       if (res.data.success) {
 
-        console.log('Blog post updated successfully');
-        alert('Hello updated post')
-
-        // Reset form fields if needed
         setTitle('');
         setShortDescription('');
         setLongDescription('');
         setImage('');
+
+        toast("Post Updated Successfully!")
 
         setPost(null)
         fetchPosts()

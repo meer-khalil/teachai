@@ -8,7 +8,8 @@ import ScrollToTop from './util/ScrollToTop';
 
 import { UserProvider } from './context/UserContext';
 import IsAuthenticated from './util/IsAuthenticated';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,6 +19,7 @@ root.render(
       <ScrollToTop />
       <UserProvider>
         <IsAuthenticated />
+        <ToastContainer />
         <App />
       </UserProvider>
     </BrowserRouter>

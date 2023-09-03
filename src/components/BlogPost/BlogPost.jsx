@@ -36,13 +36,13 @@ const BlogPost = () => {
 
                 {
                     post ? (
-                        <>
-                            <img src={post.image.url} className=' h-[20rem] w-full' alt="" />
+                        <div className='lg:w-[66%] mx-auto'>
+                            <h3 className='text-3xl md:text-4xl'>{post.title}</h3>
+                            <img src={post.image.url} className=' h-auto w-full' alt="" />
                             <div className=' my-5'>
-                                <h3 className='text-3xl md:text-4xl'>{post.title}</h3>
                                 <p className=' text-lg md:text-xl'>{post.longDescription}</p>
                             </div>
-                        </>
+                        </div>
                     ) : (
                         <div>Loading</div>
                     )

@@ -241,8 +241,7 @@ const DetailStory = () => {
               <div className='story-content' >
 
                 <div className="story-banner-img">
-                  <img src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
-
+                  <img src={`https://teachassistai.com/storyImages/${story.image}`} alt={story.title} />
                 </div>
 
                 <div className=' prose lg:prose-xl'>

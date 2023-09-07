@@ -8,7 +8,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { AiOutlineUpload } from 'react-icons/ai'
 import './EditStory.css'
 import api from '../../../../util/api';
-import { backend_resource } from '../../../../util/variables';
+import { addstory_url, backend_resource } from '../../../../util/variables';
 
 const EditStory = () => {
 
@@ -60,7 +60,7 @@ const EditStory = () => {
         formdata.append("previousImage", previousImage)
 
         try {
-            const { data } = await axios.put(`http://localhost:4000/api/v1/story/${slug}/edit`, formdata, config)
+            const { data } = await axios.put(`${addstory_url}/story/${slug}/edit`, formdata, config)
 
             setSuccess('Edit Story successfully ')
 

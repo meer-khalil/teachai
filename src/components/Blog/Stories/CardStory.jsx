@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { backend_resourse } from '../../../util/variables';
 
 const Story = ({ story }) => {
 
@@ -26,7 +27,7 @@ const Story = ({ story }) => {
         <div className="story-card">
             <Link to={`/story/${story.slug}`} className="story-link">
 
-                <img className=" story-image" src={`http://localhost:4000/storyImages/${story.image}`} alt={story.title} />
+                <img className=" story-image" src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
                 <div className="story-content-wrapper">
 
                     <h5 className="story-title">

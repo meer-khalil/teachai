@@ -2,7 +2,7 @@ const express = require("express")
 const imageupload = require("../utils/lib/imageUpload");
 
 const { addStory, getAllStories, detailStory, likeStory, editStory, deleteStory, editStoryPage } = require("../controllers/storyController");
-const { checkStoryExist, checkUserAndStoryExist } = require("../Middlewares/database/databaseErrorhandler");
+const { checkStoryExist, checkUserAndStoryExist } = require("../middlewares/database/databaseErrorhandler");
 const { isAuthenticatedUser } = require("../middlewares/auth");
 
 const router = express.Router();

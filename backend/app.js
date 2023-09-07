@@ -118,8 +118,6 @@ const chat = require('./routes/chatRoute');
 const chatHistory = require('./routes/chatHistoryRoute');
 
 
-
-
 app.use('/api/v1', user);
 app.use('/api/v1', post);
 app.use('/api/v1/story', story);

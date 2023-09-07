@@ -75,9 +75,9 @@ const AddStory = () => {
     return (
 
         <div className="Inclusive-addStory-page">
-            <Link to={'/'} >
+            {/* <Link to={'/'} >
                 <FiArrowLeft />
-            </Link>
+            </Link> */}
             <form onSubmit={handleSubmit} className="addStory-form">
 
                 {error && <div className="error_msg">{error}</div>}

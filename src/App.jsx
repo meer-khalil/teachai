@@ -51,11 +51,10 @@ export default function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/contact" element={<Contact />} />
-    
+
         <Route path="/faq" element={<FAQ />} />
 
         <Route path="/pricing" element={<Pricing />} />
-
 
         <Route path="/privacy" element={<Privacy />} />
 
@@ -68,9 +67,7 @@ export default function App() {
 
         <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
 
-        <Route path="/user/dashboard/*" element={
-          <UserDashboard />
-        } />
+        <Route path="/user/dashboard/*" element={<UserDashboard />} />
 
         {/* <Route path="/blogs" element={<Blog />} /> */}
 
@@ -78,7 +75,7 @@ export default function App() {
 
         <Route exact path="/story/:slug" element={<DetailStory />} />
 
-        <Route path="/blogs/:postId" element={<BlogPost />} />
+        {/* <Route path="/blogs/:postId" element={<BlogPost />} /> */}
 
         <Route path="/payment" element={<Stripe />} />
 

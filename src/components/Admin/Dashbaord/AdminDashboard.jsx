@@ -34,7 +34,7 @@ const AdminDashboard = () => {
                                         {/* <Route path='post/new' element={<AddPost />} /> */}
                                         <Route path='post/new' element={<AddStory />} />
                                         <Route path='story/:slug/edit' element={<EditStory />} />
-                                        <Route path='posts' element={<Posts />} />
+                                        {/* <Route path='posts' element={<Posts />} /> */}
                                     </Routes>
                                 </div>
                             </main>

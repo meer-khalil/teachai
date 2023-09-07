@@ -7,6 +7,7 @@ import { AiOutlineUpload } from 'react-icons/ai'
 import { FiArrowLeft } from 'react-icons/fi'
 import './AddStory.css'
 import axios from 'axios';
+import { addstory_url } from '../../../../util/variables';
 
 const AddStory = () => {
 
@@ -50,7 +51,7 @@ const AddStory = () => {
                 console.log(pair[0] + ', ' + pair[1]);
             }
 
-            const { data } = await axios.post("http://localhost:4000/api/v1/story/addstory", formdata, config)
+            const { data } = await axios.post(`${addstory_url}/story/addstory`, formdata, config)
 
             console.log('Data: ', data);
 

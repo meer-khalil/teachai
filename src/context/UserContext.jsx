@@ -73,7 +73,7 @@ export const UserProvider = ({ children }) => {
 
         try {
 
-            const res = await axios.get((backend_url ? backend_url : '') + "/logout");
+            const res = await api.get("/logout");
 
 
             console.log('User Logout successfully:', res);

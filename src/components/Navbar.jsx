@@ -38,7 +38,7 @@ const Navbar = () => {
                                     {
                                         [
                                             { text: 'AI Teachers', url: '/teachers' },
-                                            { text: 'Blogs', url: '/blogs' },
+                                            { text: 'Blogs', url: '/stories' },
                                             { text: 'Pricing', url: '/pricing' },
                                         ].map((el, i) => (
                                             <Link

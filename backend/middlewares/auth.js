@@ -5,10 +5,11 @@ const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
 
+    console.log('Here is request Body: ', req.body);
     // console.log('\n\n\nAuthorization:  ', req.headers.authorization, '\n\n\n');
 
     const token  = req.headers?.authorization?.split('Bearer ')[1];
-    console.log('Here is token: ', token);
+    // console.log('Here is token: ', token);
     
     if (!token) {
         return next(new ErrorHandler("Please Login to Access", 401))

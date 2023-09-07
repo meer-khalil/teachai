@@ -15,6 +15,7 @@ const {
 } = require('../controllers/postController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+const imageupload = require("../utils/lib/imageUpload");
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.route('/admin/post/:id')
     .delete(isAuthenticatedUser, authorizeRoles("admin"), deletePost);
 router.route('/admin/post/new').post(isAuthenticatedUser, authorizeRoles("admin"), createPost); 
 
+// router.post("/addstory" ,[isAuthenticatedUser, imageupload.single("image")],addStory)
 
 
 // router.route('/products/all').get(getProducts);

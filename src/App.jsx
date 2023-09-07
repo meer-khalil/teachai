@@ -27,6 +27,10 @@ import Cancel from "./components/Stripe/Cancel";
 import Stripe from "./components/Stripe/Stripe";
 import UserDashboard from "./components/Dashboard/UserDashboard";
 import YourComponent from "./components/Pdf/YourComponent";
+import Stories from "./components/Blog/Stories/Stories";
+import DetailStory from "./components/Blog/Stories/DetailStory";
+import Editor from "./components/Editor/Editor";
+import TinyMCE from "./components/Editor/TinyMCE";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -68,7 +72,11 @@ export default function App() {
           <UserDashboard />
         } />
 
-        <Route path="/blogs" element={<Blog />} />
+        {/* <Route path="/blogs" element={<Blog />} /> */}
+
+        <Route path="/stories" element={<Stories />} />
+
+        <Route exact path="/story/:slug" element={<DetailStory />} />
 
         <Route path="/blogs/:postId" element={<BlogPost />} />
 
@@ -79,6 +87,11 @@ export default function App() {
         <Route path="/cancel" element={<Cancel />} />
 
         <Route path="/pdf" element={<YourComponent />} />
+
+        {/* <Route path="/editor" element={<Editor />} /> */}
+
+        {/* <Route path="/tinyeditor" element={<TinyMCE />} /> */}
+
 
       </Routes>
 

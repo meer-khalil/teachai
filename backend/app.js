@@ -101,14 +101,17 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
     response.json({ received: true });
 });
 
-app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.json({ limit: '30mb' }));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }));
 app.use(cookieParser());
 
 
+app.use(express.static(path.join(__dirname, "public")))
+
 const user = require('./routes/userRoute');
 const post = require('./routes/postRoute');
+const story = require('./routes/storyRoute');
 // const order = require('./routes/orderRoute');
 const payment = require('./routes/paymentRoute');
 const chat = require('./routes/chatRoute');
@@ -119,6 +122,7 @@ const chatHistory = require('./routes/chatHistoryRoute');
 
 app.use('/api/v1', user);
 app.use('/api/v1', post);
+app.use('/api/v1/story', story);
 // app.use('/api/v1', order);
 app.use('/api/v1', payment);
 app.use('/api/v1', chat);

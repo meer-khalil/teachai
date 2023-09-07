@@ -5,6 +5,8 @@ import AddPost from './components/AddPost'
 import Posts from './components/Posts'
 import { UserContext } from '../../../context/UserContext'
 import { Route, Routes } from 'react-router-dom'
+import AddStory from './components/AddStory'
+import EditStory from './components/EditStory'
 
 const AdminDashboard = () => {
 
@@ -25,11 +27,13 @@ const AdminDashboard = () => {
 
                             <Aside />
 
-                            <main className="md:ml-60 mt-40 md:mt-0 max-h-screen overflow-auto flex-1">
+                            <main className=" mt-40 md:mt-0 max-h-screen overflow-auto flex-1">
                                 <div className="px-2 md:px-6 py-8">
                                     <Routes>
                                         <Route index path='users' element={<Users />} />
-                                        <Route path='post/new' element={<AddPost />} />
+                                        {/* <Route path='post/new' element={<AddPost />} /> */}
+                                        <Route path='post/new' element={<AddStory />} />
+                                        <Route path='story/:slug/edit' element={<EditStory />} />
                                         <Route path='posts' element={<Posts />} />
                                     </Routes>
                                 </div>

@@ -4,7 +4,8 @@ const {
     loginUser,
     logoutUser,
     getUserDetails,
-    getAllUsers
+    getAllUsers,
+    getUsage
 } = require('../controllers/userController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -19,4 +20,5 @@ router.route('/me').get(isAuthenticatedUser, getUserDetails);
 
 router.route("/admin/users").get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
 
+router.route("/getUsage").get(isAuthenticatedUser, getUsage)
 module.exports = router;

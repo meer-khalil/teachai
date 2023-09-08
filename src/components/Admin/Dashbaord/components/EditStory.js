@@ -8,7 +8,8 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { AiOutlineUpload } from 'react-icons/ai'
 import './EditStory.css'
 import api from '../../../../util/api';
-import { addstory_url, backend_resource } from '../../../../util/variables';
+import { addstory_url, backend_resourse } from '../../../../util/variables';
+import { toast } from 'react-toastify';
 
 const EditStory = () => {
 
@@ -62,10 +63,11 @@ const EditStory = () => {
         try {
             const { data } = await axios.put(`${addstory_url}/story/${slug}/edit`, formdata, config)
 
-            setSuccess('Edit Story successfully ')
+            // setSuccess('Edit Story successfully ')
+            toast("Edit Story Successfully")
 
             setTimeout(() => {
-                navigate('/')
+                navigate('/blogs')
             }, 2500)
 
         }
@@ -134,7 +136,7 @@ const EditStory = () => {
                                 <div class="absolute">
                                     Currently Image
                                 </div>
-                                <img src={`${backend_resource}/storyImages/${previousImage}`} alt="storyImage" />
+                                <img src={`${backend_resourse}/storyImages/${previousImage}`} alt="storyImage" />
                             </div>
                             <div class="StoryImageField">
                                 <AiOutlineUpload />

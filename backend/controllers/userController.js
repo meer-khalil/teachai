@@ -20,7 +20,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
 
     let user = ''
     try {
-        
+
         user = await User.create({
             firstName,
             lastName,
@@ -42,7 +42,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
         usageCount: 1,
         usageLimit: 10
     });
-    
+
     sendToken(user, 201, res);
 });
 
@@ -96,10 +96,21 @@ exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
 // Get All Users --ADMIN
 exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
 
-    const users = await User.find();
+    let data = await Usage.find().populate('user');
 
     res.status(200).json({
         success: true,
-        users,
+        users: data,
+    });
+});
+
+
+exports.getUsage = asyncErrorHandler(async (req, res, next) => {
+
+    let data = await Usage.findOne({ user: req.user.id });
+
+    res.status(200).json({
+        success: true,
+        usage: data,
     });
 });

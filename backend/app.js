@@ -63,7 +63,8 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                             const updatedUsage = await Usage.findByIdAndUpdate(temp[0].id, {
                                 plan: plan['name'],
                                 usageLimit: plan['limit'],
-                                payment: true
+                                payment: true,
+                                paymentDate: Date.now
                             });
 
                             if (updatedUsage) {
@@ -126,6 +127,15 @@ app.use('/api/v1', payment);
 app.use('/api/v1', chat);
 app.use('/api/v1', chatHistory);
 
+
+app.get('/updateUsage', async (req, res) => {
+    let data = await Usage.find({ _id: '64fa041a77c59af3e0b4413d' })
+    console.log('data: ', data);
+    res.status(200).json({
+        data
+    })
+})
+
 let environment = 'prod';
 if (environment === 'dev') {
 
@@ -143,6 +153,23 @@ if (environment === 'dev') {
         } else next()
     })
 }
+
+
+app.put('/updateUsage', async (req, res) => {
+    let id = "64fa041a77c59af3e0b4413d"
+
+    const updatedUsage = await Usage.findByIdAndUpdate(id, {
+        plan: 'Professional',
+        usageLimit: null,
+        payment: true,
+        paymentDate: Date.now()
+    });
+
+    res.status(200).json({
+        usage: updatedUsage
+    })
+})
+
 
 
 // error middleware

@@ -14,6 +14,7 @@ import api from '../../../util/api';
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';
 import { backend_resourse } from '../../../util/variables';
+import { toast } from 'react-toastify';
 
 const DetailStory = () => {
 
@@ -117,11 +118,12 @@ const DetailStory = () => {
     if (window.confirm("Do you want to delete this post")) {
 
       try {
-        alert('deleting: ', slug)
-
         await api.delete(`/story/${slug}/delete`)
-        alert('deleted: ', slug)
-        navigate("/stories")
+        toast("Deleted Post Successfully")
+        
+        setTimeout(() => {
+          navigate("/stories")
+        }, 2000);
 
       }
       catch (error) {
@@ -171,9 +173,9 @@ const DetailStory = () => {
             <div className='Inclusive-detailStory-page'>
 
               <div className="top_detail_wrapper">
-                <Link to={'/'} >
+                {/* <Link to={'/'} >
                   <FiArrowLeft />
-                </Link>
+                </Link> */}
                 <h5>{story.title}</h5>
 
                 <div className='story-general-info'>
@@ -241,7 +243,7 @@ const DetailStory = () => {
               <div className='story-content' >
 
                 <div className="story-banner-img">
-                  <img src={`https://teachassistai.com/storyImages/${story.image}`} alt={story.title} />
+                  <img src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
                 </div>
 
                 <div className=' prose lg:prose-xl'>

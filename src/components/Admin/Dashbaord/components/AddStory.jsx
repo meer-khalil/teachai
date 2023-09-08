@@ -8,6 +8,7 @@ import { FiArrowLeft } from 'react-icons/fi'
 import './AddStory.css'
 import axios from 'axios';
 import { addstory_url } from '../../../../util/variables';
+import { toast } from 'react-toastify';
 
 const AddStory = () => {
 
@@ -55,7 +56,8 @@ const AddStory = () => {
 
             console.log('Data: ', data);
 
-            setSuccess('Add story successfully ')
+            // setSuccess('Add story successfully ')
+            toast("Add Post Successful")
 
             clearInputs()
             setTimeout(() => {

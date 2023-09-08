@@ -1,10 +1,12 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Productivity from './components/SideBots/Productivity'
 import { Link, useLocation } from 'react-router-dom'
 
 import './Aside.css';
 import { UserContext } from '../../context/UserContext';
 import AsideCategories from './components/AsideCategories';
+import { toast } from 'react-toastify';
+import api from '../../util/api';
 
 const Aside = ({ selectedCategory, setSelectedCategory }) => {
     const { pathname } = useLocation();
@@ -12,6 +14,24 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
     const { logout } = useContext(UserContext)
 
     console.log('PathNam: ', pathname);
+
+    const [usage, setUsage] = useState(null);
+
+    const fetchUsage = async () => {
+        try {
+            const { data } = await api.get('/getUsage');
+            const { usage } = data
+            setUsage(usage)
+            // console.log('Usage: ', usage);
+            // toast("Got the usage Data")
+        } catch (error) {
+
+            toast("Error Usage Data")
+        }
+    }
+    useEffect(() => {
+        fetchUsage();
+    }, [])
 
     return (
         <aside className="absolute left-0 top-0 right-0 bottom-0 ">
@@ -58,11 +78,12 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                         </Link>
                         {/* <br /> */}
                         <div className=' mx-4 mt-2'>
+                            <div className="text-end">{usage?.plan}</div>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
-                                <div className=' bg-blue-500 h-full w-2'></div>
+                                <div className={`bg-blue-500 h-full w-[${(usage?.usageCount * 100) / usage?.usageLimit}]`}></div>
                             </div>
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                No daily credits used
+                                { usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} Credits Used`}
                             </p>
                         </div>
                     </li>

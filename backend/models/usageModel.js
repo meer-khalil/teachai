@@ -17,6 +17,9 @@ const usageSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    paymentDate: {
+        type: Date
+    },
     lastUpdated: { type: Date, default: Date.now }
 })
 

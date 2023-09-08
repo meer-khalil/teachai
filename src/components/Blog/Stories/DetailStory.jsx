@@ -157,7 +157,7 @@ const DetailStory = () => {
 
       setStoryReadListStatus(data.status)
 
-      document.getElementById("readListLength").textContent = data.user.readListLength
+      document.getElementById("readListLength").textContent = data.user?.readListLength
     }
     catch (error) {
       console.log(error)
@@ -202,7 +202,7 @@ const DetailStory = () => {
                   </ul>
 
                   {
-                    !activeUser.username &&
+                    !activeUser?.username &&
                     <div className='comment-info-wrap'>
 
                       <i onClick={(prev) => {
@@ -254,7 +254,7 @@ const DetailStory = () => {
               </div>
 
               {
-                activeUser.username &&
+                activeUser?.username &&
                 <div className='fixed-story-options'>
 
                   <ul>

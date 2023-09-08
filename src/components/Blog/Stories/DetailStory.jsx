@@ -70,7 +70,6 @@ const DetailStory = () => {
           }
           else {
             setStoryReadListStatus(true)
-
           }
 
         }
@@ -78,6 +77,7 @@ const DetailStory = () => {
       }
       catch (error) {
         setStory({})
+        console.log('Error: ', error);
         navigate("/not-found")
       }
 

@@ -72,8 +72,8 @@ const detailStory = asyncErrorWrapper(async (req, res, next) => {
         slug: slug
     }).populate("author likes")
 
-    const storyLikeUserIds = story.likes.map(json => json.id)
-    const likeStatus = storyLikeUserIds.includes(activeUser._id)
+    const storyLikeUserIds = story.likes.map(json => json?.id)
+    const likeStatus = storyLikeUserIds.includes(activeUser?._id)
 
 
     return res.status(200).

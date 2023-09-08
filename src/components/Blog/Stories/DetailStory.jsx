@@ -63,9 +63,9 @@ const DetailStory = () => {
 
         const story_id = data.data._id;
 
-        if (activeUser.readList) {
+        if (activeUser?.readList) {
 
-          if (!activeUser.readList.includes(story_id)) {
+          if (!activeUser?.readList?.includes(story_id)) {
             setStoryReadListStatus(false)
           }
           else {

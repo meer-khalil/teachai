@@ -60,16 +60,16 @@ const AddStory = () => {
             toast("Add Post Successful")
 
             clearInputs()
-            setTimeout(() => {
-                setSuccess('')
-            }, 7000)
+            // setTimeout(() => {
+            //     setSuccess('')
+            // }, 7000)
 
         }
         catch (error) {
-            setTimeout(() => {
-                setError('')
-            }, 7000)
-            console.log('Here is error!');
+            // setTimeout(() => {
+            //     setError('')
+            // }, 7000)
+            console.log('Here is error!: ', error); 
             setError(error?.response?.data?.error)
 
         }

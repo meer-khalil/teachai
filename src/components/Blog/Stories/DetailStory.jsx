@@ -201,7 +201,7 @@ const DetailStory = () => {
 
                   </ul>
 
-                  {
+                  {/* {
                     !activeUser?.username &&
                     <div className='comment-info-wrap'>
 
@@ -215,7 +215,7 @@ const DetailStory = () => {
                       <b className='commentCount'>{story.commentCount}</b>
 
                     </div>
-                  }
+                  } */}
 
                   {user && story.author &&
                     story.author._id === user._id ?

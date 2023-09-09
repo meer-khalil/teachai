@@ -232,13 +232,13 @@ const DetailStory = () => {
 
               </div>
 
-              <div className="CommentFieldEmp">
+              {/* <div className="CommentFieldEmp">
 
                 <CommentSidebar slug={slug} sidebarShowStatus={sidebarShowStatus} setSidebarShowStatus={setSidebarShowStatus}
                   activeUser={activeUser}
                 />
 
-              </div>
+              </div> */}
 
               <div className='story-content' >
 

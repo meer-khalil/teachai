@@ -14,7 +14,7 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
     let data = {
         prompt: body.prompt ? body.prompt : body,
-        id: req.user.id
+        user_id: req.user.id
     }
 
     console.log('Request Made!');

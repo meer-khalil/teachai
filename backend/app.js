@@ -117,6 +117,7 @@ const story = require('./routes/storyRoute');
 const payment = require('./routes/paymentRoute');
 const chat = require('./routes/chatRoute');
 const chatHistory = require('./routes/chatHistoryRoute');
+const contact = require('./routes/contactRoute');
 
 
 app.use('/api/v1', user);
@@ -126,6 +127,7 @@ app.use('/api/v1/story', story);
 app.use('/api/v1', payment);
 app.use('/api/v1', chat);
 app.use('/api/v1', chatHistory);
+app.use('/api/v1', contact);
 
 
 app.get('/updateUsage', async (req, res) => {

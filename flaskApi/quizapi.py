@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import openai
 import config
-import pickle
+import os
 import json
+from gptutils import create_chat_data
 
-def generate_quiz(prompt, user_id):
+
+def generate_quiz(prompt, user_id, conversation_id):
     """
     prompt: prompt by user
     user_id: user ID
@@ -15,13 +17,18 @@ def generate_quiz(prompt, user_id):
     model = "gpt-3.5-turbo"
     system = "You are a helpful assistant for teachers, designed to generate quizzes based on the subject, grade level, and learning objectives."
     messages = None
-    filename = "{}_quiz.json".format(user_id)
+    filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
+
+    if not os.path.exists('ChatHistory'):
+        os.makedirs('ChatHistory')
 
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)
     except:
         messages = None
+        first_message = f"{prompt}, chatbot name: quiz generator"
+        create_chat_data(user_id, conversation_id, first_message)
 
     final_prompt = f"""As a helpful assistant for teachers, your task is to generate quizzes based on inputs from the teacher:
 the subject, grade level, topic, Teacher's note (optional to specify learning objective for example) and the type of the quiz needed (multiple choice, true or false or both options)(if both is selected than the questions should include multiple choice and yes or no questions).

@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
 import config
 import json
 from langchain import LLMMathChain, OpenAI
 import ast
-from googlesearch import search
+#from googlesearch import search
 import openai
+import os
+from gptutils import create_chat_data
 
 def answer_math(question):
     openai_api_key = config.DevelopmentConfig.OPENAI_KEY
@@ -47,12 +50,12 @@ def answer_math_quiz(quiz):
         print(e)
         return "None"
 
-def reveal_answers(user_id, fromfunc=False):
+def reveal_answers(user_id, conversation_id, fromfunc=False):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
     system = "You are a helpful assistant for teachers, designed to rewrite quizz answers"
-    quizfilename = "{}_quiz.txt".format(user_id)
+    quizfilename = "Quizzes/{}_{}.txt".format(user_id, conversation_id)
     try:
         with open(quizfilename, 'r') as file:
             quiz = file.read()
@@ -81,21 +84,25 @@ Your response Begin with the phrase "Here are the answers to your quiz:". """
         return all_answers
     return all_answers.replace('\n','<br>' )
 
-def evaluate_quiz(prompt, user_id):
+def evaluate_quiz(prompt, user_id, conversation_id):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
     system = "You are a helpful assistant for teachers, designed to evaluate quizzes"
     messages = None
-    
-    filename = "{}_history.json".format(user_id)
+    filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
+
+    if not os.path.exists('ChatHistory'):
+        os.makedirs('ChatHistory')
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)
     except:
         messages = None
+        first_message = f"{prompt}, chatbot name: quiz evaluating bot"
+        create_chat_data(user_id, conversation_id, first_message)
 
-    answers = reveal_answers(user_id, fromfunc=True)
+    answers = reveal_answers(user_id, conversation_id, fromfunc=True)
     if answers == "None":
         return "I'm sorry but I can't evaluate the answers correctly"
     final_prompt = f"""this is a solution to a math quiz: ""   {answers}  ""
@@ -121,7 +128,7 @@ def evaluate_quiz(prompt, user_id):
         json.dump(messages, outfile)
     return message['content'].replace('\n','<br>' )
 
-def generate_quiz(math_problem,multiple, user_id):
+def generate_quiz(math_problem, multiple, user_id, conversation_id):
     """
     math_problem: math_problem by user
     user_id: user ID
@@ -132,8 +139,14 @@ def generate_quiz(math_problem,multiple, user_id):
     model = "gpt-3.5-turbo"
     system = "You are a helpful assistant for teachers, designed to generate math quizzes based on a math problem"
     messages = None
-    filename = "{}_history.json".format(user_id)
-    quizfilename = "{}_quiz.txt".format(user_id)
+    filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
+
+    if not os.path.exists('ChatHistory'):
+        os.makedirs('ChatHistory')
+    if not os.path.exists('Quizzes'):
+        os.makedirs('Quizzes')
+    quizfilename = "Quizzes/{}_{}.txt".format(user_id, conversation_id)
+
     add_str = ""
     if multiple:
         multiple_str = str(multiple)
@@ -147,6 +160,8 @@ def generate_quiz(math_problem,multiple, user_id):
             messages = json.load(openfile)
     except:
         messages = None
+        first_message = f"{math_problem}, chatbot name: math quiz generator"
+        create_chat_data(user_id, conversation_id, first_message)
 
     final_prompt = f"""Your role as a teacher's assistant is to create a math quiz based on a theme provided by the teacher. The quiz should only include math problems that can be converted into an expression compatible with calculators.
 For example, questions like "What is 37593 * 67?" or "What is 37593^(1/5)?" are acceptable. However, avoid complex questions such as simplifying an expression or solving an equation.
@@ -171,7 +186,6 @@ Begin the quiz with the phrase "Here is your quiz", add title of the quiz wich i
     messages.append(message)
     with open(filename, "w") as outfile:
         json.dump(messages, outfile)
-    with open(quizfilename, "w", encoding='utf-8') as f:
+    with open(quizfilename, "w") as f:
         f.write(message['content'])
     return message['content'].replace('\n','<br>' )
-

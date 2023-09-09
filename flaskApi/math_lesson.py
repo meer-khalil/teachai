@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import openai
 import config
-import pickle
 import json
 import ast
 from googlesearch import search
+import os
+from gptutils import create_chat_data
 
-def plan_lessons_chat(prompt, id):
+def plan_lessons_chat(prompt, user_id, conversation_id):
     """
     prompt: prompt by user
     id: user ID
@@ -18,13 +19,17 @@ def plan_lessons_chat(prompt, id):
     model = "gpt-3.5-turbo"
     system = "You are a helpful assistant for math teachers, designed to provide relevant resources and activities for lesson planning based on the math problem the teacher will provide. Your primary goal is to assist teachers in finding recommendations on specific topics or skills and offer a list of resources and activities tailored to their needs, only answer questions related to your task."
     messages = None
-    filename = "{}_history.json".format(id)
+    filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 
+    if not os.path.exists('ChatHistory'):
+        os.makedirs('ChatHistory')
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)
     except:
         messages = None
+        first_message = f"{prompt}, chatbot name: math lesson planner"
+        create_chat_data(user_id, conversation_id, first_message)
 
     final_prompt = f"""As a helpful assistant for teachers, your task is to provide relevant resources and activities for lesson planning, focusing on the math problem provided by the teacher. When a teacher asks for recommendations on specific math problem , offer a list of resources and activities tailored to their needs. Be proactive in offering assistance, clarifying any ambiguities, and guiding teachers through the process of selecting and using the resources provided. Maintain a polite, respectful, and empathetic tone, and always strive to exceed the teacher's expectations with your helpfulness and resourcefulness. Do not provide any links if you're providing resources or videos but instead give the teacher a precise query to search on google.Only answer questions related to your task do not engage in anything outside the scope of helping the teacher to plan their lessons, the teacher's message: "{
                 prompt}", Do not respond if the message is not related to lesson planning, remember do not provide links"""

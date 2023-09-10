@@ -71,11 +71,10 @@ export default function App() {
 
         {/* <Route path="/blogs" element={<Blog />} /> */}
 
-        <Route path="/stories" element={<Stories />} />
+        <Route path="/blogs" element={<Stories />} />
 
-        <Route exact path="/story/:slug" element={<DetailStory />} />
+        <Route exact path="/blog/:slug" element={<DetailStory />} />
 
-        {/* <Route path="/blogs/:postId" element={<BlogPost />} /> */}
 
         <Route path="/payment" element={<Stripe />} />
 

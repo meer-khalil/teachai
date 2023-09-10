@@ -31,13 +31,13 @@ const Stories = () => {
 
         if (searchKey) {
           navigate({
-            pathname: '/stories',
+            pathname: '/blogs',
             search: `?search=${searchKey}${page > 1 ? `&page=${page}` : ""}`,
           });
         }
         else {
           navigate({
-            pathname: '/stories',
+            pathname: '/blogs',
             search: `${page > 1 ? `page=${page}` : ""}`,
           });
 

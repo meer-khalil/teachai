@@ -25,7 +25,7 @@ const Story = ({ story }) => {
     return (
 
         <div className="story-card">
-            <Link to={`/story/${story.slug}`} className="story-link">
+            <Link to={`/blog/${story.slug}`} className="story-link">
 
                 <img className=" story-image" src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
                 <div className="story-content-wrapper">

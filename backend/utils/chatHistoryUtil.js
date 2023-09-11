@@ -31,6 +31,7 @@ exports.createChatHistory = async (chatbot_name, user_id, answer, res) => {
 exports.updateChatHistory = async (chat_id, answer, res) => {
     try {
 
+
         const filter = { _id: chat_id }
         const update = { $push: { content: answer } };
         const options = { new: true };
@@ -38,11 +39,8 @@ exports.updateChatHistory = async (chat_id, answer, res) => {
         const updatedDocument = await ChatHistory.findOneAndUpdate(filter, update, options);
 
         if (updatedDocument) {
-
             console.log('\n\n\nUpdated document:', updatedDocument);
-
         } else {
-
             console.log('\n\nDocument not found.');
         }
 
@@ -51,7 +49,7 @@ exports.updateChatHistory = async (chat_id, answer, res) => {
         })
     }
     catch (error) {
-        res.status(200).json({
+        res.status(500).json({
             message: "Error While Updating the history. (catch)",
             error: error
         })

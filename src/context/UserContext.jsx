@@ -48,16 +48,16 @@ export const UserProvider = ({ children }) => {
 
     const register = async (data) => {
         try {
-            const res = await axios.post((backend_url ? backend_url : '') + '/register', data);
+            const res = await api.post('/register', data);
 
             console.log('User registered successfully:', res.data);
 
             if (res.data.success) {
-                localStorage.setItem('("teachai_token', res.data.token);
-                api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-                setIsAuthenticated(true)
-                setUser(res.data);
-                navigate('/')
+                // localStorage.setItem('("teachai_token', res.data.token);
+                // api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+                // setIsAuthenticated(true)
+                // setUser(res.data);
+                navigate('/login')
             }
         } catch (error) {
             if (error.response.status) {
@@ -124,9 +124,7 @@ export const UserProvider = ({ children }) => {
 
     const getUserData = async () => {
         try {
-
             const { data } = await api.get((backend_url ? backend_url : '') + '/me');
-
             const { user } = data
             setUser(user);
             localStorage.setItem('teachai_user', JSON.stringify(user))

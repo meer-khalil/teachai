@@ -2,19 +2,34 @@ const { default: axios } = require("axios");
 const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const { updateChatHistory, createChatHistory } = require("../utils/chatHistoryUtil");
 const api = require("../utils/api");
+const ChatHistory = require('../models/chatHistoryModel')
+const Chatbot = require('../models/chatbotModel');
 
 exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
-    console.log('Here is body: ', req.body);
+    console.log('req.boyd: ', req.body);
 
-    const { chat_id, body } = req.body
+    let { chat_id, body } = req.body
+    const user_id = req.user.id
     const chatbot_name = 'Lesson Planning';
 
-    console.log('\n\n\n\nHere is chatID: ', chat_id);
+    // Creating the Chat History if already is not created
+    if (!chat_id) {
+        const chatbot = await Chatbot.findOne({ name: chatbot_name });
+        console.log('chatbot: ', chatbot);
+        const chat_history = await ChatHistory.create({
+            user: user_id,
+            chatbot: chatbot._id,
+            content: []
+        })
+        console.log('ChatHistory: ', chat_history);
+        chat_id = chat_history._id
+    }
 
     let data = {
         prompt: body.prompt ? body.prompt : body,
-        user_id: req.user.id
+        user_id: user_id,
+        conversation_id: chat_id
     }
 
     console.log('Request Made!');
@@ -26,15 +41,14 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
             if (response.statusText === 'OK') {
 
                 const data = response.data
+                console.log('Data From Lesson Planner: ', data);
+                let question = body.prompt ? body.prompt : null
+                let answer = data.lesson_plan
 
-                if (chat_id) {
+                console.log('q: ', question);
+                console.log('ans: ', answer);
 
-                    updateChatHistory(chat_id, { question: body.prompt, answer: data.answer }, res)
-
-                } else {
-
-                    createChatHistory(chatbot_name, req.user.id, data.answer, res);
-                }
+                updateChatHistory(chat_id, { question, answer }, res)
 
             } else {
                 res.status(500).json({
@@ -42,15 +56,15 @@ exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
                 })
             }
         } catch (error) {
-            console.log('Error From Catch: ', error);
+            console.log('Error While Getting LessonPlanner: ', error);
             res.status(500).json({
-                message: 'Error from Catch'
+                message: 'Lesson Planner API give bad Response!'
             })
         }
 
     } else {
         res.status(500).json({
-            message: "Error Handling the request!"
+            message: "Error From Lesson Planner!"
         })
     }
 })
@@ -64,7 +78,7 @@ exports.quiz = asyncErrorHandler(async (req, res, next) => {
     const chatbot_name = 'General Quiz';
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
-    
+
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id
@@ -588,7 +602,7 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
     }
 
     console.log('\n\n\n\nHere is chatID: ', chat_id);
-        
+
     let data = {
         prompt: body.prompt ? body.prompt : body,
         id: req.user._id

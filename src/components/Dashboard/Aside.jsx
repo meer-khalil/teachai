@@ -22,10 +22,9 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
             const { data } = await api.get('/getUsage');
             const { usage } = data
             setUsage(usage)
-            // console.log('Usage: ', usage);
+            console.log('Usage: ', usage);
             // toast("Got the usage Data")
         } catch (error) {
-
             toast("Error Usage Data")
         }
     }

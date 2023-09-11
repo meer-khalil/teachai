@@ -75,7 +75,6 @@ export default function App() {
 
         <Route exact path="/blog/:slug" element={<DetailStory />} />
 
-
         <Route path="/payment" element={<Stripe />} />
 
         <Route path="/success" element={<Success />} />

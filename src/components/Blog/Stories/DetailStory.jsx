@@ -18,7 +18,6 @@ import { toast } from 'react-toastify';
 
 const DetailStory = () => {
 
-
   const { user } = useContext(UserContext);
 
   const [likeStatus, setLikeStatus] = useState(false)

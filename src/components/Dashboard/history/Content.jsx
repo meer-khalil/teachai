@@ -28,7 +28,7 @@ const Content = () => {
 
     return (
         <>
-            <h1>Content: {chatbotid}</h1>
+            {/* <h1>Content: {chatbotid}</h1> */}
             <div>
                 {
                     chatHistory && <Answer answer={chatHistory.content} />

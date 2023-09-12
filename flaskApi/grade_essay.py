@@ -52,9 +52,31 @@ def grade(essay, user_id, conversation_id):
 
     if not os.path.exists('ChatHistory'):
         os.makedirs('ChatHistory')
-    
-    with open(cubricfile, 'r') as openfile:
+    try:
+        with open(cubricfile, 'r') as openfile:
             rubric = json.load(openfile)
+    except:
+        rubric = f"""
+Content (40 points)
+Exemplary (36-40 points): The essay demonstrates a thorough understanding of the topic. The arguments are clear, well-supported with relevant evidence, and directly related to the thesis. The essay shows original thinking and creativity.
+Proficient (31-35 points): The essay demonstrates a good understanding of the topic. The arguments are clear and mostly supported by evidence. There is a connection to the thesis.
+Developing (21-30 points): The essay demonstrates some understanding of the topic. The arguments are not always clear or well-supported by evidence. The connection to the thesis is weak.
+Beginning (0-20 points): The essay demonstrates little or no understanding of the topic. The arguments are unclear and unsupported by evidence. There is no clear thesis.
+Organization (20 points)
+Exemplary (18-20 points): The essay is well-organized with a clear introduction, body, and conclusion. Transitions between ideas are smooth, and each paragraph supports the thesis.
+Proficient (15-17 points): The essay is mostly well-organized. There may be some abrupt transitions, and not all paragraphs support the thesis.
+Developing (10-14 points): The essay is somewhat disorganized. Transitions are often abrupt or non-existent, and many paragraphs do not support the thesis.
+Beginning (0-9 points): The essay is disorganized. There are no clear transitions, and the paragraphs do not support the thesis.
+Language (20 points)
+Exemplary (18-20 points): The essay uses clear, concise, and sophisticated language. Sentences are varied, and vocabulary is appropriate and varied.
+Proficient (15-17 points): The essay uses clear and concise language with some sentence variety. Vocabulary is appropriate.
+Developing (10-14 points): The essay uses language that is sometimes unclear or inappropriate. There is little sentence variety, and vocabulary is simplistic.
+Beginning (0-9 points): The essay uses language that is often unclear or inappropriate. There is no sentence variety, and vocabulary is inappropriate or inaccurate.
+Mechanics (20 points)
+Exemplary (18-20 points): The essay is free of grammatical, spelling, and punctuation errors. The format is correct according to the specified style guide (e.g., APA, MLA).
+Proficient (15-17 points): The essay has few grammatical, spelling, or punctuation errors. There may be minor format errors.
+Developing (10-14 points): The essay has several grammatical, spelling, or punctuation errors that distract from the content. There are several format errors.
+Beginning (0-9 points): The essay is full of grammatical, spelling, or punctuation errors that make the content difficult to understand. The format is incorrect."""
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)

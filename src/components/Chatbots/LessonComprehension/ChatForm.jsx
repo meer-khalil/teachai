@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import api from '../../../util/api';
+import { useContext } from 'react';
+import { UsageContext } from '../../../context/UsageContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
+
+    const { fetchUsage } = useContext(UsageContext);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,8 +28,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log('Here is the answer: ', res.data.answer);
                 setChatID(res.data.chat_id)
                 setAnswer([{ answer: res.data.answer }])
-
                 setLoading(false)
+                fetchUsage();
             }
         } catch (error) {
 

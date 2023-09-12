@@ -15,6 +15,7 @@ import ExportButtons from '../ExportButtons';
 // import { HtmlToDocx } from 'html-docx-js';
 
 import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
+import { UsageContext } from '../../../context/UsageContext';
 
 const MathLessonPlanner = () => {
 
@@ -27,6 +28,8 @@ const MathLessonPlanner = () => {
 
     const reportTemplateRef = useRef(null);
 
+
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,9 +53,8 @@ const MathLessonPlanner = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-                
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

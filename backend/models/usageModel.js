@@ -13,6 +13,12 @@ const usageSchema = new mongoose.Schema({
     },
     usageCount: Number,
     usageLimit: Number,
+    storageUsed: { type: Number, default: 0 },
+    storageLimit: {
+        type: Number,
+        default: 10
+    },
+    noOfFilesUploaded: { type: Number, default: 0 },
     payment: {
         type: Boolean,
         default: false

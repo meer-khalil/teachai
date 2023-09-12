@@ -17,7 +17,7 @@ const ProductivityItem = ({ el }) => {
                         <h4 className='text-lg font-semibold text-secondary'>
                             {el.title}
                         </h4>
-                        <span>Bob</span>
+                        <span>{el.name}</span>
                     </div>
                 </div>
                 <p className='text-secondary'>{el.description}</p>

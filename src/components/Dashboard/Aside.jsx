@@ -1,35 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Productivity from './components/SideBots/Productivity'
-import { Link, useLocation } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 import './Aside.css';
 import { UserContext } from '../../context/UserContext';
-import AsideCategories from './components/AsideCategories';
-import { toast } from 'react-toastify';
-import api from '../../util/api';
+import { UsageContext } from '../../context/UsageContext';
 
 const Aside = ({ selectedCategory, setSelectedCategory }) => {
-    const { pathname } = useLocation();
 
     const { logout } = useContext(UserContext)
+    const { fetchUsage, usage, creditWidth } = useContext(UsageContext)
 
-    console.log('PathNam: ', pathname);
+    // console.log('PathNam: ', pathname);
 
-    const [usage, setUsage] = useState(null);
 
-    const fetchUsage = async () => {
-        try {
-            const { data } = await api.get('/getUsage');
-            const { usage } = data
-            setUsage(usage)
-            console.log('Usage: ', usage);
-            // toast("Got the usage Data")
-        } catch (error) {
-            toast("Error Usage Data")
-        }
-    }
     useEffect(() => {
         fetchUsage();
+        console.log(usage);
+        console.log('width: ', Math.floor((usage?.usageCount * 100) / usage?.usageLimit));
     }, [])
 
     return (
@@ -79,10 +66,20 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                         <div className=' mx-4 mt-2'>
                             <div className="text-end">{usage?.plan}</div>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
-                                <div className={`bg-blue-500 h-full w-[${(usage?.usageCount * 100) / usage?.usageLimit}]`}></div>
+                                <div className={`${usage?.usageCount === usage?.usageLimit ? 'bg-red-500': 'bg-blue-500'} h-full`} style={{ width: creditWidth }}></div>
                             </div>
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                { usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} Credits Used`}
+                                {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} Credits Used`}
+                            </p>
+                            <p className=' text-blue-600 font-bold text-xs mt-2'>
+                                <p className='mb-2'>Storage</p>
+                                {usage?.storageUsed.toFixed(2)} <span className='ml-.5'>MB</span>
+                                /
+                                {usage?.storageLimit}<span className='ml-.5'>GB</span>
+                            </p>
+                            <p className=' text-blue-600 font-bold text-xs mt-2'>
+                                <p className='mb-2'>Number of Files Upload</p>
+                                {usage?.noOfFilesUploaded}
                             </p>
                         </div>
                     </li>

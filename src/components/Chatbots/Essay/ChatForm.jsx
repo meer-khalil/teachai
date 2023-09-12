@@ -1,21 +1,50 @@
 import React, { useState } from 'react'
 import api from '../../../util/api';
+import { useContext } from 'react';
+import { UsageContext } from '../../../context/UsageContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const { fetchUsage } = useContext(UsageContext);
+
+    const handleFileChange = (e) => {
+        console.log('File selected: ', e.target.files[0]);
+        setSelectedFile(e.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         console.log(data);
         setLoading(true)
-        let _body = {
-            body: data
-        }
+
+        const formData = new FormData();
+        console.log('File Selected: ', selectedFile);
+        formData.append('file', selectedFile);
+        // console.log(data);
+        formData.append('body', JSON.stringify(data));
+        // console.log(formData.get('body'));
+
+        // Override the Content-Type for this request
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Set the desired Content-Type
+            },
+        };
+
 
         try {
-            let res = await api.post(`/gradeEssay`, _body)
+            for (var pair of formData.entries()) {
+                console.log(pair[0]);
+                console.log(pair[1]);
+            }
+            console.log(formData);
+            let res = await api.post(`/gradeEssay`, formData, config)
 
             if (res.statusText === 'OK') {
 
@@ -23,8 +52,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log('Here is the answer: ', res.data.answer);
                 setChatID(res.data.chat_id)
                 setAnswer([{ answer: res.data.answer }])
-
                 setLoading(false)
+                fetchUsage();
             }
         } catch (error) {
 
@@ -116,7 +145,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         onChange={handleChange}
                     >
                     </textarea>
-                    <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                    <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
+                        accept='.pdf'
+                        onChange={handleFileChange}
+                    />
                 </div>
 
                 <div className='flex flex-col mb-5'>

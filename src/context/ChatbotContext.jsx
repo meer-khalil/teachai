@@ -85,7 +85,7 @@ const data = [
         description: 'Ali detects AI-Writing & Plagiarism, ensures originality by identifying AI-generated content and detecting plagiarism, maintaining academic integrity',
         icon: _9_DetectAI,
         name: 'Ali',
-        url: 'plagrism',
+        url: 'detect-ai',
         category: 'Assessment & Progress Monitoring'
     },
     {

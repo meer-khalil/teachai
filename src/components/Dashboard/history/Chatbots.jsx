@@ -21,87 +21,87 @@ import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Pr
 
 
 const data = [
-    {
-        title: 'Lesson Planning',
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _1_LessonPlanning,
-        name: 'Lisa',
-        url: 'lesson-planner',
-        category: 'Lesson Planning'
-    },
-    {
-        title: 'Math Quiz',
-        description: "4,729 curated design resources to energize your creative workflow",
-        icon: _2_Quiz,
-        name: "Qasim",
-        url: "quiz",
-        category: 'Student Engagement & Activity Ideas'
-    },
+  {
+      title: 'Lesson Planning',
+      description: 'Lisa optimizes teaching tasks, providing tailored and efficient support to enhance classroom productivity and organization.',
+      icon: _1_LessonPlanning,
+      name: 'Lisa',
+      url: 'Lesson Planning',
+      category: 'Lesson Planning'
+  },
+  {
+      title: 'General Quiz',
+      description: "Qasim offers grade-specific quizzes on various subjects, with options like multiple-choice, true/false, and open-ended questions, fostering interactive learning in multiple languages.",
+      icon: _2_Quiz,
+      name: "Qasim",
+      url: "General Quiz",
+      category: 'Student Engagement & Activity Ideas'
+  },
 
-    {
-        title: "Automated Essay Scoring and Feedback",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _3_AutomatedEssay,
-        name: 'Elsa',
-        url: 'essay',
-        category: 'Assessment & Progress Monitoring'
-    },
-    {
-        title: 'Comprehension Lesson Generator',
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _4_ComprehensionLesson,
-        name: 'Cara',
-        url: 'lessonComp',
-        category: 'Lesson Planning'
-    },
-    {
-        title: 'Maths Quiz',
-        description: "4,729 curated design resources to energize your creative workflow",
-        icon: _5_MathsQuiz,
-        name: 'Matthew',
-        url: 'mathquiz',
-        category: "Student Engagement & Activity Ideas"
-    },
-    {
-        title: "Math Lesson Planner",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _6_MathLessonPlanner,
-        name: 'Lucy',
-        url: 'math-lesson-planner',
-        category: 'Lesson Planning'
-    },
-    {
-        title: "Video to notes",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _7_VideotoNotes,
-        name: 'Vincent',
-        url: 'video-summarize',
-        category: 'Digital Learning & Teaching Tools'
-    },
-    {
-        title: "Video to Quiz",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _8_VideotoQuizBot,
-        name: 'Bot',
-        url: 'video-to-quiz',
-        category: 'Digital Learning & Teaching Tools'
-    },
-    {
-        title: "Detect AI-Writing & Plagiarism",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _9_DetectAI,
-        name: 'Ali',
-        url: 'plagrism',
-        category: 'Assessment & Progress Monitoring'
-    },
-    {
-        title: "PowerPoint Presentation",
-        description: '4,729 curated designresources to energize your creative workflow',
-        icon: _10_PowerPoint,
-        name: 'Priyanka',
-        url: 'powerpoint-presentation',
-        category: 'Digital Learning & Teaching Tools'
-    }
+  {
+      title: "Essay Grading",
+      description: 'Elsa evaluates essays, considering the question, grade level, and language, using default or custom rubrics for comprehensive assessment.',
+      icon: _3_AutomatedEssay,
+      name: 'Elsa',
+      url: 'Essay Grading',
+      category: 'Assessment & Progress Monitoring'
+  },
+  {
+      title: 'Comprehension Lesson',
+      description: 'Cara can generate comprehension lessons with custom write-ups, questions in various formats, fostering language proficiency and understanding.',
+      icon: _4_ComprehensionLesson,
+      name: 'Cara',
+      url: 'Lesson Comprehension',
+      category: 'Lesson Planning'
+  },
+  {
+      title: 'Maths Quiz',
+      description: "Matthew can generate grade-appropriate math quizzes, featuring problem solving, varied question types, and language options to enhance mathematical skills.",
+      icon: _5_MathsQuiz,
+      name: 'Matthew',
+      url: 'Math Quiz Generator',
+      category: "Student Engagement & Activity Ideas"
+  },
+  {
+      title: "Math Lesson Planner",
+      description: 'Lucy specialises in Math Lesson planning: choose topic, grade, duration, key objectives, and language, for well-structured math teaching plans.',
+      icon: _6_MathLessonPlanner,
+      name: 'Lucy',
+      url: 'Math Lesson Planner',
+      category: 'Lesson Planning'
+  },
+  {
+      title: "Video to notes",
+      description: 'Vincent effortlessly condenses videos into concise teacher-friendly summaries with the Video-to-Notes Bot, enhancing lesson planning and content understanding for students.',
+      icon: _7_VideotoNotes,
+      name: 'Vincent',
+      url: 'Video To Notes',
+      category: 'Digital Learning & Teaching Tools'
+  },
+  {
+      title: "Video to Quiz",
+      description: 'Hunter transforms videos into interactive quizzes using the Video to Quiz Bot, crafting questions in chosen formats and languages effortlessly.',
+      icon: _8_VideotoQuizBot,
+      name: 'Hunter',
+      url: 'Video To Quiz',
+      category: 'Digital Learning & Teaching Tools'
+  },
+  {
+      title: "Detect AI-Writing & Plagiarism",
+      description: 'Ali detects AI-Writing & Plagiarism, ensures originality by identifying AI-generated content and detecting plagiarism, maintaining academic integrity',
+      icon: _9_DetectAI,
+      name: 'Ali',
+      url: 'Detect AI',
+      category: 'Assessment & Progress Monitoring'
+  },
+  {
+      title: "PowerPoint Presentation",
+      description: 'Priyanka creates dynamic and engaging PowerPoint presentations effortlessly through the user-friendly inputs of the Presentation Bot, simplifying content delivery.',
+      icon: _10_PowerPoint,
+      name: 'Priyanka',
+      url: 'Power Point',
+      category: 'Digital Learning & Teaching Tools'
+  }
 ]
 
 const Chatbots = ({ selectedCategory, setSelectedCategory }) => {

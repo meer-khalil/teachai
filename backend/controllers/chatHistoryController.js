@@ -113,6 +113,7 @@ exports.getChatHistory = asyncErrorHandler(
 exports.getChatIDs = asyncErrorHandler(
     async (req, res, next) => {
 
+
         console.log('Here is the Body\n', req.body);
 
         const { chat_name } = req.body;
@@ -123,15 +124,16 @@ exports.getChatIDs = asyncErrorHandler(
             const chats = await ChatHistory.find({ user: req.user._id, chatbot: temp._id })
 
             // console.log('temp: ', chats);
-            const ids = chats.map((e) => e._id)
-            console.log('temp: ', ids);
+            const history = chats.map((e) => ({ id: e._id, title: e.title }))
+            console.log('temp: ', history);
 
             res.status(200).json({
                 success: true,
-                ids
+                history
             })
 
         } catch (error) {
+            console.log('ids: ', history);
             res.status(500).json({
                 success: false,
                 message: 'There is Some error while fetchinig ids',

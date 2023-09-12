@@ -13,6 +13,7 @@ import ExportButtons from '../ExportButtons';
 
 
 import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent.png'
+import { UsageContext } from '../../../context/UsageContext'
 
 const VideoToNotes = () => {
 
@@ -24,6 +25,8 @@ const VideoToNotes = () => {
     const [chatID, setChatID] = useState('')
 
     const reportTemplateRef = useRef(null);
+
+    const { fetchUsage } = useContext(UsageContext);
 
 
     const handleSubmit = async (e) => {
@@ -48,11 +51,8 @@ const VideoToNotes = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

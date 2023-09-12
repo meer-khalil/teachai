@@ -41,6 +41,8 @@ def quiz():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
     grade = data['grade']
     quiz_topic = data['topic']
     subject = data['subject']
@@ -56,6 +58,7 @@ def quiz():
 @app.route('/gradeEssay', methods = ['POST'])
 def grade():
     data = request.get_json()
+    print('data: ', data)
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     user_input = data['prompt']
@@ -89,9 +92,11 @@ def gen_questions_chat():
 @app.route("/lessonComp/questions", methods=['POST'])
 def gen_questions():
     data = request.get_json()
-    writeup = data["writeup"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
+    writeup = data["writeup"]
     qtype = data["qtype"]
     qnumber = data["qnumber"]
     notes = f"question type: {qtype}, number of questions: {qnumber}"
@@ -123,10 +128,12 @@ def index():
 @app.route("/mathquiz/gen", methods=["POST"])
 def gen_quiz():
     data = request.get_json()
-    mathproblem = data["mathproblem"]
-    multiple = data["type"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
+    mathproblem = data["mathproblem"]
+    multiple = data["type"]
     mathquiz = math_quiz.generate_quiz(mathproblem, multiple, user_id, conversation_id)
     # Return the result as JSON
     result = {"math_quiz": mathquiz}
@@ -145,9 +152,11 @@ def answers():
 @app.route('/math/lesson', methods = ['POST'])
 def lesson():
     data = request.get_json()
-    question = data["prompt"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+    
+    data = data['prompt']
+    question = data["prompt"]
     res = {}
     res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id)
     return jsonify(res), 200
@@ -156,9 +165,11 @@ def lesson():
 def summarizevid():
     data = request.get_json()
     print('Recieved Data: ', data)
-    url =  data['url']
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+    
+    data = data['prompt']
+    url =  data['url']
     userinput = data['userinput']
     res = {}
     res['summary'] = ytgpt.summarize(url, user_id, conversation_id, userinput)
@@ -167,10 +178,11 @@ def summarizevid():
 @app.route('/video/quiz', methods = ['POST'])
 def videoquiz():
     data = request.get_json()
-    print('Recieved Data: ', data)
-    vidUrl =  data['url']
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
+    vidUrl =  data['url']
     num_questions =  data['num_question']
     quiz_type =  data['quiz_type']
     res = {}
@@ -203,7 +215,8 @@ def videochat():
 @app.route('/detectai', methods = ['POST'])
 def aidetect():
   data = request.get_json()
-  print('Recieved Data: ', data)
+
+  data = data["prompt"]
   text = data['text']
   res = {}
   res['result'] = detect_ai(text)
@@ -224,8 +237,7 @@ def powerpoint():
   print('Recieved Data: ', data)
   user_id =  data['id']
   prompt = data['prompt']
-  #user_id =  request.form['id']
-  #prompt = request.form['prompt']
+
   res = {}
   file_path = aipresentation.get_presentation(prompt, user_id)
   res['presentation_link'] = f"{request.host_url}{file_path}"
@@ -235,6 +247,7 @@ def powerpoint():
 def title():
     data = request.get_json()
     print('Recieved Data: ', data)
+    
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     res = {}

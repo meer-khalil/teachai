@@ -7,13 +7,15 @@ const chatHistorySchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    
+
     chatbot: {
         type: mongoose.Schema.ObjectId,
         ref: 'Chatbot',
         required: true
     },
-
+    title: {
+        type: String
+    },
     content: [
         {
             question: {

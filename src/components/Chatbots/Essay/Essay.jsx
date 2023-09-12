@@ -11,6 +11,9 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from './ExportButtons';
 
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
+import { UsageContext } from '../../../context/UsageContext';
+import { UserContext } from '../../../context/UserContext';
+import { useContext } from 'react';
 
 
 const Essay = () => {
@@ -22,10 +25,10 @@ const Essay = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
+
     const reportTemplateRef = useRef(null);
 
-
-
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,11 +52,8 @@ const Essay = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

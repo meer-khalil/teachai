@@ -6,8 +6,8 @@ const site = 'https://www.teachassistai.com'
 const stripe = require('../config/stripe');
 
 const plans = new Map([
-    ['Starter', { priceInCent: 50, limit: 60, name: 'Starter' }],
-    ['Professional', { priceInCent: 1499, limit: null, name: 'Professional' }
+    ['Starter', { priceInCent: 50, requestlimit: 60, storageLimit: 4, name: 'Starter' }],
+    ['Professional', { priceInCent: 1499, requestlimit: null, storageLimit: 10, name: 'Professional' }
     ],
 ]);
 

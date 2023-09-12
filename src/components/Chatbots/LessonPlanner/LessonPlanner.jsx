@@ -13,6 +13,7 @@ import ExportButtons from '../ExportButtons';
 
 
 import  _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
+import { UsageContext } from '../../../context/UsageContext';
 
 const LessonPlanner = () => {
 
@@ -24,6 +25,8 @@ const LessonPlanner = () => {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
+
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,11 +50,8 @@ const LessonPlanner = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

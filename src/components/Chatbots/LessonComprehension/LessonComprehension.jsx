@@ -12,6 +12,9 @@ import ExportButtons from '../ExportButtons';
 
 
 import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
+import { UserContext } from '../../../context/UserContext';
+import { UsageContext } from '../../../context/UsageContext';
+import { useContext } from 'react';
 
 
 const LessonComprehension = () => {
@@ -24,6 +27,7 @@ const LessonComprehension = () => {
 
     const reportTemplateRef = useRef(null);
 
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,6 +43,7 @@ const LessonComprehension = () => {
 
 
         try {
+            console.log('Data For Request: ', data);
             let res = await api.post(`/lessonComp/chat`, data);
 
             if (res.statusText === 'OK') {
@@ -47,11 +52,8 @@ const LessonComprehension = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

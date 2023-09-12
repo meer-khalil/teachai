@@ -15,6 +15,8 @@ import MathQuiz from '../Chatbots/MathQuiz/MathQuiz'
 import MathLessonPlanner from '../Chatbots/MathLessonPlanner/MathLessonPlanner'
 import VideoToNotes from '../Chatbots/VideoToNotes/VideoToNotes'
 import VideoToQuiz from '../Chatbots/VideoToQuiz/VideoToQuiz'
+import { UsageProvider } from '../../context/UsageContext'
+import DetectAI from '../Chatbots/DetectAI/DetectAI'
 
 const UserDashboard = () => {
 
@@ -28,47 +30,54 @@ const UserDashboard = () => {
     if (!isAuthenticated) return <div>Loading....</div>
 
     return (
-        <ChatbotProvider>
-            <div className=' max-w-[1640px] mx-auto'>
-                <div className="relative overflow-hidden flex flex-col md:flex-row">
+        <UsageProvider>
+            <ChatbotProvider>
+                <div className=' max-w-[1640px] mx-auto'>
+                    <div className="relative overflow-hidden flex flex-col md:flex-row">
 
-                    <div className="flex-[2] relative mt-52">
-                        <Aside />
-                    </div>
-
-                    <main className="mt-40 min-h-screen md:mt-0 overflow-auto flex-[10]">
-                        <div className="px-2 md:px-6 pt-2">
-
-                            <Routes>
-
-
-                                <Route path={`history/*`} element={<ChatHistory />} />
-
-                                <Route path={`chatbots`} element={<Chatbots />} />
-
-                                <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
-
-                                <Route path={`chatbot/quiz`} element={<Quiz />} />
-
-                                <Route path={`chatbot/essay`} element={<Essay />} />
-
-                                <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
-
-                                <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
-
-                                <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
-
-                                <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
-
-                                <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
-
-                            </Routes>
-
+                        <div className="flex-[2] relative mt-52">
+                            <Aside />
                         </div>
-                    </main>
+
+                        <main className="mt-40 min-h-screen md:mt-0 overflow-auto flex-[10]">
+                            <div className="px-2 md:px-6 pt-2">
+
+                                <Routes>
+
+
+                                    <Route path={`history/*`} element={<ChatHistory />} />
+
+                                    <Route path={`chatbots`} element={<Chatbots />} />
+
+                                    <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
+
+                                    <Route path={`chatbot/quiz`} element={<Quiz />} />
+
+                                    <Route path={`chatbot/essay`} element={<Essay />} />
+
+                                    <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
+
+                                    <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
+
+                                    <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
+
+                                    <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
+
+                                    <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
+
+                                    <Route path={`chatbot/detect-ai`} element={<DetectAI />} />
+
+                                    <Route path={`chatbot/powerpoint-presentation`} element={<VideoToQuiz />} />
+                                    
+
+                                </Routes>
+
+                            </div>
+                        </main>
+                    </div>
                 </div>
-            </div>
-        </ChatbotProvider>
+            </ChatbotProvider>
+        </UsageProvider>
     )
 }
 

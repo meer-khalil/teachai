@@ -13,6 +13,8 @@ import ExportButtons from '../ExportButtons';
 
 
 import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
+import { useContext } from 'react';
+import { UsageContext } from '../../../context/UsageContext';
 
 const Quiz = () => {
 
@@ -24,7 +26,7 @@ const Quiz = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-    
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,11 +50,8 @@ const Quiz = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

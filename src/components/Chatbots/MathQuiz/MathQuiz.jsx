@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
@@ -12,6 +12,7 @@ import ExportButtons from '../ExportButtons';
 
 
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
+import { UsageContext } from '../../../context/UsageContext';
 
 
 const MathQuiz = () => {
@@ -25,6 +26,8 @@ const MathQuiz = () => {
     const reportTemplateRef = useRef(null);
 
 
+    const { fetchUsage } = useContext(UsageContext);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -47,11 +50,8 @@ const MathQuiz = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
             console.log("error: ", error?.response?.data);

@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import api from '../../../util/api';
+import { useContext } from 'react';
+import { UsageContext } from '../../../context/UsageContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
+
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,8 +27,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log('Here is the answer: ', res.data.answer);
                 setChatID(res.data.chat_id)
                 setAnswer([{ answer: res.data.answer }])
-
                 setLoading(false)
+                fetchUsage();
             }
         } catch (error) {
 
@@ -91,7 +95,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="summary" className='font-medium'>
-                    Short Summary Learning Objectives
+                        Short Summary Learning Objectives
                     </label>
                     <input
                         type="text"
@@ -105,7 +109,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="type" className='font-medium'>
-                    Quiz Type (Eg: multiple choice, true or false etc)
+                        Quiz Type (Eg: multiple choice, true or false etc)
                     </label>
                     <input
                         type="text"
@@ -118,7 +122,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="questionnumber" className='font-medium'>
-                    Number of Questions
+                        Number of Questions
                     </label>
                     <input
                         type="text"

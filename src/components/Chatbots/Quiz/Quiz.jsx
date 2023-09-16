@@ -15,6 +15,7 @@ import ExportButtons from '../ExportButtons';
 import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 const Quiz = () => {
 
@@ -42,7 +43,7 @@ const Quiz = () => {
 
 
         try {
-            let res = await api.post(`/quiz`, data);
+            let res = await api.post(`/chatbot/quiz`, data);
 
             if (res.statusText === 'OK') {
 
@@ -54,8 +55,10 @@ const Quiz = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 
@@ -124,7 +127,7 @@ const Quiz = () => {
                 </div>
             </div>
 
-            <ExportButtons  componentToPrint={componentRef} answer={answer} /> 
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>
     )

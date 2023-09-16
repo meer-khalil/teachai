@@ -1,0 +1,107 @@
+#Title: Normalization
+
+#Slide: 1
+#Header: Table of Contents
+#Content: 
+1. Introduction to Normalization
+2. Purpose of Normalization 
+3. Benefits of Normalization 
+4. Normal Forms
+5. First Normal Form (1NF)
+6. Second Normal Form (2NF)
+7. Third Normal Form (3NF)
+8. Fourth Normal Form (4NF)
+9. Fifth Normal Form (5NF)
+10. Summary
+
+#Slide: 2
+#Header: Learning Aims
+#Content: 
+- Understand the concept of normalization
+- Recognize the purpose of normalization 
+- Identify the benefits of normalization 
+- Learn about the different normal forms
+
+#Slide: 3
+#Header: Success Criteria
+#Content: 
+By the end of this presentation, you will be able to:
+- Explain what normalization is and why it is important
+- Describe the purpose of normalization in database management
+- Discuss the benefits of normalization
+- Define the different normal forms and their characteristics
+
+#Slide: 4
+#Header: Introduction to Normalization
+#Content: 
+- Definition: Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. 
+- Goal: Eliminate data anomalies and ensure data is stored efficiently and accurately.
+- Key concept: Breaking down large tables into smaller, more manageable tables.
+
+#Slide: 5
+#Header: Purpose of Normalization
+#Content: 
+- Remove data redundancy: Avoid storing the same data in multiple places.
+- Eliminate data anomalies: Prevent update, insertion, and deletion anomalies.
+- Ensure data consistency: Maintain data integrity and accuracy.
+- Simplify data management: Make it easier to query and update the database.
+
+#Slide: 6
+#Header: Benefits of Normalization
+#Content: 
+- Improved data integrity
+- Reduced data redundancy
+- Increased database efficiency
+- Enhanced data consistency
+- Simplified data management
+- Improved query performance
+
+#Slide: 7
+#Header: Normal Forms
+#Content: 
+- Normal forms define the rules for organizing data in a normalized database.
+- Each normal form has a specific set of requirements that a database must meet to be considered normalized.
+- The level of normalization increases with each subsequent normal form.
+
+#Slide: 8
+#Header: First Normal Form (1NF)
+#Content: 
+- Eliminate duplicate columns within a table.
+- Create a primary key to uniquely identify each row.
+- Use atomic values to store data in fields.
+
+#Slide: 9
+#Header: Second Normal Form (2NF)
+#Content: 
+- Meet all the requirements of 1NF.
+- Remove partial dependencies by creating separate tables for related data.
+- Use foreign keys to establish relationships between tables.
+
+#Slide: 10
+#Header: Third Normal Form (3NF)
+#Content: 
+- Meet all the requirements of 2NF.
+- Remove transitive dependencies by creating separate tables for non-key attributes.
+- Each non-key attribute should depend only on the primary key.
+
+#Slide: 11
+#Header: Fourth Normal Form (4NF)
+#Content: 
+- Meet all the requirements of 3NF.
+- Remove multi-valued dependencies by creating separate tables for multi-valued attributes.
+- Each table should represent a single entity or relationship.
+
+#Slide: 12
+#Header: Fifth Normal Form (5NF)
+#Content: 
+- Meet all the requirements of 4NF.
+- Remove join dependencies by decomposing tables into smaller, more specialized tables.
+- Each table should have a single purpose and not be redundant.
+
+#Slide: 13
+#Header: Summary
+#Content: 
+- Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
+- The purpose of normalization is to eliminate data anomalies and ensure consistent and accurate data.
+- Benefits of normalization include improved data integrity, reduced redundancy, and simplified data management.
+- There are five normal forms, each with specific requirements to ensure database normalization.

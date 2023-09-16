@@ -14,6 +14,7 @@ import ExportButtons from '../ExportButtons';
 
 import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent.png'
 import { UsageContext } from '../../../context/UsageContext'
+import { toast } from 'react-toastify'
 
 const VideoToNotes = () => {
 
@@ -43,7 +44,7 @@ const VideoToNotes = () => {
 
 
         try {
-            let res = await api.post(`/math/lesson`, data);
+            let res = await api.post(`/chatbot/video/summarize`, data);
 
             if (res.statusText === 'OK') {
 
@@ -55,8 +56,10 @@ const VideoToNotes = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

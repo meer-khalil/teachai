@@ -16,6 +16,7 @@ import ExportButtons from '../ExportButtons';
 
 import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 const MathLessonPlanner = () => {
 
@@ -45,7 +46,7 @@ const MathLessonPlanner = () => {
 
 
         try {
-            let res = await api.post(`/math/lesson`, data);
+            let res = await api.post(`/chatbot/math/lesson`, data);
 
             if (res.statusText === 'OK') {
 
@@ -57,8 +58,10 @@ const MathLessonPlanner = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

@@ -15,7 +15,9 @@ const {
     mathQuizGenerator,
     mathQuizAnswer,
     mathLessonPlanner,
-    detectAI
+    detectAI,
+    powerPointPresentation,
+    downdloadPresentation
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
@@ -71,6 +73,7 @@ router.route('/video/quiz').post(isAuthenticatedUser, requestLimit, videoToQuiz)
 
 // detect AI
 router.route('/detectai').post(isAuthenticatedUser, requestLimit, pdfUpload.single('file'), detectAI)
-router.route('/presentation').post(isAuthenticatedUser, requestLimit, videoToQuiz)
+router.route('/presentation').post(isAuthenticatedUser, requestLimit, powerPointPresentation)
+router.route('/presentation/download/:fileName').get(requestLimit, downdloadPresentation)
 
 module.exports = router

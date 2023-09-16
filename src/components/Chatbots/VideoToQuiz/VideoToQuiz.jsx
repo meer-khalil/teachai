@@ -12,6 +12,7 @@ import ExportButtons from '../ExportButtons';
 
 import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 const VideoToQuiz = () => {
 
@@ -40,7 +41,7 @@ const VideoToQuiz = () => {
 
 
         try {
-            let res = await api.post(`/video/quiz`, data);
+            let res = await api.post(`/chatbot/video/quiz`, data);
 
             if (res.statusText === 'OK') {
 
@@ -52,8 +53,10 @@ const VideoToQuiz = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

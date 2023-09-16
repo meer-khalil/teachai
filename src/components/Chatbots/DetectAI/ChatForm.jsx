@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext'
+import { toast } from 'react-toastify';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     const [data, setData] = useState({})
 
     const [selectedFile, setSelectedFile] = useState(null);
+    const [detect, setDetect] = useState(null);
+    const [plagirism, setPlagirism] = useState(null);
 
     const { fetchUsage } = useContext(UsageContext)
 
@@ -43,7 +46,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log(pair[1]);
             }
             console.log(formData);
-            let res = await api.post(`/detectai`, formData, config)
+            let res = await api.post(`/chatbot/detectai`, formData, config)
 
             if (res.statusText === 'OK') {
 
@@ -56,7 +59,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             }
         } catch (error) {
 
-            alert('Error: ', error)
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
 
         }
@@ -165,18 +171,31 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         onChange={handleChange}
                     >
                     </textarea>
-
-                    <label htmlFor="defaultRubric" className='flex gap-2 cursor-pointer'>
-                        <input type="checkbox" id='defaultRubric' onChange={(e) => {
+            */}
+                <div className=' flex flex-col gap-1 mb-5'>
+                    <label htmlFor="detectai" className='flex gap-2 cursor-pointer'>
+                        <input type="checkbox" id='detectai' onChange={(e) => {
                             if (e.target.checked) {
-                                setData({ ...data, 'rubric': 'default' })
-                                generateRubric();
+                                setData({ ...data, 'detectai': true })
+                            } else {
+                                setData({ ...data, 'detectai': false })
                             }
                         }} />
-                        Use default
+                        Detect AI
                     </label>
+                    <label htmlFor="plagirism" className='flex gap-2 cursor-pointer'>
+                        <input type="checkbox" id='plagirism' onChange={(e) => {
+                            if (e.target.checked) {
+                                setData({ ...data, 'checkplagirism': true })
+                            } else {
+                                setData({ ...data, 'checkplagirism': false })
+                            }
+                        }} />
+                        Plagirism
+                    </label>
+                </div>
 
-                </div> */}
+                {/* </div> */}
 
 
                 {/* <div className='flex flex-col mb-5'>

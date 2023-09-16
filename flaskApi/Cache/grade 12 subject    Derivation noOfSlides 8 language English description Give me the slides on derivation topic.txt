@@ -1,0 +1,83 @@
+#Title: Derivation
+
+#Slide: 1
+#Header: Table of Contents
+#Content: 
+1. Introduction to Derivation
+2. The Derivative Function
+3. Basic Derivative Rules
+4. Differentiation Techniques
+5. Derivatives of Trigonometric Functions
+6. Applications of Derivatives
+7. Related Rates and Optimization
+8. Summary
+
+#Slide: 2
+#Header: Learning Aims
+#Content: 
+By the end of this presentation, students will learn:
+- The concept of derivation
+- How to calculate derivatives using basic rules
+- Different techniques for differentiation
+- How to find the derivatives of trigonometric functions
+- The applications of derivatives in real-life problems like related rates and optimization.
+
+#Slide: 3
+#Header: Success Criteria
+#Content: 
+By the end of this presentation, students will be able to answer the following questions:
+1. What is derivation and why is it important?
+2. How do we calculate derivatives using basic rules?
+3. What are the different techniques for differentiation?
+4. How do we find the derivatives of trigonometric functions?
+5. How can derivatives be applied in real-life problems such as related rates and optimization?
+
+#Slide: 4
+#Header: Introduction to Derivation
+#Content: 
+- Derivation is a fundamental concept in calculus.
+- It involves finding the rate at which a function is changing at a specific point.
+- Derivatives provide information about the slope, or rate of change, of a function.
+
+#Slide: 5
+#Header: The Derivative Function
+#Content: 
+- The derivative of a function is denoted as f'(x) or dy/dx.
+- It represents the rate of change of the function with respect to x.
+- The derivative function allows us to find the slope of a curve at any given point.
+
+#Slide: 6
+#Header: Basic Derivative Rules
+#Content: 
+- Power Rule: To find the derivative of x^n, multiply by the exponent and reduce the exponent by 1.
+- Constant Multiple Rule: The derivative of a constant times a function is equal to the constant times the derivative of the function.
+- Sum and Difference Rule: The derivative of the sum or difference of two functions is equal to the sum or difference of the derivatives of the functions.
+
+#Slide: 7
+#Header: Differentiation Techniques
+#Content: 
+- Product Rule: The derivative of the product of two functions is obtained by differentiating each function and then adding them.
+- Quotient Rule: The derivative of the quotient of two functions is obtained by differentiating the numerator and denominator separately.
+- Chain Rule: The derivative of a composite function is obtained by multiplying the derivative of the outer function with the derivative of the inner function.
+
+#Slide: 8
+#Header: Derivatives of Trigonometric Functions
+#Content: 
+- The derivatives of common trigonometric functions such as sine, cosine, and tangent have specific formulas.
+- These formulas allow us to find the derivatives of trigonometric functions without going through the limit definition of a derivative.
+
+#Slide: 9
+#Header: Applications of Derivatives
+#Content: 
+- Derivatives have numerous applications in real-life problems.
+- They can be used to find maximum or minimum values, optimize functions, and solve related rates problems.
+- Examples include finding the minimum cost for a fence, maximizing the volume of a box, and determining the rate at which two objects are moving away from each other.
+
+#Slide: 10
+#Headers: Summary
+#Content: 
+- Derivation is a fundamental concept in calculus that helps us understand the rate of change of a function.
+- We can calculate derivatives using basic rules, such as the power rule and the sum/difference rule.
+- Differentiation techniques like the product rule, quotient rule, and chain rule allow us to find the derivatives of more complex functions.
+- Derivatives of trigonometric functions have specific formulas.
+- Derivatives have various applications in real-life problems, such as optimization and related rates.

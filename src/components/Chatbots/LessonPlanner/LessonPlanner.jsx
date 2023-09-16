@@ -12,8 +12,9 @@ import ExportButtons from '../ExportButtons';
 
 
 
-import  _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
+import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 const LessonPlanner = () => {
 
@@ -42,7 +43,7 @@ const LessonPlanner = () => {
 
 
         try {
-            let res = await api.post(`/lessonplanner`, data);
+            let res = await api.post(`/chatbot/lessonplanner`, data);
 
             if (res.statusText === 'OK') {
 
@@ -54,8 +55,10 @@ const LessonPlanner = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 
@@ -95,7 +98,7 @@ const LessonPlanner = () => {
                                 <div>
                                     <div className='relative' ref={componentRef}>
 
-                                        <Answer  answer={answer}/>
+                                        <Answer answer={answer} />
                                         {loading && <Loading />}
 
                                     </div>
@@ -124,7 +127,7 @@ const LessonPlanner = () => {
                 </div>
             </div>
 
-            <ExportButtons componentToPrint={componentRef} answer={answer}/>
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>
     )

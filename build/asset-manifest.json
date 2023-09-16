@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.743d95cd.css",
-    "main.js": "/static/js/main.cb346c87.js",
+    "main.css": "/static/css/main.b76bdff6.css",
+    "main.js": "/static/js/main.624152e7.js",
     "static/js/787.187497ca.chunk.js": "/static/js/787.187497ca.chunk.js",
     "static/media/logo-removebg-preview.png": "/static/media/logo-removebg-preview.54639de5da60a5eecefa.png",
     "static/media/doc.png": "/static/media/doc.879c7ab5f6573f02f03b.png",
@@ -27,16 +27,16 @@
     "static/media/3.Automated Essay Scoring and Feedback - Elsa.png": "/static/media/3.Automated Essay Scoring and Feedback - Elsa.bafae3fa08f8e521aee4.png",
     "static/media/7.Video to notes - Vincent.png": "/static/media/7.Video to notes - Vincent.9661cfbc2fe027ef33c1.png",
     "static/media/2.Quiz - Qasim.png": "/static/media/2.Quiz - Qasim.930d31366ff5507c779e.png",
-    "index.html": "/index.html",
     "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
+    "index.html": "/index.html",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.743d95cd.css.map": "/static/css/main.743d95cd.css.map",
-    "main.cb346c87.js.map": "/static/js/main.cb346c87.js.map",
+    "main.b76bdff6.css.map": "/static/css/main.b76bdff6.css.map",
+    "main.624152e7.js.map": "/static/js/main.624152e7.js.map",
     "787.187497ca.chunk.js.map": "/static/js/787.187497ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.743d95cd.css",
-    "static/js/main.cb346c87.js"
+    "static/css/main.b76bdff6.css",
+    "static/js/main.624152e7.js"
   ]
 }

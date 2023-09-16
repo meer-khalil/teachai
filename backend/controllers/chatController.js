@@ -489,10 +489,69 @@ exports.powerPointPresentation = asyncErrorHandler(async (req, res, next) => {
 
     if (data) {
         let url = '/powerpoint'
-        await fetchDataFromFlaskAPI(res, url, data, 'answer', body)
+        await fetchDataFromFlaskAPI(res, url, data, 'presentation_link', body)
     } else {
         res.status(500).json({
             message: "Error From Power Point!"
         })
+    }
+})
+
+
+exports.downdloadPresentation = asyncErrorHandler(async (req, res, next) => {
+
+    /*
+    make sure that Chatbot model contains the bot name
+    */
+
+    // return;
+    // let { body, data } = await createChatHistoryAndGiveData(req, 'Power Point')
+
+    // // data = JSON.parse(data);
+    // if (req.savedPdfFile) {
+    //     // converting the string object to javascript obj so that we can add more info.
+    //     data.prompt = JSON.parse(data.prompt);
+
+    //     let { pdfText } = uploadInfoUpdateUsageReadPDF(req, data);
+    //     data.prompt.text = pdfText
+    // } else {
+    //     console.log('file is not included');
+    //     console.log(data);
+    // }
+
+    // console.log(data);
+
+    // console.log('Request Made!');
+
+    // if (data) {
+    //     let url = '/powerpoint'
+    //     await fetchDataFromFlaskAPI(res, url, data, 'presentation_link', body)
+    // } else {
+    //     res.status(500).json({
+    //         message: "Error From Power Point!"
+    //     })
+    // }
+
+
+    let { fileName } = req.params
+
+    try {
+        // Replace 'fileURL' with the actual file URL you want to download
+        const fileURL = `/GeneratedPresentations/${fileName}`;
+
+        // Fetch the file data from the URL
+        const response = await api.get(fileURL, { responseType: 'arraybuffer' });
+
+        // Set appropriate response headers
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+        res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+
+        console.log('File Sended');
+        // Send the file data to the frontend
+        res.send(response.data);
+    } catch (error) {
+        // Handle any errors
+        console.error('Error:', error.message);
+        res.status(500).send('Internal Server Error');
     }
 })

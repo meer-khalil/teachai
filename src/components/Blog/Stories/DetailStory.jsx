@@ -195,7 +195,6 @@ const DetailStory = () => {
 
                     <li className='story-readtime'>
                       {story.readtime} min read
-
                     </li>
 
                   </ul>

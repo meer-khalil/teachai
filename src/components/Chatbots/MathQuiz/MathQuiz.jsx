@@ -13,6 +13,7 @@ import ExportButtons from '../ExportButtons';
 
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 
 const MathQuiz = () => {
@@ -27,7 +28,7 @@ const MathQuiz = () => {
 
 
     const { fetchUsage } = useContext(UsageContext);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -42,7 +43,7 @@ const MathQuiz = () => {
 
 
         try {
-            let res = await api.post(`/mathquiz/gen`, data);
+            let res = await api.post(`/chatbot/mathquiz/gen`, data);
 
             if (res.statusText === 'OK') {
 
@@ -54,8 +55,10 @@ const MathQuiz = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

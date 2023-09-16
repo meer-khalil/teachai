@@ -8,7 +8,6 @@ import image from '../../images/Edited/webp/login.webp'
 
 export default function Login() {
 
-
   const { login } = useContext(UserContext)
 
   const handleSubmit = (event) => {

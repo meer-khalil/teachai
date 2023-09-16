@@ -15,6 +15,7 @@ import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson 
 import { UserContext } from '../../../context/UserContext';
 import { UsageContext } from '../../../context/UsageContext';
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 
 const LessonComprehension = () => {
@@ -44,7 +45,7 @@ const LessonComprehension = () => {
 
         try {
             console.log('Data For Request: ', data);
-            let res = await api.post(`/lessonComp/chat`, data);
+            let res = await api.post(`/chatbot/lessonComp/chat`, data);
 
             if (res.statusText === 'OK') {
 
@@ -56,8 +57,10 @@ const LessonComprehension = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

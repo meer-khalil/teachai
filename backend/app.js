@@ -9,6 +9,10 @@ const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
 const stripe = require('./config/stripe');
 const Payment = require('./models/paymentModel');
 const Usage = require('./models/usageModel');
+const { resetLimit } = require('./middlewares/requestLimit');
+const { isAuthenticatedUser } = require('./middlewares/auth')
+
+
 const app = express();
 
 
@@ -127,7 +131,7 @@ app.use('/api/v1', post);
 app.use('/api/v1/story', story);
 // app.use('/api/v1', order);
 app.use('/api/v1', payment);
-app.use('/api/v1', chat);
+app.use('/api/v1/chatbot', isAuthenticatedUser, resetLimit, chat);
 app.use('/api/v1', chatHistory);
 app.use('/api/v1', contact);
 

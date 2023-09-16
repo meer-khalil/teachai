@@ -1,0 +1,84 @@
+#Title: Derivatives - A Guide to Differentiation
+
+#Slide: 1
+#Header: Table of Contents
+#Content: 1. Introduction to Derivatives
+2. Calculation of Derivatives
+3. Derivatives of Common Functions
+4. Rules of Differentiation
+5. Applications of Derivatives
+6. Higher Order Derivatives
+7. Implicit Differentiation
+8. Related Rates
+9. Summary
+10. References
+
+#Slide: 2
+#Header: Learning Aims
+#Content: By the end of this presentation, you will be able to:
+- Understand the concept of derivatives
+- Calculate derivatives using different techniques
+- Apply derivatives to solve real-world problems
+- Differentiate common functions using the rules of differentiation
+
+#Slide: 3
+#Header: Success Criteria
+#Content: After this presentation, you will be able to answer the following questions:
+1. What is a derivative?
+2. How do we calculate derivatives?
+3. What are the rules of differentiation?
+4. How can we apply derivatives to solve real-life problems?
+
+#Slide: 4
+#Header: Introduction to Derivatives
+#Content: - Definition of derivatives
+- Purpose and importance of derivatives in calculus
+- Notation for derivatives (dy/dx, f'(x), etc.)
+
+#Slide: 5
+#Header: Calculation of Derivatives
+#Content: - Definition of the derivative function
+- Use of limit definition to find derivatives
+- Examples of finding derivatives using the limit definition
+
+#Slide: 6
+#Header: Derivatives of Common Functions
+#Content: - Derivatives of basic functions (constant function, power function, exponential function, trigonometric functions)
+- Derivatives of composite functions using the chain rule
+- Derivatives of inverse functions
+
+#Slide: 7
+#Header: Rules of Differentiation
+#Content: - Power rule
+- Product rule
+- Quotient rule
+- Chain rule
+- Examples of applying the rules of differentiation
+
+#Slide: 8
+#Header: Applications of Derivatives
+#Content: - Finding the slope of a curve at a given point
+- Optimization problems (maxima and minima)
+- Rate of change problems
+- Tangent line approximation
+
+#Slide: 9
+#Header: Higher Order Derivatives
+#Content: - Definition of higher order derivatives
+- Notation for higher order derivatives
+- Second derivative test for concavity
+
+#Slide: 10
+#Header: Implicit Differentiation and Related Rates
+#Content: - Implicit differentiation to find derivatives of implicitly defined functions
+- Related rates problems involving multiple variables and rates of change
+
+#Slide: 11
+#Header: Summary
+#Content: - Recap of key concepts covered
+- Importance of derivatives in calculus
+- Application of derivatives in solving various problems
+
+#Slide: 12
+#Header: References
+#Content: - List of sources used for this presentation

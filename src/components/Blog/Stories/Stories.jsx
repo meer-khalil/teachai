@@ -62,7 +62,7 @@ const Stories = () => {
 
 
   return (
-    <div className="Inclusive-home-page">
+    <div className="max-w-[1640px] mx-auto">
       {loading ?
 
         <div className="skeleton_emp">
@@ -76,8 +76,8 @@ const Stories = () => {
         </div>
 
         :
-        <div>
-          <div className=" mx-3 md:mx-32">
+        <div className="mx-3 md:mx-32">
+          <div className="">
             <h1 className='text-center text-2xl md:text-4xl font-bold py-10 text-primary'>Blogs</h1>
 
             <p className=' text-secondary text-sm md:text-lg text-justify'>

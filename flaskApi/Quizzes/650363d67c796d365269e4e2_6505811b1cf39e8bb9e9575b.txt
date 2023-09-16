@@ -1,0 +1,13 @@
+Here is your quiz on Derivation (True or False):
+1. The power rule is used to find the derivative of a function that is raised to a power.
+2. The constant rule states that the derivative of a constant is always zero.
+3. The derivative of a sum or difference of functions is equal to the sum or difference of their derivatives.
+4. The product rule is used to find the derivative of a product of two functions.
+5. The quotient rule is used to find the derivative of a quotient of two functions.
+6. The chain rule is used to find the derivative of composite functions.
+7. The derivative of a constant times a function is equal to the derivative of the function multiplied by the constant.
+8. The derivative of a constant times a function is equal to the derivative of the constant multiplied by the function.
+9. The derivative of a constant to the power of a function is equal to the derivative of the function divided by the logarithm of the constant.
+10. The derivative of a logarithm function is equal to the reciprocal of the function.
+
+Good luck with your quiz!

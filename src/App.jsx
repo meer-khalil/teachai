@@ -31,6 +31,8 @@ import Stories from "./components/Blog/Stories/Stories";
 import DetailStory from "./components/Blog/Stories/DetailStory";
 import Editor from "./components/Editor/Editor";
 import TinyMCE from "./components/Editor/TinyMCE";
+import VerifyOTP from "./components/OTP/VerifyOTP";
+import DonutChart from "./components/Donut/DonutChart";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -82,6 +84,10 @@ export default function App() {
         <Route path="/cancel" element={<Cancel />} />
 
         <Route path="/pdf" element={<YourComponent />} />
+
+        <Route path="/verify-otp" element={<VerifyOTP />} />
+
+        <Route path="/donut" element={<DonutChart />} />
 
         {/* <Route path="/editor" element={<Editor />} /> */}
 

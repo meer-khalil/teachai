@@ -18,6 +18,8 @@ export const UserProvider = ({ children }) => {
 
     const [categoryOpen, setCategoryOpen] = useState('')
 
+    const [tempUser, setTempUser] = useState(null);
+
     const login = async (credentials) => {
         try {
             const { data } = await axios.post((backend_url ? backend_url : '') + '/login', credentials);
@@ -30,14 +32,20 @@ export const UserProvider = ({ children }) => {
             setIsAuthenticated(true)
             setUser(user);
 
-            toast("LoggedIn Successfully")
 
-            if (user.role === 'admin') {
+            if (user.verified) {
+                toast("LoggedIn Successfully")
 
-                navigate('/admin/dashboard/users')
+                if (user.role === 'admin') {
+
+                    navigate('/admin/dashboard/users')
+                } else {
+
+                    navigate('/user/dashboard/chatbots')
+                }
             } else {
-
-                navigate('/user/dashboard/chatbots')
+                setTempUser({ userId: user._id, email: user.email})
+                navigate("/verify-otp")
             }
 
         } catch (error) {
@@ -52,13 +60,9 @@ export const UserProvider = ({ children }) => {
 
             console.log('User registered successfully:', res.data);
 
-            if (res.data.success) {
-                // localStorage.setItem('("teachai_token', res.data.token);
-                // api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-                // setIsAuthenticated(true)
-                // setUser(res.data);
-                navigate('/login')
-            }
+            setTempUser(res.data.data)
+            navigate('/verify-otp')
+
         } catch (error) {
             if (error.response.status) {
                 toast("Email is Already Used!")
@@ -164,7 +168,9 @@ export const UserProvider = ({ children }) => {
             categoryOpen,
             setCategoryOpen,
             pdfAnswer,
-            setPdfAnswer
+            setPdfAnswer,
+            tempUser,
+            setTempUser
         }}>
             {children}
         </UserContext.Provider>

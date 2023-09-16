@@ -8,25 +8,30 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
+import ExportButtons from '../ExportButtons';
 
-import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 
+
+import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
+import { useContext } from 'react';
+import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const PowerPoint = () => {
 
+    const componentRef = useRef(null);
 
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
-
-    
-    const reportTemplateRef = useRef(null);
-
+    const [fileData, setFileData] = useState(null);
+    const [fileName, setFileName] = useState(null);
 
 
+    const { fetchUsage } = useContext(UsageContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,19 +55,49 @@ const PowerPoint = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 
     }
+
+
+    const fetchFile = (fileName) => {
+        let url = `/chatbot/presentation/download/${fileName}`
+
+        // Make the HTTP GET request to your API
+        api.get(url, { responseType: 'arraybuffer' })
+            .then(response => {
+                // Handle the successful response here
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                setFileData(blob);
+            })
+            .catch(error => {
+                // Handle any errors here
+                console.error('Error:', error);
+            });
+    }
+
+    const handleDownloadClick = () => {
+        if (fileData) {
+            const url = window.URL.createObjectURL(fileData);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileName.split('_')[1]}`; // Set the desired file name
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            console.log('fileData is not there');
+        }
+    };
 
     return (
         <div className='border-b-2 border-black pb-24'>
@@ -70,10 +105,10 @@ const PowerPoint = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
-                        name={'Priyanka'}
-                        image={_3_AutomatedEssay}
-                        heading={'PowerPoint Presentation'}
-                        desc={'Let me provide you with assistance for your essay grading tasks.'}
+                        name={'Qasim'}
+                        image={_2_Quiz}
+                        heading={'Power Point'}
+                        desc={'Allow me to offer assistance with your quiz creation tasks.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />
@@ -83,6 +118,8 @@ const PowerPoint = () => {
                         setLoading={setLoading}
                         setMessage={setMessage}
                         setChatID={setChatID}
+                        setFileName={setFileName}
+                        fetchFile={fetchFile}
                     />
 
                 </div>
@@ -96,18 +133,22 @@ const PowerPoint = () => {
                         {
                             (answer.length > 0) ? (
                                 <div>
-                                    <div className='relative'>
+                                    <div className='relative' ref={componentRef}>
 
-                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        <Answer answer={answer} />
                                         {loading && <Loading />}
 
                                     </div>
+                                    {
+                                        fileData &&
+                                        <button onClick={handleDownloadClick} disabled={!fileData ? true : false} className=' bg-blue-500 px-5 py-3 rounded'>Download File</button>
+                                    }
 
-                                    <ShortForm
+                                    {/* <ShortForm
                                         prompt={prompt}
                                         setPrompt={setPrompt}
                                         handleSubmit={handleSubmit}
-                                    />
+                                    /> */}
                                 </div>
                             )
                                 : (
@@ -127,7 +168,7 @@ const PowerPoint = () => {
                 </div>
             </div>
 
-            <ExportButtons />
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>
     )

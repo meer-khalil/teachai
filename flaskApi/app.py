@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_file
 import config
 import lessonplannerapi
 import quizapi
@@ -155,8 +155,8 @@ def lesson():
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     
-    data = data['prompt']
-    question = data["prompt"]
+    question = data['prompt']
+    # question = data["question"]
     res = {}
     res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id)
     return jsonify(res), 200
@@ -217,6 +217,7 @@ def aidetect():
   data = request.get_json()
 
   data = data["prompt"]
+  print('data recived: ', data)
   text = data['text']
   res = {}
   res['result'] = detect_ai(text)
@@ -225,7 +226,6 @@ def aidetect():
 @app.route('/checkplag', methods = ['POST'])
 def plagiarism():
   data = request.get_json()
-  print('Recieved Data: ', data)
   text = data['text']
   res = {}
   res['report'] = get_plag_report(text)
@@ -233,20 +233,30 @@ def plagiarism():
 
 @app.route('/powerpoint', methods = ['POST'])
 def powerpoint():
-  data = request.get_json()
-  print('Recieved Data: ', data)
-  user_id =  data['id']
-  prompt = data['prompt']
+    data = request.get_json()
+    print('Recieved Data: ', data)
+    user_id =  data['user_id']
 
-  res = {}
-  file_path = aipresentation.get_presentation(prompt, user_id)
-  res['presentation_link'] = f"{request.host_url}{file_path}"
-  return jsonify(res), 200
+    data = data['prompt']
+    description = data['description']
+    grade = data['grade']
+    subject = data['subject']
+    number_of_slides = data['number_of_slides']
+    res = {}
+    file_path = aipresentation.get_presentation(description ,grade ,subject ,number_of_slides, user_id)
+    res['presentation_link'] = f"{request.host_url}{file_path}"
+    return jsonify(res), 200
+
+
+@app.route('/GeneratedPresentations/<path:path>')
+def send_generated_image(path):
+    return send_file(f'GeneratedPresentations/{path}', as_attachment=True)
+
 
 @app.route('/chattitles', methods = ['POST'])
 def title():
     data = request.get_json()
-    print('Recieved Data: ', data)
+    print('Recieved Data(title): ', data)
     
     user_id = data['user_id']
     conversation_id = data['conversation_id']

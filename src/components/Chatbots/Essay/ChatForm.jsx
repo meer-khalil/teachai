@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
@@ -44,7 +45,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log(pair[1]);
             }
             console.log(formData);
-            let res = await api.post(`/gradeEssay`, formData, config)
+            let res = await api.post(`/chatbot/gradeEssay`, formData, config)
 
             if (res.statusText === 'OK') {
 
@@ -57,7 +58,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             }
         } catch (error) {
 
-            alert('Error: ', error)
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
 
         }

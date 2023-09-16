@@ -14,6 +14,7 @@ import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring an
 import { UsageContext } from '../../../context/UsageContext';
 import { UserContext } from '../../../context/UserContext';
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 
 const Essay = () => {
@@ -44,7 +45,7 @@ const Essay = () => {
 
 
         try {
-            let res = await api.post(`/quiz`, data);
+            let res = await api.post(`/chatbot/gradeEssay`, data);
 
             if (res.statusText === 'OK') {
 
@@ -56,8 +57,10 @@ const Essay = () => {
                 fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 

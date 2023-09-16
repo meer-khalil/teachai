@@ -1,0 +1,73 @@
+#Title: DERIVATION IN CALCULUS
+
+#Slide: 1
+#Header: Table of Contents
+#Content: 
+1. Introduction to Derivation
+2. Key Concepts in Derivation
+3. Notation and Formulas
+4. Rules of Differentiation
+5. Application of Derivation
+6. Practice Problems
+7. Examples
+8. Common Mistakes to Avoid
+9. Summary
+10. References
+
+#Slide: 2
+#Header: Learning Aims
+#Content: By the end of this presentation, you will learn:
+- The concept of derivation in calculus
+- The notation and formulas used in derivation
+- The rules of differentiation
+- How to apply derivation in real-world problems
+
+#Slide: 3
+#Header: Success Criteria
+#Content: After this presentation, you will be able to answer:
+- What is derivation?
+- How do we notate derivatives?
+- What are the key rules of differentiation?
+- How can we apply derivation in different scenarios?
+
+#Slide: 4
+#Header: Introduction to Derivation
+#Content: - Derivation is a fundamental concept in calculus that involves finding the rate at which a function changes.
+- The derivative of a function represents this rate of change at any point on the graph.
+- The derivative allows us to analyze the behavior of functions and solve various mathematical problems.
+
+#Slide: 5
+#Header: Key Concepts in Derivation
+#Content: - Slope of a tangent line
+- Instantaneous rate of change
+- Increasing and decreasing functions
+- Critical points and extrema
+
+#Slide: 6
+#Header: Notation and Formulas
+#Content: - Derivatives are typically denoted using the prime notation (f'(x), dy/dx, etc.).
+- The power rule, product rule, quotient rule, and chain rule are commonly used formulas in derivation.
+
+#Slide: 7
+#Header: Rules of Differentiation
+#Content: - Power Rule: Derivative of x^n is nx^(n-1)
+- Product Rule: (f * g)' = f' * g + f * g'
+- Quotient Rule: (f/g)' = (f'g - fg') / g^2
+- Chain Rule: (f(g(x)))' = f'(g(x)) * g'(x)
+
+#Slide: 8
+#Header: Application of Derivation
+#Content: - Derivatives are used in various fields like physics, economics, and engineering.
+- They can help analyze motion, optimize functions, find rates of change, and solve optimization problems.
+
+#Slide: 9
+#Header: Examples
+#Content: - Example problem 1: Finding the derivative of a polynomial function
+- Example problem 2: Using the chain rule to differentiate composite functions
+- Example problem 3: Applications of derivation in physics
+
+#Slide: 10
+#Header: Summary
+#Content: - Derivation is a fundamental concept in calculus that involves finding the rate of change of a function.
+- We use notation and formulas to calculate derivatives, and there are several rules of differentiation to simplify the process.
+- Derivatives have countless applications in various fields and can help solve real-world problems.

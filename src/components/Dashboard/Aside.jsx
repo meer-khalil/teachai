@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import './Aside.css';
 import { UserContext } from '../../context/UserContext';
@@ -66,10 +66,11 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                         <div className=' mx-4 mt-2'>
                             <div className="text-end">{usage?.plan}</div>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
-                                <div className={`${usage?.usageCount === usage?.usageLimit ? 'bg-red-500': 'bg-blue-500'} h-full`} style={{ width: creditWidth }}></div>
+                                <div className={`bg-blue-500 h-full`} style={{ width: creditWidth }}></div>
                             </div>
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} Credits Used`}
+                                {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} / ${usage?.usageLimit}`}
+                                <span className='ml-4'>[Today]</span>
                             </p>
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
                                 <p className='mb-2'>Storage</p>

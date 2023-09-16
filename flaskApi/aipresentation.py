@@ -56,8 +56,8 @@ if not os.path.exists('GeneratedPresentations'):
 if not os.path.exists('Cache'):
         os.makedirs('Cache')
 
-def create_ppt_text(Input):
-    user_prompt = "The user wants a presentation about " + Input
+def create_ppt_text(description, grade ,subject ,number_of_slides):
+    user_prompt = f"""The user wants a presentation about "" {description} "" ,grade: {grade}, subject: {subject}, number of slideds: {number_of_slides} """
     response = aicomplete(user_prompt, system_prompt).replace('<br>', '\n')
     return response
 
@@ -119,11 +119,12 @@ def create_ppt(text_file, ppt_name, userid):
     file_path = f"GeneratedPresentations/{userid}_{ppt_name}.pptx"
     return f"{file_path}"
 
-def get_presentation(user_input, userid):
-    input_string = user_input
-    input_string = re.sub(r'[^\w\s.\-\(\)]', '', input_string)
-    input_string = input_string.replace("\n", "")
-    with open(f'Cache/{input_string}.txt', 'w', encoding='utf-8') as f:
-            f.write(create_ppt_text(input_string))
-    file_path = create_ppt(f'Cache/{input_string}.txt', input_string, userid)
+def get_presentation(description ,grade ,subject ,number_of_slides, userid):
+
+    description_string = description
+    description_string = re.sub(r'[^\w\s.\-\(\)]', '', description_string)
+    description_string = description_string.replace("\n", "")
+    with open(f'Cache/{description_string}.txt', 'w', encoding='utf-8') as f:
+            f.write(create_ppt_text(description_string, grade ,subject ,number_of_slides))
+    file_path = create_ppt(f'Cache/{description_string}.txt', description_string, userid)
     return str(file_path)

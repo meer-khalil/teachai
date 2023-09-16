@@ -14,7 +14,7 @@ const data = [
         freeUpdates: '6 months',
         features: [
             'Access To All Chatbots',
-            'Free 10 Chat requests per day',
+            'Free 10 chat requests per day',
             '1 member',
             'Write in 30+ languages'
         ]
@@ -28,12 +28,11 @@ const data = [
         features: [
             'Access to All the Chatbots',
             '60 chat requests per day',
-            '1 memeber seat',
+            '1 member seat',
             'Write in 30+ languages',
             '24/7 live chat support',
             'All Grade Levels',
-            'Upload Files 5gb',
-            '10 files uploads'
+            '10 files uploads per month'
         ]
     },
     {
@@ -44,15 +43,14 @@ const data = [
         freeUpdates: '6 months',
         features: [
             'Access to All the Chatbots',
-            'Unlimited chat requests per day',
+            '120 chat requests per day',
             '1 memeber seat',
             'Write in 30+ languages',
             '24/7 live chat support',
             '2 weeks memory retention of past chats',
             'Extract responses to word document/pdf/google doc/excel',
             'All Grade Levels',
-            'Upload Files 10gb',
-            '20 Files Upload'
+            '20 Files Upload per month'
         ]
 
     },
@@ -63,7 +61,7 @@ const data = [
         premiumSupport: '6 months',
         freeUpdates: '6 months',
         features: [
-            "Let's work together and create a plan that's for your school for your teachers",
+            "Let's collaborate to design a tailored plan for your school, including the number of teachers and white-label options.",
         ]
 
     }

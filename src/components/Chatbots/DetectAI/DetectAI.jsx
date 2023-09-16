@@ -13,6 +13,8 @@ import ExportButtons from './ExportButtons';
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
+import DonutChart from '../../Donut/DonutChart';
 
 
 const DetectAI = () => {
@@ -24,7 +26,7 @@ const DetectAI = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-    
+
     const reportTemplateRef = useRef(null);
 
     const { fetchUsage } = useContext(UsageContext);
@@ -44,7 +46,7 @@ const DetectAI = () => {
 
 
         try {
-            let res = await api.post(`/detectai`, data);
+            let res = await api.post(`/chatbot/detectai`, data);
 
             if (res.statusText === 'OK') {
 
@@ -52,15 +54,14 @@ const DetectAI = () => {
 
                 setAnswer([...answer, { question: prompt, answer: res.data.answer }])
                 setPrompt('')
-
-
-
                 setLoading(false)
-
+                fetchUsage();
             }
         } catch (error) {
-            console.log("error: ", error?.response?.data);
-            alert('Error While fetching response for LessonPlanner!')
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
         }
 
@@ -102,7 +103,21 @@ const DetectAI = () => {
 
                                         <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
                                         {loading && <Loading />}
-
+                                        {
+                                            answer &&
+                                            <div className=' w-44 h-44 right-3 top-1 absolute'>
+                                                <div className='flex gap-2'>
+                                                    <div className=' h-5 w-5 bg-red-600'></div>
+                                                    <span>Detect AI Percentage</span>
+                                                </div>
+                                                <DonutChart data={
+                                                    [
+                                                        { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                        { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                    ]
+                                                } />
+                                            </div>
+                                        }
                                     </div>
 
                                     <ShortForm

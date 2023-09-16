@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import api from '../../../util/api';
 import { UsageContext } from '../../../context/UsageContext';
+import { toast } from 'react-toastify';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
@@ -8,7 +9,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
     const [data, setData] = useState({})
 
     const { fetchUsage } = useContext(UsageContext);
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
@@ -19,7 +20,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
         try {
             console.log('data: ', data);
-            let res = await api.post(`/mathquiz/gen`, _body)
+            let res = await api.post(`/chatbot/mathquiz/gen`, _body)
 
             if (res.statusText === 'OK') {
 
@@ -32,7 +33,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             }
         } catch (error) {
 
-            alert('Error: ', error)
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
             setLoading(false)
 
         }
@@ -68,7 +72,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="qtype" className='font-medium'>
-                    Question Type (Eg: multiple choice, true or false etc)
+                        Question Type (Eg: multiple choice, true or false etc)
                     </label>
                     <input
                         type="text"

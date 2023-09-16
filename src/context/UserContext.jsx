@@ -33,20 +33,20 @@ export const UserProvider = ({ children }) => {
             setUser(user);
 
 
-            if (user.verified) {
-                toast("LoggedIn Successfully")
+            // if (user.verified) {
+            toast("LoggedIn Successfully")
 
-                if (user.role === 'admin') {
+            if (user.role === 'admin') {
 
-                    navigate('/admin/dashboard/users')
-                } else {
-
-                    navigate('/user/dashboard/chatbots')
-                }
+                navigate('/admin/dashboard/users')
             } else {
-                setTempUser({ userId: user._id, email: user.email})
-                navigate("/verify-otp")
+
+                navigate('/user/dashboard/chatbots')
             }
+            // } else {
+            //     setTempUser({ userId: user._id, email: user.email})
+            //     navigate("/verify-otp")
+            // }
 
         } catch (error) {
             console.error('Failed to Login:', error.message);
@@ -61,7 +61,8 @@ export const UserProvider = ({ children }) => {
             console.log('User registered successfully:', res.data);
 
             setTempUser(res.data.data)
-            navigate('/verify-otp')
+            // navigate('/verify-otp')
+            navigate('/login')
 
         } catch (error) {
             if (error.response.status) {

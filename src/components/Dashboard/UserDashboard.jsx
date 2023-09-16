@@ -25,11 +25,11 @@ const UserDashboard = () => {
 
     if (!isAuthenticated) return <div>Loading....</div>
 
-    if (!(user?.verified)) {
-        return (
-            <h1>Please Verify Your Account!</h1>
-        )
-    }
+    // if (!(user?.verified)) {
+    //     return (
+    //         <h1>Please Verify Your Account!</h1>
+    //     )
+    // }
 
     return (
         <UsageProvider>

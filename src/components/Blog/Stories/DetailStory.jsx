@@ -244,8 +244,8 @@ const DetailStory = () => {
                   <img src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
                 </div>
 
-                <div className=' prose lg:prose-xl'>
-                  <div dangerouslySetInnerHTML={{ __html: (story.content) }}>
+                <div className=' prose lg:prose-xl' style={{ maxWidth: '100%'}}>
+                  <div style={{ width: "100%"}} dangerouslySetInnerHTML={{ __html: (story.content) }}>
                   </div>
                 </div>
 

@@ -60,7 +60,7 @@ export const UserProvider = ({ children }) => {
 
             console.log('User registered successfully:', res.data);
 
-            setTempUser(res.data.data)
+            // setTempUser(res.data.data)
             // navigate('/verify-otp')
             navigate('/login')
 

@@ -21,14 +21,15 @@ import PowerPoint from '../Chatbots/PowerPoint/PowerPoint'
 
 const UserDashboard = () => {
 
-    const { isAuthenticated, isLoggedin } = useContext(UserContext)
-
-
-    useEffect(() => {
-        isLoggedin()
-    }, [])
+    const { isAuthenticated, user } = useContext(UserContext)
 
     if (!isAuthenticated) return <div>Loading....</div>
+
+    if (!(user?.verified)) {
+        return (
+            <h1>Please Verify Your Account!</h1>
+        )
+    }
 
     return (
         <UsageProvider>

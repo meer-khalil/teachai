@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
 
     const login = async (credentials) => {
         try {
-            const { data } = await axios.post((backend_url ? backend_url : '') + '/login', credentials);
+            const { data } = await api.post('/login', credentials);
 
             console.log('Here is the data for User: ', data);
             const { token, user } = data;

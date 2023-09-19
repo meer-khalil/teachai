@@ -37,6 +37,13 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    emailUpdate: {
+        type: Boolean,
+        default: false
+    },
+    country: {
+        type: String
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });
@@ -58,6 +65,8 @@ userSchema.methods.getJWTToken = function () {
 }
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
+    console.log('Current: ', enteredPassword);
+    console.log('Password: ', this.password);
     return await bcrypt.compare(enteredPassword, this.password);
 }
 

@@ -7,7 +7,11 @@ const {
     getAllUsers,
     getUsage,
     verifyOTP,
-    resendOTP
+    resendOTP,
+    updateUserDetails,
+    changePassword,
+    changeEmail,
+    deleteAccount
 } = require('../controllers/userController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -19,6 +23,7 @@ router.route('/login').post(loginUser);
 router.route('/logout').get(logoutUser);
 
 router.route('/me').get(isAuthenticatedUser, getUserDetails);
+router.route('/me').put(isAuthenticatedUser, updateUserDetails);
 
 router.route("/admin/users").get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
 
@@ -27,5 +32,10 @@ router.route("/getUsage").get(isAuthenticatedUser, getUsage)
 
 router.route("/verifyOTP").post(verifyOTP)
 router.route("/resendOTPVerificationCode").post(resendOTP)
+
+
+router.route('/changepassword').put(isAuthenticatedUser, changePassword);
+router.route('/changeEmail').put(isAuthenticatedUser, changeEmail);
+router.route('/account').delete(isAuthenticatedUser, deleteAccount);
 
 module.exports = router;

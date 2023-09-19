@@ -69,7 +69,7 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                                 usageLimit: plan['requestlimit'],
                                 storageLimit: plan['storageLimit'],
                                 payment: true,
-                                paymentDate: Date.now
+                                paymentDate: Date.now()
                             });
 
                             if (updatedUsage) {

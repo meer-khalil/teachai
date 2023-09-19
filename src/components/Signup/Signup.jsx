@@ -7,8 +7,11 @@ import './DisabledButton.css';
 import { UserContext } from "../../context/UserContext";
 
 import login from '../../images/check.webp'
+import SignupLoader from "../commons/SignupLoader";
 
 export default function Signup() {
+
+  const [loading, setLoading] = useState(false);
 
   // const navigate = useNavigate();
   const { register } = useContext(UserContext);
@@ -40,8 +43,8 @@ export default function Signup() {
       email: formData.get('email'),
       password: formData.get('password')
     }
-
-    register(data)
+    setLoading(true);
+    register(data, setLoading)
   };
 
   return (
@@ -134,7 +137,13 @@ export default function Signup() {
           <div className="flex justify-end">
             <button
               disabled={!allow}
-              className={`${!allow ? 'disabled-button' : ''} border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded`}>
+              className={`${!allow ? 'disabled-button' : ''} relative border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded`}>
+              {
+                loading &&
+                <div className=" absolute top-0 right-0 bottom-0 left-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+                  <SignupLoader />
+                </div>
+              }
               Sign Up
             </button>
 

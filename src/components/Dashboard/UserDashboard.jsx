@@ -18,6 +18,7 @@ import VideoToQuiz from '../Chatbots/VideoToQuiz/VideoToQuiz'
 import { UsageProvider } from '../../context/UsageContext'
 import DetectAI from '../Chatbots/DetectAI/DetectAI'
 import PowerPoint from '../Chatbots/PowerPoint/PowerPoint'
+import Settings from './Settings/Settings'
 
 const UserDashboard = () => {
 
@@ -70,7 +71,8 @@ const UserDashboard = () => {
                                     <Route path={`chatbot/detect-ai`} element={<DetectAI />} />
 
                                     <Route path={`chatbot/powerpoint-presentation`} element={<PowerPoint />} />
-                                    
+
+                                    <Route path={`settings`} element={<Settings />} />                                    
 
                                 </Routes>
 

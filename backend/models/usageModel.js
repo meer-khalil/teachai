@@ -11,7 +11,7 @@ const usageSchema = new mongoose.Schema({
         type: String,
         default: 'Free'
     },
-    usageCount: Number,
+    usageCount: { type: Number, default: 0 },
     usageLimit: Number,
     storageUsed: { type: Number, default: 0 },
     storageLimit: {

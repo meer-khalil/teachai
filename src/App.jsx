@@ -33,6 +33,7 @@ import Editor from "./components/Editor/Editor";
 import TinyMCE from "./components/Editor/TinyMCE";
 import VerifyOTP from "./components/OTP/VerifyOTP";
 import DonutChart from "./components/Donut/DonutChart";
+import CookiesPolicy from "./components/Cookies/CookiesPolicy";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -62,6 +63,7 @@ export default function App() {
 
         <Route path="/terms" element={<Terms />} />
 
+        <Route path="/cookies-policy" element={<CookiesPolicy />} />
 
         <Route path="/signup" element={<Signup />} />
 

@@ -166,7 +166,7 @@ exports.verifyOTP = asyncErrorHandler(async (req, res, next) => {
                     if (!validOTP) {
                         throw new Error("Invalid OTP Passed. Please Check Your Email")
                     } else {
-                        await User.updateOne({ _id: userId }, {  verified: true })
+                        await User.updateOne({ _id: userId }, { verified: true })
                         await UserOTPVerification.deleteMany({ user: userId })
                         res.json({
                             status: "VERIFIED",
@@ -228,6 +228,30 @@ exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
     });
 });
 
+// Update User Details
+exports.updateUserDetails = asyncErrorHandler(async (req, res, next) => {
+
+    try {
+        const body = req.body;
+        const filter = { _id: req.user.id };
+        const update = body;
+        const option = { new: true };
+
+        const updatedUser = await User.findByIdAndUpdate(filter, update, option);
+
+        if (!updatedUser) {
+            res.status(404).json({ success: false, message: 'User not found' });
+        } else {
+            console.log('Updated the details of user');
+            res.status(200).json({ success: true, user: updatedUser });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+});
+
 // Get All Users --ADMIN
 exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
 
@@ -239,7 +263,105 @@ exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
     });
 });
 
+// Update User Details
+exports.changePassword = asyncErrorHandler(async (req, res, next) => {
 
+    try {
+        const body = req.body;
+        const { currentPassword, newPassword, confirmNewPassword } = body;
+
+
+
+        const user = await User.findOne({ _id: req.user.id }).select('+password');
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found"
+            })
+        }
+
+        const isValid = await user.comparePassword(currentPassword)
+
+        if (!isValid) {
+            return res.status(404).json({
+                message: "Current Password Is Wrong"
+            })
+        }
+        if (newPassword !== confirmNewPassword) {
+            return res.status(500).json({
+                message: "Password Must Match"
+            })
+        }
+
+        user.password = newPassword;
+
+        const updatedUser = await user.save();
+
+        if (!updatedUser) {
+            res.status(404).json({ success: false, message: 'User not found' });
+        } else {
+            console.log('Updated the details of user');
+            res.status(200).json({ success: true, user: updatedUser, message: "Password Updated" });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+});
+
+
+// Update User Details
+exports.changeEmail = asyncErrorHandler(async (req, res, next) => {
+
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ _id: req.user.id })
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found"
+            })
+        }
+        else if (!user.comparePassword(password)) {
+            return res.status(404).json({
+                message: "Enter Valid Password"
+            })
+        }
+
+        user.email = email
+        const updatedUser = await user.save();
+        if (!updatedUser) {
+            res.status(404).json({ success: false, message: 'User not found' });
+        } else {
+            console.log('Email Changed');
+            res.status(200).json({ success: true, user: updatedUser });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+});
+
+
+exports.deleteAccount = asyncErrorHandler(async (req, res, next) => {
+
+    try {
+        await User.findByIdAndDelete(req.user.id)
+        return res.status(200).json({
+            message: "Account Deleted"
+        })
+    } catch (error) {
+        console.log('error while deleting');
+        res.status(500).json({
+            message: "Error While Deleting Account"
+        })
+    }
+});
 exports.getUsage = asyncErrorHandler(async (req, res, next) => {
 
     let data = await Usage.findOne({ user: req.user.id });

@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React, { createContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { backend_url } from '../util/variables';
 import api from '../util/api';
 import { toast } from 'react-toastify';
 
@@ -54,7 +52,7 @@ export const UserProvider = ({ children }) => {
         }
     };
 
-    const register = async (data) => {
+    const register = async (data, setLoading) => {
         try {
             const res = await api.post('/register', data);
 
@@ -62,6 +60,7 @@ export const UserProvider = ({ children }) => {
 
             // setTempUser(res.data.data)
             // navigate('/verify-otp')
+            setLoading(false);
             navigate('/login')
 
         } catch (error) {
@@ -71,6 +70,7 @@ export const UserProvider = ({ children }) => {
             }
             console.log("Error", error.response.status);
             console.error('Failed to register user:', error?.response.data);
+            setLoading(false)
         }
     };
 
@@ -129,12 +129,10 @@ export const UserProvider = ({ children }) => {
 
     const getUserData = async () => {
         try {
-            const { data } = await api.get((backend_url ? backend_url : '') + '/me');
+            const { data } = await api.get('/me');
             const { user } = data
             setUser(user);
             localStorage.setItem('teachai_user', JSON.stringify(user))
-
-
         } catch (error) {
             console.error('Failed to Get User Data:', error.message);
         }
@@ -142,7 +140,7 @@ export const UserProvider = ({ children }) => {
 
     const getAllUsers = () => {
 
-        api.get((backend_url ? backend_url : '') + '/admin/users')
+        api.get('/admin/users')
             .then(({ data }) => {
                 // Handle the response data
                 const { users } = data
@@ -158,11 +156,13 @@ export const UserProvider = ({ children }) => {
     return (
         <UserContext.Provider value={{
             user,
+            setUser,
             login,
             register,
             logout,
             isLoggedin,
             isAuthenticated,
+            setIsAuthenticated,
             getUserData,
             users,
             getAllUsers,
@@ -171,7 +171,8 @@ export const UserProvider = ({ children }) => {
             pdfAnswer,
             setPdfAnswer,
             tempUser,
-            setTempUser
+            setTempUser,
+            getUserData
         }}>
             {children}
         </UserContext.Provider>

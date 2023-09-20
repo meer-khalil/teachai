@@ -20,31 +20,47 @@ export const UserProvider = ({ children }) => {
 
     const login = async (credentials) => {
         try {
-            const { data } = await api.post('/login', credentials);
+            const verifiedDevice = localStorage.getItem("teachai_verified_device")
+            console.log('VerifiedDevice: ', verifiedDevice);
+            
+            const { data } = await api.post('/login', { ...credentials, verifiedDevice });
 
             console.log('Here is the data for User: ', data);
-            const { token, user } = data;
+            const { token, user, verified } = data;
 
-            localStorage.setItem("teachai_token", token)
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            setIsAuthenticated(true)
-            setUser(user);
+            if (!user.verified) {
+                localStorage.setItem("teachai_token", token)
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+                setTempUser({ userId: user._id, email: user.email, send: true })
+                navigate("/verify-otp")
+                toast("Your Account is not Verified")
+            } else if (!verified) {
+                localStorage.setItem("teachai_token", token)
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            // if (user.verified) {
-            toast("LoggedIn Successfully")
-
-            if (user.role === 'admin') {
-
-                navigate('/admin/dashboard/users')
+                setTempUser({ userId: user._id, email: user.email, send: true })
+                navigate("/verify-otp")
             } else {
+                localStorage.setItem("teachai_token", token)
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                setIsAuthenticated(true)
+                setUser(user);
 
-                navigate('/user/dashboard/chatbots')
+                toast("LoggedIn Successfully")
+
+                if (user.role === 'admin') {
+
+                    navigate('/admin/dashboard/users')
+                } else {
+
+                    navigate('/user/dashboard/chatbots')
+                }
             }
-            // } else {
-            //     setTempUser({ userId: user._id, email: user.email})
-            //     navigate("/verify-otp")
-            // }
+
+
+
+            // if (user.verified) 
 
         } catch (error) {
             console.error('Failed to Login:', error.message);
@@ -58,11 +74,11 @@ export const UserProvider = ({ children }) => {
 
             console.log('User registered successfully:', res.data);
 
-            // setTempUser(res.data.data)
-            // navigate('/verify-otp')
-            setLoading(false);
-            navigate('/login')
+            toast("OTP sent to Your Email!")
 
+            setTempUser(res.data.data)
+            setLoading(false);
+            navigate('/verify-otp')
         } catch (error) {
             if (error.response.status) {
                 toast("Email is Already Used!")
@@ -79,24 +95,19 @@ export const UserProvider = ({ children }) => {
         try {
 
             const res = await api.get("/logout");
-
-
             console.log('User Logout successfully:', res);
 
-            if (res.data.success) {
-                delete api.defaults.headers.common['Authorization'];
-                localStorage.removeItem("teachai_token")
-                localStorage.removeItem("teachai_user")
-                setIsAuthenticated(false)
-                setUser(null);
-                toast('Logout Successfuly!')
-                navigate('/')
-            } else {
-                navigate('/')
-            }
+            // localStorage.removeItem("teachai_verified_device");
+            delete api.defaults.headers.common['Authorization'];
+            localStorage.removeItem("teachai_token")
+            localStorage.removeItem("teachai_user")
+            setIsAuthenticated(false)
+            setUser(null);
+            toast('Logout Successfuly!')
+            navigate('/')
         } catch (error) {
             console.error('Failed To Logout:', error.message);
-            navigate('/signup')
+            toast("Failed to Logout The User!")
         }
     };
 

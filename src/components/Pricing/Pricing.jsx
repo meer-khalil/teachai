@@ -74,7 +74,8 @@ const Pricing = () => {
 
     const processPayment = (plan) => {
         if (!user) {
-            navigate("/login")
+            localStorage.setItem("plan", plan)
+            navigate("/signup")
         }
         api.post('/payment/process', { plan })
             .then(response => {

@@ -135,7 +135,6 @@ app.use('/api/v1/chatbot', isAuthenticatedUser, resetLimit, chat);
 app.use('/api/v1', chatHistory);
 app.use('/api/v1', contact);
 
-
 app.get('/updateUsage', async (req, res) => {
     let data = await Usage.find({ _id: '64fa041a77c59af3e0b4413d' })
     console.log('data: ', data);

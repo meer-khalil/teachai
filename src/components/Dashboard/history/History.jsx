@@ -6,11 +6,11 @@ import Content from "./Content";
 
 import { MdOutlineWorkHistory } from 'react-icons/md'
 
-const History = () => {
+const History = ({ chatbot }) => {
 
-    const { chatbot } = useParams();
+    // const { chatbot } = useParams();
     const [chatIDs, setChatIDs] = useState();
-
+    const [chatID, setChatID] = useState('')
 
     const getChatIDs = async () => {
         try {
@@ -40,10 +40,10 @@ const History = () => {
                 {
                     (chatIDs.length > 0) ? (
                         chatIDs.map((e) => (
-                            <Link to={`/user/dashboard/history/${chatbot}/${e.id}`} className="flex flex-row gap-3 border-b border-blue-500">
+                            <div onClick={() => setChatID(e.id)} className="flex flex-row gap-3 border-b border-blue-500">
                                 <MdOutlineWorkHistory />
                                 <p className="">{e.title}</p>
-                            </Link>
+                            </div>
                         ))
                     ) : (
                         <h3 className=" text-xl font-bold">No History</h3>
@@ -51,9 +51,7 @@ const History = () => {
                 }
             </div>
             <div className="flex-[5] max-h-[100vh]">
-                <Routes>
-                    <Route path="/:chatbotid" element={<Content />} />
-                </Routes>
+                <Content chatbotid={chatID} />
             </div>
         </div>
     );

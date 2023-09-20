@@ -8,7 +8,7 @@ import { UsageContext } from '../../context/UsageContext';
 const Aside = ({ selectedCategory, setSelectedCategory }) => {
 
     const { logout } = useContext(UserContext)
-    const { fetchUsage, usage, creditWidth } = useContext(UsageContext)
+    const { fetchUsage, usage, creditWidth, uploadBarWidth } = useContext(UsageContext)
 
     // console.log('PathNam: ', pathname);
 
@@ -31,14 +31,14 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                             Dashboard
                         </Link>
                     </li> */}
-                    <li>
+                    {/* <li>
                         <Link to="/user/dashboard/history" className={`flex rounded-xl font-bold text-sm text-gray-900 py-3 px-4`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="text-lg mr-2" viewBox="0 0 16 16">
                                 <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
                             </svg>
                             History (chats)
                         </Link>
-                    </li>
+                    </li> */}
                     <li className=''>
                         <Link to="/user/dashboard/chatbots" className={`flex rounded-xl font-bold text-sm text-gray-900 py-3 px-4`}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="text-lg mr-2" viewBox="0 0 16 16">
@@ -64,23 +64,31 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                         </Link>
                         {/* <br /> */}
                         <div className=' mx-4 mt-2'>
-                            <div className="text-end">{usage?.plan}</div>
-                            <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
-                                <div className={`bg-blue-500 h-full`} style={{ width: creditWidth }}></div>
+                            <div className="text-end">
+                                {usage?.plan} Plan
                             </div>
+                            <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
+                                <div className={`bg-blue-500 h-full`} style={{ width: `${creditWidth}%` }}></div>
+                            </div>
+
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} / ${usage?.usageLimit}`}
+                                {/* {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} / ${usage?.usageLimit}`} */}
+                                {`${usage?.usageCount - 1} / ${usage?.usageLimit}`}
                                 <span className='ml-4'>[Today]</span>
                             </p>
-                            <p className=' text-blue-600 font-bold text-xs mt-2'>
+
+                            {/* <p className=' text-blue-600 font-bold text-xs mt-2'>
                                 <p className='mb-2'>Storage</p>
                                 {usage?.storageUsed.toFixed(2)} <span className='ml-.5'>MB</span>
                                 /
                                 {usage?.storageLimit}<span className='ml-.5'>GB</span>
-                            </p>
-                            <p className=' text-blue-600 font-bold text-xs mt-2'>
-                                <p className='mb-2'>Number of Files Upload</p>
-                                {usage?.noOfFilesUploaded}
+                            </p> */}
+                            <p className=' text-blue-600 font-bold text-xs mt-5'>
+                                <p className='mb-1'>Number of Files Upload</p>
+                                <div className=' mb-2 h-3 border border-blue-400 rounded-full overflow-hidden'>
+                                    <div className={`bg-blue-500 h-full`} style={{ width: `${uploadBarWidth}%` }}></div>
+                                </div>
+                                {usage?.noOfFilesUploaded} / {usage?.noOfFilesUploadedLimit} Month
                             </p>
                         </div>
                     </li>

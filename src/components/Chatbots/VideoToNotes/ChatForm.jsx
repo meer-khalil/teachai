@@ -64,7 +64,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <input
                         type="text"
                         id='summary'
-                        placeholder='Type here'
+                        placeholder='Add Youtube video link here'
                         name='url'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'

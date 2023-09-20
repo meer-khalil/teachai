@@ -8,7 +8,7 @@ import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
+import ExportButtons from '../ExportButtons';
 
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import { UsageContext } from '../../../context/UsageContext';
@@ -27,7 +27,8 @@ const Essay = () => {
     const [chatID, setChatID] = useState('')
 
 
-    const reportTemplateRef = useRef(null);
+    const componentRef = useRef(null)
+
 
     const { fetchUsage } = useContext(UsageContext);
 
@@ -98,9 +99,9 @@ const Essay = () => {
                         {
                             (answer.length > 0) ? (
                                 <div>
-                                    <div className='relative'>
+                                    <div className='relative' ref={componentRef}>
 
-                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        <Answer answer={answer} />
                                         {loading && <Loading />}
 
                                     </div>
@@ -129,7 +130,7 @@ const Essay = () => {
                 </div>
             </div>
 
-            <ExportButtons />
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>
     )

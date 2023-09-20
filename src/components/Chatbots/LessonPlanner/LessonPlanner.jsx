@@ -15,6 +15,7 @@ import ExportButtons from '../ExportButtons';
 import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
+import History from '../../Dashboard/history/History';
 
 const LessonPlanner = () => {
 
@@ -26,6 +27,8 @@ const LessonPlanner = () => {
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
+
+    const [showHistory, setShowHistory] = useState(false);
 
     const { fetchUsage } = useContext(UsageContext);
 
@@ -90,35 +93,46 @@ const LessonPlanner = () => {
                 <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
                     <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
                         <div className=' border-b-2 flex gap-3'>
-                            <button className=' bg-slate-300 px-4 py-2'>Output</button>
-                            <button className=' px-4 py-2'>History</button>
+                            <button className={`${!showHistory ? 'bg-slate-300': ''} px-4 py-2`} onClick={() => setShowHistory(false)}>Output</button>
+                            <button className={`${showHistory ? 'bg-slate-300': ''} px-4 py-2`} onClick={() => setShowHistory(true)}>History</button>
                         </div>
                         {
-                            (answer.length > 0) ? (
+                            !showHistory ? (
+                                <>
+                                    {
+                                        (answer.length > 0) ? (
+                                            <div>
+                                                <div className='relative' ref={componentRef}>
+
+                                                    <Answer answer={answer} />
+                                                    {loading && <Loading />}
+
+                                                </div>
+
+                                                <ShortForm
+                                                    prompt={prompt}
+                                                    setPrompt={setPrompt}
+                                                    handleSubmit={handleSubmit}
+                                                />
+                                            </div>
+                                        )
+                                            : (
+                                                <div className=' flex justify-center items-center w-full h-full relative'>
+                                                    <p>Try variaty of inputs and input lengths to get the best results</p>
+                                                    {
+                                                        loading && <Loading message={message} />
+                                                    }
+                                                </div>
+                                            )
+
+                                    }
+
+                                </>
+                            ) : (
                                 <div>
-                                    <div className='relative' ref={componentRef}>
-
-                                        <Answer answer={answer} />
-                                        {loading && <Loading />}
-
-                                    </div>
-
-                                    <ShortForm
-                                        prompt={prompt}
-                                        setPrompt={setPrompt}
-                                        handleSubmit={handleSubmit}
-                                    />
+                                    <History chatbot="Lesson Planning"/>
                                 </div>
                             )
-                                : (
-                                    <div className=' flex justify-center items-center w-full h-full relative'>
-                                        <p>Try variaty of inputs and input lengths to get the best results</p>
-                                        {
-                                            loading && <Loading message={message} />
-                                        }
-                                    </div>
-                                )
-
                         }
                     </div>
 

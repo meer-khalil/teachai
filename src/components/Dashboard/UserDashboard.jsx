@@ -37,10 +37,14 @@ const UserDashboard = () => {
             <ChatbotProvider>
                 <div className=' max-w-[1640px] mx-auto'>
                     <div className="relative overflow-hidden flex flex-col md:flex-row">
-
-                        <div className="flex-[2] relative mt-52">
-                            <Aside />
-                        </div>
+                        {/* <div className='flex flex-col'> */}
+                            {/* <div>
+                                <h3 className=' text-xl font-bold'>Package Details</h3>
+                            </div> */}
+                            <div className="flex-[2] relative mt-52">
+                                <Aside />
+                            </div>
+                        {/* </div> */}
 
                         <main className="mt-40 min-h-screen md:mt-0 overflow-auto flex-[10]">
                             <div className="px-2 md:px-6 pt-2">
@@ -48,7 +52,7 @@ const UserDashboard = () => {
                                 <Routes>
 
 
-                                    <Route path={`history/*`} element={<ChatHistory />} />
+                                    {/* <Route path={`history/*`} element={<ChatHistory />} /> */}
 
                                     <Route path={`chatbots`} element={<Chatbots />} />
 
@@ -72,7 +76,7 @@ const UserDashboard = () => {
 
                                     <Route path={`chatbot/powerpoint-presentation`} element={<PowerPoint />} />
 
-                                    <Route path={`settings`} element={<Settings />} />                                    
+                                    <Route path={`settings`} element={<Settings />} />
 
                                 </Routes>
 

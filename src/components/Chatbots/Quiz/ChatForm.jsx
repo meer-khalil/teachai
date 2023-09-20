@@ -102,13 +102,12 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <label htmlFor="summary" className='font-medium'>
                         Short Summary Learning Objectives
                     </label>
-                    <input
-                        type="text"
+                    <textarea
                         id='summary'
                         name='summary'
                         onChange={handleChange}
-                        className='px-2 h-8 rounded border  bg-white outline-none'
-                    />
+                        className='px-2 h-28 rounded-md border  bg-white outline-none'
+                    ></textarea>
                 </div>
 
 

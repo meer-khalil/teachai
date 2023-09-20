@@ -11,6 +11,7 @@ export default function Login() {
   const { login } = useContext(UserContext)
 
   const handleSubmit = (event) => {
+    console.log('Event: ', event);
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = {
@@ -68,7 +69,7 @@ export default function Login() {
 
 
           <div className="flex justify-end">
-            <button className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
+            <button type="submit" className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
               Login
             </button>
           </div>

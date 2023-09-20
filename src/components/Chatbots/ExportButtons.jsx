@@ -151,29 +151,29 @@ const ExportButtons = ({ componentToPrint, answer }) => {
     fetch("https://docs.googleapis.com/v1/documents?title=" + fileName, {
       method: 'POST',
       headers: new Headers({ 'Authorization': "Bearer " + accessToken }),
-      
+
     })
       .then((res) => res.json())
       .then((val) => {
-        fetch(`https://docs.googleapis.com/v1/documents/${ val.documentId}:batchUpdate`, {
-            method: 'POST',
-            headers: new Headers({
-              'Authorization': 'Bearer ' + accessToken,
-              'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-              requests: [
-                {
-                  insertText: {
-                    location: {
-                      index: 1, // Index where you want to insert the text (1 for beginning)
-                    },
-                    text: documentFileContent,
+        fetch(`https://docs.googleapis.com/v1/documents/${val.documentId}:batchUpdate`, {
+          method: 'POST',
+          headers: new Headers({
+            'Authorization': 'Bearer ' + accessToken,
+            'Content-Type': 'application/json'
+          }),
+          body: JSON.stringify({
+            requests: [
+              {
+                insertText: {
+                  location: {
+                    index: 1, // Index where you want to insert the text (1 for beginning)
                   },
+                  text: documentFileContent,
                 },
-              ],
-            }),
-          })
+              },
+            ],
+          }),
+        })
           .then((updateResponse) => {
             if (updateResponse.ok) {
               console.log('Text inserted successfully.');
@@ -226,33 +226,40 @@ const ExportButtons = ({ componentToPrint, answer }) => {
       <div>
         {/* <Logout /> */}
       </div>
-      <div className=" flex gap-3 relative overflow-hidden">
+      <div className=" flex gap-5 relative overflow-hidden">
         {[
           {
             image: excel,
             fn: handleToXLSX,
+            text: 'Export Excel'
           },
           {
             image: pdf,
             fn: handleToPrint,
+            text: 'Export PDF'
           },
           {
             image: doc,
             fn: generateDocx,
+            text: 'Export DOC'        
           },
           {
             image: docs,
             fn: handleGoogleDocClick,
+            text: 'Export Goofle DOC'        
           }
         ].map((el, i) => {
           return (
-            <img
-              key={i}
-              src={el.image}
-              alt="icon"
-              className="w-16 cursor-pointer"
-              onClick={() => el.fn()}
-            />
+            <div className="flex flex-col gap-1 justify-center items-center">
+              <img
+                key={i}
+                src={el.image}
+                alt="icon"
+                className="w-16 cursor-pointer"
+                onClick={() => el.fn()}
+              />
+              <div>{el.text}</div>
+            </div>
           );
         })}
         <Login />

@@ -145,7 +145,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         rows="4"
                         name='essayContent'
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
+                        placeholder="Add essay content here or attatch a file document"
                         onChange={handleChange}
                     >
                     </textarea>
@@ -166,7 +166,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         rows="4"
                         name='rubric'
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
+                        placeholder="Add your own rubric for assessment here or check the box to use the default one"
                         onChange={handleChange}
                     >
                     </textarea>
@@ -175,7 +175,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         <input type="checkbox" id='defaultRubric' onChange={(e) => {
                             if (e.target.checked) {
                                 setData({ ...data, 'rubric': 'default' })
-                                generateRubric();
+                                // generateRubric();
                             }
                         }} />
                         Use default

@@ -12,7 +12,7 @@ import ExportButtons from '../ExportButtons';
 
 
 
-import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
+import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Priyanka.png'
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
@@ -105,10 +105,10 @@ const PowerPoint = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
-                        name={'Qasim'}
-                        image={_2_Quiz}
-                        heading={'Power Point'}
-                        desc={'Allow me to offer assistance with your quiz creation tasks.'}
+                        name={'Priyanka'}
+                        image={_10_PowerPoint}
+                        heading={'Power Point Presentation'}
+                        desc={'Let me provide you with support for your PowerPoint presentation slides.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

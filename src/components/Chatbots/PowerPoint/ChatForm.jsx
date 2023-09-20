@@ -14,6 +14,12 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
+
+        if (data.number_of_slides > 10) {
+            toast("Maximum Slides could be 10")
+            return
+        }
+
         setLoading(true)
         let _body = {
             body: data
@@ -29,13 +35,13 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                 console.log('Here is the answer: ', data.answer);
 
                 setChatID(data.chat_id)
-                
+
                 let fileName = data.answer.split('/')
                 fileName = fileName[fileName.length - 1]
-            
+
                 console.log('FileName: ', fileName);
                 setAnswer([{ answer: fileName.split('_')[1] }])
-                
+
                 setFileName(fileName)
                 fetchFile(fileName)
                 setLoading(false)
@@ -106,7 +112,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                         rows="4"
                         name='description'
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Write your thoughts here..."
+                        placeholder="Add description of your PowerPoint Presentation"
                         onChange={handleChange}
                     >
                     </textarea>
@@ -159,6 +165,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                         type="text"
                         id='noOfSlides'
                         name='number_of_slides'
+                        placeholder='Maximum 10 slides'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

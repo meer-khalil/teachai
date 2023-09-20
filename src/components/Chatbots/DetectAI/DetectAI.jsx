@@ -2,15 +2,16 @@ import React, { useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
-import Loading from './Loading'
-import Header from '../Header'
+import Loading from './Loading';
+import Header from '../Header';
 import api from '../../../util/api';
 import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
-import ExportButtons from './ExportButtons';
+import ExportButtons from '../ExportButtons';
 
-import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
+import _9_DetectAI from '../../../images/bots/9.Detect AI-Writing & Plagiarism - Ali.png'
+
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
@@ -26,6 +27,7 @@ const DetectAI = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
+    const componentRef = useRef(null)
 
     const reportTemplateRef = useRef(null);
 
@@ -73,10 +75,10 @@ const DetectAI = () => {
 
                 <div className='border-r border-secondary max-w-[350px]'>
                     <Header
-                        name={'Elsa'}
-                        image={_3_AutomatedEssay}
+                        name={'Ali'}
+                        image={_9_DetectAI}
                         heading={'Detect AI-Writing & Plagiarism'}
-                        desc={'Let me provide you with assistance for your essay grading tasks.'}
+                        desc={'Allow me to assist you with AI-powered writing detection and plagiarism checking'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />
@@ -99,9 +101,9 @@ const DetectAI = () => {
                         {
                             (answer.length > 0) ? (
                                 <div>
-                                    <div className='relative'>
+                                    <div className='relative' ref={componentRef}>
 
-                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        <Answer  answer={answer} />
                                         {loading && <Loading />}
                                         {
                                             answer &&
@@ -144,7 +146,7 @@ const DetectAI = () => {
                 </div>
             </div>
 
-            <ExportButtons />
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>
     )

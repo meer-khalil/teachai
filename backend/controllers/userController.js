@@ -53,7 +53,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
 
 // Login User
 exports.loginUser = asyncErrorHandler(async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, verifiedDevice } = req.body;
 
     if (!email || !password) {
         return next(new ErrorHandler("Please Enter Email And Password", 400));
@@ -71,7 +71,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
         return next(new ErrorHandler("Invalid Email or Password", 401));
     }
 
-    sendToken(user, 201, res);
+    sendToken(user, 201, res, verifiedDevice);
 });
 
 
@@ -166,12 +166,27 @@ exports.verifyOTP = asyncErrorHandler(async (req, res, next) => {
                     if (!validOTP) {
                         throw new Error("Invalid OTP Passed. Please Check Your Email")
                     } else {
-                        await User.updateOne({ _id: userId }, { verified: true })
+                        let user = await User.updateOne({ _id: userId }, { verified: true })
                         await UserOTPVerification.deleteMany({ user: userId })
-                        res.json({
-                            status: "VERIFIED",
-                            message: "User Email Verified"
-                        })
+
+                        user = await User.findOne({ _id: userId }).select("+password");
+                        const token = user.getJWTToken();
+
+                        const options = {
+                            expires: new Date(
+                                Date.now() + (parseInt(process.env.COOKIE_EXPIRE) || 7) * 24 * 60 * 60 * 1000
+                            ),
+                            httpOnly: true
+                        };
+                        res.status(201)
+                            .cookie('token', token, options)
+                            .json({
+                                status: "VERIFIED",
+                                message: "User Email Verified",
+                                verified: true,
+                                user,
+                                token
+                            })
                     }
                 }
             }

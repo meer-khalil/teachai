@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import api from "../../../util/api";
 import Answer from "../../Chatbots/Answer";
 
-const Content = () => {
+const Content = ({ chatbotid }) => {
 
-    const { chatbotid } = useParams();
+    // const { chatbotid } = useParams();
     const [chatHistory, setChatHistory] = useState();
 
     const getHistory = async () => {

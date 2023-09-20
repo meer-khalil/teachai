@@ -15,8 +15,7 @@ const ShortForm = ({ prompt, setPrompt, handleSubmit }) => {
                 onChange={(e) => setPrompt(e.target.value)} />
             <button
                 className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'
-                disabled={true}
-                // {prompt ? false : true}
+                disabled={prompt ? false : true}
             >
                 Submit
             </button>

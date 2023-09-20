@@ -27,6 +27,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 console.log('Response from chatform: ', res);
                 console.log('Here is the answer: ', res.data.answer);
+
+                if (res.data.answer === 'Invalid YouTube link') {
+                    toast(res.data.answer)
+                }
                 setChatID(res.data.chat_id)
                 setAnswer([{ answer: res.data.answer }])
                 setLoading(false)
@@ -64,7 +68,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <input
                         type="text"
                         id='url'
-                        placeholder='Type here'
+                        placeholder='Add Youtube video link here'
                         name='url'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'

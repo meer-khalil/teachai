@@ -29,8 +29,6 @@ import UserDashboard from "./components/Dashboard/UserDashboard";
 import YourComponent from "./components/Pdf/YourComponent";
 import Stories from "./components/Blog/Stories/Stories";
 import DetailStory from "./components/Blog/Stories/DetailStory";
-import Editor from "./components/Editor/Editor";
-import TinyMCE from "./components/Editor/TinyMCE";
 import VerifyOTP from "./components/OTP/VerifyOTP";
 import DonutChart from "./components/Donut/DonutChart";
 import CookiesPolicy from "./components/Cookies/CookiesPolicy";
@@ -49,7 +47,6 @@ export default function App() {
         <Route path="/teachers" element={<Teachers />} />
 
         <Route path="/affliate" element={<Affliate />} />
-
 
         <Route path="/about" element={<About />} />
 

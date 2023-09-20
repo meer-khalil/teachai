@@ -147,13 +147,13 @@ const Navbar = () => {
                     }
                     {
                         !isAuthenticated ? (
-                            <Link to='/login'>
+                            <Link to='/signup'>
                                 <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
                                     Start my free trial
                                 </button>
                             </Link>
                         ) : (
-                            <Link to='/login'>
+                            <Link to='/pricing'>
                                 <button className='px-3 py-1 rounded-md border-2 text-white bg-[#ed7742]'>
                                     upgrade plan
                                 </button>

@@ -148,6 +148,7 @@ const DetectAI = () => {
 
             <ExportButtons componentToPrint={componentRef} answer={answer} />
 
+
         </div>
     )
 }

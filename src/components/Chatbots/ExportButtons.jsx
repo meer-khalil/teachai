@@ -26,7 +26,6 @@ const SCOPES = "https://www.googleapis.com/auth/drive";
 
 const ExportButtons = ({ componentToPrint, answer }) => {
 
-
   const generateDocx = () => {
     let documentFileContent = "Title: Lisa The General Lesson Planner\n\n";
     for (let i = 0; i < answer.length; i++) {

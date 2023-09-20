@@ -12,13 +12,13 @@ import ExportButtons from '../ExportButtons';
 
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
 import { UsageContext } from '../../../context/UsageContext';
-import { UserContext } from '../../../context/UserContext';
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
 
 const Essay = () => {
 
+    const componentRef = useRef(null)
 
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
@@ -26,8 +26,6 @@ const Essay = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-
-    const componentRef = useRef(null)
 
 
     const { fetchUsage } = useContext(UsageContext);
@@ -130,6 +128,7 @@ const Essay = () => {
                 </div>
             </div>
 
+            {/* <ExportButtons componentToPrint={componentRef} answer={answer} /> */}
             <ExportButtons componentToPrint={componentRef} answer={answer} />
 
         </div>

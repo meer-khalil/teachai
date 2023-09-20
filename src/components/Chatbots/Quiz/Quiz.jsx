@@ -61,7 +61,6 @@ const Quiz = () => {
             console.log('Error: ', error);
             setLoading(false)
         }
-
     }
 
     return (

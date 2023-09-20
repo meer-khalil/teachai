@@ -22,7 +22,7 @@ const Login = () => {
     }
 
     return (
-        <div className={`absolute ${login ? "-right-20" : "right-0"} opacity-0 top-2 bg-red-400 w-12 overflow-hidden`}>
+        <div className={`absolute ${login ? "-right-44" : "right-10"} opacity-0  top-2 bg-red-400 w-12 overflow-hidden`}>
 
             <GoogleLogin
                 clientId={clientId}

@@ -1,5 +1,17 @@
+import { useEffect } from "react";
 
 function Answer({ answer }) {
+
+  const slideDown = () => {
+    console.log('Here I am to scroll');
+    let content = document.getElementById('chat_content');
+    console.log('content: ', content);
+    content.scrollTop = content.scrollHeight;
+  }
+
+  useEffect(() => {
+    slideDown();
+  }, [answer])
 
   return (
     <div>

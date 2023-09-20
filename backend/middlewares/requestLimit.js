@@ -16,7 +16,7 @@ exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
 
         if (usage) {
             console.log('Usage: ', usage);
-            if (usage.usageCount <= requestLimits[usage.plan]) {
+            if (usage.usageCount <= usage.usageLimit) {
                 console.log('Requested Updated: by 1');
                 usage.usageCount++;
                 await usage.save();

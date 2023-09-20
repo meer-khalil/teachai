@@ -64,7 +64,8 @@ exports.gradeEssay = asyncErrorHandler(async (req, res, next) => {
         // converting the string object to javascript obj so that we can add more info.
         data.prompt = JSON.parse(data.prompt);
 
-        let { pdfText } = uploadInfoUpdateUsageReadPDF(req, data);
+        let pdfText = await uploadInfoUpdateUsageReadPDF(req, data);
+
         data.prompt.essayContent = pdfText
     } else {
         console.log('file is not included');

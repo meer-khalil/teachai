@@ -26,7 +26,8 @@ const LessonComprehension = () => {
     const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-    const reportTemplateRef = useRef(null);
+    const componentRef = useRef(null)
+
 
     const { fetchUsage } = useContext(UsageContext);
 
@@ -98,9 +99,9 @@ const LessonComprehension = () => {
                         {
                             (answer.length > 0) ? (
                                 <div>
-                                    <div className='relative'>
+                                    <div className='relative' ref={componentRef}>
 
-                                        <Answer reportTemplateRef={reportTemplateRef} answer={answer} />
+                                        <Answer answer={answer} />
                                         {loading && <Loading />}
 
                                     </div>
@@ -129,7 +130,8 @@ const LessonComprehension = () => {
                 </div>
             </div>
 
-            <ExportButtons />
+            <ExportButtons componentToPrint={componentRef} answer={answer} />
+
         </div>
     )
 }

@@ -191,11 +191,11 @@ exports.uploadInfoUpdateUsageReadPDF = async (req, data) => {
         pdfText = result.text
         console.log(pdfText ? "text is here" : "text didn't read");
         // console.log('result: ', pdfText);
+        return pdfText
     } catch (error) {
         console.log('Error: ', error);
     }
 
-    return pdfText
 }
 
 exports.updateChatHistory = updateChatHistory

@@ -1,7 +1,11 @@
 import { forwardRef, useRef, useState } from "react"
 import GoogleLogin from "react-google-login"
 
-const clientId = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
+// LocalHost
+// const clientId = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
+
+//production
+const clientId = '700989349221-o958kd0tivmmrtuqd9v1fl51t17jpaa5.apps.googleusercontent.com'
 
 
 const Login = () => {

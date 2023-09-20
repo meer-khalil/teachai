@@ -13,8 +13,15 @@ import excel from "../../images/Icons/excel.png";
 import pdf from "../../images/Icons/pdf.png";
 
 
-const CLIENT_ID = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
-const API_KEY = "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"
+// LocalHost
+// const CLIENT_ID = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
+// const API_KEY = "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"
+// const SCOPES = "https://www.googleapis.com/auth/drive";
+
+
+// Production
+const CLIENT_ID = '700989349221-o958kd0tivmmrtuqd9v1fl51t17jpaa5.apps.googleusercontent.com'
+const API_KEY = "AIzaSyDFKgXAsTphgknMumDBBoWJ5jiHOYKv8Uk"
 const SCOPES = "https://www.googleapis.com/auth/drive";
 
 const ExportButtons = ({ componentToPrint, answer }) => {

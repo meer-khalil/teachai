@@ -14,7 +14,7 @@ const sendToken = (user, statusCode, res, verifiedDevice) => {
   console.log('Device: ', verifiedDevice);
   console.log('UserID: ', user._id);
 
-  let objectID = new ObjectId(verifiedDevice.split('-')[0])
+  let objectID = new ObjectId(verifiedDevice?.split('-')[0])
   console.log('Check Result: ', objectID.equals(user._id));
   
   if (verifiedDevice && objectID.equals(user._id)) {

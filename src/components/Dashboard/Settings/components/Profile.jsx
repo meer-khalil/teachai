@@ -27,6 +27,7 @@ const Profile = () => {
       console.log('request_data: ', userData);
       const { data } = await api.put('/me', userData);
       getUserData()
+      console.log('data: ', data);
       toast("User Detail Updated Successfully");
     } catch (error) {
       console.log("Error: ", error);

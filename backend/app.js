@@ -67,7 +67,7 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                             const updatedUsage = await Usage.findByIdAndUpdate(temp[0].id, {
                                 plan: plan['name'],
                                 usageLimit: plan['requestlimit'],
-                                storageLimit: plan['storageLimit'],
+                                storageLimit: plan['noOfFilesUploadedLimit'],
                                 payment: true,
                                 paymentDate: Date.now()
                             });
@@ -85,7 +85,7 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                             user: userId,
                             plan: plan['name'],
                             usageLimit: plan['requestlimit'],
-                            storageLimit: plan['storageLimit'],
+                            storageLimit: plan['noOfFilesUploadedLimit'],
                             payment: true
                         })
 

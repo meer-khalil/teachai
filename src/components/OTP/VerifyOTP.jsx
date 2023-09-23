@@ -152,7 +152,7 @@ const VerifyOTP = () => {
 
                                     <div class="flex flex-row items-center justify-center text-center text-sm font-medium space-x-1 text-gray-500">
                                         <p>Didn't recieve code?</p>
-                                        <div class="flex flex-row items-center text-blue-600" onClick={resendOTP}>Resend</div>
+                                        <div class="flex flex-row items-center text-blue-600 cursor-pointer" onClick={resendOTP}>Resend</div>
                                     </div>
                                 </div>
                             </div>

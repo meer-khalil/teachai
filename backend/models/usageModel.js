@@ -19,7 +19,7 @@ const usageSchema = new mongoose.Schema({
         default: 10
     },
     noOfFilesUploaded: { type: Number, default: 0 },
-    noOfFilesUploadedLimit: { type: Number, default: 10 },
+    noOfFilesUploadedLimit: { type: Number, default: 0 },
     payment: {
         type: Boolean,
         default: false

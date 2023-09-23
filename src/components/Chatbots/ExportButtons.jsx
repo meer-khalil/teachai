@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import * as XLSX from "xlsx";
 
@@ -11,6 +11,7 @@ import doc from "../../images/Icons/doc.png";
 import docs from "../../images/Icons/docs.png";
 import excel from "../../images/Icons/excel.png";
 import pdf from "../../images/Icons/pdf.png";
+import { UsageContext } from "../../context/UsageContext";
 
 
 // LocalHost
@@ -25,6 +26,8 @@ const API_KEY = "AIzaSyDFKgXAsTphgknMumDBBoWJ5jiHOYKv8Uk"
 const SCOPES = "https://www.googleapis.com/auth/drive";
 
 const ExportButtons = ({ componentToPrint, answer }) => {
+
+  const { usage } = useContext(UsageContext);
 
   const generateDocx = () => {
     let documentFileContent = "Title: Lisa The General Lesson Planner\n\n";
@@ -247,24 +250,40 @@ const ExportButtons = ({ componentToPrint, answer }) => {
           {
             image: doc,
             fn: generateDocx,
-            text: 'Export DOC'        
+            text: 'Export DOCS'
           },
           {
             image: docs,
             fn: handleGoogleDocClick,
-            text: 'Export Goofle DOC'        
+            text: 'Export Goofle DOC'
           }
         ].map((el, i) => {
           return (
             <div className="flex flex-col gap-1 justify-center items-center">
-              <img
-                key={i}
-                src={el.image}
-                alt="icon"
-                className="w-16 cursor-pointer"
-                onClick={() => el.fn()}
-              />
-              <div>{el.text}</div>
+              {
+                usage?.plan === 'Professional' ? (
+                  <>
+                    <img
+                      key={i}
+                      src={el.image}
+                      alt="icon"
+                      className="w-16  cursor-pointer"
+                      onClick={() => el.fn()}
+                    />
+                    <div>{el.text}</div>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      key={i}
+                      src={el.image}
+                      alt="icon"
+                      className="w-16 cursor-not-allowed"
+                    />
+                    <div>{el.text}</div>
+                  </>
+                )
+              }
             </div>
           );
         })}

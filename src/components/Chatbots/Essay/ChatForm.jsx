@@ -7,6 +7,9 @@ import { toast } from 'react-toastify';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
+
+    const { usage } = useContext(UsageContext);
+    
     const [data, setData] = useState({})
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -145,14 +148,23 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         rows="4"
                         name='essayContent'
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="Add essay content here or attatch a file document"
+                        placeholder="Add essay content here or attach a file document"
                         onChange={handleChange}
                     >
                     </textarea>
-                    <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
-                        accept='.pdf'
-                        onChange={handleFileChange}
-                    />
+                    {
+                        (usage?.noOfFilesUploaded !== usage?.noOfFilesUploadedLimit) ? (
+                            <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
+                                accept='.pdf'
+                                onChange={handleFileChange}
+                            />
+                        ) : (
+                            <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
+                            accept='.pdf'
+                            disabled
+                        />
+                        )
+                    }
                 </div>
 
                 <div className='flex flex-col mb-5'>

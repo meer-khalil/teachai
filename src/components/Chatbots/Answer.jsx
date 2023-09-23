@@ -17,18 +17,33 @@ function Answer({ answer }) {
     <div>
       <div id='chat_content' className='overflow-y-scroll h-[70vh] pr-4 pt-4'>
         {
-          answer?.map((el, i) => (
-            <div className="chat_content_item">
-              {
-                el?.question && (
-                  <h4 className='mt-20 mb-3 text-xl font-bold'>
-                    {el.question}
-                  </h4>
-                )
-              }
-              <div dangerouslySetInnerHTML={{ __html: el.answer }} />
-            </div>
-          ))
+          answer?.map((el, i) => {
+            function wrapLinksWithAnchorTags(text) {
+              // Regular expression to match URLs
+              var urlRegex = /(https?:\/\/[^\s]+)/g;
+
+              // Replace URLs with anchor tags
+              var newText = text.replace(urlRegex, function (url) {
+                return '<a href="' + url + '" target="_blank">' + url + '</a>';
+              });
+
+              return newText;
+            }
+            let newText = wrapLinksWithAnchorTags(el?.answer)
+
+            return (
+              <div className="chat_content_item">
+                {
+                  el?.question && (
+                    <h4 className='mt-20 mb-3 text-xl font-bold'>
+                      {el.question}
+                    </h4>
+                  )
+                }
+                <div dangerouslySetInnerHTML={{ __html: newText }} />
+              </div>
+            )
+          })
         }
       </div>
     </div>

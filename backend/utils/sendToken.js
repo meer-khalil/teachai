@@ -16,8 +16,19 @@ const sendToken = (user, statusCode, res, verifiedDevice) => {
 
   let objectID = new ObjectId(verifiedDevice?.split('-')[0])
   console.log('Check Result: ', objectID.equals(user._id));
-  
-  if (verifiedDevice && objectID.equals(user._id)) {
+
+
+  // If 2FA is not Enabled
+  if (!user.TwoFA) {
+    res.status(statusCode)
+      .cookie('token', token, options)
+      .json({
+        verified: true,
+        user,
+        token,
+      });
+  }
+  else if (verifiedDevice && objectID.equals(user._id)) {
     console.log('User And Device are Verified For Login: ', verifiedDevice);
     res.status(statusCode)
       .cookie('token', token, options)

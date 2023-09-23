@@ -11,6 +11,8 @@ import api from '../../../../util/api';
 const Profile = () => {
 
   const [userData, setUserData] = useState({});
+  const [customCountry, setCustomCountry] = useState('');
+  const [hideDrop, setHideDrop] = useState('')
 
   const { user, getUserData } = useContext(UserContext);
 
@@ -25,9 +27,17 @@ const Profile = () => {
 
     try {
       console.log('request_data: ', userData);
-      const { data } = await api.put('/me', userData);
+
+      let req_data = userData;
+
+      if (req_data.customCountry) {
+        req_data.country = req_data.customCountry
+      }
+
+      const { data } = await api.put('/me', req_data);
       getUserData()
       console.log('data: ', data);
+      setCustomCountry('')
       toast("User Detail Updated Successfully");
     } catch (error) {
       console.log("Error: ", error);
@@ -87,15 +97,30 @@ const Profile = () => {
                 Country
               </label>
               <div class="relative">
-                <select
-                  onChange={handleChange}
-                  name='country'
-                  value={userData?.country}
-                  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                  <option>New Mexico</option>
-                  <option>Missouri</option>
-                  <option>Texas</option>
-                </select>
+                {
+                  !customCountry && (
+
+                    <select
+                      onChange={handleChange}
+                      name='country'
+                      value={userData?.country}
+                      class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                      <option>New Mexico</option>
+                      <option>Missouri</option>
+                      <option>Texas</option>
+                      <option>Other</option>
+                    </select>
+                  )
+                }
+                {
+                  userData?.country === 'Other' && (
+                    <input type="text"
+                      name="customCountry"
+                      placeholder="Enter Your Country"
+                      className="block mt-2 appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      value={userData.customCountry}
+                      onChange={handleChange} />
+                  )}
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>

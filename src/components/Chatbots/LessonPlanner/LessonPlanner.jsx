@@ -2,10 +2,9 @@ import React, { useContext, useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
-import Loading from './Loading'
+import Loading from '../Loading'
 import Header from '../Header'
 import api from '../../../util/api';
-import Answer from '../Answer';
 import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
@@ -16,6 +15,7 @@ import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
 import History from '../../Dashboard/history/History';
+import AnswerAndHistory from '../AnswerAndHistory';
 
 const LessonPlanner = () => {
 
@@ -84,61 +84,19 @@ const LessonPlanner = () => {
                     <ChatForm
                         setAnswer={setAnswer}
                         setLoading={setLoading}
-                        setMessage={setMessage}
                         setChatID={setChatID}
                     />
 
                 </div>
 
-                <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
-                    <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
-                        <div className=' border-b-2 flex gap-3'>
-                            <button className={`${!showHistory ? 'bg-slate-300': ''} px-4 py-2`} onClick={() => setShowHistory(false)}>Output</button>
-                            <button className={`${showHistory ? 'bg-slate-300': ''} px-4 py-2`} onClick={() => setShowHistory(true)}>History</button>
-                        </div>
-                        {
-                            !showHistory ? (
-                                <>
-                                    {
-                                        (answer.length > 0) ? (
-                                            <div>
-                                                <div className='relative' ref={componentRef}>
-
-                                                    <Answer answer={answer} />
-                                                    {loading && <Loading />}
-
-                                                </div>
-
-                                                <ShortForm
-                                                    prompt={prompt}
-                                                    setPrompt={setPrompt}
-                                                    handleSubmit={handleSubmit}
-                                                />
-                                            </div>
-                                        )
-                                            : (
-                                                <div className=' flex justify-center items-center w-full h-full relative'>
-                                                    <p>Try variaty of inputs and input lengths to get the best results</p>
-                                                    {
-                                                        loading && <Loading message={message} />
-                                                    }
-                                                </div>
-                                            )
-
-                                    }
-
-                                </>
-                            ) : (
-                                <div>
-                                    <History chatbot="Lesson Planning"/>
-                                </div>
-                            )
-                        }
-                    </div>
-
-                    {(answer.length > 0) && <ExamplePrompts />}
-
-                </div>
+                <AnswerAndHistory
+                    answer={answer}
+                    setAnswer={setAnswer} 
+                    componentRef={componentRef} 
+                    loading={loading}
+                    setLoading={setLoading}
+                    chatID={chatID}
+                />
             </div>
 
             <ExportButtons componentToPrint={componentRef} answer={answer} />

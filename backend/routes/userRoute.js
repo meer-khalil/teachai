@@ -11,7 +11,8 @@ const {
     updateUserDetails,
     changePassword,
     changeEmail,
-    deleteAccount
+    deleteAccount,
+    enable2FA
 } = require('../controllers/userController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -37,5 +38,6 @@ router.route("/resendOTPVerificationCode").post(resendOTP)
 router.route('/changepassword').put(isAuthenticatedUser, changePassword);
 router.route('/changeEmail').put(isAuthenticatedUser, changeEmail);
 router.route('/account').delete(isAuthenticatedUser, deleteAccount);
+router.route('/enable-2fa').put(isAuthenticatedUser, enable2FA);
 
 module.exports = router;

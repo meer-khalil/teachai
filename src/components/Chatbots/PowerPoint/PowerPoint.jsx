@@ -116,7 +116,6 @@ const PowerPoint = () => {
                     <ChatForm
                         setAnswer={setAnswer}
                         setLoading={setLoading}
-                        setMessage={setMessage}
                         setChatID={setChatID}
                         setFileName={setFileName}
                         fetchFile={fetchFile}

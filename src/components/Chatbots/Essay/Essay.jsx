@@ -11,9 +11,7 @@ import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'
-import { UsageContext } from '../../../context/UsageContext';
-import { useContext } from 'react';
-import { toast } from 'react-toastify';
+import AnswerAndHistory from '../AnswerAndHistory';
 
 
 const Essay = () => {
@@ -21,49 +19,9 @@ const Essay = () => {
     const componentRef = useRef(null)
 
     const [answer, setAnswer] = useState([])
-    const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
 
-
-
-    const { fetchUsage } = useContext(UsageContext);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        setLoading(true);
-
-        let data = {
-            body: {
-                prompt
-            },
-            chat_id: chatID
-        }
-
-
-        try {
-            let res = await api.post(`/chatbot/gradeEssay`, data);
-
-            if (res.statusText === 'OK') {
-
-                console.log('Here is the answer: ', res.data.answer);
-
-                setAnswer([...answer, { question: prompt, answer: res.data.answer }])
-                setPrompt('')
-                setLoading(false)
-                fetchUsage();
-            }
-        } catch (error) {
-            if (error?.response?.status === 429) {
-                toast(error?.response?.data?.error)
-            }
-            console.log('Error: ', error);
-            setLoading(false)
-        }
-
-    }
 
     return (
         <div className='border-b-2 border-black pb-24'>
@@ -82,50 +40,20 @@ const Essay = () => {
                     <ChatForm
                         setAnswer={setAnswer}
                         setLoading={setLoading}
-                        setMessage={setMessage}
                         setChatID={setChatID}
                     />
 
                 </div>
 
-                <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
-                    <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
-                        <div className=' border-b-2 flex gap-3'>
-                            <button className=' bg-slate-300 px-4 py-2'>Output</button>
-                            <button className=' px-4 py-2'>History</button>
-                        </div>
-                        {
-                            (answer.length > 0) ? (
-                                <div>
-                                    <div className='relative' ref={componentRef}>
-
-                                        <Answer answer={answer} />
-                                        {loading && <Loading />}
-
-                                    </div>
-
-                                    <ShortForm
-                                        prompt={prompt}
-                                        setPrompt={setPrompt}
-                                        handleSubmit={handleSubmit}
-                                    />
-                                </div>
-                            )
-                                : (
-                                    <div className=' flex justify-center items-center w-full h-full relative'>
-                                        <p>Try variaty of inputs and input lengths to get the best results</p>
-                                        {
-                                            loading && <Loading message={message} />
-                                        }
-                                    </div>
-                                )
-
-                        }
-                    </div>
-
-                    {(answer.length > 0) && <ExamplePrompts />}
-
-                </div>
+                <AnswerAndHistory
+                    url={'/gradeEssay'}
+                    answer={answer}
+                    setAnswer={setAnswer} 
+                    componentRef={componentRef} 
+                    loading={loading}
+                    setLoading={setLoading}
+                    chatID={chatID}
+                />
             </div>
 
             {/* <ExportButtons componentToPrint={componentRef} answer={answer} /> */}

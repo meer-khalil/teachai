@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
     country: {
         type: String
     },
+    TwoFA: {
+        type: Boolean,
+        default: false
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });

@@ -75,6 +75,30 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 
+// Update User Details
+exports.enable2FA = asyncErrorHandler(async (req, res, next) => {
+
+    try {
+        const { enabled } = req.body;
+        const filter = { _id: req.user.id };
+        const update = { TwoFA: enabled };  
+        const option = { new: true };
+
+        const updatedUser = await User.findByIdAndUpdate(filter, update, option);
+
+        if (!updatedUser) {
+            res.status(404).json({ success: false, message: 'User not found' });
+        } else {
+            console.log('Two FA is Enabled');
+            res.status(200).json({ success: true, user: updatedUser });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+});
+
 const sendOTPVerificationEmail = async (user, res) => {
     try {
         const otp = `${Math.floor(1000 + Math.random() * 9000)}`

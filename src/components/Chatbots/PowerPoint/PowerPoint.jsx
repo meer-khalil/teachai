@@ -16,7 +16,6 @@ import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Pr
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
-import { useEffect } from 'react';
 
 const PowerPoint = () => {
 
@@ -131,7 +130,7 @@ const PowerPoint = () => {
                         </div>
                         {
                             (answer.length > 0) ? (
-                                <div>
+                                <div className=' relative'>
                                     <div className='relative' ref={componentRef}>
 
                                         <Answer answer={answer} />
@@ -140,7 +139,7 @@ const PowerPoint = () => {
                                     </div>
                                     {
                                         fileData &&
-                                        <button onClick={handleDownloadClick} disabled={!fileData ? true : false} className=' bg-blue-500 px-5 py-3 rounded'>Download File</button>
+                                        <button onClick={handleDownloadClick} disabled={!fileData ? true : false} className=' bg-blue-500 px-5 py-3 rounded absolute top-12 left-0'>Download File</button>
                                     }
 
                                     {/* <ShortForm

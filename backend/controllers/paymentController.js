@@ -7,7 +7,7 @@ const stripe = require('../config/stripe');
 
 const plans = new Map([
     ['Starter', { priceInCent: 50, requestlimit: 60, noOfFilesUploadedLimit: 10, name: 'Starter' }],
-    ['Professional', { priceInCent: 1499, requestlimit: 120, storageLimitnoOfFilesUploadedLimit: 20, name: 'Professional' }
+    ['Professional', { priceInCent: 1499, requestlimit: 120, noOfFilesUploadedLimit: 20, name: 'Professional' }
     ],
 ]);
 

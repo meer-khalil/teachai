@@ -423,6 +423,7 @@ exports.detectAI = asyncErrorHandler(async (req, res, next) => {
     // return;
     let { body, data } = await createChatHistoryAndGiveData(req, 'Detect AI')
 
+    console.log('Hello Buddy!');
     // data = JSON.parse(data);
     if (req.savedPdfFile) {
         // converting the string object to javascript obj so that we can add more info.
@@ -449,6 +450,7 @@ exports.detectAI = asyncErrorHandler(async (req, res, next) => {
     console.log("data: ", data);
 
     console.log('Request Made!');
+
 
     if (data) {
         let url = '/detectai'

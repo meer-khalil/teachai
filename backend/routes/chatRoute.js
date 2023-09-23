@@ -21,6 +21,7 @@ const {
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
+const fileUpload = require('../utils/lib/pdfUpload')
 
 const router = express.Router()
 
@@ -72,7 +73,7 @@ router.route('/video/summarize').post(isAuthenticatedUser, videoSummarize)
 router.route('/video/quiz').post(isAuthenticatedUser, requestLimit, videoToQuiz)
 
 // detect AI
-router.route('/detectai').post(isAuthenticatedUser, requestLimit, pdfUpload.single('file'), detectAI)
+router.route('/detectai').post(isAuthenticatedUser, requestLimit, fileUpload.single('file'), detectAI)
 router.route('/presentation').post(isAuthenticatedUser, requestLimit, powerPointPresentation)
 router.route('/presentation/download/:fileName').get(requestLimit, downdloadPresentation)
 

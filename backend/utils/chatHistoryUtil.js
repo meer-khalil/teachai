@@ -10,6 +10,8 @@ const path = require('path')
 const pdf = require('pdf-parse');
 const fsPromises = require("fs").promises;
 
+const mammoth = require('mammoth')
+
 exports.createChatHistoryAndGiveData = async (req, chatbot_name) => {
 
     console.log('req.body: ', req.body);
@@ -186,16 +188,27 @@ exports.uploadInfoUpdateUsageReadPDF = async (req, data) => {
 
     let pdfText = ''
     try {
-        let dataBuffer = fs.readFileSync(filePath);
-        const result = await pdf(dataBuffer)
-        pdfText = result.text
-        console.log(pdfText ? "text is here" : "text didn't read");
-        // console.log('result: ', pdfText);
-        return pdfText
+        if (req.savedPdfFile.endsWith('.pdf')) {
+            // Handle PDF file
+            let dataBuffer = fs.readFileSync(filePath);
+            const result = await pdf(dataBuffer);
+            pdfText = result.text;
+            console.log(pdfText ? 'Text is here' : 'Text didn\'t read');
+        }
+        else if (req.savedPdfFile.endsWith('.doc') || req.savedPdfFile.endsWith('.docx')) {
+            // Handle DOC file
+            const result = await mammoth.extractRawText({ path: filePath });
+            pdfText = result.value;
+            console.log(pdfText ? 'Text is here' : 'Text didn\'t read');
+        } else {
+            console.log('Unsupported file format');
+        }
+
     } catch (error) {
         console.log('Error: ', error);
     }
 
+    return pdfText
 }
 
 exports.updateChatHistory = updateChatHistory

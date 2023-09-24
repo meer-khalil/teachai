@@ -55,17 +55,20 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                     </li>
 
                     <li>
-                        <Link to="/user/dashboard" className={`flex items-center rounded-xl font-bold text-sm text-yellow-900 py-3 px-4`}>
+                        <Link to="/user/dashboard" className={`flex rounded-xl py-3 px-4`}>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" className="text-lg mr-2" viewBox="0 0 16 16">
                                 <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
                             </svg>
-                            Credits
+                            <div className=' flex flex-col gap-1'>
+                                <p className='font-bold text-sm text-yellow-900'>Credits</p>
+                                <p>{usage?.plan} Plan</p>
+                            </div>
                         </Link>
                         {/* <br /> */}
                         <div className=' mx-4 mt-2'>
-                            <div className="text-end">
-                                {usage?.plan} Plan
+                            <div className="">
+                                Number of Chat Requests
                             </div>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>
                                 <div className={`bg-blue-500 h-full`} style={{ width: `${creditWidth}%` }}></div>

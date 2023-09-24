@@ -391,7 +391,25 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
     }
 })
 
+exports.videoChat = asyncErrorHandler(async (req, res, next) => {
+    /*
+    make sure that Chatbot model contains the bot name
+*/
+    const { body, data } = await createChatHistoryAndGiveData(req, 'Video To Notes')
 
+    // data.prompt.userinput = "Give me the notes for this video"
+
+    console.log('Request Made!');
+
+    if (data) {
+        let url = '/video/chat'
+        await fetchDataFromFlaskAPI(res, url, data, 'answer', body)
+    } else {
+        res.status(500).json({
+            message: "Error From Video Summary!"
+        })
+    }
+})
 exports.videoToQuiz = asyncErrorHandler(async (req, res, next) => {
 
     /*

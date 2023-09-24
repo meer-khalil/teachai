@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 Chart.register(ArcElement);
 
 
-const DonutChart = ({ data }) => {
+const DetectDonutChart = ({ data }) => {
 
   useEffect(() => {
     console.log('data: ', data);
@@ -30,4 +30,29 @@ const DonutChart = ({ data }) => {
   );
 };
 
-export default DonutChart
+export default DetectDonutChart
+
+
+export const PlagDonutChart = ({ data }) => {
+
+  useEffect(() => {
+    console.log('data: ', data);
+
+
+  }, [])
+
+  const chartData = {
+    labels: data.map(item => item.label),
+    datasets: [{
+      data: data.map(item => item.percentage),
+      backgroundColor: ['green', 'yellow'],
+    }],
+  };
+
+  return (
+    <div>
+      <Doughnut data={chartData} />
+    </div>
+  );
+};
+

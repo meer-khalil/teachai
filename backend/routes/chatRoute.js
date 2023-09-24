@@ -17,7 +17,8 @@ const {
     mathLessonPlanner,
     detectAI,
     powerPointPresentation,
-    downdloadPresentation
+    downdloadPresentation,
+    videoChat
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
@@ -70,6 +71,7 @@ router.route('/math/lesson').post(isAuthenticatedUser, mathLessonPlanner)
     Video to Note Summary Bot
 */
 router.route('/video/summarize').post(isAuthenticatedUser, videoSummarize)
+router.route('/video/chat').post(isAuthenticatedUser, videoChat)
 router.route('/video/quiz').post(isAuthenticatedUser, requestLimit, videoToQuiz)
 
 // detect AI

@@ -6,7 +6,7 @@ import json
 from gptutils import create_chat_data
 
 
-def generate_quiz(prompt, user_id, conversation_id):
+def generate_quiz(prompt, user_id, conversation_id, language="English"):
     """
     prompt: prompt by user
     user_id: user ID
@@ -15,7 +15,7 @@ def generate_quiz(prompt, user_id, conversation_id):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, designed to generate quizzes based on the subject, grade level, and learning objectives."
+    system = f"You are a helpful assistant for teachers, designed to generate quizzes based on the subject, grade level, and learning objectives. You only speak {language}"
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 
@@ -34,7 +34,8 @@ def generate_quiz(prompt, user_id, conversation_id):
 the subject, grade level, topic, Teacher's note (optional to specify learning objective for example) and the type of the quiz needed (multiple choice, true or false or both options)(if both is selected than the questions should include multiple choice and yes or no questions).
 Maintain a polite, respectful, and empathetic tone, and always strive to exceed the teacher's expectations with your helpfulness and resourcefulness.
 Only answer questions related to your task, do not engage in anything outside the scope of generating quizzes, The generated quiz should also include the solution
-Teacher's input: "{prompt}", Do not respond if the message is not related to generating quizzes, or grading the quiz and provide feedback on students performance if asked"""
+Teacher's input: "{prompt}", Do not respond if the message is not related to generating quizzes, or grading the quiz and provide feedback on students performance if asked
+You only speak {language}."""
 
     if not messages:
         messages = [

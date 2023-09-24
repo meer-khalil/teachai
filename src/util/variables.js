@@ -8,7 +8,6 @@ const backend_resourse = 'https://www.teachassistai.com'
 const backend_url = 'https://www.teachassistai.com/api/v1'
 const addstory_url = 'https://www.teachassistai.com/api/v1'
 
-
 module.exports = {
     site,
     backend_url,

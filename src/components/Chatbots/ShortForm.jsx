@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { UsageContext } from '../../context/UsageContext';
 import api from '../../util/api';
 import { toast } from 'react-toastify';
+import { ChatbotContext } from '../../context/ChatbotContext';
 
 const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
 
@@ -11,17 +12,40 @@ const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
 
 
     const { fetchUsage } = useContext(UsageContext)
-
+    const { language, videoUrl } = useContext(ChatbotContext)
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setLoading(true);
 
-        let data = {
-            body: {
-                prompt
-            },
-            chat_id: chatID
+        let data = {}
+        if (url === '/mathquiz/gen') {
+            data = {
+                body: {
+                    mathproblem: prompt,
+                    type: '',
+                    language: language
+                },
+                chat_id: chatID
+            }
+        }
+        else if (url === '/video/chat') {
+            data = {
+                body: {
+                    url: videoUrl,
+                    videoChatPrompt: prompt,
+                    language: language
+                },
+                chat_id: chatID
+            }
+        }
+        else {
+            data = {
+                body: {
+                    prompt
+                },
+                chat_id: chatID
+            }
         }
 
 

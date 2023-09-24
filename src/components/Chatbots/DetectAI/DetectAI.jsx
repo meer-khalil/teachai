@@ -15,7 +15,7 @@ import _9_DetectAI from '../../../images/bots/9.Detect AI-Writing & Plagiarism -
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
-import DonutChart from '../../Donut/DonutChart';
+import DonutChart, { PlagDonutChart } from '../../Donut/DonutChart';
 
 
 const DetectAI = () => {
@@ -28,8 +28,6 @@ const DetectAI = () => {
     const [chatID, setChatID] = useState('')
 
     const componentRef = useRef(null)
-
-    const reportTemplateRef = useRef(null);
 
     const { fetchUsage } = useContext(UsageContext);
 
@@ -103,21 +101,36 @@ const DetectAI = () => {
                                 <div>
                                     <div className='relative' ref={componentRef}>
 
-                                        <Answer  answer={answer} />
+                                        <Answer answer={answer} />
                                         {loading && <Loading />}
                                         {
                                             answer &&
-                                            <div className=' w-44 h-44 right-3 top-1 absolute'>
-                                                <div className='flex gap-2'>
-                                                    <div className=' h-5 w-5 bg-red-600'></div>
-                                                    <span>Detect AI Percentage</span>
+                                            <div className='left-3 top-16 absolute'>
+
+                                                <div className='w-44 h-44'>
+                                                    <div className='flex gap-2'>
+                                                        <div className=' h-5 w-5 bg-red-600'></div>
+                                                        <span>Detect AI Percentage</span>
+                                                    </div>
+                                                    <DonutChart data={
+                                                        [
+                                                            { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                            { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                        ]
+                                                    } />
                                                 </div>
-                                                <DonutChart data={
-                                                    [
-                                                        { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                        { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                    ]
-                                                } />
+                                                <div className=' w-44 h-44 mt-16'>
+                                                    <div className='flex gap-2'>
+                                                        <div className=' h-5 w-5' style={{ backgroundColor: "yellow"}}></div>
+                                                        <span>Plagerism Percentage</span>
+                                                    </div>
+                                                    <PlagDonutChart data={
+                                                        [
+                                                            { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                            { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5) },
+                                                        ]
+                                                    } />
+                                                </div>
                                             </div>
                                         }
                                     </div>

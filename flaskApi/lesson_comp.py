@@ -6,7 +6,7 @@ import os
 from gptutils import create_chat_data
 
 
-def generate_questions(prompt, user_id, conversation_id, notes='none'):
+def generate_questions(prompt, user_id, conversation_id, notes='none', language="English"):
     """
     prompt: the write-up provided by the teacher or the students answers
     user_id: user ID
@@ -15,7 +15,7 @@ def generate_questions(prompt, user_id, conversation_id, notes='none'):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, and your task is to analyze write-ups and generate questions to test students on it"
+    system = f"You are a helpful assistant for teachers, and your task is to analyze write-ups and generate questions to test students on it. You only speak {language}"
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
     questions_file = "Questions/{}_{}.json".format(user_id, conversation_id)
 
@@ -41,7 +41,8 @@ def generate_questions(prompt, user_id, conversation_id, notes='none'):
         your answer should start with "Questions: "
         Specefic requirements from the teacher: {notes}.
         Please focus solely on generating rubrics and grading essays based on the provided criteria.
-        Do not respond to any messages that are not related to these tasks."""
+        Do not respond to any messages that are not related to these tasks.
+        You only speak {language}"""
         messages = [
             {"role": "system", "content": system},
             {"role": "user", "content": qprompt}
@@ -51,7 +52,8 @@ def generate_questions(prompt, user_id, conversation_id, notes='none'):
         Carefully assess the accuracy, depth, and clarity of the student's response, and provide constructive feedback that highlights the strengths of their answer,
         identifies areas for improvement, and offers guidance on how to enhance their understanding of the topic.
         Your goal is to help the student refine their response and deepen their comprehension of the material.
-        answers: "{prompt}" """
+        answers: "{prompt}" 
+        You only speak {language}"""
         messages.append({"role": "user", "content": evalprompt})
 
     response = completion.create(model=model, messages=messages)
@@ -64,7 +66,7 @@ def generate_questions(prompt, user_id, conversation_id, notes='none'):
             json.dump(messages, outfile)
     return message['content'].replace('\n','<br>' )
 
-def generate_answers(user_id, conversation_id):
+def generate_answers(user_id, conversation_id, language="English"):
     """
     prompt: the write-up provided by the teacher or the students answers
     user_id: user ID
@@ -81,7 +83,7 @@ def generate_answers(user_id, conversation_id):
     except:
         print("no questions found!")
         return None
-    messages.append({"role": "user", "content": "please provide the correct answers for the questions, your answer should start with 'Answers: '"})
+    messages.append({"role": "user", "content": f"please provide the correct answers for the questions, your answer should be in {language} and starts with 'Answers: '"})
     response = completion.create(model=model, messages=messages)
     message = response['choices'][0]['message']
     return message['content'].replace('\n','<br>' )

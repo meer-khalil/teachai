@@ -3,19 +3,19 @@ import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext'
 import { toast } from 'react-toastify';
+import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
+    const [data, setData] = useState({ language: "English" })
 
-    const { usage } = useContext(UsageContext)
-    
-    const [data, setData] = useState({})
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [detect, setDetect] = useState(null);
     const [plagirism, setPlagirism] = useState(null);
 
-    const { fetchUsage } = useContext(UsageContext)
+    const { fetchUsage, usage } = useContext(UsageContext)
+    const { setLanguage } = useContext(ChatbotContext)
 
     const handleFileChange = (e) => {
         console.log('File selected: ', e.target.files[0]);
@@ -161,9 +161,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                             />
                         ) : (
                             <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
-                            accept='.pdf'
-                            disabled
-                        />
+                                accept='.pdf'
+                                disabled
+                            />
                         )
                     }
                     {/* <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
@@ -237,7 +237,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         id='language'
                         name='language'
                         placeholder='English'
-                        onChange={handleChange}
+                        value={data?.language}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setLanguage(e.target.value)
+                        }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>

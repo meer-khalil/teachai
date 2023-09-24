@@ -24,7 +24,7 @@ function Answer({ answer }) {
 
               // Replace URLs with anchor tags
               var newText = text.replace(urlRegex, function (url) {
-                return '<a href="' + url + '" target="_blank">' + url + '</a>';
+                return `<a href="${url}" target="_blank" style="color: 'blue'">${url}</a>`;
               });
 
               return newText;

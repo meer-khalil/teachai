@@ -1,20 +1,13 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
-import Loading from '../Loading'
 import Header from '../Header'
-import api from '../../../util/api';
-import ShortForm from './ShortForm';
-import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
 
 
 import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
-import { UsageContext } from '../../../context/UsageContext';
-import { toast } from 'react-toastify';
-import History from '../../Dashboard/history/History';
 import AnswerAndHistory from '../AnswerAndHistory';
 
 const LessonPlanner = () => {
@@ -23,49 +16,8 @@ const LessonPlanner = () => {
 
 
     const [answer, setAnswer] = useState([])
-    const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
-
-    const [showHistory, setShowHistory] = useState(false);
-
-    const { fetchUsage } = useContext(UsageContext);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        setLoading(true);
-
-        let data = {
-            body: {
-                prompt
-            },
-            chat_id: chatID
-        }
-
-
-        try {
-            let res = await api.post(`/chatbot/lessonplanner`, data);
-
-            if (res.statusText === 'OK') {
-
-                console.log('Here is the answer: ', res.data.answer);
-
-                setAnswer([...answer, { question: prompt, answer: res.data.answer }])
-                setPrompt('')
-                setLoading(false)
-                fetchUsage();
-            }
-        } catch (error) {
-            if (error?.response?.status === 429) {
-                toast(error?.response?.data?.error)
-            }
-            console.log('Error: ', error);
-            setLoading(false)
-        }
-
-    }
 
     return (
         <div className='border-b-2 border-black pb-24'>

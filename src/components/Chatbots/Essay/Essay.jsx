@@ -2,12 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
-import Loading from './Loading'
 import Header from '../Header'
-import api from '../../../util/api';
-import Answer from '../Answer';
-import ShortForm from './ShortForm';
-import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
 import _3_AutomatedEssay from '../../../images/bots/3.Automated Essay Scoring and Feedback - Elsa.png'

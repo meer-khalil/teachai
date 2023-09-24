@@ -3,18 +3,17 @@ import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
+import { ChatbotContext } from '../../../context/ChatbotContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
 
-    const { usage } = useContext(UsageContext);
-
-    const [data, setData] = useState({})
-
+    const [data, setData] = useState({language: "English"})
     const [selectedFile, setSelectedFile] = useState(null);
-
-    const { fetchUsage } = useContext(UsageContext);
+    
+    const { fetchUsage, usage } = useContext(UsageContext);
+    const { setLanguage } = useContext(ChatbotContext);
 
     const handleFileChange = (e) => {
         console.log('File selected: ', e.target.files[0]);
@@ -219,7 +218,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         id='language'
                         name='language'
                         placeholder='English'
-                        onChange={handleChange}
+                        value={data?.language}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setLanguage(e.target.value)
+                        }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>

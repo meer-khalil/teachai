@@ -32,8 +32,9 @@ def lessonplanner():
     question = data['prompt']
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+    language = data['language']
     res = {}
-    res['lesson_plan'] = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id)
+    res['lesson_plan'] = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id, language)
     return jsonify(res), 200
 
 @app.route('/quiz', methods = ['POST'])
@@ -41,29 +42,27 @@ def quiz():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-
-    data = data['prompt']
     grade = data['grade']
     quiz_topic = data['topic']
     subject = data['subject']
     summary = data['summary']
     quiz_type = data['type']
     qn = data['questionnumber']
+    language = data['language']
     user_input = f"Generate a quiz for grade {grade}, subject: {subject}, topic: {quiz_topic}, type: {quiz_type}, note: {summary}, number of questions: {qn}"
- 
     res = {}
-    res['quiz'] = quizapi.generate_quiz(user_input, user_id,conversation_id)
+    res['quiz'] = quizapi.generate_quiz(user_input, user_id, conversation_id, language)
     return jsonify(res), 200
 
 @app.route('/gradeEssay', methods = ['POST'])
 def grade():
     data = request.get_json()
-    print('data: ', data)
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     user_input = data['prompt']
+    language = data['language']
     res = {}
-    res['grades'] = grade_essay.grade(user_input, user_id, conversation_id)
+    res['grades'] = grade_essay.grade(user_input, user_id, conversation_id, language)
     return jsonify(res), 200
 
 @app.route('/gradeEssay/rubric', methods=['POST'])
@@ -73,8 +72,9 @@ def rubric():
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     grade = data["grade"]
+    language = data['language']
     essay_question = essay_question + "for grade:" + grade
-    rubric = grade_essay.generate_rubric(essay_question, user_id, conversation_id)
+    rubric = grade_essay.generate_rubric(essay_question, user_id, conversation_id, language)
     result = {"rubric": rubric}
     return jsonify(result), 200
 
@@ -85,23 +85,23 @@ def gen_questions_chat():
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     user_input = data['prompt']
+    language = data['language']
     res = {}
-    res['questions'] = lesson_comp.generate_questions(user_input, user_id, conversation_id)
+    res['questions'] = lesson_comp.generate_questions(user_input, user_id, conversation_id, language)
     return jsonify(res), 200
 
 @app.route("/lessonComp/questions", methods=['POST'])
 def gen_questions():
     data = request.get_json()
+    writeup = data["writeup"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-
-    data = data['prompt']
-    writeup = data["writeup"]
     qtype = data["qtype"]
     qnumber = data["qnumber"]
+    language = data['language']
     notes = f"question type: {qtype}, number of questions: {qnumber}"
     # Generate questions
-    questions = lesson_comp.generate_questions(writeup, user_id, conversation_id, notes)
+    questions = lesson_comp.generate_questions(writeup, user_id, conversation_id, notes, language)
     # Return the result as JSON
     result = {"questions": questions}
     return jsonify(result), 200
@@ -111,7 +111,8 @@ def answer():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    answers = lesson_comp.generate_answers(user_id, conversation_id)
+    language = data['language']
+    answers = lesson_comp.generate_answers(user_id, conversation_id, language)
     result = {"answers": answers}
     return jsonify(result), 200
 
@@ -121,20 +122,22 @@ def index():
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     user_input = data["prompt"]
+    language = data['language']
     res = {}
-    res['evaluation'] = math_quiz.evaluate_quiz(user_input, user_id, conversation_id)
+    res['evaluation'] = math_quiz.evaluate_quiz(user_input, user_id, conversation_id, language)
     return jsonify(res), 200
 
 @app.route("/mathquiz/gen", methods=["POST"])
 def gen_quiz():
     data = request.get_json()
-    user_id = data['user_id']
     conversation_id = data['conversation_id']
+    user_id = data['user_id']
 
-    data = data['prompt']
+    data = data["prompt"]
+    language = data['language']
     mathproblem = data["mathproblem"]
     multiple = data["type"]
-    mathquiz = math_quiz.generate_quiz(mathproblem, multiple, user_id, conversation_id)
+    mathquiz = math_quiz.generate_quiz(mathproblem, multiple, user_id, conversation_id, language)
     # Return the result as JSON
     result = {"math_quiz": mathquiz}
     return jsonify(result), 200
@@ -144,7 +147,8 @@ def answers():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    answers = math_quiz.reveal_answers(user_id, conversation_id)
+    language = data['language']
+    answers = math_quiz.reveal_answers(user_id, conversation_id, language)
     # Return the result as JSON
     result = {"answers": answers}
     return jsonify(result), 200
@@ -152,13 +156,12 @@ def answers():
 @app.route('/math/lesson', methods = ['POST'])
 def lesson():
     data = request.get_json()
+    question = data["prompt"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    
-    question = data['prompt']
-    # question = data["question"]
+    language = data['language']
     res = {}
-    res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id)
+    res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id, language)
     return jsonify(res), 200
 
 @app.route('/video/summarize', methods = ['POST'])
@@ -167,26 +170,28 @@ def summarizevid():
     print('Recieved Data: ', data)
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    
+
     data = data['prompt']
     url =  data['url']
     userinput = data['userinput']
+    language = data['language']
+
     res = {}
-    res['summary'] = ytgpt.summarize(url, user_id, conversation_id, userinput)
+    res['summary'] = ytgpt.summarize(url, user_id, conversation_id, userinput, language)
     return jsonify(res), 200
 
 @app.route('/video/quiz', methods = ['POST'])
 def videoquiz():
     data = request.get_json()
+    print('Recieved Data: ', data)
+    vidUrl =  data['url']
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-
-    data = data['prompt']
-    vidUrl =  data['url']
     num_questions =  data['num_question']
     quiz_type =  data['quiz_type']
+    language = data['language']
     res = {}
-    res['video_quiz'] = ytgpt.get_quiz(vidUrl, user_id, conversation_id, num_questions, quiz_type)
+    res['video_quiz'] = ytgpt.get_quiz(vidUrl, user_id, conversation_id, num_questions, quiz_type, language)
     return jsonify(res), 200
 
 @app.route('/video/answers', methods = ['POST'])
@@ -195,29 +200,33 @@ def videoquizanswers():
     print('Recieved Data: ', data)
     vidUrl =  data['url']
     user_id = data['user_id']
+    language = data['language']
     #conversation_id = data['conversation_id']
     res = {}
-    res['answers'] = ytgpt.generate_answers(vidUrl, user_id)
+    res['answers'] = ytgpt.generate_answers(vidUrl, user_id, language)
     return jsonify(res), 200
 
 @app.route('/video/chat', methods = ['POST'])
 def videochat():
   data = request.get_json()
   print('Recieved Data: ', data)
-  vidUrl =  data['url']
+
   user_id = data['user_id']
+
+  data = data['prompt']
+  vidUrl =  data['url']
+  language = data['language']
   #conversation_id = data['conversation_id']
-  prompt = data['prompt']
+  prompt = data['videoChatPrompt']
   res = {}
-  res['answer'] = ytgpt.chatyoutube(vidUrl, user_id, prompt)
+  res['answer'] = ytgpt.chatyoutube(vidUrl, user_id, prompt, language)
   return jsonify(res), 200
 
 @app.route('/detectai', methods = ['POST'])
 def aidetect():
   data = request.get_json()
-
-  data = data["prompt"]
-  print('data recived: ', data)
+  print('Recieved Data: ', data)
+  data = data['prompt']
   text = data['text']
   res = {}
   res['result'] = detect_ai(text)
@@ -226,6 +235,7 @@ def aidetect():
 @app.route('/checkplag', methods = ['POST'])
 def plagiarism():
   data = request.get_json()
+  print('Recieved Data: ', data)
   text = data['text']
   res = {}
   res['report'] = get_plag_report(text)
@@ -235,29 +245,25 @@ def plagiarism():
 def powerpoint():
     data = request.get_json()
     print('Recieved Data: ', data)
-    user_id =  data['user_id']
-
-    data = data['prompt']
-    description = data['description']
-    grade = data['grade']
-    subject = data['subject']
-    number_of_slides = data['number_of_slides']
+    user_id =  data['id']
+    description = data['prompt']['description']
+    grade = data['prompt']['grade']
+    subject = data['prompt']['subject']
+    number_of_slides = data['prompt']['number_of_slides']
+    language = data['language']
     res = {}
-    file_path = aipresentation.get_presentation(description ,grade ,subject ,number_of_slides, user_id)
+    file_path = aipresentation.get_presentation(description ,grade ,subject ,number_of_slides, user_id, language)
     res['presentation_link'] = f"{request.host_url}{file_path}"
     return jsonify(res), 200
-
 
 @app.route('/GeneratedPresentations/<path:path>')
 def send_generated_image(path):
     return send_file(f'GeneratedPresentations/{path}', as_attachment=True)
 
-
 @app.route('/chattitles', methods = ['POST'])
 def title():
     data = request.get_json()
-    print('Recieved Data(title): ', data)
-    
+    print('Recieved Data: ', data)
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     res = {}

@@ -40,7 +40,7 @@ const VideoToNotes = () => {
                 </div>
 
                 <AnswerAndHistory
-                    url={'/video/summarize'}
+                    url={'/video/chat'}
                     answer={answer}
                     setAnswer={setAnswer}
                     componentRef={componentRef}

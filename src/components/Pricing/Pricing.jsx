@@ -32,7 +32,7 @@ const data = [
             'Write in 30+ languages',
             '24/7 live chat support',
             'All Grade Levels',
-            '10 files uploads per month'
+            '10 file uploads per month'
         ]
     },
     {
@@ -44,13 +44,13 @@ const data = [
         features: [
             'Access to All the Chatbots',
             '120 chat requests per day',
-            '1 memeber seat',
+            '1 member seat',
             'Write in 30+ languages',
             '24/7 live chat support',
             '2 weeks memory retention of past chats',
             'Extract responses to word document/pdf/google doc/excel',
             'All Grade Levels',
-            '20 Files Upload per month'
+            '20 file uploads per month'
         ]
 
     },

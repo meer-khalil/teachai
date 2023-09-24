@@ -35,12 +35,11 @@ const History = ({ chatbot }) => {
 
     return (
         <div className="flex gap-5">
-            <div className="flex-[1] flex flex-col gap-3 pl-3">
-                <h1>{chatbot}</h1>
+            <div className="flex-[1] flex flex-col gap-5 pl-3">
                 {
                     (chatIDs.length > 0) ? (
                         chatIDs.map((e) => (
-                            <div onClick={() => setChatID(e.id)} className="flex flex-row gap-3 border-b border-blue-500">
+                            <div onClick={() => setChatID(e.id)} className="flex flex-row gap-3 cursor-pointer border-b border-blue-500">
                                 <MdOutlineWorkHistory />
                                 <p className="">{e.title}</p>
                             </div>

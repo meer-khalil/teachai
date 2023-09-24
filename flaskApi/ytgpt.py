@@ -43,7 +43,7 @@ def aicomplete(prompt, filename):
         savehistory(filename, messages)
     return message['content'].replace('\n','<br>' )
 
-def summarize(vidUrl, user_id, conversation_id, userinput=None):
+def summarize(vidUrl, user_id, conversation_id, userinput=None, language="English"):
     """
     vidUrl: url to the youtube video
     useripnut: for the chat function
@@ -54,7 +54,7 @@ def summarize(vidUrl, user_id, conversation_id, userinput=None):
     model = "gpt-3.5-turbo"
     system = "you are a helpfull assistant"
     initialize = None
-    PROMPT_STRING = "Write a short summary of the following video:\n\n<<SUMMARY>>\n"
+    PROMPT_STRING = f"Write a short summary in {language} of the following video:\n\n<<SUMMARY>>\n"
     messages = None
     video_id = get_video_id(vidUrl)
     if video_id == "Invalid YouTube link":
@@ -127,25 +127,25 @@ def get_video_id(youtube_link):
     else:
         return "Invalid YouTube link"
 
-def generate_quiz(summary, num_questions, quiz_type):
-    prompt = f"{summary}\n\nBased on the above summary, generate a {quiz_type} quiz with {num_questions} questions.\n\nMake sure to not provide the answers just the questions for the quiz \n\nstart your message with '{quiz_type} quiz:'"
+def generate_quiz(summary, num_questions, quiz_type, language="English"):
+    prompt = f"{summary}\n\nBased on the above summary, generate a {quiz_type} quiz with {num_questions} questions.\n\nMake sure to not provide the answers just the questions for the quiz \n\nstart your message with '{quiz_type} quiz:', your response should be in {language}"
     response = aicomplete(prompt, filename='dontsave')
     return response
 
-def get_quiz(vidUrl, user_id,  conversation_id, num_questions, quiz_type):
-    summary = summarize(vidUrl, user_id,  conversation_id, userinput = 'longv')
+def get_quiz(vidUrl, user_id,  conversation_id, num_questions, quiz_type, language="English"):
+    summary = summarize(vidUrl, user_id,  conversation_id, userinput='longv', language=language)
     if summary == "Invalid YouTube link":
         return summary
     video_id = get_video_id(vidUrl)
     quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
     if not os.path.exists('Quizzes'):
         os.makedirs('Quizzes')
-    quiz = generate_quiz(summary, num_questions, quiz_type)
+    quiz = generate_quiz(summary, num_questions, quiz_type, language)
     messages = [{"role": "user", "content": quiz.replace('<br>', '\n')}]
     savehistory(quizfile, messages)
     return quiz
 
-def generate_answers(vidUrl, user_id):
+def generate_answers(vidUrl, user_id, language="English"):
     video_id = get_video_id(vidUrl)
     quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
     try:
@@ -154,17 +154,17 @@ def generate_answers(vidUrl, user_id):
             quiz = message[0]['content'].replace('\n','<br>' )
     except Exception as e:
         print(e)
-        quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice')
+        quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice', language)
         quiz  = quiz.replace('\n','<br>' )
-    summary = summarize(vidUrl, user_id, userinput = 'longv')
+    summary = summarize(vidUrl, user_id, userinput='longv', language=language)
     if summary == "Invalid YouTube link":
         return summary
     print(quiz)
-    prompt = f"{summary}\n\nBased on the above summary, generate answers for this quiz's questions: \n\n{quiz}\n\nstart your message with 'Answers for the quiz:' "
+    prompt = f"{summary}\n\nBased on the above summary, generate answers for this quiz's questions: \n\n{quiz}\n\nstart your message with 'Answers for the quiz:' your response should be in {language} "
     answers = aicomplete(prompt, filename='dontsave')
     return answers
 
-def chatyoutube(vidUrl, user_id, prompt):
+def chatyoutube(vidUrl, user_id, prompt, language="english"):
     video_id = get_video_id(vidUrl)
     filename = "Quizzes/{}_{}.json".format(user_id, video_id)
     quiz = openhistory(filename)
@@ -174,6 +174,6 @@ def chatyoutube(vidUrl, user_id, prompt):
     if quiz == None:
         quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice')
         quiz  = quiz.replace('\n','<br>' )
-    fprompt = f"{quiz}\n\nthis is a quiz for a youtube video, this is it's summary:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary"
+    fprompt = f"{quiz}\n\nthis is a quiz for a youtube video, this is it's summary:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary, respond in {language}"
     response =aicomplete(fprompt, filename='dontsave')
     return response

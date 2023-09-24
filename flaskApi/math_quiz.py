@@ -50,11 +50,11 @@ def answer_math_quiz(quiz):
         print(e)
         return "None"
 
-def reveal_answers(user_id, conversation_id, fromfunc=False):
+def reveal_answers(user_id, conversation_id, language="English", fromfunc=False):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, designed to rewrite quizz answers"
+    system = f"You are a helpful assistant for teachers, designed to rewrite quizz answers. you only speak {language}"
     quizfilename = "Quizzes/{}_{}.txt".format(user_id, conversation_id)
     try:
         with open(quizfilename, 'r') as file:
@@ -73,7 +73,8 @@ The answers to some of the questions:
 {answers}
 If the quiz is multiple choice and the correct answer is not included in the quiz's answer choices, you should correct the answer choices in the quiz. However, do not indicate that a correction has been made.
 If the quiz is true or false, the answers can only be true or false, if the answer provided contains a numerical value change it to a true or false.
-Your response Begin with the phrase "Here are the answers to your quiz:". """
+Your response Begin with the phrase "Here are the answers to your quiz:".
+you only speak {language}"""
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": prompt}]
@@ -84,11 +85,11 @@ Your response Begin with the phrase "Here are the answers to your quiz:". """
         return all_answers
     return all_answers.replace('\n','<br>' )
 
-def evaluate_quiz(prompt, user_id, conversation_id):
+def evaluate_quiz(prompt, user_id, conversation_id, language="English"):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, designed to evaluate quizzes"
+    system = f"You are a helpful assistant for teachers, designed to evaluate quizzes.you only speak {language}"
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 
@@ -102,7 +103,7 @@ def evaluate_quiz(prompt, user_id, conversation_id):
         first_message = f"{prompt}, chatbot name: quiz evaluating bot"
         create_chat_data(user_id, conversation_id, first_message)
 
-    answers = reveal_answers(user_id, conversation_id, fromfunc=True)
+    answers = reveal_answers(user_id, conversation_id, language, fromfunc=True)
     if answers == "None":
         return "I'm sorry but I can't evaluate the answers correctly"
     final_prompt = f"""this is a solution to a math quiz: ""   {answers}  ""
@@ -112,7 +113,8 @@ def evaluate_quiz(prompt, user_id, conversation_id):
     only evaluate with the correct answers provided.
     Do not respond if the student's answers are not related to evaluating the quiz.
     if the student's answers are not understandable or none reply with:
-    'I am sorry, but I cannot evaluate the student's answer as it does not provide clear answer choices for each question.'"""
+    'I am sorry, but I cannot evaluate the student's answer as it does not provide clear answer choices for each question.'
+    you only speak {language}"""
     if not messages:
         messages = [
             {"role": "system", "content": system},
@@ -128,7 +130,7 @@ def evaluate_quiz(prompt, user_id, conversation_id):
         json.dump(messages, outfile)
     return message['content'].replace('\n','<br>' )
 
-def generate_quiz(math_problem, multiple, user_id, conversation_id):
+def generate_quiz(math_problem, multiple, user_id, conversation_id, language="English"):
     """
     math_problem: math_problem by user
     user_id: user ID
@@ -137,7 +139,7 @@ def generate_quiz(math_problem, multiple, user_id, conversation_id):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, designed to generate math quizzes based on a math problem"
+    system = f"You are a helpful assistant for teachers, designed to generate math quizzes based on a math problem. you only speak {language}"
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 
@@ -171,6 +173,7 @@ Ensure that each question in the quiz is self-contained, providing all the neces
 The questions should be {multiple_str}
 Do not provide the answers within the quiz.
 Begin the quiz with the phrase "Here is your quiz", add title of the quiz wich is the theme name ({math_problem}), followed by the quiz type ({multiple_str})
+you only speak {language}
 """
 
     if not messages:

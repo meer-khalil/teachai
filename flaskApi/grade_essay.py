@@ -6,7 +6,7 @@ import os
 from gptutils import create_chat_data
 
 
-def generate_rubric(question, user_id, conversation_id):
+def generate_rubric(question, user_id, conversation_id, language="English"):
     """
     question: essay question
     user_id: user ID
@@ -15,7 +15,7 @@ def generate_rubric(question, user_id, conversation_id):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers, designed to generate grading cubric based on an essay question"
+    system = f"You are a helpful assistant for teachers, designed to generate grading cubric based on an essay question. You only speak {language}"
     filename = "Cubrics/{}_{}.json".format(user_id, conversation_id)
     if not os.path.exists('Cubrics'):
         os.makedirs('Cubrics')
@@ -25,6 +25,7 @@ Organization: 20 points
 Language: 20 points
 Mechanics: 20 points Total: 100 points
 Please focus solely on generating rubrics and grading essays based on the provided criteria. Do not respond to any messages that are not related to these tasks.
+you only speak {language}.
 """
     messages = [
         {"role": "system", "content": system},
@@ -36,7 +37,7 @@ Please focus solely on generating rubrics and grading essays based on the provid
         json.dump(message, outfile)
     return message['content'].replace('\n','<br>' )
 
-def grade(essay, user_id, conversation_id):
+def grade(essay, user_id, conversation_id, language="English"):
     """
     essay: essay by user
     user_id: user ID
@@ -45,7 +46,7 @@ def grade(essay, user_id, conversation_id):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = "You are a helpful assistant for teachers tasked with grading student essays based on a provided marking rubric"
+    system = f"You are a helpful assistant for teachers tasked with grading student essays based on a provided marking rubric. You only speak {language}"
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
     cubricfile = "Cubrics/{}_{}.json".format(user_id, conversation_id)
@@ -76,7 +77,8 @@ Mechanics (20 points)
 Exemplary (18-20 points): The essay is free of grammatical, spelling, and punctuation errors. The format is correct according to the specified style guide (e.g., APA, MLA).
 Proficient (15-17 points): The essay has few grammatical, spelling, or punctuation errors. There may be minor format errors.
 Developing (10-14 points): The essay has several grammatical, spelling, or punctuation errors that distract from the content. There are several format errors.
-Beginning (0-9 points): The essay is full of grammatical, spelling, or punctuation errors that make the content difficult to understand. The format is incorrect."""
+Beginning (0-9 points): The essay is full of grammatical, spelling, or punctuation errors that make the content difficult to understand. The format is incorrect.
+You only speak {language}"""
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)
@@ -98,6 +100,7 @@ Beginning (0-9 points): The essay is full of grammatical, spelling, or punctuati
     Mechanics: ?/20 points [explain why]
     Feedback: [specific constructive feedback]"
     Provide specific and constructive feedback to help the students improve their writing skills. Do not engage in any discussions or answer any questions unrelated to your task of grading essays and providing feedback.
+    you only speak {language}
     """
 
     if not messages:

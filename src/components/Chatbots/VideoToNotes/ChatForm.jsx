@@ -4,14 +4,16 @@ import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
+import { ChatbotContext } from '../../../context/ChatbotContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState({language: 'English'})
 
     const { fetchUsage } = useContext(UsageContext);
-
+    const { setURL, setLanguage } = useContext(ChatbotContext);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
@@ -66,7 +68,10 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         id='summary'
                         placeholder='Add Youtube video link here'
                         name='url'
-                        onChange={handleChange}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setURL(e.target.value)
+                        }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>
@@ -132,7 +137,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         id='language'
                         name='language'
                         placeholder='English'
-                        onChange={handleChange}
+                        value={data?.language}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setLanguage(e.target.value)
+                        }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>

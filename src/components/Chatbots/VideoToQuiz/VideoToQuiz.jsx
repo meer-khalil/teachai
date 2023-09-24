@@ -1,18 +1,11 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import ChatForm from './ChatForm'
 
-import Loading from './Loading'
 import Header from '../Header'
-import api from '../../../util/api';
-import Answer from '../Answer';
-import ShortForm from './ShortForm';
-import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
 import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
-import { UsageContext } from '../../../context/UsageContext';
-import { toast } from 'react-toastify';
 import AnswerAndHistory from '../AnswerAndHistory';
 
 const VideoToQuiz = () => {

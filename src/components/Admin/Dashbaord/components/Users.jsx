@@ -48,17 +48,17 @@ const Users = () => {
           {users?.map((el, index) => (
             <tr key={el._id} className='text-center'>
               <td className="py-2 px-4 border-b">{index + 1}</td>
-              <td className="py-2 px-4 border-b">{el.user.firstName}</td>
-              <td className="py-2 px-4 border-b">{el.user.lastName}</td>
-              <td className="py-2 px-4 border-b">{el.user.email}</td>
-              <td className="py-2 px-4 border-b">{el.user.role}</td>
+              <td className="py-2 px-4 border-b">{el.user?.firstName}</td>
+              <td className="py-2 px-4 border-b">{el.user?.lastName}</td>
+              <td className="py-2 px-4 border-b">{el.user?.email}</td>
+              <td className="py-2 px-4 border-b">{el.user?.role}</td>
               <td className="py-2 px-4 border-b text-start">
                 {el.plan}
               </td>
               <td className="py-2 px-4 border-b">
                 {el.usageCount}
                 /
-                {el.usageLimit === null ? 'Unlimited' : el.usageLimit}
+                {el.usageLimit === null ? 'Unlimited' : el?.usageLimit}
 
               </td>
               <td className="py-2 px-4 border-b">{el?.paymentDate ? getExpiryDate(el?.paymentDate) : '-'}</td>

@@ -202,9 +202,11 @@ def summarizevid():
 def videoquiz():
     data = request.get_json()
     print('Recieved Data: ', data)
-    vidUrl =  data['url']
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
+    vidUrl =  data['url']
     num_questions =  data['num_question']
     quiz_type =  data['quiz_type']
     language = data['language']
@@ -254,6 +256,7 @@ def aidetect():
 def plagiarism():
   data = request.get_json()
   print('Recieved Data: ', data)
+  data = data['prompt']
   text = data['text']
   res = {}
   res['report'] = get_plag_report(text)

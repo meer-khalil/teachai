@@ -68,7 +68,7 @@ def summarize(vidUrl, user_id, conversation_id, userinput=None, language="Englis
     if messages == None:
         initialize = True
     if messages and userinput != 'longv':
-        print(messages)
+        #print(messages)
         message= {"role": "user", "content": userinput}
         messages.append(message)
         response = completion.create(model=model, messages=messages)
@@ -132,7 +132,7 @@ def generate_quiz(summary, num_questions, quiz_type, language="English"):
     response = aicomplete(prompt, filename='dontsave')
     return response
 
-def get_quiz(vidUrl, user_id,  conversation_id, num_questions, quiz_type, language="English"):
+def get_quiz(vidUrl, user_id, conversation_id, num_questions, quiz_type, language="English"):
     summary = summarize(vidUrl, user_id,  conversation_id, userinput='longv', language=language)
     if summary == "Invalid YouTube link":
         return summary
@@ -166,14 +166,16 @@ def generate_answers(vidUrl, user_id, language="English"):
 
 def chatyoutube(vidUrl, user_id, prompt, language="english"):
     video_id = get_video_id(vidUrl)
+    conversation_id = user_id+video_id
     filename = "Quizzes/{}_{}.json".format(user_id, video_id)
     quiz = openhistory(filename)
-    summary = summarize(vidUrl, user_id, userinput = 'longv')
+    summary = summarize(vidUrl, user_id, conversation_id, userinput = 'longv', language=language)
     if summary == "Invalid YouTube link":
         return summary
     if quiz == None:
-        quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice')
-        quiz  = quiz.replace('\n','<br>' )
+        #quiz = get_quiz(vidUrl, user_id, conversation_id, '10', 'true/ false and multiple choice')
+        #quiz  = quiz.replace('\n','<br>' )
+        fprompt = f"This is a summary for a youtube video:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary, respond in {language}"
     fprompt = f"{quiz}\n\nthis is a quiz for a youtube video, this is it's summary:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary, respond in {language}"
     response =aicomplete(fprompt, filename='dontsave')
     return response

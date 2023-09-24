@@ -11,8 +11,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [detect, setDetect] = useState(null);
-    const [plagirism, setPlagirism] = useState(null);
+    const [detect, setDetect] = useState(false);
+    const [plagirism, setPlagirism] = useState(false);
 
     const { fetchUsage, usage } = useContext(UsageContext)
     const { setLanguage } = useContext(ChatbotContext)
@@ -25,8 +25,13 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!detect && !plagirism) {
+            toast("Select the options SetectAI/Plagirism")
+            return;
+        }
         console.log(data);
         setLoading(true)
+
 
         const formData = new FormData();
         console.log('File Selected: ', selectedFile);
@@ -51,14 +56,18 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             console.log(formData);
             let res = await api.post(`/chatbot/detectai`, formData, config)
 
-            if (res.statusText === 'OK') {
 
-                console.log('Response from chatform: ', res);
-                console.log('Here is the answer: ', res.data.answer);
-                setChatID(res.data.chat_id)
-                setAnswer([{ answer: res.data.answer }])
-                setLoading(false)
-                fetchUsage();
+            console.log('Response from chatform: ', res);
+            console.log('Here is the answer: ', res.data.answer);
+            setChatID(res.data.chat_id)
+            setAnswer([{ answer: res.data.answer }])
+            setLoading(false)
+            fetchUsage();
+
+            if (plagirism) {
+                formData.append('chat_id', res.data.chat_id)
+                let { data } = await api.post(`/chatbot/plagirism`, formData, config)
+                console.log('Plag Data: ', data);
             }
         } catch (error) {
 
@@ -192,9 +201,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <label htmlFor="detectai" className='flex gap-2 cursor-pointer'>
                         <input type="checkbox" id='detectai' onChange={(e) => {
                             if (e.target.checked) {
-                                setData({ ...data, 'detectai': true })
+                                setDetect(true)
                             } else {
-                                setData({ ...data, 'detectai': false })
+                                setDetect(false)
                             }
                         }} />
                         Detect AI
@@ -202,9 +211,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <label htmlFor="plagirism" className='flex gap-2 cursor-pointer'>
                         <input type="checkbox" id='plagirism' onChange={(e) => {
                             if (e.target.checked) {
-                                setData({ ...data, 'checkplagirism': true })
+                                setPlagirism(true)
                             } else {
-                                setData({ ...data, 'checkplagirism': false })
+                                setPlagirism(false)
                             }
                         }} />
                         Plagirism

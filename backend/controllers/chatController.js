@@ -481,6 +481,53 @@ exports.detectAI = asyncErrorHandler(async (req, res, next) => {
 })
 
 
+exports.checkPlag = asyncErrorHandler(async (req, res, next) => {
+
+    /*
+    make sure that Chatbot model contains the bot name
+    */
+
+    // return;
+    let { body, data } = await createChatHistoryAndGiveData(req, 'Detect AI')
+
+    console.log('Hello Buddy!');
+    // data = JSON.parse(data);
+    if (req.savedPdfFile) {
+        // converting the string object to javascript obj so that we can add more info.
+        if (data.prompt) {
+            data.prompt = JSON.parse(data.prompt);
+            console.log('Here is Prompt');
+        } else {
+            data.prompt = {}
+            console.log('prompt: initialized: ', data);
+        }
+
+        let pdfText = await uploadInfoUpdateUsageReadPDF(req, data);
+        // console.log('Text: ', pdfText);
+        data.prompt.text = pdfText
+
+    } else {
+        console.log('file is not included');
+        if (data.prompt) {
+            data.prompt = JSON.parse(data.prompt);
+            console.log('Here is Prompt: ', data);
+        }
+    }
+
+    console.log("data: ", data);
+
+    console.log('Request Made!');
+
+
+    if (data) {
+        let url = '/checkplag'
+        await fetchDataFromFlaskAPI(res, url, data, 'report', body)
+    } else {
+        res.status(500).json({
+            message: "Error From Plagirism!"
+        })
+    }
+})
 
 /* PowerPoint Presentation */
 exports.powerPointPresentation = asyncErrorHandler(async (req, res, next) => {

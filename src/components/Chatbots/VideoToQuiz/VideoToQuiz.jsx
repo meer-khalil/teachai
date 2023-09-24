@@ -40,7 +40,7 @@ const VideoToQuiz = () => {
                 </div>
 
                 <AnswerAndHistory
-                    url={'/video/quiz'}
+                    url={'/video/chat'}
                     answer={answer}
                     setAnswer={setAnswer}
                     componentRef={componentRef}

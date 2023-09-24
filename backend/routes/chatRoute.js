@@ -18,7 +18,8 @@ const {
     detectAI,
     powerPointPresentation,
     downdloadPresentation,
-    videoChat
+    videoChat,
+    checkPlag
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
@@ -76,6 +77,7 @@ router.route('/video/quiz').post(isAuthenticatedUser, requestLimit, videoToQuiz)
 
 // detect AI
 router.route('/detectai').post(isAuthenticatedUser, requestLimit, fileUpload.single('file'), detectAI)
+router.route('/plagirism').post(isAuthenticatedUser, requestLimit, fileUpload.single('file'), checkPlag)
 router.route('/presentation').post(isAuthenticatedUser, requestLimit, powerPointPresentation)
 router.route('/presentation/download/:fileName').get(requestLimit, downdloadPresentation)
 

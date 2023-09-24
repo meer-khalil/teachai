@@ -48,6 +48,7 @@ const LessonPlanner = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    url={'/lessonplanner'}
                 />
             </div>
 

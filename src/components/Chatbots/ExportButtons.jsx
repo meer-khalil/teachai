@@ -255,7 +255,7 @@ const ExportButtons = ({ componentToPrint, answer }) => {
           {
             image: docs,
             fn: handleGoogleDocClick,
-            text: 'Export Goofle DOCS'
+            text: 'Export Google DOC'
           }
         ].map((el, i) => {
           return (

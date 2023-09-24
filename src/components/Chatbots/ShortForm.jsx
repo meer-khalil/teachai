@@ -42,7 +42,8 @@ const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
         else {
             data = {
                 body: {
-                    prompt
+                    prompt,
+                    language
                 },
                 chat_id: chatID
             }

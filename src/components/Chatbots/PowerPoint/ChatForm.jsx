@@ -3,13 +3,15 @@ import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
+import { ChatbotContext } from '../../../context/ChatbotContext';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) => {
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState({ language: 'English' })
 
     const { fetchUsage } = useContext(UsageContext);
+    const { setLanguage } = useContext(ChatbotContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -179,7 +181,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                         id='language'
                         name='language'
                         placeholder='English'
-                        onChange={handleChange}
+                        value={data?.language}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setLoading(e.target.value)
+                        }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>

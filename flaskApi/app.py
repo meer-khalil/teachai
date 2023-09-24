@@ -29,10 +29,13 @@ def lessonplanner():
 
     print('Here is your Data: ', data)
 
-    question = data['prompt']
-    user_id = data['user_id']
     conversation_id = data['conversation_id']
+    user_id = data['user_id']
+
+    data = data['prompt']
     language = data['language']
+    question = data
+
     res = {}
     res['lesson_plan'] = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id, language)
     return jsonify(res), 200
@@ -42,6 +45,11 @@ def quiz():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+    
+    print(data)
+
+    data = data['prompt']
+
     grade = data['grade']
     quiz_topic = data['topic']
     subject = data['subject']
@@ -59,8 +67,10 @@ def grade():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    user_input = data['prompt']
+    
+    data = data['prompt']
     language = data['language']
+    user_input = data
     res = {}
     res['grades'] = grade_essay.grade(user_input, user_id, conversation_id, language)
     return jsonify(res), 200
@@ -84,7 +94,9 @@ def gen_questions_chat():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    user_input = data['prompt']
+
+    data = data['prompt']
+    user_input = data
     language = data['language']
     res = {}
     res['questions'] = lesson_comp.generate_questions(user_input, user_id, conversation_id, language)
@@ -93,9 +105,12 @@ def gen_questions_chat():
 @app.route("/lessonComp/questions", methods=['POST'])
 def gen_questions():
     data = request.get_json()
-    writeup = data["writeup"]
+
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    data = data['prompt']
+    writeup = data["writeup"]
     qtype = data["qtype"]
     qnumber = data["qnumber"]
     language = data['language']
@@ -156,9 +171,12 @@ def answers():
 @app.route('/math/lesson', methods = ['POST'])
 def lesson():
     data = request.get_json()
-    question = data["prompt"]
     user_id = data['user_id']
     conversation_id = data['conversation_id']
+
+    print(data)
+    data = data['prompt']
+    question = data
     language = data['language']
     res = {}
     res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id, language)
@@ -245,12 +263,13 @@ def plagiarism():
 def powerpoint():
     data = request.get_json()
     print('Recieved Data: ', data)
-    user_id =  data['id']
+    user_id =  data['user_id']
+
     description = data['prompt']['description']
     grade = data['prompt']['grade']
     subject = data['prompt']['subject']
     number_of_slides = data['prompt']['number_of_slides']
-    language = data['language']
+    language = data['prompt']['language']
     res = {}
     file_path = aipresentation.get_presentation(description ,grade ,subject ,number_of_slides, user_id, language)
     res['presentation_link'] = f"{request.host_url}{file_path}"

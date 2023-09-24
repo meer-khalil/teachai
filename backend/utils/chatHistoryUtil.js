@@ -35,7 +35,7 @@ exports.createChatHistoryAndGiveData = async (req, chatbot_name) => {
     }
 
     let data = {
-        prompt: body?.prompt ? body?.prompt : body,
+        prompt: body,
         user_id: user_id,
         conversation_id: chat_id
     }

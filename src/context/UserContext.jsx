@@ -97,6 +97,10 @@ export const UserProvider = ({ children }) => {
             const res = await api.get("/logout");
             console.log('User Logout successfully:', res);
 
+            if (user?.TwoFA) {
+                localStorage.removeItem("teachai_verified_device");
+            }
+            
             // localStorage.removeItem("teachai_verified_device");
             delete api.defaults.headers.common['Authorization'];
             localStorage.removeItem("teachai_token")

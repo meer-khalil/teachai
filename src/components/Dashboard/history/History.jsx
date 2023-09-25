@@ -35,13 +35,18 @@ const History = ({ chatbot }) => {
 
     return (
         <div className="flex gap-5">
-            <div className="flex-[1] flex flex-col gap-5 pl-3">
+            <div className="flex-[1.5] flex flex-col gap-5 pl-3 max-h-[100vh] overflow-y-scroll" style={{
+                overflowY: 'scroll',
+                scrollbarWidth: 'none', /* For Firefox */
+                WebkitOverflowScrolling: 'touch', /* For iOS Safari */
+                MsOverflowStyle: '-ms-autohiding-scrollbar' /* For IE/Edge */
+            }}>
                 {
                     (chatIDs.length > 0) ? (
                         chatIDs.map((e) => (
                             <div onClick={() => setChatID(e.id)} className="flex flex-row gap-3 cursor-pointer border-b border-blue-500">
                                 <MdOutlineWorkHistory />
-                                <p className="">{e.title}</p>
+                                <p className="">{e.title.slice(0, 22)}...</p>
                             </div>
                         ))
                     ) : (

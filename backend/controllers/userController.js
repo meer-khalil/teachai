@@ -7,8 +7,8 @@ const UserOTPVerification = require('../models/userOTPVerification');
 const sendEmail = require('../utils/sendEmail');
 
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto');
 // const sendEmail = require('../utils/sendEmail');
-// const crypto = require('crypto');
 // const cloudinary = require('cloudinary');
 
 // Register User
@@ -75,13 +75,83 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 
+// Forgot Password
+exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
+
+    const user = await User.findOne({ email: req.body.email });
+    
+    if (!user) {
+        return next(new ErrorHandler("User Not Found", 404));
+    }
+
+    const resetToken = await user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: false });
+
+    // const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `https://${req.get("host")}/password/reset/${resetToken}`;
+    // const resetPasswordUrl = `http://localhost:3000/password/reset/${resetToken}`;
+
+    // const message = `Your password reset token is : \n\n ${resetPasswordUrl}`;
+
+    try {
+        let mailOptions = {
+            from: 'info@teachassistai.com',
+            to: user.email,
+            subject: 'Reset Your Password',
+            html: `
+            <p>Here is your link for reseting Password <b>${resetPasswordUrl}</b></p>
+            `
+        };
+
+        await sendEmail(mailOptions)
+
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully`,
+        });
+
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorHandler(error.message, 500))
+    }
+});
+
+// Reset Password
+exports.resetPassword = asyncErrorHandler(async (req, res, next) => {
+
+    console.log('Here is for Password Reset');
+
+    // create hash token
+    const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        return next(new ErrorHandler("Invalid reset password token", 404));
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+    sendToken(user, 200, res);
+});
+
 // Update User Details
 exports.enable2FA = asyncErrorHandler(async (req, res, next) => {
 
     try {
         const { enabled } = req.body;
         const filter = { _id: req.user.id };
-        const update = { TwoFA: enabled };  
+        const update = { TwoFA: enabled };
         const option = { new: true };
 
         const updatedUser = await User.findByIdAndUpdate(filter, update, option);

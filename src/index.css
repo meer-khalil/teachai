@@ -15,25 +15,30 @@ p {
 
 /* Track */
 ::-webkit-scrollbar {
-  width: 4px; /* Width of the entire scrollbar */
+  /* width: 4px; Width of the entire scrollbar */
+  width: 0px; /* Width of the entire scrollbar */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(23, 5, 20); /* Color of the scrollbar handle */
+  /* background: rgb(23, 5, 20); Color of the scrollbar handle */
+  background: transparent; /* Color of the scrollbar handle */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b7dede; /* Color of the scrollbar handle on hover */
+  /* background: #b7dede; Color of the scrollbar handle on hover */
+  background: transparent; /* Color of the scrollbar handle on hover */
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #a5aeae; /* Color of the scrollbar track */
+  /* background: #a5aeae; Color of the scrollbar track */
+  background: transparent; /* Color of the scrollbar track */
 }
 
 /* Track on hover */
 ::-webkit-scrollbar-track:hover {
-  background: #ddd; /* Color of the scrollbar track on hover */
+  /* background: #ddd; Color of the scrollbar track on hover */
+  background: transparent; /* Color of the scrollbar track on hover */
 }

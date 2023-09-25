@@ -67,7 +67,7 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
                         </Link>
                         {/* <br /> */}
                         <div className=' mx-4 mt-2'>
-                            <div className="">
+                            <div className="font-bold text-xs">
                                 Number of Chat Requests
                             </div>
                             <div className=' h-3 border border-blue-400 rounded-full overflow-hidden'>

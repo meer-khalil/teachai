@@ -8,7 +8,7 @@ import { gapi } from "gapi-script";
 
 
 import doc from "../../images/Icons/doc.png";
-import docs from "../../images/Icons/docs.png";
+import docs from "../../images/Icons/google_doc.png";
 import excel from "../../images/Icons/excel.png";
 import pdf from "../../images/Icons/pdf.png";
 import { UsageContext } from "../../context/UsageContext";

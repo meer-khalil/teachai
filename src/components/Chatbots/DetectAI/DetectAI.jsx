@@ -101,45 +101,66 @@ const DetectAI = () => {
                                 <div>
                                     <div className='relative' ref={componentRef}>
 
-                                        <Answer answer={answer} />
+                                        {/* <Answer answer={answer} /> */}
                                         {loading && <Loading />}
                                         {
                                             answer &&
-                                            <div className='left-3 top-16 absolute'>
-
-                                                <div className='w-44 h-44'>
-                                                    <div className='flex gap-2'>
-                                                        <div className=' h-5 w-5 bg-red-600'></div>
-                                                        <span>Detect AI Percentage</span>
-                                                    </div>
-                                                    <DonutChart data={
-                                                        [
-                                                            { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                            { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                        ]
-                                                    } />
+                                            <div className='left-0 top-0 right-0 bottom-0 absolute'>
+                                                <div className='mt-3'>
+                                                    <h2 className='text-center mb-1 text-3xl font-bold'>
+                                                        Detect AI Percentage
+                                                    </h2>
+                                                    <h4 className='text-lg font-bold text-center'>
+                                                        The amount of detected is {(answer[0].answer.match(/\d+/g)).map(Number)[0]}
+                                                    </h4>
                                                 </div>
-                                                <div className=' w-44 h-44 mt-16'>
-                                                    <div className='flex gap-2'>
-                                                        <div className=' h-5 w-5' style={{ backgroundColor: "yellow"}}></div>
-                                                        <span>Plagerism Percentage</span>
+                                                <div className='flex justify-center mt-5 mb-2'>
+
+                                                    <div className='w-44 h-44'>
+                                                        <div className='flex gap-2'>
+                                                            <div className=' h-5 w-5 bg-red-600'></div>
+                                                            <span>Detect AI Percentage</span>
+                                                        </div>
+                                                        <DonutChart data={
+                                                            [
+                                                                { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                                { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                            ]
+                                                        } />
                                                     </div>
-                                                    <PlagDonutChart data={
-                                                        [
-                                                            { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                            { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5) },
-                                                        ]
-                                                    } />
+                                                </div>
+                                                <div className='mt-16'>
+                                                    <h2 className='text-center mb-1 text-3xl font-bold'>
+                                                        Detect Plagiarism
+                                                    </h2>
+                                                    <h4 className='text-lg font-bold text-center'>
+                                                        The amount of Plagiarism is {(answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5)}
+                                                    </h4>
+                                                </div>
+                                                <div className='flex justify-center mt-4'>
+
+                                                    <div className=' w-44 h-44'>
+                                                        <div className='flex gap-2'>
+                                                            <div className=' h-5 w-5' style={{ backgroundColor: "yellow" }}></div>
+                                                            <span>Plagerism Percentage</span>
+                                                        </div>
+                                                        <PlagDonutChart data={
+                                                            [
+                                                                { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                                { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5) },
+                                                            ]
+                                                        } />
+                                                    </div>
                                                 </div>
                                             </div>
                                         }
                                     </div>
 
-                                    <ShortForm
+                                    {/* <ShortForm
                                         prompt={prompt}
                                         setPrompt={setPrompt}
                                         handleSubmit={handleSubmit}
-                                    />
+                                    /> */}
                                 </div>
                             )
                                 : (

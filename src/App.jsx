@@ -32,6 +32,8 @@ import DetailStory from "./components/Blog/Stories/DetailStory";
 import VerifyOTP from "./components/OTP/VerifyOTP";
 import DonutChart from "./components/Donut/DonutChart";
 import CookiesPolicy from "./components/Cookies/CookiesPolicy";
+import ForgotPassword from "./components/Password/ForgotPassword";
+import ResetPassword from "./components/Password/ResetPassword";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -65,6 +67,10 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/password/forgot" element={<ForgotPassword />} />
+
+        <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
 

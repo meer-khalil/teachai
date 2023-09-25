@@ -21,18 +21,19 @@ function Answer({ answer }) {
             function wrapLinksWithAnchorTags(text) {
               // Regular expression to match URLs
               var urlRegex = /(https?:\/\/[^\s]+)/g;
-
+            
               // Replace URLs with anchor tags
               var newText = text.replace(urlRegex, function (url) {
-                return `<a href="${url}" target="_blank" style="color: 'blue'">${url}</a>`;
+                return `<a href="${url}" target="_blank" style="color: blue;">${url}</a>`;
               });
-
+            
               return newText;
             }
+            
             let newText = wrapLinksWithAnchorTags(el?.answer)
 
             return (
-              <div className="chat_content_item">
+              <div className="chat_content_item prose prose-xl" style={{ width: '100%'}}>
                 {
                   el?.question && (
                     <h4 className='mt-20 mb-3 text-xl font-bold'>

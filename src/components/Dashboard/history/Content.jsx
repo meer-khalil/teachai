@@ -29,7 +29,13 @@ const Content = ({ chatbotid }) => {
     return (
         <>
             {/* <h1>Content: {chatbotid}</h1> */}
-            <div>
+            <div style={{
+                overflowY: 'scroll',
+                scrollbarWidth: 'thin', /* For Firefox */
+                WebkitScrollbarWidth: 'thin', /* For Firefox */
+                scrollbarColor: 'rgb(23, 5, 20) #a5aeae', /* For Firefox */
+                WebkitScrollbarColor: 'rgb(23, 5, 20) #a5aeae', /* For Firefox */
+            }}>
                 {
                     chatHistory && <Answer answer={chatHistory.content} />
                 }

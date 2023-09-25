@@ -65,7 +65,7 @@ const AnswerAndHistory = ({
                 }
             </div>
 
-            {(answer.length > 0) && <ExamplePrompts />}
+            {((answer.length > 0) && (!showHistory)) && <ExamplePrompts />}
 
         </div>
     )

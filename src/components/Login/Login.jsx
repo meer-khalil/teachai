@@ -68,7 +68,10 @@ export default function Login() {
           </div>
 
 
-          <div className="flex justify-end">
+          <div className="flex justify-between items-center">
+            <Link to="/password/forgot">
+              <p className=" text-xl text-white">Forget Password?</p>
+            </Link>
             <button type="submit" className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
               Login
             </button>

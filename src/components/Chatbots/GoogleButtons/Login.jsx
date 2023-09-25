@@ -1,5 +1,6 @@
-import { forwardRef, useRef, useState } from "react"
+import { forwardRef, useContext, useRef, useState } from "react"
 import GoogleLogin from "react-google-login"
+import { UsageContext } from "../../../context/UsageContext"
 
 // LocalHost
 // const clientId = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
@@ -11,6 +12,7 @@ const clientId = '700989349221-o958kd0tivmmrtuqd9v1fl51t17jpaa5.apps.googleuserc
 const Login = () => {
 
     const [login, setLogin] = useState(false)
+    const { usage } = useContext(UsageContext);
 
     const onSuccess = (res) => {
         console.log('Login Sucess!: ', res);
@@ -22,7 +24,7 @@ const Login = () => {
     }
 
     return (
-        <div className={`absolute ${login ? "-right-44" : "right-10"} opacity-0  top-2 bg-red-400 w-12 overflow-hidden`}>
+        <div className={`absolute ${login ? "-right-44" : "right-10"} ${usage?.plan !== 'Professional' ? "-right-60": ""} opacity-0  top-2 bg-red-400 w-12 overflow-hidden`}>
 
             <GoogleLogin
                 clientId={clientId}

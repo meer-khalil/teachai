@@ -96,7 +96,7 @@ const data = [
         `
     },
     {
-        title: "12. AI Tools: Usage, Responsibilities, and Limitations",
+        title: "13. AI Tools: Usage, Responsibilities, and Limitations",
         description: `
         <ul style="padding-left: 3rem; list-style-type: lower-alpha;">
         <li><b>Risk of Data Leakage: </b><br/>
@@ -125,39 +125,39 @@ const data = [
         `
     },
     {
-        title: "Warranty Disclaimer",
+        title: "14. Warranty Disclaimer",
         description: `Teach Assist AI provides the Services "as is" and "as available," without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. Teach Assist AI does not warrant that the Services will be uninterrupted, error-free, secure, or free from viruses or other harmful components. No advice or information obtained from Teach Assist AI or through the Services shall create any warranty not expressly stated in these Terms.`
     },
     {
-        title: "Indemnification",
+        title: "15. Indemnification",
         description: "You agree to indemnify, defend, and hold harmless Teach Assist AI, its affiliates, officers, directors, employees, agents, licensors, and suppliers from and against all claims, losses, liabilities, expenses, damages, and costs, including but not limited to legal fees, arising from or relating to your use of the Services, your violation of these Terms, or your infringement of any intellectual property or other rights of Teach Assist AI or any third party."
     },
     {
-        title: "Governing Law and Jurisdiction",
+        title: "16. Governing Law and Jurisdiction",
         description: "These Terms shall be governed by and construed in accordance with the laws of Australia, without regard to its conflict of law principles. You agree to submit to the exclusive jurisdiction of the courts located in Australia for the resolution of any legal matter arising from or related to these Terms or your use of the Services. Notwithstanding this, you agree that Teach Assist AI shall still be allowed to apply for injunctive or other equitable relief in any court of competent jurisdiction."
     },
     {
-        title: "Modifications to the Services",
+        title: "17. Modifications to the Services",
         description: "Teach Assist AI reserves the right to modify, suspend, or discontinue the Services, in whole or in part, at any time, with or without notice to you. Teach Assist AI shall not be liable to you or any third party for any modification, suspension, or discontinuance of the Services. You acknowledge and agree that Teach Assist AI may establish general practices and limits concerning the use of the Services, including but not limited to the maximum number of days that content will be retained, the maximum disk space allotted, and the maximum number of times you may access the Services in a given period."
     },
     {
-        title: "Termination",
+        title: "18. Termination",
         description: "Teach Assist AI may terminate your access to and use of the Services, at its sole discretion, at any time and without notice to you, if you fail to comply with these Terms or for any other reason. Upon termination, all rights and licenses granted to you in these Terms will immediately cease, and you must cease all use of the Services. Teach Assist AI shall not be liable to you or any third party for termination of your access to the Services. Any provisions of these Terms that by their nature should survive termination shall survive termination, including but not limited to ownership provisions, warranty disclaimers, indemnity, and limitations of liability."
     },
     {
-        title: "Dispute Resolution",
+        title: "19. Dispute Resolution",
         description: "Any disputes arising out of or relating to these Terms or the Services shall be resolved through good faith negotiations between the parties. If the dispute cannot be resolved through negotiation, the parties agree to submit the dispute to binding arbitration under the rules of the Australian Centre for International Commercial Arbitration (ACICA). The arbitration shall be conducted in Australia, and the decision of the arbitrator shall be final and binding on both parties."
     },
     {
-        title: "Force Majeure",
+        title: "20. Force Majeure",
         description: "Teach Assist AI shall not be liable for any failure or delay in performing its obligations under these Terms due to circumstances beyond its reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, labor disputes, government actions, or interruptions in internet service."
     },
     {
-        title: "Severability",
+        title: "21. Severability",
         description: "If any provision of these Terms is found to be invalid or unenforceable by a court of competent jurisdiction, such provision shall be severed from these Terms, and the remaining provisions shall remain in full force and effect. The parties agree to negotiate in good faith to replace any invalid or unenforceable provision with a valid and enforceable provision that achieves the original intent and economic effect of the invalid provision."
     },
     {
-        title: "Entire Agreement",
+        title: "22. Entire Agreement",
         description: "These Terms, together with any other agreements or policies referenced herein, constitute the entire agreement between you and Teach Assist AI and supersede all prior or contemporaneous agreements, representations, or understandings, whether written or oral, relating to the subject matter of these Terms. No amendment or modification of these Terms shall be binding unless in writing and signed by both parties."
     },
     // {
@@ -196,7 +196,7 @@ const Terms = () => {
 
                 <div className='mb-10'>
 
-                    <h3 className='text-3xl font-semibold'>11. Contact Information</h3>
+                    <h3 className='text-3xl font-semibold'>23. Contact Information</h3>
                     <p className='text-xl mt-5 mr-10 text-justify'>
                         If you have any questions about these Terms, please contact us at
                         <a href="/" className=' text-blue-500 underline ml-4'>

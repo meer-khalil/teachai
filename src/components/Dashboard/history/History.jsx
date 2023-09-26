@@ -46,7 +46,7 @@ const History = ({ chatbot }) => {
                         chatIDs.map((e) => (
                             <div onClick={() => setChatID(e.id)} className="flex flex-row gap-3 cursor-pointer border-b border-blue-500">
                                 <MdOutlineWorkHistory />
-                                <p className="">{e.title.slice(0, 22)}...</p>
+                                <p className="whitespace-nowrap overflow-hidden text-ellipsis">{e.title}</p>
                             </div>
                         ))
                     ) : (

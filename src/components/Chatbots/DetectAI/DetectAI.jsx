@@ -111,7 +111,7 @@ const DetectAI = () => {
                                                         Detect AI Percentage
                                                     </h2>
                                                     <h4 className='text-lg font-bold text-center'>
-                                                        The amount of detected is {(answer[0].answer.match(/\d+/g)).map(Number)[0]}
+                                                        The amount of detected is {(answer[0].answer.match(/\d+/g)).map(Number)[0]}%
                                                     </h4>
                                                 </div>
                                                 <div className='flex justify-center mt-5 mb-2'>
@@ -134,7 +134,7 @@ const DetectAI = () => {
                                                         Detect Plagiarism
                                                     </h2>
                                                     <h4 className='text-lg font-bold text-center'>
-                                                        The amount of Plagiarism is {(answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5)}
+                                                        The amount of Plagiarism is {(answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5)}%
                                                     </h4>
                                                 </div>
                                                 <div className='flex justify-center mt-4'>
@@ -171,7 +171,6 @@ const DetectAI = () => {
                                         }
                                     </div>
                                 )
-
                         }
                     </div>
 

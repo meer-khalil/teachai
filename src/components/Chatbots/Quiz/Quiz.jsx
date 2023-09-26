@@ -48,6 +48,7 @@ const Quiz = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="General Quiz"
                 />
             </div>
 

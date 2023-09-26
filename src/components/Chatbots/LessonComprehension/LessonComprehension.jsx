@@ -48,6 +48,7 @@ const LessonComprehension = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Lesson Comprehension"
                 />
             </div>
 

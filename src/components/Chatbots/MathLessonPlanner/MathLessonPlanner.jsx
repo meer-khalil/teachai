@@ -49,6 +49,7 @@ const MathLessonPlanner = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Math Lesson Planner"            
                 />
             </div>
 

@@ -43,12 +43,13 @@ const LessonPlanner = () => {
 
                 <AnswerAndHistory
                     answer={answer}
-                    setAnswer={setAnswer} 
-                    componentRef={componentRef} 
+                    setAnswer={setAnswer}
+                    componentRef={componentRef}
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
                     url={'/lessonplanner'}
+                    chatbot="Lesson Planning"
                 />
             </div>
 

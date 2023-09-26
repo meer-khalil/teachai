@@ -47,6 +47,7 @@ const VideoToQuiz = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Video To Quiz"
                 />
             </div>
 

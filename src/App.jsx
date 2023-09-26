@@ -34,6 +34,7 @@ import DonutChart from "./components/Donut/DonutChart";
 import CookiesPolicy from "./components/Cookies/CookiesPolicy";
 import ForgotPassword from "./components/Password/ForgotPassword";
 import ResetPassword from "./components/Password/ResetPassword";
+import ContactSubmit from "./components/Contact/ContactSubmit";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -94,7 +95,7 @@ export default function App() {
 
         <Route path="/donut" element={<DonutChart />} />
 
-        {/* <Route path="/editor" element={<Editor />} /> */}
+        <Route path="/contact-submitted" element={<ContactSubmit />} />
 
         {/* <Route path="/tinyeditor" element={<TinyMCE />} /> */}
 

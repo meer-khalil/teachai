@@ -33,7 +33,7 @@ exports.createContact = asyncErrorHandler(async (req, res, next) => {
         from: 'info@teachassistai.com',
         to: 'info@teachassistai.com',
         subject: 'New Contact Form Submission',
-        text: `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`
+        text: `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nMessage: ${message}`
     };
 
     const result = await transporter.sendMail(mailOptions);
@@ -46,7 +46,6 @@ exports.createContact = asyncErrorHandler(async (req, res, next) => {
             firstName,
             lastName,
             email,
-            phone,
             message
         });
 

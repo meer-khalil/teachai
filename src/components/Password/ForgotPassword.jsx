@@ -71,10 +71,11 @@ const ForgotPassword = () => {
 
                             {/* <!-- input container --> */}
                             <form onSubmit={handleSubmit}>
-                                <div className="flex flex-col w-full gap-4">
+                                <div className="flex flex-col items-center justify-center w-full gap-4">
 
                                     <TextField
                                         fullWidth
+                                        className=' max-w-[400px]'
                                         label="Email"
                                         type="email"
                                         value={email}
@@ -83,9 +84,9 @@ const ForgotPassword = () => {
                                     />
 
                                     {/* <!-- button container --> */}
-                                    <div className="flex flex-col gap-2.5 mt-2 mb-32">
+                                    <div className="flex flex-col gap-2.5 mt-2  mb-12">
                                         {/* <p className="text-xs text-primary-grey text-left">By continuing, you agree to Flipkart's <a href="https://www.flipkart.com/pages/terms" className="text-primary-blue"> Terms of Use</a> and <a href="https://www.flipkart.com/pages/privacypolicy" className="text-primary-blue"> Privacy Policy.</a></p> */}
-                                        <button type="submit" className="py-3 w-full bg-[#ed7742] shadow rounded-sm font-medium">Submit</button>
+                                        <button type="submit" className="px-6 py-3 w-full bg-[#ed7742] shadow rounded-md font-medium">Submit</button>
                                     </div>
                                     {/* <!-- button container --> */}
 

@@ -12,7 +12,8 @@ const AnswerAndHistory = ({
     answer, setAnswer,
     componentRef,
     loading, setLoading,
-    chatID, url
+    chatID, url,
+    chatbot
 }) => {
 
     const [showHistory, setShowHistory] = useState(false);
@@ -59,7 +60,7 @@ const AnswerAndHistory = ({
                         </>
                     ) : (
                         <div>
-                            <History chatbot="Lesson Planning" />
+                            <History chatbot={chatbot} />
                         </div>
                     )
                 }

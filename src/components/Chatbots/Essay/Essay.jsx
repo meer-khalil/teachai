@@ -48,6 +48,7 @@ const Essay = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Essay Grading"
                 />
             </div>
 

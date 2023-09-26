@@ -50,6 +50,7 @@ const MathQuiz = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Math Quiz Generator"
                 />
             </div>
 

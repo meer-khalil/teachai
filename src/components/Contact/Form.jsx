@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import api from '../../util/api';
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
 
+    const navigate = useNavigate();
     const [_data, setData] = useState({})
 
     const handleSubmit = async (e) => {
@@ -14,7 +16,8 @@ const Form = () => {
 
             setData({})
             console.log('data: ', data);
-            toast("Form Submitted");
+            navigate("/contact-submitted")
+            // toast("Form Submitted");
         } catch (error) {
             console.log('Error: ', error.message);
             toast("Failed to submit");

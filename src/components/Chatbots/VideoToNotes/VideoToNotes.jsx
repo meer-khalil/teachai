@@ -47,6 +47,7 @@ const VideoToNotes = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
+                    chatbot="Video To Notes"            
                 />
             </div>
 

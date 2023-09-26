@@ -75,16 +75,23 @@ const Footer = () => {
                             |
                             <Link
                                 className='underline text-blue-600 mx-2'
-                                to={(site ? site : '') + "/privacy"}
+                                to={"/privacy"}
                             >
                                 Privacy
                             </Link>
                             |
                             <Link
                                 className='underline text-blue-600 ml-2'
-                                to={(site ? site : '') + "/terms"}
+                                to={"/terms"}
                             >
                                 Terms
+                            </Link>
+                            |
+                            <Link
+                                className='underline text-blue-600 ml-2'
+                                to={"/cookies-policy"}
+                            >
+                                Cookies
                             </Link>
                         </div>
                     </div>

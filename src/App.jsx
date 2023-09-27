@@ -19,9 +19,6 @@ import Login from './components/Login/Login'
 import AdminDashboard from "./components/Admin/Dashbaord/AdminDashboard";
 
 // import PaymentPage from "./components/Stripe/StripeForm";
-
-import Blog from "./components/Blog/Blog";
-import BlogPost from "./components/BlogPost/BlogPost";
 import Success from "./components/Stripe/Success";
 import Cancel from "./components/Stripe/Cancel";
 import Stripe from "./components/Stripe/Stripe";

@@ -16,7 +16,8 @@ const data = [
             'Access To All Chatbots',
             'Free 10 chat requests per day',
             '1 member',
-            'Write in 30+ languages'
+            'Write in 30+ languages',
+            '1 free file upload'
         ]
     },
     {
@@ -47,7 +48,7 @@ const data = [
             '1 member seat',
             'Write in 30+ languages',
             '24/7 live chat support',
-            '2 weeks memory retention of past chats',
+            'Access to chat hitory',
             'Extract responses to word document/pdf/google doc/excel',
             'All Grade Levels',
             '20 file uploads per month'

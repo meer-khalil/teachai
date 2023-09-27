@@ -122,6 +122,9 @@ const CookiesPolicy = () => {
             <h1 className='text-center text-4xl font-extrabold my-10'>
                 COOKIE POLICY
             </h1>
+            <div className='flex justify-center'>
+                <p className=' text-xl'>Effective Date: 25th August 2023</p>
+            </div>
             <p className=' text-xl'>Teach Assist AI ("we," "us," "our") uses cookies and similar tracking technologies on our website and services to enhance user experience, analyze usage, deliver personalized content, and support our marketing efforts. This Cookie Policy explains what cookies are, how we use them, the types of cookies we use, and how you can manage your preferences.</p>
 
             <div className=' mx-5 md:mx-10 pt-20'>

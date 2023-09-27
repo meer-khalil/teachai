@@ -9,7 +9,7 @@ const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
 const stripe = require('./config/stripe');
 const Payment = require('./models/paymentModel');
 const Usage = require('./models/usageModel');
-const { resetLimit } = require('./middlewares/requestLimit');
+const { resetLimit, requestLimit } = require('./middlewares/requestLimit');
 const { isAuthenticatedUser } = require('./middlewares/auth')
 
 
@@ -69,7 +69,9 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                                 usageLimit: plan['requestlimit'],
                                 noOfFilesUploadedLimit: plan['noOfFilesUploadedLimit'],
                                 payment: true,
-                                paymentDate: Date.now()
+                                paymentDate: Date.now(),
+                                startDate: Date.now(),
+                                expiryDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
                             });
 
                             if (updatedUsage) {
@@ -131,7 +133,7 @@ app.use('/api/v1', post);
 app.use('/api/v1/story', story);
 // app.use('/api/v1', order);
 app.use('/api/v1', payment);
-app.use('/api/v1/chatbot', isAuthenticatedUser, resetLimit, chat);
+app.use('/api/v1/chatbot', isAuthenticatedUser, requestLimit, chat);
 app.use('/api/v1', chatHistory);
 app.use('/api/v1', contact);
 

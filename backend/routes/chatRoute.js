@@ -31,35 +31,35 @@ const router = express.Router()
 /*
     Lesson Planning Bot
 */
-router.route('/lessonplanner').post(isAuthenticatedUser, requestLimit, lessonPlanner)
+router.route('/lessonplanner').post(lessonPlanner)
 
 /*
     General Quiz Bot
 */
-router.route('/quiz').post(isAuthenticatedUser, requestLimit, quiz)
+router.route('/quiz').post(quiz)
 
 
 /*
     Automated Essay Scoring and Feedback Bot
 */
-router.route('/gradeEssay').post(isAuthenticatedUser, requestLimit, pdfUpload.single('file'), gradeEssay)
-router.route('/gradeEssay/rubric').post(isAuthenticatedUser, requestLimit, gradeEssayRubric)
+router.route('/gradeEssay').post( pdfUpload.single('file'), gradeEssay)
+router.route('/gradeEssay/rubric').post(gradeEssayRubric)
 
 
 /*
     Comprehension Lesson Generator Bot
 */
-router.route('/lessonComp/questions').post(isAuthenticatedUser, requestLimit, lessonCompQuestion)
-router.route('/lessonComp/chat').post(isAuthenticatedUser, requestLimit, lessonCompChat)
-router.route('/lessonComp/answer').post(isAuthenticatedUser, requestLimit, lessonCompAnswer)
+router.route('/lessonComp/questions').post(lessonCompQuestion)
+router.route('/lessonComp/chat').post(lessonCompChat)
+router.route('/lessonComp/answer').post(lessonCompAnswer)
 
 
 /*
 Maths Quiz Bot
 */
-router.route('/mathquiz/gen').post(isAuthenticatedUser, requestLimit, mathQuizGenerator)
-router.route('/mathquiz/evaluate').post(isAuthenticatedUser, requestLimit, mathQuizEvaluate)
-router.route('/mathquiz/answer').post(isAuthenticatedUser, requestLimit, mathQuizAnswer)
+router.route('/mathquiz/gen').post(mathQuizGenerator)
+router.route('/mathquiz/evaluate').post(mathQuizEvaluate)
+router.route('/mathquiz/answer').post(mathQuizAnswer)
 
 
 /*
@@ -73,12 +73,12 @@ router.route('/math/lesson').post(isAuthenticatedUser, mathLessonPlanner)
 */
 router.route('/video/summarize').post(isAuthenticatedUser, videoSummarize)
 router.route('/video/chat').post(isAuthenticatedUser, videoChat)
-router.route('/video/quiz').post(isAuthenticatedUser, requestLimit, videoToQuiz)
+router.route('/video/quiz').post(videoToQuiz)
 
 // detect AI
-router.route('/detectai').post(isAuthenticatedUser, requestLimit, fileUpload.single('file'), detectAI)
-router.route('/plagirism').post(isAuthenticatedUser, requestLimit, fileUpload.single('file'), checkPlag)
-router.route('/presentation').post(isAuthenticatedUser, requestLimit, powerPointPresentation)
+router.route('/detectai').post(fileUpload.single('file'), detectAI)
+router.route('/plagirism').post(fileUpload.single('file'), checkPlag)
+router.route('/presentation').post(powerPointPresentation)
 router.route('/presentation/download/:fileName').get(requestLimit, downdloadPresentation)
 
 module.exports = router

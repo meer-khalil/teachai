@@ -23,7 +23,7 @@ const AnswerAndHistory = ({
             <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
                 <div className=' border-b-2 flex gap-3'>
                     <button className={`${!showHistory ? 'bg-slate-300' : ''} px-4 py-2`} onClick={() => setShowHistory(false)}>Output</button>
-                    <button className={`${showHistory ? 'bg-slate-300' : ''} px-4 py-2`} onClick={() => setShowHistory(true)}>History</button>
+                    {/* <button className={`${showHistory ? 'bg-slate-300' : ''} px-4 py-2`} onClick={() => setShowHistory(true)}>History</button> */}
                 </div>
                 {
                     !showHistory ? (

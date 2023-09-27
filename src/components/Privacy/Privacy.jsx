@@ -76,7 +76,7 @@ const data = [
         `
     },
     {
-        title: '4. Your Rights and Choices',
+        title: '6. Your Rights and Choices',
         description: `Under applicable privacy laws, you may have certain rights and choices regarding your personal information, including:
         <br/>
         <ul style="padding-left: 3rem; list-style-type: lower-alpha;">
@@ -95,7 +95,7 @@ const data = [
         `
     },
     {
-        title: '5. Security of Personal Information',
+        title: '7. Security of Personal Information',
         description: `We take the security of your personal information seriously and implement appropriate technical and organizational measures to protect against unauthorized access, disclosure, alteration, or destruction. These measures may include encryption, access controls, secure transmission protocols, and regular security assessments.
 
         <br/>
@@ -118,17 +118,17 @@ const data = [
         `
     },
     {
-        title: '6. Cookies and Tracking Technologies',
+        title: '8. Cookies and Tracking Technologies',
         description: `We may use cookies, web beacons, and other tracking technologies to collect information about your browsing behavior, preferences, and interactions with our services. Please refer to our Cookie Policy.
         `
     },
     {
-        title: "7. Children's Privacy",
+        title: "9. Children's Privacy",
         description: `Teach Assist AI's services are not intended for individuals under the age of 18, and we do not knowingly collect personal information from children. If we become aware that we have collected personal information from a child without verifiable parental consent, we will take steps to delete that information promptly..
         `
     },
     {
-        title: '8. Third-Party Links and Services',
+        title: '10. Third-Party Links and Services',
         description: `Our services may contain links to third-party websites, applications, or services that are not owned or controlled by Teach Assist AI. This Privacy Policy does not apply to the information practices of those third parties, and we encourage you to review their privacy policies and practices.
 
         <br/>
@@ -145,7 +145,7 @@ const data = [
         `
     },
     {
-        title: '9. Compliance with Australian Privacy Laws',
+        title: '11. Compliance with Australian Privacy Laws',
         description: `Teach Assist AI is committed to complying with the Australian Privacy Principles (APPs) under the Privacy Act 1988 (Cth) and other applicable privacy laws in Australia. The following provisions outline our practices in accordance with these laws:
 
         <br/>
@@ -168,7 +168,7 @@ const data = [
         `
     },
     {
-        title: '10. Compliance with the General Data Protection Regulation (GDPR)',
+        title: '12. Compliance with the General Data Protection Regulation (GDPR)',
         description: `Teach Assist AI recognizes the importance of the General Data Protection Regulation (GDPR) for our users in the European Economic Area (EEA) and is committed to compliance with the GDPR. The following provisions outline our practices in accordance with this regulation:
 
         <br/>
@@ -191,7 +191,7 @@ const data = [
         `
     },
     {
-        title: '11. Changes to This Privacy Policy',
+        title: '13. Changes to This Privacy Policy',
         description: `We may update this Privacy Policy from time to time to reflect changes in our practices, legal requirements, or other factors. We will provide notice of any material changes by posting the updated Privacy Policy on our website or by notifying you through other appropriate means.
 
         <br/>
@@ -219,6 +219,9 @@ const Privacy = () => {
             <h1 className='text-center text-4xl font-extrabold my-10'>
                 PRIVACY POLICY
             </h1>
+            <div className='flex justify-center'>
+                <p className=' text-xl'>Effective Date: 25th August 2023</p>
+            </div>
 
             <div className=' mx-5 md:mx-10 pt-20'>
 

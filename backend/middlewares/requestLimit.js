@@ -5,18 +5,15 @@ exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
 
     let id = req.user.id
 
-    const requestLimits = {
-        Free: 10,
-        Starter: 60,
-        Professional: 120
-    };
-
     try {
         const usage = await Usage.findOne({ user: id });
 
         if (usage) {
             console.log('Usage: ', usage);
-            if (usage.usageCount <= usage.usageLimit) {
+            if (usage.startDate > usage.expiryDate) {
+                console.log('going to call 429');
+                return res.status(401).json({ error: 'Your plan is Expired' });
+            } else if (usage.usageCount <= usage.usageLimit) {
                 console.log('Requested Updated: by 1');
                 usage.usageCount++;
                 await usage.save();
@@ -48,18 +45,12 @@ exports.resetLimit = asyncErrorHandler(async (req, res, next) => {
 
     let id = req.user.id
 
-    const requestLimits = {
-        Free: 10,
-        Starter: 60,
-        Professional: 120
-    };
-
     try {
         const usage = await Usage.findOne({ user: id });
 
         if (usage) {
             console.log('Usage: ', usage);
-            if (usage.usageCount <= requestLimits[usage.plan]) {
+            if (usage.usageCount <= usage.usageLimit) {
                 console.log("Limit is not Yet Reached");
                 next();
             } else {
@@ -82,5 +73,28 @@ exports.resetLimit = asyncErrorHandler(async (req, res, next) => {
     } catch (error) {
         console.error('Error:', error);
         return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+exports.isPlanExpired = asyncErrorHandler(async (req, res, next) => {
+
+    let id = req.user.id
+
+    try {
+        const usage = await Usage.findOne({ user: id });
+
+        if (usage) {
+            if (usage.startDate <= usage.expiryDate) {
+                console.log('Plan is not Expired');
+                next();
+            } else {
+                console.log('going to call 429');
+                return res.status(401).json({ error: 'Your plan is Expired' });
+            }
+
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 });

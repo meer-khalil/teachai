@@ -178,6 +178,9 @@ const Terms = () => {
             <h1 className='text-center text-4xl font-extrabold my-10'>
                 Terms & Conditions
             </h1>
+            <div className='flex justify-center'>
+                <p className=' text-xl'>Effective Date: 25th August 2023</p>
+            </div>
             <div className=' mx-5 md:mx-10 pt-20'>
 
                 {

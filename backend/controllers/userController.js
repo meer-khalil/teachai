@@ -42,8 +42,6 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     console.log('UserCreated(id): ', user.id);
     const usage = await Usage.create({
         user: user._id,
-        plan: 'Free',
-        usageCount: 1,
         usageLimit: 10
     });
 

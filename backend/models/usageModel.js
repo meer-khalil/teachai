@@ -12,20 +12,35 @@ const usageSchema = new mongoose.Schema({
         default: 'Free'
     },
     usageCount: { type: Number, default: 0 },
-    usageLimit: Number,
+    usageLimit: {
+        type: Number,
+        default: 10
+    },
     storageUsed: { type: Number, default: 0 },
     storageLimit: {
         type: Number,
         default: 10
     },
     noOfFilesUploaded: { type: Number, default: 0 },
-    noOfFilesUploadedLimit: { type: Number, default: 0 },
+    noOfFilesUploadedLimit: { type: Number, default: 1 },
     payment: {
         type: Boolean,
         default: false
     },
     paymentDate: {
         type: Date
+    },
+    startDate: {
+        type: Date,
+        default: Date.now
+    },
+    expiryDate: {
+        type: Date,
+        default: function() {
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 7);
+            return currentDate;
+        }
     },
     lastUpdated: { type: Date, default: Date.now }
 })

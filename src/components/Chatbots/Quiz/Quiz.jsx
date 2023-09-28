@@ -53,6 +53,12 @@ const Quiz = () => {
                     setLoading={setLoading}
                     chatID={chatID}
                     chatbot="General Quiz"
+                    examplePrompts={[
+                        'Can you provide me with the correct answers to the quiz?',
+                        'Can you increase the difficulty level of the quiz?',
+                        'I want to track individual student performance on this quiz?',
+                        'Are there any resources or study materials available to help students prepare for this quiz'
+                    ]}
                 />
             </div>
 

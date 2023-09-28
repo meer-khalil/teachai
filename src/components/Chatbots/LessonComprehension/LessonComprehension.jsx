@@ -53,6 +53,13 @@ const LessonComprehension = () => {
                     setLoading={setLoading}
                     chatID={chatID}
                     chatbot="Lesson Comprehension"
+                    examplePrompts={[
+                        "Hi, I'm preparing a lesson for my 3rd-grade math class on multiplication. Can you suggest some engaging activities and resources to help my students practice their multiplication skills?",
+                        "Hello, I'm teaching a middle school history class, and we're covering the American Civil War. Can you recommend some interactive resources and activities to help my students understand the key events and figures of this period?",
+                        "Hey, I'm planning a lesson for my 7th-grade geography class on climate zones. Can you provide me with some resources and activities that will help my students learn about the different climate zones around the world?",
+                        "Hi there, I'm working on a lesson for my high school chemistry class about chemical reactions. Can you help me find some safe and engaging lab activities and resources to demonstrate various types of chemical reactions?",
+                        "Hello, I'm teaching an elementary school art class, and I'd like to introduce my students to famous artists and their works. Can you recommend some age-appropriate resources and activities that will help my students explore and appreciate different art styles and artists?"
+                    ]}
                 />
             </div>
 

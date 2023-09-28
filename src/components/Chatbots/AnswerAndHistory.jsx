@@ -13,7 +13,7 @@ const AnswerAndHistory = ({
     componentRef,
     loading, setLoading,
     chatID, url,
-    chatbot, dontFollow
+    chatbot, dontFollow, examplePrompts, notPrompts
 }) => {
 
     const [showHistory, setShowHistory] = useState(false);
@@ -69,7 +69,11 @@ const AnswerAndHistory = ({
                 }
             </div>
 
-            {((answer.length > 0) && (!showHistory)) && <ExamplePrompts />}
+            {
+                !notPrompts && (
+                    ((answer.length > 0) && (!showHistory)) && <ExamplePrompts examplePrompts={examplePrompts} />
+                )
+            }
 
         </div>
     )

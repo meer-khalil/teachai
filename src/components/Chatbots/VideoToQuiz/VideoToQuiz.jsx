@@ -52,6 +52,12 @@ const VideoToQuiz = () => {
                     setLoading={setLoading}
                     chatID={chatID}
                     chatbot="Video To Quiz"
+                    examplePrompts={[
+                        "The quiz was quite challenging. Could you provide explanations for the answers to help me understand where I went wrong?",
+                        "Based on the summary, it seems like the video touched on several complex topics. Could you generate a few more quiz questions to help me test my understanding?",
+                        "The quiz questions were thought-provoking! Could you generate a few more questions that focus on the practical applications or real-world implications of the concepts discussed in the video?",
+                        "I found the quiz challenging but enjoyable. Can you generate a summary of the correct answers and provide some additional insights or explanations for each question?"
+                    ]}
                 />
             </div>
 

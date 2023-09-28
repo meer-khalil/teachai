@@ -78,7 +78,7 @@ const DetectAI = () => {
                         name={'Ali'}
                         image={_9_DetectAI}
                         heading={'Detect AI-Writing & Plagiarism'}
-                        desc={'Allow me to assist you with AI-powered writing detection and plagiarism checking'}
+                        desc={'Allow me to aid you in ensuring originality and integrity by detecting AI-generated content and identifying plagiarism effectively.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />
@@ -176,7 +176,7 @@ const DetectAI = () => {
                         }
                     </div>
 
-                    {(answer.length > 0) && <ExamplePrompts />}
+                    {/* {(answer.length > 0) && <ExamplePrompts />} */}
 
                 </div>
             </div>

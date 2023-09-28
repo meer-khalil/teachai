@@ -111,7 +111,7 @@ const PowerPoint = () => {
                         name={'Priyanka'}
                         image={_10_PowerPoint}
                         heading={'Power Point Presentation'}
-                        desc={'Let me provide you with support for your PowerPoint presentation slides.'}
+                        desc={'Allow me to assist you in creating dynamic PowerPoint presentations with ease, simplifying content delivery and engagement for your audience.'}
                     />
 
                     <hr className='h-[2px] bg-secondary' />

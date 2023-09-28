@@ -52,6 +52,12 @@ const VideoToNotes = () => {
                     setLoading={setLoading}
                     chatID={chatID}
                     chatbot="Video To Notes"
+                    examplePrompts={[
+                        "Can you provide more detail on the main points discussed in the video? I'd like to understand the context better.",
+                        "I'm interested in the speaker's perspective on [specific topic from the video]. Could you generate a summary focusing on this aspect?",
+                        "The video summary provided a good overview, but I'm curious about any counterarguments or alternative perspectives that were mentioned. Could you expand on those?",
+                        "The video seemed to touch on a lot of interesting points. Are there any specific examples or case studies mentioned that I could explore further?"
+                    ]}
                 />
             </div>
 

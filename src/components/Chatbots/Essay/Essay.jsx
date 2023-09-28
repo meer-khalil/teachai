@@ -54,6 +54,7 @@ const Essay = () => {
                     chatID={chatID}
                     chatbot="Essay Grading"
                     dontFollow={true}
+                    notPrompts={false}
                 />
             </div>
 

@@ -7,6 +7,7 @@ import ExportButtons from '../ExportButtons';
 
 import _2_Quiz from '../../../images/bots/2.Quiz - Qasim.png'
 import AnswerAndHistory from '../AnswerAndHistory';
+import Categories from '../../Dashboard/history/Categories';
 
 
 const Quiz = () => {
@@ -20,6 +21,9 @@ const Quiz = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Student Engagement & Activity Ideas'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>
@@ -43,8 +47,8 @@ const Quiz = () => {
                 <AnswerAndHistory
                     url={'/quiz'}
                     answer={answer}
-                    setAnswer={setAnswer} 
-                    componentRef={componentRef} 
+                    setAnswer={setAnswer}
+                    componentRef={componentRef}
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}

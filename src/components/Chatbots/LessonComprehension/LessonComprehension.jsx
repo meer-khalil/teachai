@@ -7,6 +7,7 @@ import AnswerAndHistory from '../AnswerAndHistory';
 
 
 import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
+import Categories from '../../Dashboard/history/Categories';
 
 
 const LessonComprehension = () => {
@@ -20,6 +21,9 @@ const LessonComprehension = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Lesson Planning'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>

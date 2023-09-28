@@ -9,6 +9,7 @@ import ExportButtons from '../ExportButtons';
 
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
 import AnswerAndHistory from '../AnswerAndHistory';
+import Categories from '../../Dashboard/history/Categories';
 
 
 const MathQuiz = () => {
@@ -22,6 +23,9 @@ const MathQuiz = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Student Engagement & Activity Ideas'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>

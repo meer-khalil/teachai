@@ -7,6 +7,7 @@ import AnswerAndHistory from '../AnswerAndHistory'
 
 
 import _7_VideotoNotes from '../../../images/bots/7.Video to notes - Vincent.png'
+import Categories from '../../Dashboard/history/Categories';
 
 const VideoToNotes = () => {
 
@@ -19,6 +20,9 @@ const VideoToNotes = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Digital Learning & Teaching Tools'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>
@@ -47,7 +51,7 @@ const VideoToNotes = () => {
                     loading={loading}
                     setLoading={setLoading}
                     chatID={chatID}
-                    chatbot="Video To Notes"            
+                    chatbot="Video To Notes"
                 />
             </div>
 

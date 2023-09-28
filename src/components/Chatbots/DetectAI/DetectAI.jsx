@@ -5,8 +5,6 @@ import ChatForm from './ChatForm'
 import Loading from './Loading';
 import Header from '../Header';
 import api from '../../../util/api';
-import Answer from '../Answer';
-import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
@@ -16,6 +14,7 @@ import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
 import DonutChart, { PlagDonutChart } from '../../Donut/DonutChart';
+import Categories from '../../Dashboard/history/Categories';
 
 
 const DetectAI = () => {
@@ -69,6 +68,9 @@ const DetectAI = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Assessment & Progress Monitoring'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>

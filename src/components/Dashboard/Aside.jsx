@@ -76,7 +76,7 @@ const Aside = ({ selectedCategory, setSelectedCategory }) => {
 
                             <p className=' text-blue-600 font-bold text-xs mt-2'>
                                 {/* {usage?.usageCount === 1 ? "No daily credits used" : `${usage?.usageCount - 1} / ${usage?.usageLimit}`} */}
-                                {`${usage?.usageCount - 1} / ${usage?.usageLimit}`}
+                                {`${usage?.usageCount} / ${usage?.usageLimit}`}
                                 <span className='ml-4'>[Today]</span>
                             </p>
 

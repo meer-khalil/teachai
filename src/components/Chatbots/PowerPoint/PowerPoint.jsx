@@ -16,6 +16,7 @@ import _10_PowerPoint from '../../../images/bots/10.PowerPoint Presentation - Pr
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
+import Categories from '../../Dashboard/history/Categories';
 
 const PowerPoint = () => {
 
@@ -100,6 +101,9 @@ const PowerPoint = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+            <div>
+                <Categories selectedCategory={'Digital Learning & Teaching Tools'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>
@@ -118,6 +122,7 @@ const PowerPoint = () => {
                         setChatID={setChatID}
                         setFileName={setFileName}
                         fetchFile={fetchFile}
+                        dontFollow={true}
                     />
 
                 </div>

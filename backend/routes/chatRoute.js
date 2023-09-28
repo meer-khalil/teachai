@@ -66,7 +66,7 @@ router.route('/mathquiz/answer').post(mathQuizAnswer)
     Maths Lesson Planner Bot
 */
 router.route('/math/lesson').post(isAuthenticatedUser, mathLessonPlanner)
-
+    
 
 /*
     Video to Note Summary Bot

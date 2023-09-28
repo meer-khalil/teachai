@@ -13,7 +13,7 @@ const AnswerAndHistory = ({
     componentRef,
     loading, setLoading,
     chatID, url,
-    chatbot
+    chatbot, dontFollow
 }) => {
 
     const [showHistory, setShowHistory] = useState(false);
@@ -38,12 +38,15 @@ const AnswerAndHistory = ({
 
                                         </div>
 
-                                        <ShortForm
-                                            url={url}
-                                            setLoading={setLoading}
-                                            setAnswer={setAnswer}
-                                            chatID={chatID}
-                                        />
+                                        {
+                                            !dontFollow &&
+                                            <ShortForm
+                                                url={url}
+                                                setLoading={setLoading}
+                                                setAnswer={setAnswer}
+                                                chatID={chatID}
+                                            />
+                                        }
                                     </div>
                                 )
                                     : (

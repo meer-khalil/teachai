@@ -7,6 +7,7 @@ import ExportButtons from '../ExportButtons';
 
 import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
 import AnswerAndHistory from '../AnswerAndHistory';
+import Categories from '../../Dashboard/history/Categories';
 
 const MathLessonPlanner = () => {
 
@@ -21,6 +22,9 @@ const MathLessonPlanner = () => {
 
     return (
         <div className='border-b-2 border-black pb-24'>
+             <div>
+                <Categories selectedCategory={'Lesson Planning'} />
+            </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
                 <div className='border-r border-secondary max-w-[350px]'>

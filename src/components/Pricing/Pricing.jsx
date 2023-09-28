@@ -48,7 +48,7 @@ const data = [
             '1 member seat',
             'Write in 30+ languages',
             '24/7 live chat support',
-            'Access to chat hitory',
+            'Access to chat history',
             'Extract responses to word document/pdf/google doc/excel',
             'All Grade Levels',
             '20 file uploads per month'

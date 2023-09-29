@@ -501,6 +501,7 @@ exports.cancelPlan = asyncErrorHandler(async (req, res, next) => {
         let update = {
             $set: {
                 plan: 'Free',
+                usageCount: 0,
                 usageLimit: 10,
                 noOfFilesUploadedLimit: 0,
                 payment: false,

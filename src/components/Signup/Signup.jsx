@@ -6,7 +6,8 @@ import './DisabledButton.css';
 // import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
-import login from '../../images/check.webp'
+// import login from '../../images/check.webp'
+import image from '../../images/Edited/webp/login.webp'
 import SignupLoader from "../commons/SignupLoader";
 
 export default function Signup() {
@@ -50,11 +51,11 @@ export default function Signup() {
   return (
 
     <div className="h-[80vh] flex justify-center items-center" style={{
-      backgroundImage: `url(${login})`,
+      backgroundImage: `url(${image})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      <div className=" max-w-[60rem] rounded-[1.5rem] bg-transparent"
+      <div className=" max-w-[60rem] rounded-[1.5rem] bg-white"
         style={{
           // boxShadow: '0px 2px 45px -11px rgba(0,0,0,0.5)',
         }
@@ -67,43 +68,43 @@ export default function Signup() {
           <div className="flex gap-5">
 
             <div className=" flex-1 flex flex-col gap-2">
-              <label className="text-white" htmlFor="firstName">
+              <label htmlFor="firstName">
                 First Name
               </label>
               <input
                 name="firstName"
                 id="firstName"
-                className=" bg-transparent border h-10 px-3 rounded text-black border-white"
+                className="bg-transparent border h-10 px-3 rounded"
               />
             </div>
             <div className=" flex-1 flex flex-col gap-2">
-              <label className="text-white" htmlFor="firstName">
+              <label  htmlFor="firstName">
                 Last Name
               </label>
               <input
                 name="lastName"
                 id="lasstName"
-                className="bg-transparent border h-10 px-3 rounded text-black border-white"
+                className="bg-transparent border h-10 px-3 rounded text-black"
               />
             </div>
           </div>
 
           <div className="flex-1 flex flex-col gap-2 my-7">
 
-            <label className="text-white" htmlFor="email">
+            <label htmlFor="email">
               Email Address
             </label>
             <input
               required
               id="email"
               name="email"
-              className="bg-transparent border h-10 px-3 rounded text-black border-white"
+              className="bg-transparent border h-10 px-3 rounded text-black"
             />
           </div>
 
           <div className="flex gap-5">
             <div className="flex-1 flex flex-col gap-2 my-7">
-              <label className="text-white" htmlFor="password">
+              <label htmlFor="password">
                 Password
               </label>
               <input
@@ -111,11 +112,11 @@ export default function Signup() {
                 name="password"
                 type="password"
                 id="password"
-                className="bg-transparent border h-10 px-3 rounded text-black border-white"
+                className="bg-transparent border h-10 px-3 rounded text-black"
               />
             </div>
             <div className="flex-1 flex flex-col gap-2 my-7">
-              <label className="text-white" htmlFor="password1">
+              <label htmlFor="password1">
                 Re-Password
               </label>
               <input
@@ -123,13 +124,13 @@ export default function Signup() {
                 name="password1"
                 type="password"
                 id="password1"
-                className="bg-transparent border h-10 px-3 rounded text-black border-white"
+                className="bg-transparent border h-10 px-3 rounded text-black"
               />
             </div>
           </div>
           <div className="flex items-start gap-2 my-7">
             <input type="checkbox" id="terms" className=" h-5 w-5" onChange={handleCheckboxChange} />
-            <label htmlFor="terms" className=" text-white">
+            <label htmlFor="terms">
               I agree to the Terms and Conditions, Privacy Policy, and Cookie Policy
             </label>
           </div>

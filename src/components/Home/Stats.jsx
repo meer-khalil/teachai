@@ -35,7 +35,7 @@ const Stats = () => {
                     [
                         { stat: 400, title: 'Teachers Registered' },
                         { stat: 25, title: 'Schools Registered' },
-                        { stat: 30, title: 'All Teacher Chatbots' },
+                        { stat: 30, title: 'AI Teacher Assistant Chatbots' },
                     ].map((el, i) => (
                         <div className={`p-14 flex flex-col flex-1 ${i !== 0 ? "border-l-2 border-gray-300" : ''}  justify-center items-center gap-5`}>
                             <div className='relative'>

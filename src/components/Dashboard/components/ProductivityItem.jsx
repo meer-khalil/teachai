@@ -7,7 +7,7 @@ const ProductivityItem = ({ el }) => {
 
     return (
         <Link to={`/user/dashboard/chatbot/${el?.url ? el.url : ""}`} >
-            <div className={`flex flex-col gap-5 rounded-xl px-5 py-5`}
+            <div className={`flex flex-col gap-5 rounded-xl px-5 py-5 min-h-[250px]`}
                 style={{
                     boxShadow: '0px 0px 38px -11px rgba(0,0,0,0.35)'
                 }}

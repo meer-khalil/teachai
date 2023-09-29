@@ -28,7 +28,7 @@ export default function Login() {
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      <div className=" max-w-[95%] md:max-w-[60rem] rounded-2xl bg-transparent px-10"
+      <div className=" max-w-[95%] md:max-w-[60rem] rounded-2xl bg-white text-black px-10"
         style={{
           boxShadow: '0px 2px 45px -11px rgba(0,0,0,0.5)',
         }
@@ -41,20 +41,20 @@ export default function Login() {
 
           <div className="flex-1 flex flex-col gap-2 my-7">
 
-            <label className="text-white" htmlFor="email">
+            <label  htmlFor="email">
               Email Address
             </label>
             <input
               required
               id="email"
               name="email"
-              className="bg-transparent border h-10 px-3 rounded text-black border-white"
+              className="bg-transparent border h-10 px-3 rounded"
             />
           </div>
 
 
           <div className="flex flex-col gap-2 my-7">
-            <label className="text-white" htmlFor="password">
+            <label  htmlFor="password">
               Password
             </label>
             <input
@@ -63,21 +63,21 @@ export default function Login() {
               type="password"
               // value="password"
               id="password"
-              className="bg-transparent border h-10 px-3 rounded text-black border-white"
+              className="bg-transparent border h-10 px-3 rounded"
             />
           </div>
 
 
           <div className="flex justify-between items-center">
             <Link to="/password/forgot">
-              <p className=" text-xl text-white">Forget Password?</p>
+              <p className=" text-xl">Forget Password?</p>
             </Link>
             <button type="submit" className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
               Login
             </button>
           </div>
 
-          <p className="text-white my-8 text-xl">Don't Have an Account? <Link to="/signup" className=" text-white font-semibold">Register</Link> </p>
+          <p className="my-8 text-xl">Don't Have an Account? <Link to="/signup" className="font-semibold">Register</Link> </p>
         </form>
       </div>
     </div>

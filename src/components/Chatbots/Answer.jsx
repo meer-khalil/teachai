@@ -41,7 +41,7 @@ function Answer({ answer }) {
                     </h4>
                   )
                 }
-                <div dangerouslySetInnerHTML={{ __html: newText }} />
+                <div className=" text-sm" dangerouslySetInnerHTML={{ __html: newText }} />
               </div>
             )
           })

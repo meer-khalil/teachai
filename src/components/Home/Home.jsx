@@ -60,7 +60,7 @@ export const Home = () => {
 
         <div className='md:px-10'>
           <Feature
-            title="Transforming Videos Into Notes"
+            title="Transforming Videos Into Notes and Quizzes"
             description="Our innovative platform empowers you to effortlessly create guided notes from any YouTube video, regardless of its length. Utilizing advanced technology, we accurately summarize video content, enabling you to capture key information and insights in a condensed format. Take your learning to the next level with the option to generate custom questions based on the video, facilitating active engagement. Say goodbye to tedious note-taking and embrace the efficiency of video-based learning."
             buttonText="See More"
           />

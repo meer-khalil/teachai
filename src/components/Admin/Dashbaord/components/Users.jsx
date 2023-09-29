@@ -1,10 +1,14 @@
 import React from 'react'
 import { useContext } from 'react'
 import { UserContext } from '../../../../context/UserContext'
+import { UsageContext } from '../../../../context/UsageContext'
+import { toast } from 'react-toastify'
+import api from '../../../../util/api'
 
 const Users = () => {
 
-  const { users } = useContext(UserContext)
+  const { users, getAllUsers } = useContext(UserContext)
+  const { usage } = useContext(UsageContext)
 
   const getExpiryDate = (dateStringFromBackend) => {
 
@@ -29,6 +33,21 @@ const Users = () => {
     console.log(formattedDate); // Output: "07 September 2023"
     return formattedDate;
   }
+
+  const handleCancel = async (userId, usageId) => {
+
+    try {
+      const { data } = await api.put('/plan/cancel', { userId, usageId })
+      getAllUsers();
+    } catch (error) {
+      console.log('Error: ', error);
+      toast("Error While canceling the Plan")
+    }
+
+    console.log('User ID: ', userId);
+    console.log('Usage ID: ', usageId);
+  }
+
   return (
     <div className="container mx-auto">
       <table className="min-w-full bg-white border border-gray-300">
@@ -42,6 +61,7 @@ const Users = () => {
             <th className="py-2 px-4 border-b text-start">Plan</th>
             <th className="py-2 px-4 border-b">Usage</th>
             <th className="py-2 px-4 border-b">Expiry Date</th>
+            <th className="py-2 px-4 border-b">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +82,15 @@ const Users = () => {
 
               </td>
               <td className="py-2 px-4 border-b">{el?.paymentDate ? getExpiryDate(el?.paymentDate) : '-'}</td>
+              <td className='py-2 px-4 border-b'>
+                {
+                  (['Starter', 'Professional'].includes(el?.plan)) && (
+                    <button className=' bg-blue-400 px-2 rounded text-sm text-white'
+                      onClick={() => handleCancel(el?.user?._id, el._id)}
+                    >Cancel</button>
+                  )
+                }
+              </td>
             </tr>
           ))}
         </tbody>

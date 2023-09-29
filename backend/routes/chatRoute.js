@@ -10,7 +10,6 @@ const {
     lessonCompAnswer,
     videoToQuiz,
     videoSummarize,
-    mathLesson,
     mathQuizEvaluate,
     mathQuizGenerator,
     mathQuizAnswer,

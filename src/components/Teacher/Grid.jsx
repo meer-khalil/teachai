@@ -56,7 +56,7 @@ const Grid = ({ title, description }) => {
                 </div>
                 ): (
                     <h3 className='font-bold text-center text-2xl mt-12 -mb-10'>
-                        Chabots Comming Soon
+                        Chatbots coming soon
                     </h3>
                 )
             }

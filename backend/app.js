@@ -5,19 +5,58 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path')
 // const errorMiddleware = require('./middlewares/error');
-const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
+// const asyncErrorHandler = require('./middlewares/asyncErrorHandler');
 const stripe = require('./config/stripe');
 const Payment = require('./models/paymentModel');
 const Usage = require('./models/usageModel');
-const { resetLimit, requestLimit } = require('./middlewares/requestLimit');
+const { requestLimit } = require('./middlewares/requestLimit');
 const { isAuthenticatedUser } = require('./middlewares/auth')
-
+const User = require('./models/userModel');
 
 const app = express();
 
 
 app.use(cors());
 
+
+/*
+    Email Body for the Plans
+*/
+const emailBody = {
+    Free: `
+    <ul>
+    <li>Access To All Chatbots</li>
+    <li>Free 10 chat requests per day</li>
+    <li>1 member</li>
+    <li>Write in 30+ languages</li>
+    <li>1 free file upload</li>
+</ul>
+    `,
+    Starter: `
+    <ul>
+    <li>Access to All the Chatbots</li>
+    <li>60 chat requests per day</li>
+    <li>1 member seat</li>
+    <li>Write in 30+ languages</li>
+    <li>24/7 live chat support</li>
+    <li>All Grade Levels</li>
+    <li>10 file uploads per month</li>
+</ul>
+    `,
+    Professional: `
+    <ul>
+    <li>Access to All the Chatbots</li>
+    <li>120 chat requests per day</li>
+    <li>1 member seat</li>
+    <li>Write in 30+ languages</li>
+    <li>24/7 live chat support</li>
+    <li>Access to chat history</li>
+    <li>Extract responses to Word document/PDF/Google Doc/Excel</li>
+    <li>All Grade Levels</li>
+    <li>20 file uploads per month</li>
+</ul>
+    `
+}
 // Match the raw body to content type application/json
 // If you are using Express v4 - v4.16 you need to use body-parser, not express, to retrieve the request body
 app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (request, response) => {
@@ -61,6 +100,8 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
                     let temp = await Usage.find({ user: userId })
                     console.log('Usage Entry ID: ', temp[0].id);
 
+                    const user = await User.findOne({ _id: userId })
+
                     if (temp[0]) {
 
                         try {
@@ -76,6 +117,23 @@ app.post('/api/v1/stripe/webhook', express.json({ type: 'application/json' }), (
 
                             if (updatedUsage) {
                                 console.log('Usage plan updated:', updatedUsage);
+
+                                /*
+                                    Send Confirmation Email to Customer for buyin Plan
+                                */
+                                let mailOptions = {
+                                    from: 'info@teachassistai.com',
+                                    to: user.email,
+                                    subject: 'Purchased Plan Information',
+                                    html: `
+                                        <h1>Congratulations!</h1>
+                                        <h4>You have successfully purchased the ${plan['name']} Plan</h4>
+                                        <h6>You now have the following benefits</h6>
+                                        ${emailBody[plan['name']]}
+                                        <p>Thank You!</p>
+                                        `
+                                };
+                                await sendEmail(mailOptions)
                             } else {
                                 console.log('Usage not found or no updates were made.');
                             }
@@ -126,6 +184,7 @@ const payment = require('./routes/paymentRoute');
 const chat = require('./routes/chatRoute');
 const chatHistory = require('./routes/chatHistoryRoute');
 const contact = require('./routes/contactRoute');
+const sendEmail = require('./utils/sendEmail');
 
 
 app.use('/api/v1', user);

@@ -26,7 +26,7 @@ const Footer = () => {
                             <h2 className=' text-primary text-2xl font-bold'>Teach Assist <span className=' text-orange-600'>AI</span></h2>
                         </Link>
                         <p
-                            className=' mt-10 md:mr-20 text-sm text-justify text-secondary'>
+                            className=' mt-3 md:mr-20 text-sm text-justify text-secondary'>
                             Teach Assist AI is your dedicated personal assistant, enhancing your efficiency and productivity as an educator. Our advanced AI engine handles all the mundane tasks, liberating your time to focus on what truly counts – teaching, learning, and fostering authentic connections with your students.
                             Experience the freedom to prioritize what matters most, while Teach Assist AI streamlines your workload and empowers you to create impactful educational experiences.
                         </p>

@@ -27,7 +27,7 @@ const Stories = () => {
       setLoading(true)
       try {
 
-        const { data } = await api.get(`/story/getAllStories?search=${searchKey || ""}&page=${page}`)
+        const { data } = await api.get(`/story/getAllStories?search=${searchKey || ""}&page=${page}&limit=15`)
 
         if (searchKey) {
           navigate({

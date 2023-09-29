@@ -77,7 +77,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 exports.forgotPassword = asyncErrorHandler(async (req, res, next) => {
 
     const user = await User.findOne({ email: req.body.email });
-    
+
     if (!user) {
         return next(new ErrorHandler("User Not Found", 404));
     }
@@ -477,4 +477,55 @@ exports.getUsage = asyncErrorHandler(async (req, res, next) => {
         success: true,
         usage: data,
     });
+});
+
+
+exports.cancelPlan = asyncErrorHandler(async (req, res, next) => {
+
+    const { userId, usageId } = req.body;
+
+    // if (!userId || !usageId) {
+    //     return res.status(404).json({
+    //         message: "Insufficient Info"
+    //     })
+    // }
+
+    try {
+        // const user = await User.findOne({ _id: userId })
+        // const usage = await Usage.findOne({ _id: usageId })
+
+        let filter = {
+            _id: usageId
+        }
+
+        let update = {
+            $set: {
+                plan: 'Free',
+                usageLimit: 10,
+                noOfFilesUploadedLimit: 0,
+                payment: false,
+                startDate: Date.now(),
+                expiryDate: Date.now(),
+            }
+        }
+        let options = {
+            new: true
+        }
+
+        const updatedUsage = await Usage.findByIdAndUpdate(filter, update, options);
+        if (updatedUsage) {
+            console.log('Updated Document: ', updatedUsage);
+            return res.status(200).json({
+                message: "Updated the Usage. Canceled the Plan"
+            })
+        } else {
+            return res.status(500).json({
+                message: "Error While updating the mongodb"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error While updating usage (cancel plan)Catch"
+        })
+    }
 });

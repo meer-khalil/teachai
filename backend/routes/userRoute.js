@@ -14,7 +14,8 @@ const {
     deleteAccount,
     enable2FA,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    cancelPlan
 } = require('../controllers/userController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
@@ -44,5 +45,8 @@ router.route('/changepassword').put(isAuthenticatedUser, changePassword);
 router.route('/changeEmail').put(isAuthenticatedUser, changeEmail);
 router.route('/account').delete(isAuthenticatedUser, deleteAccount);
 router.route('/enable-2fa').put(isAuthenticatedUser, enable2FA);
+
+
+router.route('/plan/cancel').put(isAuthenticatedUser, cancelPlan);
 
 module.exports = router;

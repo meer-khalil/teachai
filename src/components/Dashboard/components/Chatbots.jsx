@@ -12,7 +12,6 @@ const Chatbots = () => {
         heading={"Chatbots"}
         desc={"Which teachers assistance would you like?"}
       />
-
       <Categories />
       <Productivity />
 

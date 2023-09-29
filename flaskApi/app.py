@@ -11,7 +11,7 @@ import lesson_comp
 from detect_ai import detect_ai
 from plag_cheker import get_plag_report
 from gptutils import get_title
-
+import json
 
 def page_not_found(e):
   return render_template('404.html'), 404
@@ -69,6 +69,8 @@ def grade():
     conversation_id = data['conversation_id']
     
     data = data['prompt']
+    data = json.loads(data)
+    print('gradeEssay: ', data['language'])
     language = data['language']
     user_input = data
     res = {}

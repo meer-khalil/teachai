@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import hero_image from '../../images/Edited/webp/hero_image.webp'
 
 const Hero = () => {
@@ -27,10 +28,11 @@ const Hero = () => {
                     </p>
 
                     <div className='flex gap-5 items-center mt-8'>
-
-                        <button className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary'>
-                            Try for free for 7 days
-                        </button>
+                        <Link to='/signup'>
+                            <button className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary'>
+                                Try for free for 7 days
+                            </button>
+                        </Link>
 
                         <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
                             Watch How it Works

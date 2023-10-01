@@ -133,6 +133,7 @@ export const ChatbotProvider = ({ children }) => {
             chatbots,
             filterChatbots,
             selectedCategory,
+            setSelectedCategory,
             homebots,
             getBots,
             language, setLanguage,

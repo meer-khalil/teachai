@@ -9,7 +9,11 @@ import ExportButtons from '../ExportButtons';
 
 import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
 import AnswerAndHistory from '../AnswerAndHistory';
-import Categories from '../../Dashboard/history/Categories';
+import Categories from '../../Dashboard/components/Categories';
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+
 
 const LessonPlanner = () => {
 
@@ -20,10 +24,15 @@ const LessonPlanner = () => {
     const [loading, setLoading] = useState(false)
     const [chatID, setChatID] = useState('')
 
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Lesson Planning')
+    }, [])
+    
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Lesson Planning'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

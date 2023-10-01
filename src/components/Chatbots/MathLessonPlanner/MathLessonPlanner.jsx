@@ -7,7 +7,11 @@ import ExportButtons from '../ExportButtons';
 
 import _6_MathLessonPlanner from '../../../images/bots/6.Math Lesson Planner - Lucy.png'
 import AnswerAndHistory from '../AnswerAndHistory';
-import Categories from '../../Dashboard/history/Categories';
+
+import { useContext } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+import { useEffect } from 'react';
+import Categories from '../../Dashboard/components/Categories';
 
 const MathLessonPlanner = () => {
 
@@ -20,10 +24,15 @@ const MathLessonPlanner = () => {
     const componentRef = useRef(null);
 
 
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Lesson Planning')
+    }, [])
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Lesson Planning'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

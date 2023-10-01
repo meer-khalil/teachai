@@ -7,7 +7,11 @@ import AnswerAndHistory from '../AnswerAndHistory';
 
 
 import _4_ComprehensionLesson from '../../../images/bots/4.Comprehension Lesson Generator - Cara.png'
-import Categories from '../../Dashboard/history/Categories';
+
+import { useEffect } from 'react';
+import { useContext } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+import Categories from '../../Dashboard/components/Categories';
 
 
 const LessonComprehension = () => {
@@ -19,10 +23,15 @@ const LessonComprehension = () => {
     const componentRef = useRef(null)
 
 
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Lesson Planning')
+    }, [])
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Lesson Planning'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

@@ -9,7 +9,11 @@ import ExportButtons from '../ExportButtons';
 
 import _5_MathsQuiz from '../../../images/bots/5.Maths Quiz - Matthew.png'
 import AnswerAndHistory from '../AnswerAndHistory';
-import Categories from '../../Dashboard/history/Categories';
+
+import { useEffect } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+import { useContext } from 'react';
+import Categories from '../../Dashboard/components/Categories';
 
 
 const MathQuiz = () => {
@@ -21,10 +25,15 @@ const MathQuiz = () => {
     const componentRef = useRef(null);
 
 
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Student Engagement & Activity Ideas')
+    }, [])
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Student Engagement & Activity Ideas'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

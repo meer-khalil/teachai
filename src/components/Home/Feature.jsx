@@ -11,7 +11,7 @@ const Feature = ({ title, description, buttonText, image, index }) => {
                         {title}
                     </h1>
 
-                    <p className='text-secondary text-lg text-center md:text-left'>
+                    <p className='text-secondary text-xl text-center md:text-left'>
                         {description}
                     </p>
 

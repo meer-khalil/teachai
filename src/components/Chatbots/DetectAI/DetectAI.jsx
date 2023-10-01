@@ -14,7 +14,10 @@ import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
 import DonutChart, { PlagDonutChart } from '../../Donut/DonutChart';
-import Categories from '../../Dashboard/history/Categories';
+
+import { useEffect } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+import Categories from '../../Dashboard/components/Categories';
 
 
 const DetectAI = () => {
@@ -30,6 +33,11 @@ const DetectAI = () => {
 
     const { fetchUsage } = useContext(UsageContext);
 
+
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Assessment & Progress Monitoring')
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,7 +77,7 @@ const DetectAI = () => {
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Assessment & Progress Monitoring'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

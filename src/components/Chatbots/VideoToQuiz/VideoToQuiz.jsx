@@ -7,7 +7,11 @@ import ExportButtons from '../ExportButtons';
 
 import _8_VideotoQuizBot from '../../../images/bots/8. Video to Quiz Bot.png'
 import AnswerAndHistory from '../AnswerAndHistory';
-import Categories from '../../Dashboard/history/Categories';
+
+import { useContext } from 'react';
+import { ChatbotContext } from '../../../context/ChatbotContext';
+import { useEffect } from 'react';
+import Categories from '../../Dashboard/components/Categories';
 
 const VideoToQuiz = () => {
 
@@ -18,10 +22,15 @@ const VideoToQuiz = () => {
 
     const componentRef = useRef(null);
 
+    const { setSelectedCategory } = useContext(ChatbotContext)
+    useEffect(() => {
+        setSelectedCategory('Digital Learning & Teaching Tools')
+    }, [])
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
-                <Categories selectedCategory={'Digital Learning & Teaching Tools'} />
+                <Categories />
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 

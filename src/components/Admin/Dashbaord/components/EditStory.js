@@ -46,6 +46,7 @@ const EditStory = () => {
                 setLoading(false)
             }
             catch (error) {
+                // console.log('Error: ', error);
                 navigate("/")
             }
         }

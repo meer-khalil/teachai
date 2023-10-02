@@ -215,8 +215,7 @@ const DetailStory = () => {
                     </div>
                   } */}
 
-                  {user && story.author &&
-                    story.author._id === user._id ?
+                  {user && user?.role === 'admin' ?
                     <div className="top_story_transactions">
                       <Link className='editStoryLink' to={`/admin/dashboard/story/${story.slug}/edit`}>
                         <FiEdit />

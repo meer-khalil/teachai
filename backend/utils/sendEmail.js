@@ -11,7 +11,7 @@ const sendEmail = async (options) => {
         secure: true, // use SSL
         auth: {
             user: 'info@teachassistai.com',
-            pass: 'Robertosydney10#'
+            pass: 'Chelsea10#'
         }
     });
 

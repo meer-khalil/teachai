@@ -48,6 +48,20 @@ const Users = () => {
     console.log('Usage ID: ', usageId);
   }
 
+  const handleDelete = async (userId, usageId) => {
+
+    try {
+      const { data } = await api.delete(`/admin/users/${userId}`)
+      toast('User deleted Successfully')
+      getAllUsers();
+    } catch (error) {
+      console.log('Error: ', error);
+      toast("Error While Deleting the Plan")
+    }
+
+    console.log('User ID: ', userId);
+    console.log('Usage ID: ', usageId);
+  }
   return (
     <div className="container mx-auto">
       <table className="min-w-full bg-white border border-gray-300">
@@ -62,6 +76,7 @@ const Users = () => {
             <th className="py-2 px-4 border-b">Usage</th>
             <th className="py-2 px-4 border-b">Expiry Date</th>
             <th className="py-2 px-4 border-b">Status</th>
+            <th className="py-2 px-4 border-b">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +104,14 @@ const Users = () => {
                       onClick={() => handleCancel(el?.user?._id, el._id)}
                     >Cancel</button>
                   )
+                }
+              </td>
+              <td className='py-2 px-4 border-b'>
+                {
+                  <button className=' bg-blue-400 px-2 rounded text-sm text-white'
+                    onClick={() => handleDelete(el?.user?._id, el._id)}
+                  >Delete</button>
+
                 }
               </td>
             </tr>

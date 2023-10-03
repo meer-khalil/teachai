@@ -457,8 +457,13 @@ exports.changeEmail = asyncErrorHandler(async (req, res, next) => {
 
 exports.deleteAccount = asyncErrorHandler(async (req, res, next) => {
 
+    const user = await User.findOne({ _id: req.user.id })
+    const usage = await Usage.findOne({ user: user._id })
+
     try {
-        await User.findByIdAndDelete(req.user.id)
+        await User.deleteOne({ _id: user._id });
+        await Usage.deleteOne({ _id: usage._id });
+
         return res.status(200).json({
             message: "Account Deleted"
         })
@@ -469,6 +474,29 @@ exports.deleteAccount = asyncErrorHandler(async (req, res, next) => {
         })
     }
 });
+
+
+exports.userDeletedByAdmin = asyncErrorHandler(async (req, res, next) => {
+
+    const { userId } = req.params
+    const user = await User.findOne({ _id: userId })
+    const usage = await Usage.findOne({ user: user._id })
+
+    try {
+        await User.deleteOne({ _id: user._id });
+        await Usage.deleteOne({ _id: usage._id });
+
+        return res.status(200).json({
+            message: "Account Deleted"
+        })
+    } catch (error) {
+        console.log('error while deleting');
+        res.status(500).json({
+            message: "Error While Deleting Account"
+        })
+    }
+});
+
 exports.getUsage = asyncErrorHandler(async (req, res, next) => {
 
     let data = await Usage.findOne({ user: req.user.id });

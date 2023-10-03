@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Feature = ({ title, description, buttonText, image, index }) => {
 
     return (
@@ -16,7 +18,9 @@ const Feature = ({ title, description, buttonText, image, index }) => {
                     </p>
 
                     <div className='flex gap-5 justify-center md:justify-start mt-8'>
+                        <Link to={'/signup'}>
                         <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>{buttonText}</button>
+                        </Link>
                     </div>
                 </div>
             </div>

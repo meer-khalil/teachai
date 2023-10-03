@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import history from '../../images/Edited/webp/history.webp'
 import Cloud from '../SVGs/Cloud'
 import Control from '../SVGs/Control'
@@ -23,11 +24,11 @@ const History = () => {
                     </h1>
 
                     <div className='flex gap-5 justify-center md:justify-start mt-8'>
-
-                        <button className='px-6 py-3 rounded-2xl border-2 border-secondary hover:bg-secondary hover:text-white'>
-                            Start Your Free Trial
-                        </button>
-
+                        <Link to={'/signup'}>
+                            <button className='px-6 py-3 rounded-2xl border-2 border-secondary hover:bg-secondary hover:text-white'>
+                                Start Your Free Trial
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>

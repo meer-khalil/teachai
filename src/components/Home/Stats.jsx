@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import stats_image from '../../images/Edited/webp/stat.webp'
 
 const Stats = () => {
@@ -20,8 +21,9 @@ const Stats = () => {
                         </p>
 
                         <div className='flex gap-5 items-center mt-8'>
-
+                        <Link to={'/signup'}>
                             <button className='px-6 py-3 text-white rounded-md border-2 border-[#ed7742] bg-[#ed7742]'>Start Your Free Trial</button>
+                        </Link>
                         </div>
                     </div>
                 </div>

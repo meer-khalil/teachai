@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import hero_image from '../../images/Edited/webp/hero_image.webp'
 
 const Integration = () => {
@@ -24,7 +25,9 @@ const Integration = () => {
                     </p>
 
                     <div className='flex gap-5 justify-center md:justify-start mt-8'>
+                    <Link to={'/signup'}>
                         <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>See More</button>
+                    </Link>
                     </div>
 
                 </div>

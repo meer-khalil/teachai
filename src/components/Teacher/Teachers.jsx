@@ -68,7 +68,7 @@ const Teachers = () => {
                     />
 
                     <div className='flex justify-center'>
-                        <Link to='/pricing'>
+                        <Link to='/signup'>
                             <button
                                 className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary font-semibold'>
                                 Start Your 7-Day Free Trial

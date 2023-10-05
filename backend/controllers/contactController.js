@@ -1,25 +1,25 @@
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const ErrorHandler = require('../utils/errorHandler');
 // const sendEmail = require('../utils/sendEmail');
-const nodemailer = require('nodemailer')
 
-const Contact = require('../models/contactModel')
+const Contact = require('../models/contactModel');
+const sendEmail = require('../utils/sendEmail');
 
 // Create New Order
 exports.createContact = asyncErrorHandler(async (req, res, next) => {
 
 
-    const { firstName, lastName, email, phone, message } = req.body;
+    const { firstName, lastName, email, message } = req.body;
 
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // use SSL
-        auth: {
-            user: 'info@teachassistai.com',
-            pass: 'Robertosydney10#'
-        }
-    });
+    // const transporter = nodemailer.createTransport({
+    //     host: 'smtp.gmail.com',
+    //     port: 465,
+    //     secure: true, // use SSL
+    //     auth: {
+    //         user: 'info@teachassistai.com',
+    //         pass: 'Robertosydney10#'
+    //     }
+    // });
 
     // let transporter = nodemailer.createTransport({
     //     service: 'Gmail',
@@ -36,9 +36,7 @@ exports.createContact = asyncErrorHandler(async (req, res, next) => {
         text: `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nMessage: ${message}`
     };
 
-    const result = await transporter.sendMail(mailOptions);
-    console.log('Result: ', result);
-
+    await sendEmail(mailOptions)
 
     try {
 

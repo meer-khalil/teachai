@@ -59,3 +59,38 @@ exports.createContact = asyncErrorHandler(async (req, res, next) => {
         });
     }
 });
+
+
+exports.enterPriseEmail = asyncErrorHandler(async (req, res, next) => {
+
+    const { schoolName, personName, email, numberOfTeachers, schoolType, gradeLevelCovered, preferedPlanDuration, additionalFeaturesRequired } = req.body;
+
+    let mailOptions = {
+        from: 'info@teachassistai.com',
+        to: 'info@teachassistai.com',
+        subject: 'Contact For Enterprise Plan',
+        text: `
+        School Name: ${schoolName}\n
+        Person Name: ${personName}\n
+        Email: ${email}\n
+        Number of Teachers: ${numberOfTeachers}\n
+        School Type: ${schoolType}\n
+        Grade Level Covered: ${gradeLevelCovered}\n
+        Preffered Plan Duration: ${preferedPlanDuration}\n
+        Additional Feature Required: ${additionalFeaturesRequired}\n
+        `
+    };
+
+    const rs = await sendEmail(mailOptions)
+
+    if (rs) {
+        res.status(201).json({
+            message: "Contact Has been Saved And Email is Send Successfully!"
+        });
+    } else {
+        console.log('Error: ', error);
+        res.status(500).json({
+            message: "Contact Form Failed to Submit!"
+        });
+    }
+});

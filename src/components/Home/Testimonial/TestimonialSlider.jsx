@@ -1,4 +1,4 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -176,7 +176,7 @@ export default function TestimonialSlider() {
   return (
     <Swiper
       // install Swiper modules
-      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       // spaceBetween={120}
       // slidesPerView={3}
       navigation
@@ -184,13 +184,18 @@ export default function TestimonialSlider() {
       // scrollbar={{ draggable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
+      autoplay={{
+        delay: 2000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false
+      }}
+      loop  
       breakpoints={
         {
           // when window width is >= 320px
           320: {
             slidesPerView: 1,
-            spaceBetween: 70,
-            autoplay: true
+            spaceBetween: 70
           },
           // when window width is >= 480px
           // 480: {
@@ -200,7 +205,8 @@ export default function TestimonialSlider() {
           // // when window width is >= 640px
           640: {
             slidesPerView: 3,
-            spaceBetween: 50
+            spaceBetween: 50,
+            autoplay: false
           }
         }
       }

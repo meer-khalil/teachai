@@ -1,14 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.dc8bb563.css",
-    "main.js": "/static/js/main.4ba0bf42.js",
+    "main.css": "/static/css/main.746291cb.css",
+    "main.js": "/static/js/main.50e279b7.js",
     "static/js/787.187497ca.chunk.js": "/static/js/787.187497ca.chunk.js",
+    "static/media/empathy.png": "/static/media/empathy.f17c066c9a8a00ae06cc.png",
+    "static/media/loyalty.png": "/static/media/loyalty.db8d56c4c778a1976e7a.png",
     "static/media/stat.png": "/static/media/stat.b4db3b41456d2129af1f.png",
+    "static/media/continous-improvement.png": "/static/media/continous-improvement.e2a7d55436c57e6c568f.png",
+    "static/media/personilization.png": "/static/media/personilization.7f90b52b5271f8d27a32.png",
+    "static/media/responsive.png": "/static/media/responsive.3500e6938312e6edb552.png",
+    "static/media/transparent.png": "/static/media/transparent.243fdb86e3de49e86dbc.png",
     "static/media/logo-removebg-preview.png": "/static/media/logo-removebg-preview.54639de5da60a5eecefa.png",
     "static/media/doc.png": "/static/media/doc.879c7ab5f6573f02f03b.png",
     "static/media/google_doc.png": "/static/media/google_doc.8b3cd5edd5d80756cb8f.png",
     "static/media/excel.png": "/static/media/excel.0d3de9220a13b768416c.png",
     "static/media/pdf.png": "/static/media/pdf.465e068c2ec54afe740a.png",
+    "static/media/Banner.jpeg": "/static/media/Banner.500f49823da797d7297d.jpeg",
     "static/media/hero_image.webp": "/static/media/hero_image.ccb815d600886a0d05c7.webp",
     "static/media/login.webp": "/static/media/login.75a5e3d6eba9823d4fd6.webp",
     "static/media/feature-3.webp": "/static/media/feature-3.2d8ad7ae32b17f0d29b1.webp",
@@ -26,16 +33,16 @@
     "static/media/3.Automated Essay Scoring and Feedback - Elsa.png": "/static/media/3.Automated Essay Scoring and Feedback - Elsa.bafae3fa08f8e521aee4.png",
     "static/media/7.Video to notes - Vincent.png": "/static/media/7.Video to notes - Vincent.9661cfbc2fe027ef33c1.png",
     "static/media/2.Quiz - Qasim.png": "/static/media/2.Quiz - Qasim.930d31366ff5507c779e.png",
-    "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
     "index.html": "/index.html",
+    "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.dc8bb563.css.map": "/static/css/main.dc8bb563.css.map",
-    "main.4ba0bf42.js.map": "/static/js/main.4ba0bf42.js.map",
+    "main.746291cb.css.map": "/static/css/main.746291cb.css.map",
+    "main.50e279b7.js.map": "/static/js/main.50e279b7.js.map",
     "787.187497ca.chunk.js.map": "/static/js/787.187497ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc8bb563.css",
-    "static/js/main.4ba0bf42.js"
+    "static/css/main.746291cb.css",
+    "static/js/main.50e279b7.js"
   ]
 }

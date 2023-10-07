@@ -38,20 +38,20 @@ const Footer = () => {
                                         icon: facebook,
                                         url: 'https://www.facebook.com/teachassistai'
                                     },
-                                    {
-                                        icon: insta,
-                                        url: 'https://www.instagram.com/teachassist_ai'
-                                    }
+                                    // {
+                                    //     icon: insta,
+                                    //     url: 'https://www.instagram.com/teachassist_ai'
+                                    // }
                                     ,
                                     {
                                         icon: linkedin,
-                                        url: 'TBC'
+                                        url: 'https://www.linkedin.com/'
                                     }
                                     ,
-                                    {
-                                        icon: tiktok,
-                                        url: 'https://twitter.com/teachassist_ai'
-                                    },
+                                    // {
+                                    //     icon: tiktok,
+                                    //     url: 'https://twitter.com/teachassist_ai'
+                                    // },
                                     {
                                         icon: twitter,
                                         url: 'https://www.tiktok.com/@teachassistai'

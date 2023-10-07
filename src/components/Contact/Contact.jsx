@@ -19,7 +19,8 @@ const Contact = () => {
                 </h2>
 
                 <p className="mb-8 lg:mb-16 text-center sm:text-xl text-secondary">
-                    Got a technical issue? Want to send feedback about a beta feature? Need details about our business plan? Let us know.
+                    Got a technical issue? Want to send feedback? <br />
+                    Need details about our business plan? Let us know.
                 </p>
             </div>
             <div className='flex flex-col md:flex-row gap-5 md:gap-12 items-center mx-4 md:mx-16 mb-16'>
@@ -34,7 +35,7 @@ const Contact = () => {
                             [
                                 "Our support team is here to help you with any questions or concerns you may have, whether it's about using our tool, learning more about our plans or anything else.",
 
-                                "We want to make sure we fully understand your question, so when you fill out this form, don't be afraid to give specifics and any relevant media files. Our support team will get back to you within 24 hours, and we're excited to help you get the most out of Teach Assist AI."
+                                "Our support team will get back to you within 24 hours. We're excited to help you get the most out of Teach Assist AI."
                             ].map((el, i) => (
                                 <>
                                     <p className='text-lg text-justify text-secondary'>{el}</p>

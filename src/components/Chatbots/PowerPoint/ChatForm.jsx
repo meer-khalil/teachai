@@ -17,7 +17,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
         e.preventDefault();
         console.log(data);
 
-        if (data.number_of_slides > 10) {
+        if (data.number_of_slides > 20) {
             toast("Maximum Slides could be 10")
             return
         }

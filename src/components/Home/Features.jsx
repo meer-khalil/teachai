@@ -16,8 +16,8 @@ const features = [
         image: feature2
     },
     {
-        title: "Generate Custom Quizzes",
-        description: "With this innovative chatbot, teachers can simply input a subject, and the bot will automatically generate quizzes tailored to the topic. Whether it's true and false questions or multiple-choice questions, QuizMaster Bot ensures a variety of engaging quiz formats. After students complete the quiz, the chatbot seamlessly grades their responses and provides valuable feedback on their performance. Say goodbye to manual quiz creation and grading.",
+        title: "ESL Activity Suggestion",
+        description: " Introducing our ESL Activity Suggestion Chatbot, a tailor-made tool designed specifically for teachers to support ESL students on their path to mastering the English language. This meticulously crafted chatbot serves as an invaluable resource for educators, providing a comprehensive set of features aimed at enriching language skills and advancing English proficiency. At its heart, you'll discover a diverse array of sample ESL activities thoughtfully curated to address specific elements of the English language, including nouns, verbs, and adjectives. If you're an ESL teacher in search of effective resources to empower your students, our chatbot stands ready as your trusted partner in making language learning both captivating and fruitful. Join us on this journey toward language mastery!",
         buttonText: "See More",
         image: feature3
 

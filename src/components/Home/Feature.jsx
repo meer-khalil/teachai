@@ -10,7 +10,7 @@ const Feature = ({ title, description, buttonText, image, index }) => {
 
                 <div className='my-5 md:my-0 md:mx-8 md:pl-14'>
 
-                    <h1 className=' text-3xl md:text-4xl mb-6 mt-2  font-extrabold text-primary capitalize text-center md:text-start'>
+                    <h1 className=' text-3xl md:text-4xl mb-6 mt-2  font-extrabold text-primary text-center md:text-start'>
                         {title}
                     </h1>
 

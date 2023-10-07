@@ -18,6 +18,7 @@ import { Helmet } from 'react-helmet';
 import { ChatbotProvider } from '../../context/ChatbotContext';
 
 import hero_image from '../../images/Edited/webp/hero_image.webp'
+import Banner from './Banner';
 
 
 
@@ -57,13 +58,15 @@ export const Home = () => {
 
         <History />
 
-        <Benefits />
+        {/* <Benefits /> */}
+
+        <Banner />
 
         <Integration />
 
         <div className='md:px-10'>
           <Feature
-            title="Transforming Videos Into Notes and Quizzes"
+            title="Transforming Videos into Notes and Quizzes"
             description="Our innovative platform empowers you to effortlessly create guided notes from any YouTube video, regardless of its length. Utilizing advanced technology, we accurately summarize video content, enabling you to capture key information and insights in a condensed format. Take your learning to the next level with the option to generate custom questions based on the video, facilitating active engagement. Say goodbye to tedious note-taking and embrace the efficiency of video-based learning."
             buttonText="See More"
             image={hero_image}
@@ -77,7 +80,7 @@ export const Home = () => {
           What People Say
         </h1>
         <TestimonialSlider />
-        
+
       </div>
     </ChatbotProvider>
   )

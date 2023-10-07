@@ -17,7 +17,7 @@ const features = [
     },
     {
         title: "ESL Activity Suggestion",
-        description: " Introducing our ESL Activity Suggestion Chatbot, a tailor-made tool designed specifically for teachers to support ESL students on their path to mastering the English language. This meticulously crafted chatbot serves as an invaluable resource for educators, providing a comprehensive set of features aimed at enriching language skills and advancing English proficiency. At its heart, you'll discover a diverse array of sample ESL activities thoughtfully curated to address specific elements of the English language, including nouns, verbs, and adjectives. If you're an ESL teacher in search of effective resources to empower your students, our chatbot stands ready as your trusted partner in making language learning both captivating and fruitful. Join us on this journey toward language mastery!",
+        description: "Empower English Second Language (ESL) students to excel in English language skills with our ESL Activity Suggestion Chatbot. Offering a wealth of sample ESL activities targeting key language elements like nouns, verbs, and adjectives, it's your essential tool for language mastery.",
         buttonText: "See More",
         image: feature3
 

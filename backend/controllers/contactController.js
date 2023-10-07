@@ -63,7 +63,7 @@ exports.createContact = asyncErrorHandler(async (req, res, next) => {
 
 exports.enterPriseEmail = asyncErrorHandler(async (req, res, next) => {
 
-    const { schoolName, personName, email, numberOfTeachers, schoolType, gradeLevelCovered, preferedPlanDuration, additionalFeaturesRequired } = req.body;
+    const { schoolName, personName, email, numberOfTeachers, gradeLevelCovered, preferedPlanDuration, additionalFeaturesRequired } = req.body;
 
     let mailOptions = {
         from: 'info@teachassistai.com',
@@ -74,7 +74,6 @@ exports.enterPriseEmail = asyncErrorHandler(async (req, res, next) => {
         <p><b>Person Name:</b> ${personName || ''}</p>
         <p><b>Email:</b> ${email}</p>
         <p><b>Number of Teachers:</b> ${numberOfTeachers || ''}</p>
-        <p><b>School Type:</b> ${schoolType || ''}</p>
         <p><b>Grade Level Covered:</b> ${gradeLevelCovered || ''}</p>
         <p><b>Preffered Plan Duration:</b> ${preferedPlanDuration || ''}</p>
         <p><b>Additional Feature Required:</b> ${additionalFeaturesRequired || ''}</p>

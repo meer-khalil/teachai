@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.784f658d.css",
-    "main.js": "/static/js/main.04d19e7b.js",
+    "main.css": "/static/css/main.cddba65a.css",
+    "main.js": "/static/js/main.fbf84903.js",
     "static/js/787.187497ca.chunk.js": "/static/js/787.187497ca.chunk.js",
     "static/media/empathy.png": "/static/media/empathy.f17c066c9a8a00ae06cc.png",
     "static/media/loyalty.png": "/static/media/loyalty.db8d56c4c778a1976e7a.png",
@@ -15,13 +15,13 @@
     "static/media/google_doc.png": "/static/media/google_doc.8b3cd5edd5d80756cb8f.png",
     "static/media/excel.png": "/static/media/excel.0d3de9220a13b768416c.png",
     "static/media/pdf.png": "/static/media/pdf.465e068c2ec54afe740a.png",
-    "static/media/Banner.jpeg": "/static/media/Banner.500f49823da797d7297d.jpeg",
     "static/media/hero_image.webp": "/static/media/hero_image.ccb815d600886a0d05c7.webp",
     "static/media/login.webp": "/static/media/login.75a5e3d6eba9823d4fd6.webp",
     "static/media/feature-3.webp": "/static/media/feature-3.2d8ad7ae32b17f0d29b1.webp",
     "static/media/history.webp": "/static/media/history.4ebc6fc63ac556d63725.webp",
     "static/media/twitter.jpeg": "/static/media/twitter.c27fa53715c3ee9b10a7.jpeg",
     "static/media/feature-2.webp": "/static/media/feature-2.3f622dfafb95e0deec2b.webp",
+    "static/media/Banner.jpeg": "/static/media/Banner.5920ba4b32f3bd396b57.jpeg",
     "static/media/insta.svg": "/static/media/insta.c83e628eea4e83e0d2b6c8e54910510c.svg",
     "static/media/1.Lesson Planning - Lisa.png": "/static/media/1.Lesson Planning - Lisa.4a4d3e6e7ffcfa39774a.png",
     "static/media/5.Maths Quiz - Matthew.png": "/static/media/5.Maths Quiz - Matthew.eeadd9f464d91152090b.png",
@@ -37,12 +37,12 @@
     "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.784f658d.css.map": "/static/css/main.784f658d.css.map",
-    "main.04d19e7b.js.map": "/static/js/main.04d19e7b.js.map",
+    "main.cddba65a.css.map": "/static/css/main.cddba65a.css.map",
+    "main.fbf84903.js.map": "/static/js/main.fbf84903.js.map",
     "787.187497ca.chunk.js.map": "/static/js/787.187497ca.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.784f658d.css",
-    "static/js/main.04d19e7b.js"
+    "static/css/main.cddba65a.css",
+    "static/js/main.fbf84903.js"
   ]
 }

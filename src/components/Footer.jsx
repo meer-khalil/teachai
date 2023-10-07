@@ -38,14 +38,14 @@ const Footer = () => {
                                         icon: facebook,
                                         url: 'https://www.facebook.com/teachassistai'
                                     },
-                                    // {
-                                    //     icon: insta,
-                                    //     url: 'https://www.instagram.com/teachassist_ai'
-                                    // }
+                                    {
+                                        icon: insta,
+                                        url: 'https://www.instagram.com/teachassist_ai/'
+                                    }
                                     ,
                                     {
                                         icon: linkedin,
-                                        url: 'https://www.linkedin.com/'
+                                        url: 'https://www.linkedin.com/company/teach-assist-ai'
                                     }
                                     ,
                                     // {

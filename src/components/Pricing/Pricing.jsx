@@ -232,7 +232,7 @@ const Pricing = () => {
                     <div className=' fixed left-0 top-0 z-40 right-0 bottom-0'>
                         <div onClick={() => setShowPop(false)} className=' absolute left-0 top-0 right-0 bottom-0 z-0 bg-gray-400 bg-opacity-70 cursor-pointer'>
                         </div>
-                        <div className='absolute left-[20%] z-10 w-[700px] mx-auto '>
+                        <div className='absolute left-[50%] top-[50%] -translate-y-1/2 -translate-x-1/2 z-10 w-[700px] mx-auto '>
                             <EnterPriceForm setShowPop={setShowPop} />
                         </div>
                     </div>

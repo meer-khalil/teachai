@@ -86,7 +86,7 @@ const EnterPriceForm = ({ setShowPop }) => {
                         School Type
                     </label>
                     <input
-                        type="number"
+                        type="text"
                         name='schoolType'
                         value={_data?.schoolType}
                         onChange={handleChange}

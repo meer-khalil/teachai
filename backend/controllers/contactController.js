@@ -69,15 +69,15 @@ exports.enterPriseEmail = asyncErrorHandler(async (req, res, next) => {
         from: 'info@teachassistai.com',
         to: 'info@teachassistai.com',
         subject: 'Contact For Enterprise Plan',
-        text: `
-        School Name: ${schoolName}\n
-        Person Name: ${personName}\n
-        Email: ${email}\n
-        Number of Teachers: ${numberOfTeachers}\n
-        School Type: ${schoolType}\n
-        Grade Level Covered: ${gradeLevelCovered}\n
-        Preffered Plan Duration: ${preferedPlanDuration}\n
-        Additional Feature Required: ${additionalFeaturesRequired}\n
+        html: `
+        <p><b>School Name:</b> ${schoolName || ''}</p>
+        <p><b>Person Name:</b> ${personName || ''}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Number of Teachers:</b> ${numberOfTeachers || ''}</p>
+        <p><b>School Type:</b> ${schoolType || ''}</p>
+        <p><b>Grade Level Covered:</b> ${gradeLevelCovered || ''}</p>
+        <p><b>Preffered Plan Duration:</b> ${preferedPlanDuration || ''}</p>
+        <p><b>Additional Feature Required:</b> ${additionalFeaturesRequired || ''}</p>
         `
     };
 

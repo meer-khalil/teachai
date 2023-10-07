@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import LottieAnimation2 from './Animation/LottieAnimation2';
 
 const Feature = ({ title, description, buttonText, image, index }) => {
 
@@ -19,13 +20,19 @@ const Feature = ({ title, description, buttonText, image, index }) => {
 
                     <div className='flex gap-5 justify-center md:justify-start mt-8'>
                         <Link to={'/signup'}>
-                        <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>{buttonText}</button>
+                            <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>{buttonText}</button>
                         </Link>
                     </div>
                 </div>
             </div>
             <div className='flex-1'>
-                <img src={image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
+                {
+                    image ? (
+                        <img src={image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
+                    ) : (
+                        <LottieAnimation2 />
+                    )
+                }
             </div>
         </div>
     )

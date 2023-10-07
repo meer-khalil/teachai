@@ -1,5 +1,4 @@
 import Feature from './Feature'
-import feature1 from '../../images/check.webp'
 import feature2 from '../../images/feature-2.webp'
 import feature3 from '../../images/feature-3.webp'
 
@@ -8,15 +7,13 @@ const features = [
     {
         title: "Curriculum Creation Simplified",
         description: "With the assistance of our AI Teacher chatbots and curated resources, you can effortlessly generate customized learning materials and worksheets. Our platform leverages advanced technology and AI capabilities to ensure that the content you create aligns perfectly with your classroom needs. Say goodbye to hours of searching for suitable resources - our streamlined approach saves you time and empowers you to focus on what matters most: delivering high-quality education to your students.",
-        buttonText: "See More",
-        image: feature1
+        buttonText: "See More"
     },
     {
         title: "AI-Writing and Plagiarism Detection",
         description: "Discover the ultimate tool for AI-Writing and Plagiarism Detection. Our advanced solution offers unrivaled accuracy in identifying AI- generated content, ensuring academic integrity. Assess student effort, detect plagiarism, and promote a fair academic environment.",
         buttonText: "See More",
         image: feature2
-
     },
     {
         title: "Generate Custom Quizzes",

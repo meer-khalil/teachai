@@ -121,7 +121,7 @@ const DetailStory = () => {
         toast("Deleted Post Successfully")
         
         setTimeout(() => {
-          navigate("/stories")
+          navigate("/blogs")
         }, 2000);
 
       }

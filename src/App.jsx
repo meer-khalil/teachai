@@ -32,6 +32,8 @@ import CookiesPolicy from "./components/Cookies/CookiesPolicy";
 import ForgotPassword from "./components/Password/ForgotPassword";
 import ResetPassword from "./components/Password/ResetPassword";
 import ContactSubmit from "./components/Contact/ContactSubmit";
+import LottieAnimation from "./components/Home/Animation/LottieAnimation";
+import LottieAnimation2 from "./components/Home/Animation/LottieAnimation2";
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -93,6 +95,8 @@ export default function App() {
         <Route path="/donut" element={<DonutChart />} />
 
         <Route path="/contact-submitted" element={<ContactSubmit />} />
+
+        <Route path="/animation" element={<LottieAnimation2 />} />
 
         {/* <Route path="/tinyeditor" element={<TinyMCE />} /> */}
 

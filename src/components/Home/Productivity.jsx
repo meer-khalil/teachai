@@ -11,7 +11,7 @@ const Productivity = () => {
     return (
         <div className=' mb-16'>
             <div className=' flex flex-col justify-center items-center mt-16'>
-                <h2 className=' text-2xl md:text-4xl text-center font-bold text-secondary'>Meet our AI Teacher Assistants: Your Innovative Classroom Partners</h2>
+                <h2 className=' text-2xl md:text-4xl text-center font-bold text-secondary'>Meet our AI Teacher Assistants<span className='hidden md:inline'>: Your Innovative Classroom Partners</span></h2>
                 <p className='hidden md:block text-xl mt-5 max-w-[70%] text-center'>Teachers are saving 10+ hours a week with Teach Assist AI, harnessing over 40 AI Teacher Chatbot assistants to revolutionize classroom efficiency.</p>
             </div>
             <div className='flex flex-col mt-5 mb-3 px-4 md:px-0 gap-5 py-7'>

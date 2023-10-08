@@ -167,7 +167,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                         type="text"
                         id='noOfSlides'
                         name='number_of_slides'
-                        placeholder='Maximum 10 slides'
+                        placeholder='Maximum 20 slides'
                         onChange={handleChange}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

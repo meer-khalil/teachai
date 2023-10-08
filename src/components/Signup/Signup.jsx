@@ -7,7 +7,7 @@ import './DisabledButton.css';
 import { UserContext } from "../../context/UserContext";
 
 // import login from '../../images/check.webp'
-import image from '../../images/Edited/webp/login.webp'
+import image from '../../images/Edited/webp/login.jpeg'
 import SignupLoader from "../commons/SignupLoader";
 
 export default function Signup() {

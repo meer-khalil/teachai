@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 
-import image from '../../images/Edited/webp/login.webp'
+import image from '../../images/Edited/webp/login.jpeg'
 
 
 export default function Login() {

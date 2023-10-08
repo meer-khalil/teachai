@@ -29,11 +29,11 @@ const features = [
 
 export const Features = () => {
     return (
-        <div className='mt-20 md:mx-8'>
+        <div className='md:mt-20 md:mx-8'>
 
             {/* <p className='text-center text-secondary opacity-50'>AMAZING FEATURES</p> */}
 
-            <h2 className=' text-3xl md:text-4xl text-center font-extrabold mt-4 mb-4 md:mb-12 text-secondary'>
+            <h2 className=' hidden md:block text-3xl md:text-4xl text-center font-extrabold mt-4 mb-4 md:mb-12 text-secondary'>
                 Discover the capabilities of the AI Teacher chatbots
             </h2>
 

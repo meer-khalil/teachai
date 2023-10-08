@@ -27,7 +27,7 @@ const Hero = () => {
 
                     </p>
 
-                    <div className='flex gap-5 items-center mt-8'>
+                    <div className='flex flex-col md:flex-row gap-5 items-center mt-8'>
                         <Link to='/signup'>
                             <button className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary'>
                                 Try for free for 7 days

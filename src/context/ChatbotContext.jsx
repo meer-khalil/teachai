@@ -108,7 +108,14 @@ export const ChatbotProvider = ({ children }) => {
 
     const [language, setLanguage] = useState('');
 
-    let homebots = data.slice(0, 6);
+    let homebots;
+    if (window.innerWidth < 768) {
+        // If the user is on a mobile device (width less than 768 pixels), slice to 6
+        homebots = data.slice(0, 6);
+    } else {
+        // If the user is on a desktop (width 768 pixels or more), slice to 9
+        homebots = data.slice(0, 9);
+    }
 
     const getBots = (category) => {
         return data.filter((el) => el.category.includes(category) || category.includes(el.category))

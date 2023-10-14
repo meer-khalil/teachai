@@ -27,7 +27,7 @@ const features = [
 
 
 
-export const Features = () => {
+export default function Features() {
     return (
         <div className='md:mt-20 md:mx-8'>
 

@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 // Lazy load your components
-const Home = lazy(() => import("./components/Home/Home"));
+import Home from "./components/Home/Home";
 const Teachers = lazy(() => import("./components/Teacher/Teachers"));
 const Affliate = lazy(() => import("./components/Afflisate/Affliate"));
 const About = lazy(() => import("./components/About/About"));
@@ -38,7 +38,7 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={
-          <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>
+          <Home />
         } />
 
         <Route path="/teachers" element={<Suspense fallback={<div>Loading...</div>}><Teachers /></Suspense>} />

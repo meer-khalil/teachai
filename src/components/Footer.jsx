@@ -48,13 +48,13 @@ const Footer = () => {
                                         url: 'https://www.linkedin.com/company/teach-assist-ai'
                                     }
                                     ,
-                                    // {
-                                    //     icon: tiktok,
-                                    //     url: 'https://twitter.com/teachassist_ai'
-                                    // },
+                                    {
+                                        icon: tiktok,
+                                        url: ' https://www.tiktok.com/@teachassistai'
+                                    },
                                     {
                                         icon: twitter,
-                                        url: 'https://www.tiktok.com/@teachassistai'
+                                        url: ' https://twitter.com/teachassist_ai'
                                     }
                                 ].map((el, i, arr) => (
                                     <a href={el.url} target='_blank'>

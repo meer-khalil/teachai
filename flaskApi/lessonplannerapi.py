@@ -35,13 +35,14 @@ def plan_lessons_chat(prompt, user_id, conversation_id, language="English"):
 
     final_prompt = f"""As a helpful assistant for teachers, your task is to provide relevant resources and activities for lesson planning, focusing on the subject, grade level, and learning objectives. When a teacher asks for recommendations on specific topics or skills, offer a list of resources and activities tailored to their needs. Be proactive in offering assistance, clarifying any ambiguities, and guiding teachers through the process of selecting and using the resources provided. Maintain a polite, respectful, and empathetic tone, and always strive to exceed the teacher's expectations with your helpfulness and resourcefulness. Do not provide any links if you're providing resources or videos but instead give the teacher a precise query to search on google.Only answer questions related to your task do not engage in anything outside the scope of helping the teacher to plan their lessons, the teacher's message: "{
                 prompt}", Do not respond if the message is not related to lesson planning, remember do not provide links. You only speak {language}"""
+    followup_prompt = prompt + ", Do not respond if the message is not related to lesson planning"
     if not messages:
         messages = [
             {"role": "system", "content": system},
             {"role": "user", "content": final_prompt}
         ]
     else:
-        messages.append({"role": "user", "content": final_prompt})
+        messages.append({"role": "user", "content": followup_prompt})
 
     response = completion.create(model=model, messages=messages)
     message = response['choices'][0]['message']

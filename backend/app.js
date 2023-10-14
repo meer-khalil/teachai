@@ -11,11 +11,11 @@ const { requestLimit } = require('./middlewares/requestLimit');
 const { isAuthenticatedUser } = require('./middlewares/auth')
 const User = require('./models/userModel');
 
+const compression = require('compression')
 const app = express();
 
 
 app.use(cors());
-
 
 /*
     Email Body for the Plans
@@ -170,6 +170,7 @@ app.use(bodyParser.json({ limit: '30mb' }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: '30mb' }));
 app.use(cookieParser());
+app.use(compression());
 
 
 app.use(express.static(path.join(__dirname, "public")))

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import Aside from './Aside'
-import ChatHistory from './history/ChatHistory'
 import { UserContext } from '../../context/UserContext'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Chatbots from './components/Chatbots'
 import { ChatbotProvider } from '../../context/ChatbotContext'
 
@@ -22,7 +21,7 @@ import Settings from './Settings/Settings'
 
 const UserDashboard = () => {
 
-    const { isAuthenticated, user } = useContext(UserContext)
+    const { isAuthenticated } = useContext(UserContext)
 
     if (!isAuthenticated) return <div>Loading....</div>
 

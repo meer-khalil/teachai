@@ -1,5 +1,5 @@
 import React from 'react'
-import FacebookCircularProgress from './CircularLoading'
+
 
 const Loading = ({ message }) => {
     return (

@@ -16,7 +16,7 @@ Notice
 -The presentation has learning aims (what students will learn from this presentation)
 -The presentation has success criteria (what questions students will be able to answer after the presentation)
 -The presentation has a summary.
--At least 8 slides.
+-The number of slides specified by the user should be respected.
 
 Example! - Stick to this formatting exactly!
 #Title: TITLE OF THE PRESENTATION
@@ -57,6 +57,8 @@ if not os.path.exists('Cache'):
         os.makedirs('Cache')
 
 def create_ppt_text(description, grade ,subject ,number_of_slides, language):
+    if number_of_slides > 20:
+         number_of_slides = 20
     user_prompt = f"""The user wants a presentation about "" {description} "" ,grade: {grade}, subject: {subject}, number of slideds: {number_of_slides}, presentation language: {language} """
     response = aicomplete(user_prompt, system_prompt).replace('<br>', '\n')
     return response

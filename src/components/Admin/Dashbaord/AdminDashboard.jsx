@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Aside from './Aside'
 import Users from './components/Users'
 import { UserContext } from '../../../context/UserContext'

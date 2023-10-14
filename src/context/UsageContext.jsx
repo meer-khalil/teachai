@@ -1,7 +1,4 @@
-import axios from 'axios';
 import React, { createContext, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { backend_url } from '../util/variables';
 import api from '../util/api';
 import { toast } from 'react-toastify';
 

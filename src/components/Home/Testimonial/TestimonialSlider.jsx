@@ -12,7 +12,6 @@ import 'swiper/css/scrollbar';
 
 import './TestimonialSlider.css'
 import Testimonial from './Testimonial'
-import { useState } from 'react';
 
 
 

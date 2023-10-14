@@ -26,8 +26,10 @@ const DetectAI = () => {
     const [answer, setAnswer] = useState([])
     const [prompt, setPrompt] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [message, setMessage] = useState(null)
     const [chatID, setChatID] = useState('')
+
+    const [detect, setDetect] = useState(false);
+    const [plag, setPlag] = useState(false);
 
     const componentRef = useRef(null)
 
@@ -94,8 +96,11 @@ const DetectAI = () => {
                     <ChatForm
                         setAnswer={setAnswer}
                         setLoading={setLoading}
-                        setMessage={setMessage}
                         setChatID={setChatID}
+                        plag={plag}
+                        setPlag={setPlag}
+                        detect={detect}
+                        setDetect={setDetect}
                     />
 
                 </div>
@@ -139,29 +144,35 @@ const DetectAI = () => {
                                                         } />
                                                     </div>
                                                 </div>
-                                                <div className='mt-16'>
-                                                    <h2 className='text-center mb-1 text-3xl font-bold'>
-                                                        Detect Plagiarism
-                                                    </h2>
-                                                    <h4 className='text-lg font-bold text-center'>
-                                                        The amount of Plagiarism is {(answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5)}%
-                                                    </h4>
-                                                </div>
-                                                <div className='flex justify-center mt-4'>
+                                                {
+                                                    plag && (
+                                                        <div>
+                                                            <div className='mt-16'>
+                                                                <h2 className='text-center mb-1 text-3xl font-bold'>
+                                                                    Detect Plagiarism
+                                                                </h2>
+                                                                <h4 className='text-lg font-bold text-center'>
+                                                                    The amount of Plagiarism is {(answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5)}%
+                                                                </h4>
+                                                            </div>
+                                                            <div className='flex justify-center mt-4'>
 
-                                                    <div className=' w-44 h-44'>
-                                                        <div className='flex gap-2'>
-                                                            <div className=' h-5 w-5' style={{ backgroundColor: "yellow" }}></div>
-                                                            <span>Plagerism Percentage</span>
+                                                                <div className=' w-44 h-44'>
+                                                                    <div className='flex gap-2'>
+                                                                        <div className=' h-5 w-5' style={{ backgroundColor: "yellow" }}></div>
+                                                                        <span>Plagerism Percentage</span>
+                                                                    </div>
+                                                                    <PlagDonutChart data={
+                                                                        [
+                                                                            { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
+                                                                            { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5) },
+                                                                        ]
+                                                                    } />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <PlagDonutChart data={
-                                                            [
-                                                                { label: 'Detect AI', percentage: 100 - (answer[0].answer.match(/\d+/g)).map(Number)[0] },
-                                                                { label: 'Plagiarism', percentage: (answer[0].answer.match(/\d+/g)).map(Number)[0] + (Math.floor(Math.random() * (10 - 5 + 1)) + 5) },
-                                                            ]
-                                                        } />
-                                                    </div>
-                                                </div>
+                                                    )
+                                                }
                                             </div>
                                         }
                                     </div>
@@ -177,7 +188,7 @@ const DetectAI = () => {
                                     <div className=' flex justify-center items-center w-full h-full relative'>
                                         <p>Try variaty of inputs and input lengths to get the best results</p>
                                         {
-                                            loading && <Loading message={message} />
+                                            loading && <Loading />
                                         }
                                     </div>
                                 )

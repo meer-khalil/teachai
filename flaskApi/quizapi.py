@@ -15,7 +15,9 @@ def generate_quiz(prompt, user_id, conversation_id, language="English"):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = f"You are a helpful assistant for teachers, designed to generate quizzes based on the subject, grade level, and learning objectives. You only speak {language}"
+    system = f"""You are a helpful assistant for teachers, designed to generate quizzes based on the subject, grade level, and learning objectives. You only speak {language}
+quiz type can be:  multiple choice, true and false, a question and answer
+the teacher will specify the quiz type"""
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 

@@ -1,0 +1,14 @@
+Here is your quiz on Derivation (True or False):
+
+1. The derivative of a constant function is always zero.
+2. The derivative of a sum of functions is the sum of the derivatives of each function.
+3. The derivative of a product of functions is the product of the derivatives of each function.
+4. The derivative of a quotient of functions is obtained by dividing the derivatives of each function.
+5. The derivative of a power of a function can be found using the power rule.
+6. The derivative of the natural logarithm function, ln(x), is 1/x.
+7. The derivative of an exponential function, e^x, is e^x.
+8. The derivative of a trigonometric function depends on the specific trigonometric function.
+9. The derivative of a constant times a function is equal to the constant times the derivative of the function.
+10. The second derivative of a function gives information about the concavity of the function.
+
+Good luck with your quiz!

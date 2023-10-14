@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import * as XLSX from "xlsx";
 
 import Login from "./GoogleButtons/Login";
-import Logout from "./GoogleButtons/Logout";
+// import Logout from "./GoogleButtons/Logout";
 import { gapi } from "gapi-script";
 
 

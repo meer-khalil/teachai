@@ -14,6 +14,9 @@ import { useEffect } from 'react';
 import { ChatbotContext } from '../../../context/ChatbotContext';
 import { useContext } from 'react';
 import Categories from '../../Dashboard/components/Categories';
+import { toast } from 'react-toastify';
+import { UsageContext } from '../../../context/UsageContext';
+import api from '../../../util/api';
 
 
 const MathQuiz = () => {
@@ -25,11 +28,46 @@ const MathQuiz = () => {
     const componentRef = useRef(null);
 
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { language, setSelectedCategory } = useContext(ChatbotContext)
+    const { fetchUsage } = useContext(UsageContext);
+
     useEffect(() => {
         setSelectedCategory('Student Engagement & Activity Ideas')
     }, [])
 
+    const getAnswers = async () => {
+
+        setLoading(true)
+        let _body = {
+            body: {
+                language: language || 'English'
+            },
+            chat_id: chatID
+        }
+
+        try {
+
+            let res = await api.post(`/chatbot/mathquiz/answer`, _body)
+
+            if (res.statusText === 'OK') {
+
+                console.log('Response from chatform: ', res);
+                console.log('Here is the answer: ', res.data.answer);
+                setAnswer((prev) => [...prev, { question: "Answers", answer: res.data.answer }])
+                setLoading(false)
+                fetchUsage()
+            }
+        } catch (error) {
+
+            if (error?.response?.status === 429) {
+                toast(error?.response?.data?.error)
+            }
+            console.log('Error: ', error);
+            setLoading(false)
+
+        }
+
+    }
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
@@ -73,7 +111,18 @@ const MathQuiz = () => {
                 />
             </div>
 
-            <ExportButtons componentToPrint={componentRef} answer={answer} />
+            <div className=' flex gap-4 justify-end items-center'>
+                {
+                    answer?.length > 0 && (
+                        <div>
+                            <button onClick={getAnswers} className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
+                                Reveal Answers
+                            </button>
+                        </div>
+                    )
+                }
+                <ExportButtons componentToPrint={componentRef} answer={answer} />
+            </div>
 
         </div>
     )

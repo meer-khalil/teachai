@@ -6,7 +6,6 @@ import Loading from './Loading'
 import Header from '../Header'
 import api from '../../../util/api';
 import Answer from '../Answer';
-import ShortForm from './ShortForm';
 import ExamplePrompts from '../ExamplePrompts';
 import ExportButtons from '../ExportButtons';
 
@@ -36,40 +35,40 @@ const PowerPoint = () => {
 
     const { fetchUsage } = useContext(UsageContext);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        setLoading(true);
+    //     setLoading(true);
 
-        let data = {
-            body: {
-                prompt
-            },
-            chat_id: chatID
-        }
+    //     let data = {
+    //         body: {
+    //             prompt
+    //         },
+    //         chat_id: chatID
+    //     }
 
 
-        try {
-            let res = await api.post(`/quiz`, data);
+    //     try {
+    //         let res = await api.post(`/quiz`, data);
 
-            if (res.statusText === 'OK') {
+    //         if (res.statusText === 'OK') {
 
-                console.log('Here is the answer: ', res.data.answer);
+    //             console.log('Here is the answer: ', res.data.answer);
 
-                setAnswer([...answer, { question: prompt, answer: res.data.answer }])
-                setPrompt('')
-                setLoading(false)
-                fetchUsage();
-            }
-        } catch (error) {
-            if (error?.response?.status === 429) {
-                toast(error?.response?.data?.error)
-            }
-            console.log('Error: ', error);
-            setLoading(false)
-        }
+    //             setAnswer([...answer, { question: prompt, answer: res.data.answer }])
+    //             setPrompt('')
+    //             setLoading(false)
+    //             fetchUsage();
+    //         }
+    //     } catch (error) {
+    //         if (error?.response?.status === 429) {
+    //             toast(error?.response?.data?.error)
+    //         }
+    //         console.log('Error: ', error);
+    //         setLoading(false)
+    //     }
 
-    }
+    // }
 
 
     const fetchFile = (fileName) => {

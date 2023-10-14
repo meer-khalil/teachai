@@ -1,0 +1,13 @@
+Here is your quiz, titled "Arithmetic" with the quiz type "True or False":
+
+1. True or False: 6 * 4 = 24
+
+2. True or False: 12 / 3 = 4
+
+3. True or False: 5 + 8 = 15
+
+4. True or False: 10 - 7 = 3
+
+5. True or False: 9 * 3 = 27
+
+Remember, these are true or false questions related to arithmetic.

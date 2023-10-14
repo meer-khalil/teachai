@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const chatHistorySchema = new mongoose.Schema({
 
@@ -19,10 +20,10 @@ const chatHistorySchema = new mongoose.Schema({
     content: [
         {
             question: {
-                type: String,
+                type: Schema.Types.Mixed
             },
             answer: {
-                type: String
+                type: Schema.Types.Mixed
             }
         }
     ],

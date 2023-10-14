@@ -5,11 +5,11 @@ import "./DetailStory.css"
 import Loader from '../../commons/Loader';
 import { FaRegHeart, FaHeart } from 'react-icons/fa'
 import { RiDeleteBin6Line } from 'react-icons/ri'
-import { FiEdit, FiArrowLeft } from 'react-icons/fi'
+import { FiEdit } from 'react-icons/fi'
 import { FaRegComment } from 'react-icons/fa'
 import { BsBookmarkPlus, BsThreeDots, BsBookmarkFill } from 'react-icons/bs'
 
-import CommentSidebar from '../Comment/CommentSidebar';
+// import CommentSidebar from '../Comment/CommentSidebar';
 import api from '../../../util/api';
 import { useContext } from 'react';
 import { UserContext } from '../../../context/UserContext';

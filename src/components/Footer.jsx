@@ -5,7 +5,7 @@ import facebook from '../images/Icons/facebook.svg'
 import insta from '../images/Icons/insta.svg'
 import linkedin from '../images/Icons/linkedin.svg'
 import twitter from '../images/Icons/twitter.jpeg'
-import tiktok from '../images/Icons/tiktok.svg'
+// import tiktok from '../images/Icons/tiktok.svg'
 
 import { Link } from 'react-router-dom'
 

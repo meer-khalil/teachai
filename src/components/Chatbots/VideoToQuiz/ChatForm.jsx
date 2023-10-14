@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import api from '../../../util/api';
 import { useContext } from 'react';
@@ -7,19 +6,20 @@ import { toast } from 'react-toastify';
 import { ChatbotContext } from '../../../context/ChatbotContext';
 
 
-const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
+const ChatForm = ({ setAnswer, setLoading, setChatID, setVidUrl }) => {
 
-    const [data, setData] = useState({language: "English"})
+    const [data, setData] = useState({ language: "English" })
 
     const { fetchUsage } = useContext(UsageContext);
-    const { setURL, setLanguage} = useContext(ChatbotContext);
+    const { setLanguage } = useContext(ChatbotContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
         setLoading(true)
+
         let _body = {
-            body: data
+            body: { ...data, userinput: '' }
         }
 
         try {
@@ -74,7 +74,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         name='url'
                         onChange={(e) => {
                             handleChange(e);
-                            setURL(e.target.value)
+                            setVidUrl(e.target.value)
                         }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

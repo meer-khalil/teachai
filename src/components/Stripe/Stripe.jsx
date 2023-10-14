@@ -1,11 +1,9 @@
 import React from 'react'
 import { backend_url } from '../../util/variables'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 const Stripe = () => {
 
-    const navigate = useNavigate();
 
     const checkout = () => {
         axios.post(`${backend_url}//payment/process`, {
@@ -17,7 +15,7 @@ const Stripe = () => {
             .then((res) => {
                 console.log('Hello, ', res);
                 alert('check console')
-                if (res.statusText == 'OK') {
+                if (res.statusText === 'OK') {
                     window.location.href = res.data.url
                 }
             }).catch(e => {

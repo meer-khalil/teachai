@@ -23,7 +23,7 @@ function Answer({ answer }) {
               var urlRegex = /(https?:\/\/[^\s]+)/g;
             
               // Replace URLs with anchor tags
-              var newText = text.replace(urlRegex, function (url) {
+              var newText = text?.replace(urlRegex, function (url) {
                 return `<a href="${url}" target="_blank" style="color: blue;">${url}</a>`;
               });
             
@@ -37,7 +37,7 @@ function Answer({ answer }) {
                 {
                   el?.question && (
                     <h4 className='mt-20 mb-3 text-xl font-bold'>
-                      {el.question}
+                      {el?.question}
                     </h4>
                   )
                 }

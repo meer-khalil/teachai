@@ -18,7 +18,9 @@ const {
     powerPointPresentation,
     downdloadPresentation,
     videoChat,
-    checkPlag
+    checkPlag,
+    videoQuizAnswer,
+    videoToQuizChat
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
@@ -73,6 +75,8 @@ router.route('/math/lesson').post(isAuthenticatedUser, mathLessonPlanner)
 router.route('/video/summarize').post(isAuthenticatedUser, videoSummarize)
 router.route('/video/chat').post(isAuthenticatedUser, videoChat)
 router.route('/video/quiz').post(videoToQuiz)
+router.route('/video/quiz/chat').post(videoToQuizChat)
+router.route('/video/answer').post(videoQuizAnswer)
 
 // detect AI
 router.route('/detectai').post(fileUpload.single('file'), detectAI)

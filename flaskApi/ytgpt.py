@@ -56,10 +56,6 @@ def summarize(vidUrl, user_id, conversation_id, userinput=None, language="Englis
     initialize = None
     PROMPT_STRING = f"Write a short summary in {language} of the following video:\n\n<<SUMMARY>>\n"
     messages = None
-    video_id = get_video_id(vidUrl)
-    if video_id == "Invalid YouTube link":
-        return video_id
-
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
     if not os.path.exists('ChatHistory'):
         os.makedirs('ChatHistory')
@@ -75,7 +71,10 @@ def summarize(vidUrl, user_id, conversation_id, userinput=None, language="Englis
         message = response['choices'][0]['message']
         messages.append(message)
         return message['content'].replace('\n','<br>' )
-
+    video_id = get_video_id(vidUrl)
+    if video_id == "Invalid YouTube link":
+        return video_id
+    
     transcript = YouTubeTranscriptApi.get_transcript(video_id)
     formatter = TextFormatter()
     transcript = formatter.format_transcript(transcript)
@@ -132,7 +131,28 @@ def generate_quiz(summary, num_questions, quiz_type, language="English"):
     response = aicomplete(prompt, filename='dontsave')
     return response
 
-def get_quiz(vidUrl, user_id, conversation_id, num_questions, quiz_type, language="English"):
+def get_quiz(vidUrl, user_id, conversation_id, userinput, num_questions, quiz_type, language="english"):
+    openai.api_key = config.DevelopmentConfig.OPENAI_KEY
+    completion = openai.ChatCompletion()
+    model = "gpt-3.5-turbo"
+    system = "you are a helpfull assistant"
+    messages = None
+    filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
+    if not os.path.exists('ChatHistory'):
+        os.makedirs('ChatHistory')
+    
+    messages = openhistory(filename)
+    if messages == None:
+        initialize = True
+    if messages:
+        message= {"role": "user", "content": userinput}
+        messages.append(message)
+        response = completion.create(model=model, messages=messages)
+        message = response['choices'][0]['message']
+        messages.append(message)
+        return message['content'].replace('\n','<br>' )
+
+
     summary = summarize(vidUrl, user_id,  conversation_id, userinput='longv', language=language)
     if summary == "Invalid YouTube link":
         return summary
@@ -142,10 +162,12 @@ def get_quiz(vidUrl, user_id, conversation_id, num_questions, quiz_type, languag
         os.makedirs('Quizzes')
     quiz = generate_quiz(summary, num_questions, quiz_type, language)
     messages = [{"role": "user", "content": quiz.replace('<br>', '\n')}]
+    with open(filename, "w") as outfile:
+        json.dump(messages, outfile)
     savehistory(quizfile, messages)
     return quiz
 
-def generate_answers(vidUrl, user_id, language="English"):
+def generate_answers(vidUrl, user_id, conversation_id, language="English"):
     video_id = get_video_id(vidUrl)
     quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
     try:
@@ -156,7 +178,7 @@ def generate_answers(vidUrl, user_id, language="English"):
         print(e)
         quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice', language)
         quiz  = quiz.replace('\n','<br>' )
-    summary = summarize(vidUrl, user_id, userinput='longv', language=language)
+    summary = summarize(vidUrl, user_id, userinput='longv', conversation_id=conversation_id, language=language)
     if summary == "Invalid YouTube link":
         return summary
     print(quiz)

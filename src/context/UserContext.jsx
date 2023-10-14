@@ -178,7 +178,6 @@ export const UserProvider = ({ children }) => {
             isLoggedin,
             isAuthenticated,
             setIsAuthenticated,
-            getUserData,
             users,
             getAllUsers,
             categoryOpen,

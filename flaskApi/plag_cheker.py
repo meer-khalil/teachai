@@ -96,6 +96,7 @@ def preprocess_text(text):
 
 # Function to check similarity of chunks and return average similarity and plagiarized URLs
 def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similarity_threshold=0.3):
+    plagiarized_chunks = []
     total_similarity = 0
     num_chunks = 0
     plagiarized_urls = []
@@ -132,16 +133,17 @@ def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similar
                             total_similarity += similarity
                             num_chunks += 1
                             plagiarized_urls.append((url, similarity))
+                            plagiarized_chunks.append((chunk, similarity))
 
     if num_chunks > 0:
         average_similarity = total_similarity / num_chunks
-        return int(average_similarity * 100), plagiarized_urls
+        return int(average_similarity * 100), plagiarized_urls , plagiarized_chunks
     else:
-        return 0, plagiarized_urls
+        return 0, plagiarized_urls, plagiarized_chunks
 
 
 def get_plag_report(text):
-    average_similarity, plagiarized_urls = plagiarism_checker(text)
+    average_similarity, plagiarized_urls, plagiarized_chunks = plagiarism_checker(text)
     report = f"Average similarity: {average_similarity} %\n"
 
     if plagiarized_urls:
@@ -149,9 +151,12 @@ def get_plag_report(text):
         for url, similarity in plagiarized_urls:
             sim = int(similarity * 100)
             report += f"    -URL: {url}\n   - Similarity: {sim} %\n"
+        report += "Plagiarism occurred in the following sections:\n"
+        for chunk in plagiarized_chunks:
+            report += f"    -section: {chunk}\n"
     else:
         report = "No plagiarism detected."
-    return report
+    return report, average_similarity
 
 # Example usage
 #text = """Unlike supervised learning, we don’t tell the agent whether an action is good or bad. For example, in a Tic-Tac-Toe game, the agent first randomly select a place in the 3 x 3 grid. It might place a mark on the corner, which is usually a bad move, however, you can’t tell the result because the game is not over yet. What we do here is continue the process and feedback the result to the previous state. After several training episodes, it select the best action based on past experience, and when it comes to the initial state, it would mark the middle because the winning percentage should be higher there."""

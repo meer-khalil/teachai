@@ -1,5 +1,5 @@
 import React from 'react'
-import GoogleLogin, { GoogleLogout } from "react-google-login"
+import { GoogleLogout } from "react-google-login"
 
 const clientId = '701706349964-qs7l3rc6td3anqm53l8r04ib83aaqdh7.apps.googleusercontent.com'
 

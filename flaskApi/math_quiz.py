@@ -139,7 +139,7 @@ def generate_quiz(math_problem, multiple, user_id, conversation_id, language="En
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
-    system = f"You are a helpful assistant for teachers, designed to generate math quizzes based on a math problem. you only speak {language}"
+    system = f"You are a helpful assistant for teachers, designed to generate math quizzes based on a math problem. you only speak {language}; you only reply with the quiz, you do not add any notices or warnings"
     messages = None
     filename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
 
@@ -175,6 +175,7 @@ Do not provide the answers within the quiz.
 Begin the quiz with the phrase "Here is your quiz", add title of the quiz wich is the theme name ({math_problem}), followed by the quiz type ({multiple_str})
 you only speak {language}
 """
+    followup_prompt = math_problem
 
     if not messages:
         messages = [
@@ -182,7 +183,7 @@ you only speak {language}
             {"role": "user", "content": final_prompt+ add_str + "start with Here is your quiz"}
         ]
     else:
-        messages.append({"role": "user", "content": final_prompt})
+        messages.append({"role": "user", "content": followup_prompt})
 
     response = completion.create(model=model, messages=messages)
     message = response['choices'][0]['message']

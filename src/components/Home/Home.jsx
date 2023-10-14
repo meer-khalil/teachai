@@ -5,7 +5,6 @@ import Stats from './Stats';
 // import Steps from './Steps';
 import { Features } from './Features';
 import History from './History';
-import Benefits from './Benefits';
 import Integration from './Integration';
 import Feature from './Feature';
 import FindOut from './FindOut';

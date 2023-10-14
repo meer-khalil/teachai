@@ -40,9 +40,47 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
 
     console.log('UserCreated: ', user);
     console.log('UserCreated(id): ', user.id);
+    /*
+    Send Confirmation Email to Customer for buyin Plan
+*/
+    let mailOptions = {
+        from: 'info@teachassistai.com',
+        to: user.email,
+        subject: 'Purchased Plan Information',
+        html: `
+            <h1>Congratulations!</h1>
+            <h4>You have subscribed to Free Plan</h4>
+            <h6>You now have the following benefits</h6>
+            <ul>
+            <li>Access To All Chatbots</li>
+            <li>Free 10 chat requests per day</li>
+            <li>1 member</li>
+            <li>Write in 30+ languages</li>
+            <li>1 free file upload</li>
+        </ul>
+            <p>Thank You!</p>
+            `
+    };
+    await sendEmail(mailOptions)
+    let messageToAdmin = `
+    <h1>New Subscriber</h1>
+    <h4>Another User Subscribed to Free Plan</h4>
+    <h6>User Info:</h6>
+    <ul>
+    <li><b>First Name:</b> ${user.firstName}</li>
+    <li><b>Last Name:</b> ${user.lastName}</li>
+    <li><b>Email:</b> ${user.email}</li>
+</ul>
+    `
+
+    // formulating the message
+    mailOptions.html = messageToAdmin;
+    // changing email to admin email
+    mailOptions.to = 'info@teachassistai.com'
+    mailOptions.subject = 'New Free Plan Subscribed'
+    await sendEmail(mailOptions)
     const usage = await Usage.create({
-        user: user._id,
-        usageLimit: 10
+        user: user._id
     });
 
     sendOTPVerificationEmail(user, res)

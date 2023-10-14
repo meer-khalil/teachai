@@ -1,7 +1,12 @@
 import React from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
 
 function ContactSubmit() {
+
+  const { isAuthenticated } = useContext(UserContext);
+
   return (
     <div className=' h-screen w-full relative flex justify-center items-center'>
 
@@ -19,11 +24,15 @@ function ContactSubmit() {
             </button>
           </Link>
 
-          <Link to="/user/dashboard/chatbots" >
-            <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
-              Go To Dashboard
-            </button>
-          </Link>
+          {
+            isAuthenticated && (
+              <Link to="/user/dashboard/chatbots" >
+                <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
+                  Go To Dashboard
+                </button>
+              </Link>
+            )
+          }
 
         </div>
       </div>

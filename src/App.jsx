@@ -1,39 +1,34 @@
-import React from "react";
-
+import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-
-import Home from './components/Home/Home'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Contact from "./components/Contact/Contact";
-import FAQ from "./components/FAQ/FAQ";
-import Pricing from "./components/Pricing/Pricing";
-import About from "./components/About/About";
-import Privacy from "./components/Privacy/Privacy";
-import Terms from "./components/Terms/Terms";
-import Affliate from "./components/Afflisate/Affliate";
-import Teachers from "./components/Teacher/Teachers";
 
-import Signup from './components/Signup/Signup'
-import Login from './components/Login/Login'
-import AdminDashboard from "./components/Admin/Dashbaord/AdminDashboard";
-
-// import PaymentPage from "./components/Stripe/StripeForm";
-import Success from "./components/Stripe/Success";
-import Cancel from "./components/Stripe/Cancel";
-import Stripe from "./components/Stripe/Stripe";
-import UserDashboard from "./components/Dashboard/UserDashboard";
-import YourComponent from "./components/Pdf/YourComponent";
-import Stories from "./components/Blog/Stories/Stories";
-import DetailStory from "./components/Blog/Stories/DetailStory";
-import VerifyOTP from "./components/OTP/VerifyOTP";
-import DonutChart from "./components/Donut/DonutChart";
-import CookiesPolicy from "./components/Cookies/CookiesPolicy";
-import ForgotPassword from "./components/Password/ForgotPassword";
-import ResetPassword from "./components/Password/ResetPassword";
-import ContactSubmit from "./components/Contact/ContactSubmit";
-import LottieAnimation from "./components/Home/Animation/LottieAnimation";
-import LottieAnimation2 from "./components/Home/Animation/LottieAnimation2";
+// Lazy load your components
+const Home = lazy(() => import("./components/Home/Home"));
+const Teachers = lazy(() => import("./components/Teacher/Teachers"));
+const Affliate = lazy(() => import("./components/Afflisate/Affliate"));
+const About = lazy(() => import("./components/About/About"));
+const Contact = lazy(() => import("./components/Contact/Contact"));
+const FAQ = lazy(() => import("./components/FAQ/FAQ"));
+const Pricing = lazy(() => import("./components/Pricing/Pricing"));
+const Privacy = lazy(() => import("./components/Privacy/Privacy"));
+const Terms = lazy(() => import("./components/Terms/Terms"));
+const CookiesPolicy = lazy(() => import("./components/Cookies/CookiesPolicy"));
+const Signup = lazy(() => import("./components/Signup/Signup"));
+const Login = lazy(() => import("./components/Login/Login"));
+const ForgotPassword = lazy(() => import("./components/Password/ForgotPassword"));
+const ResetPassword = lazy(() => import("./components/Password/ResetPassword"));
+const AdminDashboard = lazy(() => import("./components/Admin/Dashbaord/AdminDashboard"));
+const UserDashboard = lazy(() => import("./components/Dashboard/UserDashboard"));
+const Stories = lazy(() => import("./components/Blog/Stories/Stories"));
+const DetailStory = lazy(() => import("./components/Blog/Stories/DetailStory"));
+const Stripe = lazy(() => import("./components/Stripe/Stripe"));
+const Success = lazy(() => import("./components/Stripe/Success"));
+const Cancel = lazy(() => import("./components/Stripe/Cancel"));
+const YourComponent = lazy(() => import("./components/Pdf/YourComponent"));
+const VerifyOTP = lazy(() => import("./components/OTP/VerifyOTP"));
+const DonutChart = lazy(() => import("./components/Donut/DonutChart"));
+const ContactSubmit = lazy(() => import("./components/Contact/ContactSubmit"));
 
 export default function App() {
   // const site = 'https://teachai32.netlify.app'
@@ -44,59 +39,61 @@ export default function App() {
       <Navbar />
       <Routes>
 
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+        <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>
+        } />
 
-        <Route path="/teachers" element={<Teachers />} />
+        <Route path="/teachers" element={<Suspense fallback={<div>Loading...</div>}><Teachers /></Suspense>} />
 
-        <Route path="/affliate" element={<Affliate />} />
+        <Route path="/affliate" element={<Suspense fallback={<div>Loading...</div>}><Affliate /></Suspense>} />
 
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<Suspense fallback={<div>Loading...</div>}><About /></Suspense>} />
 
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Suspense fallback={<div>Loading...</div>}><Contact /></Suspense>} />
 
-        <Route path="/faq" element={<FAQ />} />
+        <Route path="/faq" element={<Suspense fallback={<div>Loading...</div>}><FAQ /></Suspense>} />
 
-        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/pricing" element={<Suspense fallback={<div>Loading...</div>}><Pricing /></Suspense>} />
 
-        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/privacy" element={<Suspense fallback={<div>Loading...</div>}><Privacy /></Suspense>} />
 
-        <Route path="/terms" element={<Terms />} />
+        <Route path="/terms" element={<Suspense fallback={<div>Loading...</div>}><Terms /></Suspense>} />
 
-        <Route path="/cookies-policy" element={<CookiesPolicy />} />
+        <Route path="/cookies-policy" element={<Suspense fallback={<div>Loading...</div>}><CookiesPolicy /></Suspense>} />
 
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Suspense fallback={<div>Loading...</div>}><Signup /></Suspense>} />
 
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Suspense fallback={<div>Loading...</div>}><Login /></Suspense>} />
 
-        <Route path="/password/forgot" element={<ForgotPassword />} />
+        <Route path="/password/forgot" element={<Suspense fallback={<div>Loading...</div>}><ForgotPassword /></Suspense>} />
 
-        <Route path="/password/reset/:token" element={<ResetPassword />} />
+        <Route path="/password/reset/:token" element={<Suspense fallback={<div>Loading...</div>}><ResetPassword /></Suspense>} />
 
-        <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
+        <Route path="/admin/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}><AdminDashboard /></Suspense>} />
 
-        <Route path="/user/dashboard/*" element={<UserDashboard />} />
+        <Route path="/user/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}><UserDashboard /></Suspense>} />
 
         {/* <Route path="/blogs" element={<Blog />} /> */}
 
-        <Route path="/blogs" element={<Stories />} />
+        <Route path="/blogs" element={<Suspense fallback={<div>Loading...</div>}><Stories /></Suspense>} />
 
-        <Route exact path="/blog/:slug" element={<DetailStory />} />
+        <Route exact path="/blog/:slug" element={<Suspense fallback={<div>Loading...</div>}><DetailStory /></Suspense>} />
 
-        <Route path="/payment" element={<Stripe />} />
+        <Route path="/payment" element={<Suspense fallback={<div>Loading...</div>}><Stripe /></Suspense>} />
 
-        <Route path="/success" element={<Success />} />
+        <Route path="/success" element={<Suspense fallback={<div>Loading...</div>}><Success /></Suspense>} />
 
-        <Route path="/cancel" element={<Cancel />} />
+        <Route path="/cancel" element={<Suspense fallback={<div>Loading...</div>}><Cancel /></Suspense>} />
 
-        <Route path="/pdf" element={<YourComponent />} />
+        <Route path="/pdf" element={<Suspense fallback={<div>Loading...</div>}><YourComponent /></Suspense>} />
 
-        <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/verify-otp" element={<Suspense fallback={<div>Loading...</div>}><VerifyOTP /></Suspense>} />
 
-        <Route path="/donut" element={<DonutChart />} />
+        <Route path="/donut" element={<Suspense fallback={<div>Loading...</div>}><DonutChart /></Suspense>} />
 
-        <Route path="/contact-submitted" element={<ContactSubmit />} />
+        <Route path="/contact-submitted" element={<Suspense fallback={<div>Loading...</div>}><ContactSubmit /></Suspense>} />
 
-        <Route path="/animation" element={<LottieAnimation2 />} />
+        {/* <Route path="/animation" element={<LottieAnimation2 />} /> */}
 
         {/* <Route path="/tinyeditor" element={<TinyMCE />} /> */}
 

@@ -1,10 +1,10 @@
-import React, { useRef, useContext } from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { AiOutlineUpload } from 'react-icons/ai'
-import { FiArrowLeft } from 'react-icons/fi'
+// import { FiArrowLeft } from 'react-icons/fi'
 import './AddStory.css'
 import axios from 'axios';
 import { addstory_url } from '../../../../util/variables';

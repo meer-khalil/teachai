@@ -1,0 +1,14 @@
+Here is your quiz on the theme "Arithmetic" in true or false format:
+
+Question 1: True or False? Addition is a basic arithmetic operation.
+Question 2: True or False? The result of subtracting a smaller number from a larger number is always positive.
+Question 3: True or False? Multiplying two negative numbers always gives a positive result.
+Question 4: True or False? When dividing a number by zero, the result is undefined.
+Question 5: True or False? The order of operations, which states the sequence in which mathematical operations should be performed, is represented by the acronym BEDMAS (Brackets, Exponents, Division, Multiplication, Addition, Subtraction).
+Question 6: True or False? In arithmetic, the symbol "*" represents the division operation.
+Question 7: True or False? The commutative property applies to both addition and multiplication.
+Question 8: True or False? The reciprocal of a number is obtained by multiplying it with 1.
+Question 9: True or False? In arithmetic, the term "identity element" refers to the number that when added or multiplied with another number, gives the same number as the result.
+Question 10: True or False? A prime number is a whole number greater than 1 that has exactly two distinct positive divisors: 1 and itself.
+
+Remember, this is a true or false quiz, so please mark your answers accordingly. Good luck!

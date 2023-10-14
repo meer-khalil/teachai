@@ -5,14 +5,13 @@ import { UsageContext } from '../../../context/UsageContext'
 import { toast } from 'react-toastify';
 import { ChatbotContext } from '../../../context/ChatbotContext';
 
-const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
+const ChatForm = ({ setAnswer, setLoading, setChatID, plag, setPlag, detect, setDetect }) => {
 
     const [data, setData] = useState({ language: "English" })
 
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [detect, setDetect] = useState(false);
-    const [plagirism, setPlagirism] = useState(false);
+
 
     const { fetchUsage, usage } = useContext(UsageContext)
     const { setLanguage } = useContext(ChatbotContext)
@@ -25,7 +24,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!detect && !plagirism) {
+        if (!detect && !plag) {
             toast("Select the options SetectAI/Plagirism")
             return;
         }
@@ -54,21 +53,33 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                 console.log(pair[1]);
             }
             console.log(formData);
-            let res = await api.post(`/chatbot/detectai`, formData, config)
+            if (detect) {
+                let res = await api.post(`/chatbot/detectai`, formData, config)
+                setChatID(res.data.chat_id)
+                setAnswer([{ answer: res.data.answer }])
+                console.log('Response from chatform: ', res);
+                console.log('Here is the answer: ', res.data.answer);
+            }
 
 
-            console.log('Response from chatform: ', res);
-            console.log('Here is the answer: ', res.data.answer);
-            setChatID(res.data.chat_id)
-            setAnswer([{ answer: res.data.answer }])
+
+            if (plag) {
+                // formData.append('chat_id', res.data.chat_id)
+                try {
+
+                    let { data } = await api.post(`/chatbot/plagirism`, formData, config)
+                    console.log('Plag Data: ', data);
+                    alert('Here is data for plag')
+
+                } catch (error) {
+                    alert('error')
+                }
+            } else {
+                alert("plag is: ", plag)
+            }
+
             setLoading(false)
             fetchUsage();
-
-            if (plagirism) {
-                formData.append('chat_id', res.data.chat_id)
-                let { data } = await api.post(`/chatbot/plagirism`, formData, config)
-                console.log('Plag Data: ', data);
-            }
         } catch (error) {
 
             if (error?.response?.status === 429) {
@@ -170,7 +181,6 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                             />
                         ) : (
                             <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"
-                                accept='.pdf'
                                 disabled
                             />
                         )
@@ -211,9 +221,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     <label htmlFor="plagirism" className='flex gap-2 cursor-pointer'>
                         <input type="checkbox" id='plagirism' onChange={(e) => {
                             if (e.target.checked) {
-                                setPlagirism(true)
+                                setPlag(true)
                             } else {
-                                setPlagirism(false)
+                                setPlag(false)
                             }
                         }} />
                         Plagirism

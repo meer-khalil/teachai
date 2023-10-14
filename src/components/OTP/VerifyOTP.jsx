@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 const VerifyOTP = () => {
 
     const navigate = useNavigate();
-    const [otp, setOTP] = useState(null);
     const [send, setSend] = useState(1);
 
     const [one, setOne] = useState('')
@@ -88,7 +87,7 @@ const VerifyOTP = () => {
 
 
     const handleOTP = (value, fn) => {
-        if (value.length == 1) {
+        if (value.length === 1) {
             fn(value)
         }
     }

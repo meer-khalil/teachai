@@ -1,0 +1,13 @@
+Here is your quiz: Arithmetic True/False
+
+1. True or False: The sum of two even numbers is always even.
+
+2. True or False: The product of two negative numbers is always negative.
+
+3. True or False: Any number divided by zero is undefined.
+
+4. True or False: The order of operations in arithmetic is addition, multiplication, subtraction, and division.
+
+5. True or False: The result of subtracting a negative number is always positive.
+
+Please note that these questions are designed to assess your knowledge of arithmetic concepts. Good luck!

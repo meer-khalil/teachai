@@ -12,8 +12,8 @@ const About = () => {
       </Helmet>
 
 
-      <div className='mt-10 mb-16'>
-        <h1 className=' text-3xl md:text-4xl my-8 font-extrabold text-center text-secondary'>
+      <div className='md:mt-10 mb-16'>
+        <h1 className=' text-3xl md:text-4xl mb-8 font-extrabold text-center text-secondary'>
           About Teach Assist AI
         </h1>
         {
@@ -29,7 +29,7 @@ const About = () => {
             "With Teach Assist AI, we strive to revolutionize education by providing teachers with the support they deserve. We want to empower educators to work smarter, not harder. By reducing their workload, improving productivity, and fostering a healthy work-life balance, we aim to rejuvenate the teaching profession and inspire educators to reach new heights of excellence. Join us on this exciting journey as we transform education together. Let Teach Assist AI be your partner in unlocking your full teaching potential, enabling you to make a lasting impact on the lives of your students. Together, we can create a brighter future for education."
           ].map((el, i) => (
             <p
-              className='text-lg mx-3 text-justify md:mx-32 text-secondary mb-5'
+              className='text-lg mx-3 md:mx-32 text-secondary mb-5'
               key={i}>
               {el}
             </p>

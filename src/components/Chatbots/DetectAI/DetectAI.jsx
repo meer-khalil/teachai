@@ -185,7 +185,7 @@ const DetectAI = () => {
                                 <div>
                                   {
                                     plagAnswer && (
-                                      <div className=" prose text-sm" dangerouslySetInnerHTML={{
+                                      <div className=" prose text-sm" style={{ minWidth: '100%'}} dangerouslySetInnerHTML={{
                                         __html: plagAnswer[0].answer
                                           .replace(/Average similarity: \d+ %/g, '<h2>$&</h2>')
                                           .replace(/Plagiarism occurred in the following/, '<h4>$&</h4>')

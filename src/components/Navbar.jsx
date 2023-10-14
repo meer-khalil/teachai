@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 import logo from '../images/logo-removebg-preview.png'
@@ -10,7 +10,7 @@ import { UserContext } from '../context/UserContext';
 import { site } from '../util/variables';
 
 const Navbar = () => {
-
+    const navigate = useNavigate();
 
     const { isAuthenticated, user, logout } = useContext(UserContext)
 
@@ -122,7 +122,7 @@ const Navbar = () => {
                                 {
                                     (window.innerWidth < 680) && <div>
                                         <div className=' py-10 flex flex-col gap-5 max-w-[400px] mx-auto'>
-                                            <button className=' bg-secondary text-white py-5 mx-7 rounded-lg'>
+                                            <button onClick={() => { setMenu(false); navigate('/signup') }} className=' bg-secondary text-white py-5 mx-7 rounded-lg'>
                                                 Get started for free
                                             </button>
                                             <button className=' border-secondary  text-secondary border-2 py-5 mx-7 rounded-lg'>

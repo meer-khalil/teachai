@@ -50,12 +50,12 @@ export default function Signup() {
 
   return (
 
-    <div className="h-[80vh] flex justify-center items-center" style={{
+    <div className="md:h-[80vh] flex md:justify-center md:items-center" style={{
       backgroundImage: `url(${image})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'
     }}>
-      <div className=" max-w-[60rem] rounded-[1.5rem] bg-white"
+      <div className=" max-w-[60rem] md:rounded-[1.5rem] bg-white"
         style={{
           // boxShadow: '0px 2px 45px -11px rgba(0,0,0,0.5)',
         }
@@ -65,7 +65,7 @@ export default function Signup() {
           onSubmit={handleSubmit}
           className="m-12"
         >
-          <div className="flex gap-5">
+          <div className="flex flex-col md:flex-row gap-5">
 
             <div className=" flex-1 flex flex-col gap-2">
               <label htmlFor="firstName">
@@ -77,6 +77,7 @@ export default function Signup() {
                 className="bg-transparent border h-10 px-3 rounded"
               />
             </div>
+
             <div className=" flex-1 flex flex-col gap-2">
               <label  htmlFor="firstName">
                 Last Name
@@ -87,6 +88,7 @@ export default function Signup() {
                 className="bg-transparent border h-10 px-3 rounded text-black"
               />
             </div>
+
           </div>
 
           <div className="flex-1 flex flex-col gap-2 my-7">
@@ -102,8 +104,8 @@ export default function Signup() {
             />
           </div>
 
-          <div className="flex gap-5">
-            <div className="flex-1 flex flex-col gap-2 my-7">
+          <div className="flex flex-col md:flex-row gap-5">
+            <div className="flex-1 flex flex-col gap-2">
               <label htmlFor="password">
                 Password
               </label>
@@ -115,7 +117,7 @@ export default function Signup() {
                 className="bg-transparent border h-10 px-3 rounded text-black"
               />
             </div>
-            <div className="flex-1 flex flex-col gap-2 my-7">
+            <div className="flex-1 flex flex-col gap-2">
               <label htmlFor="password1">
                 Re-Password
               </label>

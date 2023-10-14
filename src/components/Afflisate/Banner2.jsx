@@ -38,7 +38,7 @@ const Banner2 = () => {
                 </div>
             </div>
             <div className='flex-1'>
-                <img src={history} alt="History" className='rounded-[1rem] h-full' />
+                <img src={history} alt="History" className='rounded-[1rem] md:h-full' />
             </div>
         </div>
     )

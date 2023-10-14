@@ -6,22 +6,20 @@ const Story = ({ story }) => {
 
     const editDate = (createdAt) => {
         const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+            "July", "August", "September", "October", "November", "December"
         ];
         const d = new Date(createdAt);
-        var datestring = d.getDate() + " " +monthNames[d.getMonth()] + " ," + d.getFullYear() 
+        var datestring = d.getDate() + " " + monthNames[d.getMonth()] + " ," + d.getFullYear()
         return datestring
     }
 
-    const truncateContent = (content) => {
-        const trimmedString = content.substr(0, 73);
-        return trimmedString
+    function truncateString(str, limit) {
+        if (str.length > limit) {
+            return str.slice(0, limit) + "...";
+        }
+        return str;
     }
-    const truncateTitle= (title) => {
-        const trimmedString = title.substr(0, 69);
-        return trimmedString
-    }
-    
+
     return (
 
         <div className="story-card">
@@ -30,17 +28,17 @@ const Story = ({ story }) => {
                 <img className=" story-image" src={`${backend_resourse}/storyImages/${story.image}`} alt={story.title} />
                 <div className="story-content-wrapper">
 
-                    <h5 className="story-title">
-                        
-                    {story.title.length > 76 ? truncateTitle(story.title)+"..." : story.title
-                    
-                    }
+                    <h5 className=" text-xl md:text-2xl font-bold">
+
+                        {story.title.length > 76 ? truncateString(story.title, 69) : story.title
+
+                        }
                     </h5>
 
 
-                    <p className="story-text"dangerouslySetInnerHTML={{__html : truncateContent( story.content) +"..."}}>
-                        </p>
-                    <p className="story-createdAt">{editDate(story.createdAt)} 
+                    <p className="text-lg" dangerouslySetInnerHTML={{ __html: truncateString(story.content, 73) }}>
+                    </p>
+                    <p className="story-createdAt">{editDate(story.createdAt)}
                     </p>
                 </div>
             </Link>

@@ -14,7 +14,7 @@ export default function LottieAnimation2() {
   };
 
   return (
-    <div>
+    <div className=' h-[230px] w-full aspect-auto'>
       <Lottie
         options={defaultOptions}
       />

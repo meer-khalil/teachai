@@ -80,7 +80,7 @@ const Stories = () => {
           <div className="">
             <h1 className='text-center text-2xl md:text-4xl font-bold py-10 text-primary'>Blogs</h1>
 
-            <p className=' text-secondary text-sm md:text-lg text-justify'>
+            <p className=' text-secondary hidden md:block text-sm md:text-lg text-justify'>
               Welcome to the Teach Assist AI Blog, your go-to online resource for staying informed about the latest platform updates, helpful tips and tricks, and intriguing insights. As educator, we understand the importance of continuous learning and staying up to date with the latest trends in education technology. Our blog is designed to provide you with valuable resources, inspiration, and practical knowledge to enhance your teaching experience with AI teachers from Teach Assist AI. Whether you're seeking innovative ideas for lesson planning, strategies to promote student engagement with AI teachers, or guidance on utilizing AI in the classroom, our blog is here to support and inspire you on your educational journey. Stay connected, explore our articles, and discover how Teach Assist AI can transform your teaching practice.
             </p>
           </div>

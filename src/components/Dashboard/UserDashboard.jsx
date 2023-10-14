@@ -29,17 +29,17 @@ const UserDashboard = () => {
         <UsageProvider>
             <ChatbotProvider>
                 <div className=' max-w-[1640px] mx-auto'>
-                    <div className="relative overflow-hidden flex flex-col md:flex-row">
+                    <div className="flex flex-col md:flex-row">
                         {/* <div className='flex flex-col'> */}
                             {/* <div>
                                 <h3 className=' text-xl font-bold'>Package Details</h3>
                             </div> */}
-                            <div className="flex-[2] relative mt-52">
+                            <div className=" md:flex-[2] md:mt-52">
                                 <Aside />
                             </div>
                         {/* </div> */}
 
-                        <main className="mt-40 min-h-screen md:mt-0 overflow-auto flex-[10]">
+                        <main className="mt-5 min-h-screen md:mt-0 md:flex-[10]">
                             <div className="px-2 md:px-6 pt-2">
 
                                 <Routes>

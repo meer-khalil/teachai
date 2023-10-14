@@ -17,6 +17,13 @@ const Categories = () => {
             navigate('/user/dashboard/chatbots')
         }
     }
+
+    function truncateString(str, limit) {
+        if (str.length > limit) {
+          return str.slice(0, limit) + "...";
+        }
+        return str;
+      }
     return (
         <div className='my-5'>
             <div className='flex flex-row gap-4 flex-wrap'>
@@ -35,7 +42,15 @@ const Categories = () => {
                             onClick={() => handleClick(el)}
                         >
                             <p className={`${selectedCategory === el ? 'text-white' : ''}`}>
-                                {el}
+                                
+                                {
+                                    window.innerWidth > 780 ? (
+
+                                        el
+                                    ): (
+                                        truncateString(el, 40)
+                                    )
+                                }
                             </p>
                         </div>
                     ))

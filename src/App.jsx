@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 // Lazy load your components
 import Home from "./components/Home/Home";
+import LottieAnimation2 from "./components/Home/Animation/LottieAnimation2";
 const Teachers = lazy(() => import("./components/Teacher/Teachers"));
 const Affliate = lazy(() => import("./components/Afflisate/Affliate"));
 const About = lazy(() => import("./components/About/About"));
@@ -33,7 +34,7 @@ const ContactSubmit = lazy(() => import("./components/Contact/ContactSubmit"));
 export default function App() {
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <Navbar />
       <Routes>
 
@@ -91,7 +92,7 @@ export default function App() {
 
         <Route path="/contact-submitted" element={<Suspense fallback={<div>Loading...</div>}><ContactSubmit /></Suspense>} />
 
-        {/* <Route path="/animation" element={<LottieAnimation2 />} /> */}
+        <Route path="/animation" element={<LottieAnimation2 />} />
 
         {/* <Route path="/tinyeditor" element={<TinyMCE />} /> */}
 

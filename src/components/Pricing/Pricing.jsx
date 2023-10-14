@@ -107,24 +107,25 @@ const Pricing = () => {
                         <h1 className='text-4xl my-8 font-semibold text-center text-secondary'>
                             Ignite Learning, Inspire Excellence!
                         </h1>
+                        <div className='hidden md:block'>
+                            {
+                                [
+                                    'Welcome to the pricing page for Teach Assist AI, a platform designed specifically for teachers and schools. Our plans are tailored to meet the unique needs of educators at every level, from individual teachers to entire educational institutions. Craft your teaching experience perfectly, analyze student performance effortlessly, and engage with your students authentically using our powerful AI technology.',
 
-                        {
-                            [
-                                'Welcome to the pricing page for Teach Assist AI, a platform designed specifically for teachers and schools. Our plans are tailored to meet the unique needs of educators at every level, from individual teachers to entire educational institutions. Craft your teaching experience perfectly, analyze student performance effortlessly, and engage with your students authentically using our powerful AI technology.',
+                                    "We offer a range of plans to accommodate different requirements and budgets. Whether you're a new teacher, an experienced educator, or a school administrator, we have the right plan for you. Additionally, if you have specific needs or require a custom plan, our team is here to collaborate with you and find the best solution. ",
 
-                                "We offer a range of plans to accommodate different requirements and budgets. Whether you're a new teacher, an experienced educator, or a school administrator, we have the right plan for you. Additionally, if you have specific needs or require a custom plan, our team is here to collaborate with you and find the best solution. ",
+                                    "We understand the importance of personalized support in the education sector. If you need any assistance or have questions regarding our plans, please do not hesitate to reach out to us. We're dedicated to helping teachers and schools succeed with Teach Assist AI. "
 
-                                "We understand the importance of personalized support in the education sector. If you need any assistance or have questions regarding our plans, please do not hesitate to reach out to us. We're dedicated to helping teachers and schools succeed with Teach Assist AI. "
-
-                                , "Curious about the price? We charge for our Full Access Plan to cover the expenses of providing our AI services. Our API enables us to utilize AI effectively in meeting your teaching requirements. By subscribing to the Full Access Plan, you not only gain unrestricted access to our cutting-edge teaching tools but also contribute to the enhancement of this exceptional service. Your support helps us sustain the API's cost, guaranteeing a reliable and efficient platform for educators. We appreciate your understanding and support as we empower teachers and enhance education with Teach Assist AI technology."
-                            ].map((el, i) => (
-                                <p
-                                    className='text-lg mx-4 text-justify md:mx-32 mb-5'
-                                    key={i}>
-                                    {el}
-                                </p>
-                            ))
-                        }
+                                    , "Curious about the price? We charge for our Full Access Plan to cover the expenses of providing our AI services. Our API enables us to utilize AI effectively in meeting your teaching requirements. By subscribing to the Full Access Plan, you not only gain unrestricted access to our cutting-edge teaching tools but also contribute to the enhancement of this exceptional service. Your support helps us sustain the API's cost, guaranteeing a reliable and efficient platform for educators. We appreciate your understanding and support as we empower teachers and enhance education with Teach Assist AI technology."
+                                ].map((el, i) => (
+                                    <p
+                                        className='text-lg mx-4 text-justify md:mx-32 mb-5'
+                                        key={i}>
+                                        {el}
+                                    </p>
+                                ))
+                            }
+                        </div>
                     </div>
 
                     <div class="py-8 px-4 mx-auto lg:py-16 lg:px-6">
@@ -232,7 +233,7 @@ const Pricing = () => {
                     <div className=' fixed left-0 top-0 z-40 right-0 bottom-0'>
                         <div onClick={() => setShowPop(false)} className=' absolute left-0 top-0 right-0 bottom-0 z-0 bg-gray-400 bg-opacity-70 cursor-pointer'>
                         </div>
-                        <div className='absolute left-[50%] top-[50%] -translate-y-1/2 -translate-x-1/2 z-10 w-[700px] mx-auto '>
+                        <div className='absolute h-screen md:h-auto overflow-auto left-[50%] top-[50%] -translate-y-1/2 -translate-x-1/2 z-10 w-full md:w-[700px] mx-auto '>
                             <EnterPriceForm setShowPop={setShowPop} />
                         </div>
                     </div>

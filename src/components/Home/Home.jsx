@@ -9,15 +9,15 @@ import { Helmet } from 'react-helmet';
 import { ChatbotProvider } from '../../context/ChatbotContext';
 
 import Hero from './Hero';
+import Productivity from './Productivity';
+import Stats from './Stats';
 import hero_image from '../../images/Edited/webp/hero_image.webp'
 
-const Stats = lazy(() => import('./Stats'));
 const Features = lazy(() => import('./Features'));
 const History = lazy(() => import('./History'));
 const Integration = lazy(() => import('./Integration'));
 const Feature = lazy(() => import('./Feature'));
 const FindOut = lazy(() => import('./FindOut'));
-const Productivity = lazy(() => import('./Productivity'));
 
 const TestimonialSlider = lazy(() => import('./Testimonial/TestimonialSlider'));
 const Banner = lazy(() => import('./Banner'));
@@ -49,10 +49,11 @@ export const Home = () => {
         <Hero />
 
         {/* <Logos /> */}
-        <Suspense>
-          <Productivity />
+        <Productivity />
 
-          <Stats />
+        <Stats />
+        
+        <Suspense>
 
           {/* <Steps /> */}
 

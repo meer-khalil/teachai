@@ -31,8 +31,6 @@ const DonutChart = lazy(() => import("./components/Donut/DonutChart"));
 const ContactSubmit = lazy(() => import("./components/Contact/ContactSubmit"));
 
 export default function App() {
-  // const site = 'https://teachai32.netlify.app'
-  // const site = null;
 
   return (
     <div>
@@ -40,7 +38,7 @@ export default function App() {
       <Routes>
 
         <Route path="/" element={
-        <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>
+          <Suspense fallback={<div>Loading...</div>}><Home /></Suspense>
         } />
 
         <Route path="/teachers" element={<Suspense fallback={<div>Loading...</div>}><Teachers /></Suspense>} />

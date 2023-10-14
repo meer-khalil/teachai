@@ -5,7 +5,7 @@ import { UsageContext } from '../../../context/UsageContext'
 import { toast } from 'react-toastify';
 import { ChatbotContext } from '../../../context/ChatbotContext';
 
-const ChatForm = ({ setAnswer, setLoading, setChatID, plag, setPlag, detect, setDetect }) => {
+const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, plag, setPlag, detect, setDetect }) => {
 
     const [data, setData] = useState({ language: "English" })
 
@@ -46,6 +46,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, plag, setPlag, detect, set
             },
         };
 
+        let detectAnswer = ''
+        let plagAnswer = ''
 
         try {
             for (var pair of formData.entries()) {
@@ -54,21 +56,33 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, plag, setPlag, detect, set
             }
             console.log(formData);
             if (detect) {
-                let res = await api.post(`/chatbot/detectai`, formData, config)
-                setChatID(res.data.chat_id)
-                setAnswer([{ answer: res.data.answer }])
-                console.log('Response from chatform: ', res);
-                console.log('Here is the answer: ', res.data.answer);
+                if (chatID) {
+                    formData.append('chat_id', chatID)
+                }
+                let { data } = await api.post(`/chatbot/detectai`, formData, config)
+                setChatID(data.chat_id)
+                detectAnswer = data.answer;
+                console.log('Detect Answer: ', data.answer);
+                if (!plag) {
+                    setAnswer((prev) => [...prev, { answer: data.answer }])
+                    setLoading(false)
+                    fetchUsage();
+                    return;
+                }
             }
 
 
 
             if (plag) {
-                // formData.append('chat_id', res.data.chat_id)
                 try {
-
+                    if (chatID) {
+                        formData.append('chat_id', chatID)
+                    }
                     let { data } = await api.post(`/chatbot/plagirism`, formData, config)
-                    console.log('Plag Data: ', data);
+                    setChatID(data.chat_id)
+                    plagAnswer = data.answer[0]
+                    console.log('Plag Data: ', data.answer[0]);
+                    console.log('Number Check: ', data.answer[0].match(/d+/)[0]);
                     alert('Here is data for plag')
 
                 } catch (error) {
@@ -76,7 +90,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, plag, setPlag, detect, set
                 }
             } else {
                 alert("plag is: ", plag)
+                return;
             }
+
+            setAnswer((prev) => [...prev, { answer: detectAnswer }])
+            setPlagAnswer((prev) => [...prev, { answer: plagAnswer }])
 
             setLoading(false)
             fetchUsage();

@@ -17,6 +17,11 @@ try:
 except LookupError:
     nltk.download('stopwords')
 
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 # Function to calculate similarity using difflib
 def similarity_difflib(query, text):
     return SequenceMatcher(None, query, text).ratio()
@@ -43,6 +48,21 @@ def get_links(query):
     if url != []:
         res = url
     return res
+
+def google_search_serper(query):
+    url = "https://google.serper.dev/search"
+    headers = {
+        "X-API-KEY": "d306152118b8691fd722576412d441e0129104aa",
+        "Content-Type": "application/json",
+    }
+    params = {"q": query}
+    response = requests.post(url, headers=headers, params=params)
+    response.raise_for_status()
+    
+    search_results = response.json()
+    links = [result['link'] for result in search_results['organic']]
+    return links[:3]
+
 
 # Function to split text into chunks
 def split_chunks(text, chunk_size):
@@ -107,7 +127,7 @@ def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similar
     #chunks = text.split(".")
     #print(f"chunks: {chunks}\n")
     for chunk in chunks:
-        urls = get_links(chunk)
+        urls = google_search_serper(chunk)
         #print(f"urls: {urls}")
         if urls:
             for url in urls:
@@ -118,13 +138,13 @@ def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similar
                     #print(f"url: {url} \n content: {cleaned_content}\n")
                     matched_content = cleaned_content
                     matched_content_chunks = split_chunks(matched_content, (len(text)))
-                    for chunk in matched_content_chunks:
+                    for chunkr in matched_content_chunks:
                         # Calculate the similarity using the specified similarity metric
                         if similarity_metric == "difflib":
-                            similarity = similarity_difflib(text, chunk)
+                            similarity = similarity_difflib(text, chunkr)
                             #print(f"similarity: {similarity}")
                         elif similarity_metric == "cosine":
-                            similarity = calculate_similarity(text, chunk)
+                            similarity = calculate_similarity(text, chunkr)
                             #print(f"similarity: {similarity}")
                         else:
                             raise ValueError("Unsupported similarity metric")
@@ -133,7 +153,7 @@ def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similar
                             total_similarity += similarity
                             num_chunks += 1
                             plagiarized_urls.append((url, similarity))
-                            plagiarized_chunks.append((chunk, similarity))
+                            plagiarized_chunks.append((chunk))
 
     if num_chunks > 0:
         average_similarity = total_similarity / num_chunks
@@ -144,10 +164,10 @@ def plagiarism_checker(text, chunk_size=100, similarity_metric="cosine", similar
 
 def get_plag_report(text):
     average_similarity, plagiarized_urls, plagiarized_chunks = plagiarism_checker(text)
-    report = f"Average similarity: {average_similarity} %\n"
+    report = f"Average similarity: {average_similarity} %. \n"
 
     if plagiarized_urls:
-        report += "Plagiarism occurred in the following URLs:\n"
+        report += "Plagiarism occurred in the following URLs: \n"
         for url, similarity in plagiarized_urls:
             sim = int(similarity * 100)
             report += f"    -URL: {url}\n   - Similarity: {sim} %\n"
@@ -160,4 +180,5 @@ def get_plag_report(text):
 
 # Example usage
 #text = """Unlike supervised learning, we don’t tell the agent whether an action is good or bad. For example, in a Tic-Tac-Toe game, the agent first randomly select a place in the 3 x 3 grid. It might place a mark on the corner, which is usually a bad move, however, you can’t tell the result because the game is not over yet. What we do here is continue the process and feedback the result to the previous state. After several training episodes, it select the best action based on past experience, and when it comes to the initial state, it would mark the middle because the winning percentage should be higher there."""
-#print(get_plag_report(text))
+#report, _ = get_plag_report(text)
+#print(report)

@@ -140,7 +140,7 @@ const PowerPoint = () => {
                     <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
                         <div className=' border-b-2 flex gap-3'>
                             <button className=' bg-slate-300 px-4 py-2'>Output</button>
-                            <button className=' px-4 py-2'>History</button>
+                            {/* <button className=' px-4 py-2'>History</button> */}
                         </div>
                         {
                             (answer.length > 0) ? (
@@ -175,7 +175,7 @@ const PowerPoint = () => {
                         }
                     </div>
 
-                    {(answer.length > 0) && <ExamplePrompts />}
+                    {(answer.length > 0) && <ExamplePrompts examplePrompts={[]} />}
 
                 </div>
             </div>

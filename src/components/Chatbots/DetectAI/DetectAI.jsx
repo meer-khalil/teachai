@@ -126,7 +126,7 @@ const DetectAI = () => {
                       (answer || plagAnswer) &&
                       <div className='left-0 top-0 right-0 bottom-0 md:absolute overflow-y-scroll break-words h-[80vh]'>
                         {
-                          detect && answer (
+                          detect && answer && (
                             <>
                               <div className='mt-3'>
                                 <h2 className='text-center mb-1 text-3xl font-bold'>
@@ -156,7 +156,7 @@ const DetectAI = () => {
                         }
 
                         {
-                          plag && plagAnswer(
+                          plag && plagAnswer && (
                             <div>
                               <div className='mt-16'>
                                 <h2 className='text-center mb-1 text-3xl font-bold'>

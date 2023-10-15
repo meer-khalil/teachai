@@ -12,7 +12,7 @@ function ContactSubmit() {
 
       <div className=' absolute left-0 top-0 right-0 bottom-0 bg-black opacity-25'></div>
 
-      <div className=' flex flex-col px-5 py-8 justify-between z-10 w-[700px] h-[400px] bg-white shadow-lg rounded-lg '>
+      <div className=' flex flex-col px-5 py-8 justify-between z-10 w-full mx-5 md:mx-0 md:w-[700px] h-auto md:h-[400px] bg-white shadow-lg rounded-lg '>
         <div>
           <h3 className=' text-4xl font-bold mb-4'>Form Submitted Successfully!</h3>
           <p >Thank You!</p>

@@ -71,7 +71,7 @@ const AnswerAndHistory = ({
 
             {
                 !notPrompts && (
-                    ((answer.length > 0) && (!showHistory)) && <ExamplePrompts examplePrompts={examplePrompts} />
+                    ((answer.length > 0) && (!showHistory)) && (window.innerWidth > 786) && <ExamplePrompts examplePrompts={examplePrompts} />
                 )
             }
 

@@ -57,7 +57,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
         })
     }
     return (
-        <div className='mr-4'>
+        <div className='md:mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
 
                 <div className='flex flex-col mb-5'>
@@ -135,6 +135,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         id='language'
                         name='language'
                         placeholder='English'
+                        value={data?.language}
                         onChange={(e) => {
                             handleChange(e);
                             setLanguage(e.target.value)

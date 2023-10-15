@@ -9,6 +9,8 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
 
     const [data, setData] = useState({ language: "English" })
 
+    const [disableDetect, setDisableDetect] = useState(false);
+    const [diablePlag, setDisablePlag] = useState(false);
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -59,16 +61,25 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                 if (chatID) {
                     formData.append('chat_id', chatID)
                 }
-                let { data } = await api.post(`/chatbot/detectai`, formData, config)
-                setChatID(data.chat_id)
-                detectAnswer = data.answer;
-                console.log('Detect Answer: ', data.answer);
-                if (!plag) {
-                    setAnswer((prev) => [...prev, { answer: data.answer }])
-                    setLoading(false)
-                    fetchUsage();
-                    return;
+                try {
+                    let { data } = await api.post(`/chatbot/detectai`, formData, config)
+                    setChatID(data.chat_id)
+                    detectAnswer = data.answer;
+                    console.log('Detect Answer: ', data.answer);
+                    if (!plag) {
+                        setDisablePlag(true);
+                        setDisableDetect(true)
+                        setAnswer((prev) => [...prev, { answer: data.answer }])
+                        setLoading(false)
+                        fetchUsage();
+                        return;
+                    }
+                } catch (error) {
+                    console.log('Error While Getting detect Data');
                 }
+
+            } else {
+                setDisableDetect(true);
             }
 
 
@@ -83,18 +94,26 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                     plagAnswer = data.answer[0]
                     console.log('Plag Data: ', data.answer[0]);
                     console.log('Number Check: ', data.answer[0].match(/d+/)[0]);
-                    alert('Here is data for plag')
 
                 } catch (error) {
-                    alert('error')
+                    setDetect(false)
+                    setPlag(false)
+                    alert('Plagirism Error')
                 }
             } else {
-                alert("plag is: ", plag)
+                setDisablePlag(true)
                 return;
             }
+            setDisableDetect(true);
+            setDisablePlag(true);
+            if (detectAnswer) {
 
-            setAnswer((prev) => [...prev, { answer: detectAnswer }])
-            setPlagAnswer((prev) => [...prev, { answer: plagAnswer }])
+                setAnswer((prev) => [...prev, { answer: detectAnswer }])
+            }
+            if (plagAnswer) {
+
+                setPlagAnswer((prev) => [...prev, { answer: plagAnswer }])
+            }
 
             setLoading(false)
             fetchUsage();
@@ -144,7 +163,7 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
         })
     }
     return (
-        <div className='mr-4'>
+        <div className='md:mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
 
                 {/* <div className='flex flex-col mb-5'>
@@ -233,7 +252,9 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                             } else {
                                 setDetect(false)
                             }
-                        }} />
+                        }}
+                            disabled={disableDetect}
+                        />
                         Detect AI
                     </label>
                     <label htmlFor="plagirism" className='flex gap-2 cursor-pointer'>
@@ -243,7 +264,9 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                             } else {
                                 setPlag(false)
                             }
-                        }} />
+                        }}
+                            disabled={diablePlag}
+                        />
                         Plagirism
                     </label>
                 </div>

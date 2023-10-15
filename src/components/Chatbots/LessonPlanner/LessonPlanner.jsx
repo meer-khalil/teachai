@@ -36,7 +36,7 @@ const LessonPlanner = () => {
             </div>
             <div className=' flex flex-col md:flex-row gap-5'>
 
-                <div className='border-r border-secondary max-w-[350px]'>
+                <div className='md:border-r border-secondary w-full md:max-w-[350px]'>
                     <Header
                         name={'Lisa'}
                         heading={'General Lesson Planner'}

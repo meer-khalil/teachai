@@ -23,7 +23,7 @@ const Contact = () => {
                     Need details about our business plan? Let us know.
                 </p>
             </div>
-            <div className='flex flex-col md:flex-row gap-5 md:gap-12 items-center mx-4 md:mx-16 mb-16'>
+            <div className='flex flex-col md:flex-row gap-5 md:gap-12 md:items-center mx-4 md:mx-16 mb-16'>
                 <div className='flex-1'>
                     <div className='md:mx-12'>
 

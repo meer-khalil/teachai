@@ -89,8 +89,10 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
 
 // Login User
 exports.loginUser = asyncErrorHandler(async (req, res, next) => {
-    const { email, password, verifiedDevice } = req.body;
+    let { email, password, verifiedDevice } = req.body;
 
+    email = email.toLowerCase();
+    
     if (!email || !password) {
         return next(new ErrorHandler("Please Enter Email And Password", 400));
     }

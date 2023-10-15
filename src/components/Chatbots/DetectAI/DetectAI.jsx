@@ -85,7 +85,7 @@ const DetectAI = () => {
       </div>
       <div className=' flex flex-col md:flex-row gap-5'>
 
-        <div className='border-r border-secondary max-w-[350px]'>
+        <div className='md:border-r border-secondary w-full md:max-w-[350px]'>
           <Header
             name={'Ali'}
             image={_9_DetectAI}
@@ -110,13 +110,13 @@ const DetectAI = () => {
         </div>
 
         <div className='max-h-[100vh] pb-5 flex flex-1 gap-3'>
-          <div className={`flex-[2] ${answer.length > 0 ? 'border-r border-black' : ''}`}>
+          <div className={`flex-[2] ${answer?.length > 0 ? 'border-r border-black' : ''}`}>
             <div className=' border-b-2 flex gap-3'>
               <button className=' bg-slate-300 px-4 py-2'>Output</button>
               <button className=' px-4 py-2'>History</button>
             </div>
             {
-              ((answer.length > 0) || (plagAnswer.length > 0)) ? (
+              ((answer?.length > 0) || (plagAnswer?.length > 0)) ? (
                 <div>
                   <div className='relative' ref={componentRef}>
 
@@ -124,7 +124,7 @@ const DetectAI = () => {
                     {loading && <Loading />}
                     {
                       (answer || plagAnswer) &&
-                      <div className='left-0 top-0 right-0 bottom-0 absolute overflow-y-scroll break-words h-[80vh]'>
+                      <div className='left-0 top-0 right-0 bottom-0 md:absolute overflow-y-scroll break-words h-[80vh]'>
                         {
                           detect && (
                             <>
@@ -133,7 +133,7 @@ const DetectAI = () => {
                                   Detect AI Percentage
                                 </h2>
                                 <h4 className='text-lg font-bold text-center'>
-                                  The amount of detected is {(answer[0].answer.match(/\d+/g)).map(Number)[0]}%
+                                  The amount of detected is {answer && (answer[0].answer.match(/\d+/g)).map(Number)[0]}%
                                 </h4>
                               </div>
                               <div className='flex justify-center mt-5 mb-2'>

@@ -1,7 +1,7 @@
 import React from 'react';
 // import './styles.css';
 import Lottie from 'react-lottie';
-import animationData from '../../../animation/iPad/iPad.json'
+import animationData from '../../../animation/iPad/descktop.json'
 
 export default function LottieAnimation2() {
   const defaultOptions = {
@@ -14,7 +14,7 @@ export default function LottieAnimation2() {
   };
 
   return (
-    <div className=' h-[230px] w-full aspect-auto'>
+    <div className=''>
       <Lottie
         options={defaultOptions}
       />

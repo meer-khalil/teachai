@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import LottieAnimation from './Animation/LottieAnimation';
 import LottieAnimation2 from './Animation/LottieAnimation2';
 
 const Feature = ({ title, description, buttonText, image, index }) => {
@@ -25,12 +26,17 @@ const Feature = ({ title, description, buttonText, image, index }) => {
                     </div>
                 </div>
             </div>
-            <div className='flex-1'>
+            <div className='flex-1 w-full'>
                 {
                     image ? (
                         <img src={image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
                     ) : (
-                        <LottieAnimation2 />
+                        (window.innerWidth > 786) ? (
+
+                            <LottieAnimation2 />
+                        ) : (
+                            <LottieAnimation />
+                        )
                     )
                 }
             </div>

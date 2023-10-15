@@ -1,0 +1,100 @@
+#Title: Derivatives in Calculus
+
+#Slide: 1
+#Header: Table of Contents
+#Content:
+1. What are Derivatives?
+2. Applications of Derivatives
+3. Notation and Terminology
+4. Derivative of a Function
+5. Rules of Differentiation
+6. Common Derivatives
+7. Higher Order Derivatives
+8. Optimization Problems
+9. Related Rates
+10. Summary
+
+#Slide: 2
+#Header: Learning Aims
+#Content:
+- Understand the concept of derivatives in calculus
+- Identify the applications of derivatives in real life
+- Learn the notation and terminology related to derivatives
+
+#Slide: 3
+#Header: Success Criteria
+#Content:
+- Define what a derivative is
+- Apply derivatives to solve optimization problems
+- Apply derivatives to solve related rates problems
+
+#Slide: 4
+#Header: What are Derivatives?
+#Content:
+- Derivatives represent the rate of change of a function at any given point
+- They provide information about the slope or tangent line to the function
+- Used to analyze and understand the behavior of functions
+
+#Slide: 5
+#Header: Applications of Derivatives
+#Content:
+- Calculating velocity and acceleration
+- Finding maximum and minimum values
+- Solving optimization problems
+- Analyzing growth and decay
+- Understanding the shape of curves
+
+#Slide: 6
+#Header: Notation and Terminology
+#Content:
+- Derivative notation: f'(x), dy/dx, d/dx(f(x))
+- Terminology: slope, tangent line, secant line, local maximum/minimum, concavity
+
+#Slide: 7
+#Header: Derivative of a Function
+#Content:
+- Finding the derivative of a function using rules and formulas
+- The power rule, product rule, chain rule, and quotient rule
+
+#Slide: 8
+#Header: Rules of Differentiation
+#Content:
+- Power rule: (x^n)' = nx^(n-1)
+- Product rule: (f(x)g(x))' = f'(x)g(x) + f(x)g'(x)
+- Chain rule: (f(g(x)))' = f'(g(x))g'(x)
+- Quotient rule: (f(x)/g(x))' = (f'(x)g(x) - f(x)g'(x))/(g(x))^2 
+
+#Slide: 9
+#Header: Common Derivatives
+#Content:
+- Derivatives of common functions: constant, power, exponential, logarithmic, trigonometric
+- Memorizing the derivatives of these functions to simplify differentiation
+
+#Slide: 10
+#Header: Higher Order Derivatives
+#Content:
+- Derivatives of derivatives
+- Second, third, fourth (and higher) derivatives
+- Understanding higher order changes in a function
+
+#Slide: 11
+#Header: Optimization Problems
+#Content:
+- Finding maximum or minimum values of a function
+- Using derivatives to analyze and solve optimization problems
+- Examples of real-life applications
+
+#Slide: 12
+#Header: Related Rates
+#Content:
+- Understanding how two variables change in relation to each other
+- Solving problems involving rates of change with respect to time or other variables
+- Real-life examples and applications
+
+#Slide: 13
+#Header: Summary
+#Content:
+- Derivatives represent the rate of change of a function
+- They have various applications in real life, from optimization to related rates
+- Rules of differentiation and common derivatives help simplify calculations
+- Understanding higher order derivatives provides insight into function behavior

@@ -13,24 +13,26 @@ exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
             if (usage.startDate > usage.expiryDate) {
                 console.log('going to call 429');
                 return res.status(401).json({ error: 'Your plan is Expired' });
-            } else if (usage.usageCount <= usage.usageLimit) {
-                console.log('Requested Updated: by 1');
-                usage.usageCount++;
-                await usage.save();
-                next();
             } else {
                 const now = new Date();
                 const lastUpdated = usage.lastUpdated;
 
                 if (now - lastUpdated > 24 * 60 * 60 * 1000) {
-                    usage.usageCount = 1;
+                    usage.usageCount = 0;
                     usage.lastUpdated = now;
                     await usage.save();
                     next();
+                } else if (usage.usageCount <= usage.usageLimit) {
+                    console.log('Requested Updated: by 1');
+                    console.log('usageCount <= usageLimit', usage.usageCount <= usage.usageLimit);
+                    usage.usageCount++;
+                    await usage.save();
+                    next();
+                } else {
+                    console.log('going to call 429');
+                    return res.status(429).json({ error: 'Today Request Limit Reached' });
                 }
 
-                console.log('going to call 429');
-                return res.status(429).json({ error: 'Today Request Limit Reached' });
             }
 
         }
@@ -49,26 +51,18 @@ exports.resetLimit = asyncErrorHandler(async (req, res, next) => {
         const usage = await Usage.findOne({ user: id });
 
         if (usage) {
-            console.log('Usage: ', usage);
-            if (usage.usageCount <= usage.usageLimit) {
-                console.log("Limit is not Yet Reached");
-                next();
-            } else {
-                const now = new Date();
-                const lastUpdated = usage.lastUpdated;
 
-                if (now - lastUpdated > 24 * 60 * 60 * 1000) {
-                    console.log("Limit is reseted");
-                    usage.usageCount = 1;
-                    usage.lastUpdated = now;
-                    await usage.save();
-                    next();
-                } else {
-                    console.log("Limit is not reseted!");
-                    next();
-                }
+            const now = new Date();
+            const lastUpdated = usage.lastUpdated;
+
+            if (now - lastUpdated > 24 * 60 * 60 * 1000) {
+                console.log("Limit is reseted");
+                usage.usageCount = 1;
+                usage.lastUpdated = now;
+                await usage.save();
             }
 
+            next();
         }
     } catch (error) {
         console.error('Error:', error);

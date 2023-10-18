@@ -20,6 +20,7 @@ const {
 } = require('../controllers/userController');
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
+const { resetLimit } = require('../middlewares/requestLimit');
 
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.route('/me').put(isAuthenticatedUser, updateUserDetails);
 router.route("/admin/users").get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
 router.route("/admin/users/:userId").delete(isAuthenticatedUser, authorizeRoles("admin"), userDeletedByAdmin);
 
-router.route("/getUsage").get(isAuthenticatedUser, getUsage)
+router.route("/getUsage").get(isAuthenticatedUser, resetLimit, getUsage)
 
 
 router.route("/verifyOTP").post(verifyOTP)

@@ -185,7 +185,6 @@ const chatHistory = require('./routes/chatHistoryRoute');
 const contact = require('./routes/contactRoute');
 const sendEmail = require('./utils/sendEmail');
 
-
 app.use('/api/v1', user);
 app.use('/api/v1', post);
 app.use('/api/v1/story', story);

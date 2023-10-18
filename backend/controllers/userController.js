@@ -92,7 +92,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
     let { email, password, verifiedDevice } = req.body;
 
     email = email.toLowerCase();
-    
+
     if (!email || !password) {
         return next(new ErrorHandler("Please Enter Email And Password", 400));
     }
@@ -402,7 +402,31 @@ exports.updateUserDetails = asyncErrorHandler(async (req, res, next) => {
 // Get All Users --ADMIN
 exports.getAllUsers = asyncErrorHandler(async (req, res, next) => {
 
-    let data = await Usage.find().populate('user');
+    let data = await Usage.find();
+
+    for (let i = 0; i < data.length; i++) {
+
+        try {
+            const usage = await Usage.findOne({ user: data[i]._id });
+
+            if (usage) {
+                const now = new Date();
+                const lastUpdated = usage.lastUpdated;
+
+                if (now - lastUpdated > 24 * 60 * 60 * 1000) {
+                    console.log("Limit is reseted");
+                    usage.usageCount = 1;
+                    usage.lastUpdated = now;
+                    await usage.save();
+                }
+
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    data = await Usage.find().populate('user');
 
     res.status(200).json({
         success: true,
@@ -519,10 +543,11 @@ exports.deleteAccount = asyncErrorHandler(async (req, res, next) => {
 exports.userDeletedByAdmin = asyncErrorHandler(async (req, res, next) => {
 
     const { userId } = req.params
-    const user = await User.findOne({ _id: userId })
-    const usage = await Usage.findOne({ user: user._id })
-
     try {
+
+        const user = await User.findOne({ _id: userId })
+        const usage = await Usage.findOne({ user: user._id })
+
         await User.deleteOne({ _id: user._id });
         await Usage.deleteOne({ _id: usage._id });
 
@@ -530,7 +555,7 @@ exports.userDeletedByAdmin = asyncErrorHandler(async (req, res, next) => {
             message: "Account Deleted"
         })
     } catch (error) {
-        console.log('error while deleting');
+        console.log('error while deleting: ', error);
         res.status(500).json({
             message: "Error While Deleting Account"
         })

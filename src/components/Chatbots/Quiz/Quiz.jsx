@@ -67,6 +67,7 @@ const Quiz = () => {
                         'I want to track individual student performance on this quiz?',
                         'Are there any resources or study materials available to help students prepare for this quiz'
                     ]}
+                    dontFollow={true}
                 />
             </div>
 

@@ -1,0 +1,24 @@
+Here is your quiz, Derivation: True or False.
+
+1. The derivative of a constant function is always zero.
+2. The power rule states that if y = x^n, where n is a constant, then dy/dx = n * x^(n-1).
+3. The derivative of a sum of two functions is equal to the sum of their derivatives.
+4. The constant multiple rule states that if y = k * f(x), where k is a constant, then dy/dx = k * f'(x).
+5. The derivative of a product of two functions is equal to the derivative of the first function multiplied by the second function, plus the derivative of the second function multiplied by the first function.
+6. The quotient rule states that if y = f(x) / g(x), then dy/dx = (f'(x) * g(x) - f(x) * g'(x)) / (g(x))^2.
+7. The chain rule states that if y = f(g(x)), then dy/dx = f'(g(x)) * g'(x).
+8. The derivative of a constant multiplied by a variable raised to a power is equal to the constant times the power times the variable raised to the power minus one.
+9. The derivative of a constant function is equal to the constant itself.
+10. The derivative of a square root function is equal to (1/2) * (x^(-1/2)).
+11. The derivative of a natural logarithm function ln(x) is equal to 1/x.
+12. The derivative of a sine function is equal to the cosine of the function.
+13. The derivative of a tangent function is equal to the square of the secant function.
+14. The derivative of an exponential function e^x is equal to e^x.
+15. The derivative of a logarithmic function log_a(x) is equal to (1/x) * (1/ln(a)).
+16. The derivative of a constant times a function raised to a power is equal to the constant times the power times the function raised to the power minus one.
+17. The derivative of a natural logarithm function ln(kx) is equal to 1/x.
+18. The derivative of a cosine function is equal to the negative sine of the function.
+19. The derivative of a cotangent function is equal to the negative square of the cosecant function.
+20. The derivative of the natural log of absolute value of x, ln(|x|), is equal to 1/x.
+
+Good luck with your quiz!

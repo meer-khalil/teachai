@@ -105,7 +105,7 @@ export const ChatbotProvider = ({ children }) => {
 
     const [chatbots, setChatbots] = useState(data);
     const [selectedCategory, setSelectedCategory] = useState('');
-
+    const [videoUrl, setVideoURL] = useState('')
     const [language, setLanguage] = useState('');
 
     let homebots;
@@ -142,7 +142,8 @@ export const ChatbotProvider = ({ children }) => {
             setSelectedCategory,
             homebots,
             getBots,
-            language, setLanguage
+            language, setLanguage,
+            videoUrl, setVideoURL
         }}>
             {children}
         </ChatbotContext.Provider>

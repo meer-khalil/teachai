@@ -11,8 +11,9 @@ const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
     const [prompt, setPrompt] = useState('');
 
 
-    const { fetchUsage } = useContext(UsageContext)
-    const { language, videoUrl } = useContext(ChatbotContext)
+    const { fetchUsage } = useContext(UsageContext);
+    const { language, videoUrl } = useContext(ChatbotContext);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 

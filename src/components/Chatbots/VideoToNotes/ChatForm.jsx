@@ -9,11 +9,11 @@ import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
-    const [data, setData] = useState({language: 'English'})
+    const [data, setData] = useState({ language: 'English' })
 
     const { fetchUsage } = useContext(UsageContext);
-    const { setURL, setLanguage } = useContext(ChatbotContext);
-    
+    const { videoUrl, setVideoURL, setLanguage } = useContext(ChatbotContext);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
@@ -70,8 +70,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         name='url'
                         onChange={(e) => {
                             handleChange(e);
-                            setURL(e.target.value)
+                            setVideoURL(e.target.value)
                         }}
+                        value={videoUrl}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />
                 </div>

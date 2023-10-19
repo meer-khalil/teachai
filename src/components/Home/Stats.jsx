@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import stats_image from '../../images/Edited/webp/stat.png'
+import stats_image from '../../images/Home/AI-Teachers-working.png'
 
 const Stats = () => {
 

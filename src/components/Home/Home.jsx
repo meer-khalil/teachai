@@ -11,7 +11,7 @@ import { ChatbotProvider } from '../../context/ChatbotContext';
 import Hero from './Hero';
 import Productivity from './Productivity';
 import Stats from './Stats';
-import hero_image from '../../images/Edited/webp/hero_image.webp'
+import hero_image from '../../images/Edited/webp/hero_image.jpg'
 
 const Features = lazy(() => import('./Features'));
 const History = lazy(() => import('./History'));

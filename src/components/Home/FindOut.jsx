@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import hero_image from '../../images/Edited/webp/hero_image.webp'
+import hero_image from '../../images/Edited/webp/hero_image.jpg'
 
 const FindOut = () => {
 

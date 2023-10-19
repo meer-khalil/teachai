@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from './Grid'
 
-import history from '../../images/Edited/webp/history.webp'
+import history from '../../images/Home/AI-teacher-chatbot.jpg'
 
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'

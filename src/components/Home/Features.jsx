@@ -1,6 +1,6 @@
 import Feature from './Feature'
 import feature2 from '../../images/feature-2.webp'
-import feature3 from '../../images/feature-3.webp'
+import feature3 from '../../images/Home/ai-powerpoint.jpg'
 
 
 const features = [

@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.3b679bf9.css",
+    "main.css": "/static/css/main.a7ac5bc7.css",
     "main.js": "/static/js/main.db69e147.js",
     "static/js/647.bc07fd27.chunk.js": "/static/js/647.bc07fd27.chunk.js",
     "static/js/614.d1beeb87.chunk.js": "/static/js/614.d1beeb87.chunk.js",
@@ -85,7 +85,7 @@
     "static/media/tiktok.svg": "/static/media/tiktok.80830f7b0c75bddb989255fb7a11c4c6.svg",
     "static/media/linkedin.svg": "/static/media/linkedin.ada11cda991129bc91b79d2c7cee1066.svg",
     "static/media/facebook.svg": "/static/media/facebook.5e1cb4b86ac3f872dadcbde3ed31cd4b.svg",
-    "main.3b679bf9.css.map": "/static/css/main.3b679bf9.css.map",
+    "main.a7ac5bc7.css.map": "/static/css/main.a7ac5bc7.css.map",
     "main.db69e147.js.map": "/static/js/main.db69e147.js.map",
     "647.bc07fd27.chunk.js.map": "/static/js/647.bc07fd27.chunk.js.map",
     "614.d1beeb87.chunk.js.map": "/static/js/614.d1beeb87.chunk.js.map",
@@ -136,7 +136,7 @@
     "501.984c0570.chunk.js.map": "/static/js/501.984c0570.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b679bf9.css",
+    "static/css/main.a7ac5bc7.css",
     "static/js/main.db69e147.js"
   ]
 }

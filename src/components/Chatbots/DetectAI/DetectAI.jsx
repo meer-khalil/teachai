@@ -173,7 +173,7 @@ const DetectAI = () => {
                           </div>
                           <div className="flex flex-col gap-16 justify-center mt-4">
 
-                            {Array.isArray(plagAnswer) ? (
+                            {Array.isArray(plagAnswer[0]) ? (
                               <>
                                 <div className=" flex justify-center">
                                   <div className=" w-44 h-44">
@@ -246,7 +246,7 @@ const DetectAI = () => {
                                 </div>
                               </>
                             ) : (
-                              <p>{plagAnswer}</p>
+                              <p>{plagAnswer[0].answer}</p>
                             )}
                           </div>
                         </div>

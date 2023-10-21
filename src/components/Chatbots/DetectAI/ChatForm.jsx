@@ -76,6 +76,7 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                     }
                 } catch (error) {
                     console.log('Error While Getting detect Data');
+                    console.log(error);
                 }
 
             } else {

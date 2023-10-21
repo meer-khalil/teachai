@@ -1,5 +1,6 @@
 beautifulsoup4==4.8.2
 Flask==2.2.3
+Werkzeug==2.2.2
 google==3.0.0
 langchain==0.0.205
 nltk==3.8.1

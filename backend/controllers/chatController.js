@@ -306,8 +306,7 @@ exports.mathLessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
 
 exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
-    req.setTimeout(0);
-    
+
     /*
     make sure that Chatbot model contains the bot name
     */

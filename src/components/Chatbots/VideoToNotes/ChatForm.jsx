@@ -37,6 +37,9 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             if (error?.response?.status === 429) {
                 toast(error?.response?.data?.error)
             }
+            if (error?.response?.status === 504) {
+                toast("Gateway Timeout, Try Again")
+            }
             console.log('Error: ', error);
             setLoading(false)
 

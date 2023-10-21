@@ -14,10 +14,6 @@ const User = require("./models/userModel");
 const compression = require("compression");
 const app = express();
 
-app.use((req, res, next) => {
-  req.setTimeout(180000); // 3 min
-  next();
-});
 app.use(cors());
 
 /*

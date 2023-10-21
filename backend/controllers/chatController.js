@@ -326,8 +326,7 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
     }
 })
 
-exports.videoChat = asyncErrorHandler(async (req, res, next) => {
-    
+exports.videoChat = asyncErrorHandler(async (req, res, next) => {    
 
     /*
     make sure that Chatbot model contains the bot name

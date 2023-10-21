@@ -306,9 +306,10 @@ exports.mathLessonPlanner = asyncErrorHandler(async (req, res, next) => {
 
 
 exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
     /*
     make sure that Chatbot model contains the bot name
-*/
+    */
     const { body, data } = await createChatHistoryAndGiveData(req, 'Video To Notes')
 
     data.prompt.userinput = "Give me the notes for this video"
@@ -326,6 +327,8 @@ exports.videoSummarize = asyncErrorHandler(async (req, res, next) => {
 })
 
 exports.videoChat = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
+
     /*
     make sure that Chatbot model contains the bot name
 */
@@ -345,6 +348,7 @@ exports.videoChat = asyncErrorHandler(async (req, res, next) => {
     }
 })
 exports.videoToQuiz = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
 
     /*
         make sure that Chatbot model contains the bot name
@@ -365,6 +369,7 @@ exports.videoToQuiz = asyncErrorHandler(async (req, res, next) => {
 
 
 exports.videoToQuizChat = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
 
     /*
         make sure that Chatbot model contains the bot name
@@ -376,7 +381,7 @@ exports.videoToQuizChat = asyncErrorHandler(async (req, res, next) => {
     data.prompt.num_question = ''
     data.prompt.quiz_type = ''
     data.prompt.userinput = data.prompt.prompt
-    data.prompt.prompt = ''    
+    data.prompt.prompt = ''
     console.log('CHeck: ', data);
     // res.json({message: 'wait'})
     // return;
@@ -390,6 +395,7 @@ exports.videoToQuizChat = asyncErrorHandler(async (req, res, next) => {
     }
 })
 exports.videoQuizAnswer = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
 
     /*
     make sure that Chatbot model contains the bot name
@@ -459,6 +465,7 @@ exports.detectAI = asyncErrorHandler(async (req, res, next) => {
 
 
 exports.checkPlag = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
 
     /*
     make sure that Chatbot model contains the bot name
@@ -508,6 +515,7 @@ exports.checkPlag = asyncErrorHandler(async (req, res, next) => {
 
 /* PowerPoint Presentation */
 exports.powerPointPresentation = asyncErrorHandler(async (req, res, next) => {
+    req.setTimeout(3 * 60 * 1000);
 
     /*
     make sure that Chatbot model contains the bot name

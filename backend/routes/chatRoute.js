@@ -84,4 +84,17 @@ router.route('/plagirism').post(fileUpload.single('file'), checkPlag)
 router.route('/presentation').post(powerPointPresentation)
 router.route('/presentation/download/:fileName').get(requestLimit, downdloadPresentation)
 
+
+
+// for increasing the setTimeout
+// function setConnectionTimeout(time) {
+//     var delay = typeof time === 'string'
+//       ? ms(time)
+//       : Number(time || 5000);
+  
+//     return function (req, res, next) {
+//       res.connection.setTimeout(delay);
+//       next();
+//     }
+//   }
 module.exports = router

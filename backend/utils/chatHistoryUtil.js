@@ -81,6 +81,7 @@ exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
 
     let chat_id = data.conversation_id;
 
+    console.log('Inner: ', 'chatId: ', chat_id);
     try {
         const response = await api.post(url, data)
         if (response.statusText === 'OK') {

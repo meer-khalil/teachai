@@ -25,15 +25,13 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
         try {
             let res = await api.post(`/chatbot/video/summarize`, _body)
 
-            if (res.statusText === 'OK') {
+            console.log('Response from chatform: ', res);
+            console.log('Here is the answer: ', res.data.answer);
+            setChatID(res.data.chat_id)
+            setAnswer([{ answer: res.data.answer }])
+            setLoading(false)
+            fetchUsage();
 
-                console.log('Response from chatform: ', res);
-                console.log('Here is the answer: ', res.data.answer);
-                setChatID(res.data.chat_id)
-                setAnswer([{ answer: res.data.answer }])
-                setLoading(false)
-                fetchUsage();
-            }
         } catch (error) {
 
             if (error?.response?.status === 429) {

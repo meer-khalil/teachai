@@ -22,9 +22,12 @@ const VideoToNotes = () => {
     const componentRef = useRef(null);
 
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     useEffect(() => {
-        setSelectedCategory('Digital Learning & Teaching Tools')
+        setSelectedCategory('Digital Learning & Teaching Tools');
+        return () => {
+            setLanguage('English')
+        }
     }, [])
 
     return (

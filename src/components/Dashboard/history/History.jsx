@@ -6,7 +6,7 @@ import Content from "./Content";
 
 import { MdOutlineWorkHistory } from 'react-icons/md'
 
-const History = ({ chatbot }) => {
+const History = ({ chatbot, componentRef }) => {
 
     // const { chatbot } = useParams();
     const [chatIDs, setChatIDs] = useState();
@@ -55,7 +55,7 @@ const History = ({ chatbot }) => {
                 }
             </div>
             <div className="flex-[5] max-h-[100vh]">
-                <Content chatbotid={chatID} />
+                <Content componentRef={componentRef} chatbotid={chatID} />
             </div>
         </div>
     );

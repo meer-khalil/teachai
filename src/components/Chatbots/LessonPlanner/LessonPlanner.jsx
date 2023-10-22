@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 
 import ChatForm from './ChatForm'
 
@@ -10,7 +10,6 @@ import ExportButtons from '../ExportButtons';
 import _1_LessonPlanning from '../../../images/bots/1.Lesson Planning - Lisa.png'
 import AnswerAndHistory from '../AnswerAndHistory';
 import Categories from '../../Dashboard/components/Categories';
-import { useEffect } from 'react';
 import { useContext } from 'react';
 import { ChatbotContext } from '../../../context/ChatbotContext';
 
@@ -24,11 +23,17 @@ const LessonPlanner = () => {
     const [loading, setLoading] = useState(false)
     const [chatID, setChatID] = useState('')
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { setSelectedCategory, setLanguage } = useContext(ChatbotContext)
+
     useEffect(() => {
         setSelectedCategory('Lesson Planning')
+        setLanguage('English')
+
+        return () => {
+            setLanguage('English')
+        }
     }, [])
-    
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>

@@ -12,8 +12,8 @@ const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
 
 
     const { fetchUsage } = useContext(UsageContext);
-    const { language, videoUrl } = useContext(ChatbotContext);
-    
+    const { language, videoUrl, quizRequest } = useContext(ChatbotContext);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -30,6 +30,22 @@ const ShortForm = ({ url, setLoading, setAnswer, chatID }) => {
                 chat_id: chatID
             }
         }
+        else if (url === '/quiz') {
+            data = {
+                body: {
+                    ...quizRequest,
+                    summary: prompt,
+                    // grade: '',
+                    // topic: '',
+                    // subject: '',
+                    // type: '',
+                    // questionnumber: '',
+                    language: language
+                },
+                chat_id: chatID
+            }
+        }
+
         else if (url === '/video/chat') {
             data = {
                 body: {

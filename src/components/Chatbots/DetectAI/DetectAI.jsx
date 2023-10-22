@@ -34,9 +34,12 @@ const DetectAI = () => {
 
   const { fetchUsage } = useContext(UsageContext);
 
-  const { setSelectedCategory } = useContext(ChatbotContext);
+  const { setSelectedCategory, setLanguage } = useContext(ChatbotContext);
   useEffect(() => {
     setSelectedCategory("Assessment & Progress Monitoring");
+    return () => {
+      setLanguage('English')
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -104,9 +107,8 @@ const DetectAI = () => {
 
         <div className="max-h-[100vh] pb-5 flex flex-1 gap-3">
           <div
-            className={`flex-[2] ${
-              answer?.length > 0 ? "border-r border-black" : ""
-            }`}
+            className={`flex-[2] ${answer?.length > 0 ? "border-r border-black" : ""
+              }`}
           >
             <div className=" border-b-2 flex gap-3">
               <button className=" bg-slate-300 px-4 py-2">Output</button>

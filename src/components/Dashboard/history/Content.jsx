@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../../util/api";
 import Answer from "../../Chatbots/Answer";
 
-const Content = ({ chatbotid }) => {
+const Content = ({ chatbotid, componentRef }) => {
 
     // const { chatbotid } = useParams();
     const [chatHistory, setChatHistory] = useState();
@@ -36,7 +36,10 @@ const Content = ({ chatbotid }) => {
                 WebkitScrollbarColor: 'rgb(23, 5, 20) #a5aeae', /* For Firefox */
             }}>
                 {
-                    chatHistory && <Answer answer={chatHistory.content} />
+                    chatHistory &&
+                    <div ref={componentRef}>
+                        <Answer answer={chatHistory.content} />
+                    </div>
                 }
             </div>
         </>

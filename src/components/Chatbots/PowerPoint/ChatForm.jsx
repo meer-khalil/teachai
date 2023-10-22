@@ -184,7 +184,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID, setFileName, fetchFile }) 
                         value={data?.language}
                         onChange={(e) => {
                             handleChange(e);
-                            setLoading(e.target.value)
+                            setLanguage(e.target.value)
                         }}
                         className='px-2 h-8 rounded border  bg-white outline-none'
                     />

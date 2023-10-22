@@ -12,6 +12,7 @@ import docs from "../../images/Icons/google_doc.png";
 import excel from "../../images/Icons/excel.png";
 import pdf from "../../images/Icons/pdf.png";
 import { UsageContext } from "../../context/UsageContext";
+import { ChatbotContext } from "../../context/ChatbotContext";
 
 
 // LocalHost
@@ -25,9 +26,13 @@ const CLIENT_ID = '700989349221-o958kd0tivmmrtuqd9v1fl51t17jpaa5.apps.googleuser
 const API_KEY = "AIzaSyDFKgXAsTphgknMumDBBoWJ5jiHOYKv8Uk"
 const SCOPES = "https://www.googleapis.com/auth/drive";
 
-const ExportButtons = ({ componentToPrint, answer }) => {
+const ExportButtons = ({
+  componentToPrint,
+  // answer 
+}) => {
 
   const { usage } = useContext(UsageContext);
+  const { answerForPrint: answer } = useContext(ChatbotContext);
 
   const generateDocx = () => {
     let documentFileContent = "Title: Lisa The General Lesson Planner\n\n";

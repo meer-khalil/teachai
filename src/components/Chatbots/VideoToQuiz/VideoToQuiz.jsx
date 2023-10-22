@@ -25,11 +25,14 @@ const VideoToQuiz = () => {
 
     const componentRef = useRef(null);
 
-    const { language, setSelectedCategory } = useContext(ChatbotContext)
+    const { language, setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     const { fetchUsage } = useContext(UsageContext);
 
     useEffect(() => {
-        setSelectedCategory('Digital Learning & Teaching Tools')
+        setSelectedCategory('Digital Learning & Teaching Tools');
+        return () => {
+            setLanguage('English')
+        }
     }, [])
 
 
@@ -113,7 +116,7 @@ const VideoToQuiz = () => {
             </div>
 
             <div className=' flex gap-4 justify-end items-center'>
-                {
+                {/* {
                     answer?.length > 0 && (
                         <div>
                             <button onClick={getAnswers} className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
@@ -121,7 +124,7 @@ const VideoToQuiz = () => {
                             </button>
                         </div>
                     )
-                }
+                } */}
                 <ExportButtons componentToPrint={componentRef} answer={answer} />
             </div>
 

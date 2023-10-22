@@ -96,7 +96,9 @@ def gen_questions_chat():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-
+    
+    print("Data: ", data)
+    
     data = data['prompt']
     user_input = data
     language = data['language']
@@ -129,6 +131,7 @@ def answer():
     user_id = data['user_id']
     conversation_id = data['conversation_id']
 
+    print("Data: ", data)
     data = data['prompt']
     language = data['language']
 

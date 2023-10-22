@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
@@ -9,10 +8,10 @@ import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
-    const [data, setData] = useState({language: 'English'})
+    const [data, setData] = useState({ language: 'English' })
 
     const { fetchUsage } = useContext(UsageContext);
-    const { setLanguage } = useContext(ChatbotContext);
+    const { setLanguage, language } = useContext(ChatbotContext);
 
 
     const handleSubmit = async (e) => {
@@ -56,6 +55,11 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             [name]: value
         })
     }
+
+    useEffect(() => {
+        setData((prev) => ({ ...prev, language }))
+    }, [])
+
     return (
         <div className='md:mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>

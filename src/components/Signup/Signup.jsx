@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 
 import './DisabledButton.css';
+import './signup.css';
 
 // import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -9,6 +10,7 @@ import { UserContext } from "../../context/UserContext";
 // import login from '../../images/check.webp'
 import image from '../../images/Edited/webp/login.jpeg'
 import SignupLoader from "../commons/SignupLoader";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
 
@@ -69,23 +71,25 @@ export default function Signup() {
 
             <div className=" flex-1 flex flex-col gap-2">
               <label htmlFor="firstName">
-                First Name
+                First Name <span className=" text-red-500 text-xl">*</span>
               </label>
               <input
                 name="firstName"
                 id="firstName"
                 className="bg-transparent border h-10 px-3 rounded"
+                required
               />
             </div>
 
             <div className=" flex-1 flex flex-col gap-2">
-              <label  htmlFor="firstName">
-                Last Name
+              <label htmlFor="firstName">
+                Last Name <span className=" text-red-500 text-xl">*</span>
               </label>
               <input
                 name="lastName"
                 id="lasstName"
                 className="bg-transparent border h-10 px-3 rounded text-black"
+                required
               />
             </div>
 
@@ -94,46 +98,58 @@ export default function Signup() {
           <div className="flex-1 flex flex-col gap-2 my-7">
 
             <label htmlFor="email">
-              Email Address
+              Email Address <span className=" text-red-500 text-xl">*</span>
             </label>
             <input
               required
               id="email"
               name="email"
-              className="bg-transparent border h-10 px-3 rounded text-black"
+              className="asterisk_required_field bg-transparent border h-10 px-3 rounded text-black"
             />
           </div>
 
           <div className="flex flex-col md:flex-row gap-5">
             <div className="flex-1 flex flex-col gap-2">
               <label htmlFor="password">
-                Password
+                Password <span className=" text-red-500 text-xl">*</span>
               </label>
               <input
-                required
                 name="password"
                 type="password"
                 id="password"
                 className="bg-transparent border h-10 px-3 rounded text-black"
+                required
               />
             </div>
             <div className="flex-1 flex flex-col gap-2">
               <label htmlFor="password1">
-                Re-Password
+                Re-Password <span className=" text-red-500 text-xl">*</span>
               </label>
               <input
-                required
+
                 name="password1"
                 type="password"
                 id="password1"
                 className="bg-transparent border h-10 px-3 rounded text-black"
+                required
               />
             </div>
           </div>
           <div className="flex items-start gap-2 my-7">
             <input type="checkbox" id="terms" className=" h-5 w-5" onChange={handleCheckboxChange} />
             <label htmlFor="terms">
-              I agree to the Terms and Conditions, Privacy Policy, and Cookie Policy
+              I agree to the
+
+              <Link to="/terms" className=" mx-1 text-blue-400 underline">
+                Terms and Conditions,
+              </Link>
+              <Link to="/privacy" className=" mx-1 text-blue-400 underline">
+                Privacy Policy
+              </Link>
+              , and
+              <Link to="/privacy-policy" className=" mx-1 text-blue-400 underline">
+                Cookie Policy
+              </Link>
             </label>
           </div>
 

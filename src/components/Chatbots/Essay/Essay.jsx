@@ -23,9 +23,12 @@ const Essay = () => {
     const [chatID, setChatID] = useState('')
 
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     useEffect(() => {
         setSelectedCategory('Assessment & Progress Monitoring')
+        return () => {
+            setLanguage('English')
+        }
     }, [])
 
     return (

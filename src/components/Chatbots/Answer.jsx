@@ -1,6 +1,12 @@
+import { useContext } from "react";
 import { useEffect } from "react";
+import { ChatbotContext } from "../../context/ChatbotContext";
 
 function Answer({ answer }) {
+
+
+
+  const { setAnswerForPrint } = useContext(ChatbotContext)
 
   const slideDown = () => {
     console.log('Here I am to scroll');
@@ -20,6 +26,8 @@ function Answer({ answer }) {
 
   useEffect(() => {
     slideDown();
+    setAnswerForPrint(answer);
+
   }, [answer])
 
   return (

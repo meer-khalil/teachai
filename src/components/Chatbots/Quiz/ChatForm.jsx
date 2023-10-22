@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import api from '../../../util/api';
 import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
@@ -8,15 +8,17 @@ import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
-    const [data, setData] = useState({ language: 'English' })
+    const [data, setData] = useState({})
 
     const { fetchUsage } = useContext(UsageContext);
-    const { setLanguage } = useContext(ChatbotContext);
+    const { setLanguage, language, setQuizRequest } = useContext(ChatbotContext);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
         setLoading(true)
+        setQuizRequest(data);
         let _body = {
             body: data
         }
@@ -55,6 +57,18 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             [name]: value
         })
     }
+
+    useEffect(() => {
+        setData((prev) => ({ ...prev, language }))
+    }, [])
+
+    useEffect(() => {
+
+        return () => {
+            setQuizRequest({})
+        }
+    }, [])
+
     return (
         <div className='mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
@@ -115,7 +129,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="type" className='font-medium'>
-                        Quiz Type (Eg: multiple choice, true or false etc)
+                        Quiz Type (Eg: multiple choice, true or false & short answer)
                     </label>
                     <input
                         type="text"

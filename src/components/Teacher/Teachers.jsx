@@ -18,21 +18,21 @@ const Teachers = () => {
                     <title>AI Teachers | Teach Assist AI</title>
                 </Helmet>
                 <div className='flex flex-col-reverse md:flex-row items-center mt-5 md:py-20 px-3 md:px-10 rounded-2xl'>
-                    <div className='flex-1'>
+                    <div className='flex-1 text-center'>
                         <div className='md:mx-8 pt-8 md:pt-0'>
 
-                            <h1 className=' text-center md:text-start text-3xl md:text-4xl mb-6 mt-2  font-extrabold text-secondary md:leading-[3.4rem]'>
+                            <h1 className=' text-center  text-3xl md:text-4xl mb-6 mt-2  font-extrabold text-secondary md:leading-[3.4rem]'>
                                 How can these AI Teachers help you?
                             </h1>
 
-                            <p className='text-gray-700 text-md md:text-xl md:pr-32 text-justify'>
+                            <p className='text-gray-700 text-md md:text-xl md:pr-32 text-center'>
                                 Our AI teachers revolutionize the process of creating outstanding classroom materials, freeing you from the burden of extensive research and design. Simply provide the desired topic, and our app will generate a diverse range of resources, including lesson plans, activities, worksheets, and more. With AI teachers at your disposal, preparing engaging materials has never been easier.
                             </p>
                         </div>
                     </div>
-                    <div className='flex-1'>
+                    {/* <div className='flex-1'>
                         <img src={history} alt="History" className='rounded-[1rem]' />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div>

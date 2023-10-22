@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import AddStory from './components/AddStory'
 import EditStory from './components/EditStory'
 import { UsageProvider } from '../../../context/UsageContext'
+import Settings from '../../Dashboard/Settings/Settings'
 
 const AdminDashboard = () => {
 
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
                                             {/* <Route path='post/new' element={<AddPost />} /> */}
                                             <Route path='post/new' element={<AddStory />} />
                                             <Route path='story/:slug/edit' element={<EditStory />} />
-                                            {/* <Route path='posts' element={<Posts />} /> */}
+                                            <Route path={`settings`} element={<Settings />} />
                                         </Routes>
                                     </div>
                                 </main>

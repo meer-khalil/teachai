@@ -108,6 +108,9 @@ export const ChatbotProvider = ({ children }) => {
     const [videoUrl, setVideoURL] = useState('')
     const [language, setLanguage] = useState('');
 
+    const [quizRequest, setQuizRequest] = useState({})
+    const [answerForPrint, setAnswerForPrint] = useState([])
+
     let homebots;
     if (window.innerWidth < 768) {
         // If the user is on a mobile device (width less than 768 pixels), slice to 6
@@ -143,7 +146,9 @@ export const ChatbotProvider = ({ children }) => {
             homebots,
             getBots,
             language, setLanguage,
-            videoUrl, setVideoURL
+            videoUrl, setVideoURL,
+            quizRequest, setQuizRequest,
+            answerForPrint, setAnswerForPrint
         }}>
             {children}
         </ChatbotContext.Provider>

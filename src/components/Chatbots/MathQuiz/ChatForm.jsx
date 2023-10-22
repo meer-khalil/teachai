@@ -7,7 +7,7 @@ import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
-    const [data, setData] = useState({language: "English"})
+    const [data, setData] = useState({ language: "English" })
 
     const { fetchUsage } = useContext(UsageContext);
     const { setLanguage } = useContext(ChatbotContext);
@@ -74,7 +74,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="qtype" className='font-medium'>
-                        Question Type (Eg: multiple choice, true or false etc)
+                        Question Type (Eg: multiple choice, true or false & short answer)
                     </label>
                     <input
                         type="text"

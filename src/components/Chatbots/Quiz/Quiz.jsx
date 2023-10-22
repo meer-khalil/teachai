@@ -23,10 +23,17 @@ const Quiz = () => {
     const [chatID, setChatID] = useState('')
 
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { setSelectedCategory, setLanguage } = useContext(ChatbotContext)
+
     useEffect(() => {
         setSelectedCategory('Student Engagement & Activity Ideas')
+        setLanguage('English')
+
+        return () => {
+            setLanguage('English')
+        }
     }, [])
+    
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>
@@ -67,7 +74,6 @@ const Quiz = () => {
                         'I want to track individual student performance on this quiz?',
                         'Are there any resources or study materials available to help students prepare for this quiz'
                     ]}
-                    dontFollow={true}
                 />
             </div>
 

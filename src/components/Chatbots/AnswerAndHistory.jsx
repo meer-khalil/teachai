@@ -57,7 +57,7 @@ const AnswerAndHistory = ({
                                 )
                                     : (
                                         <div className=' flex justify-center items-center w-full h-full relative'>
-                                            <p>Try variaty of inputs and input lengths to get the best results</p>
+                                            <p>Try variety of inputs and input lengths to get the best results</p>
                                             {
                                                 loading && <Loading />
                                             }
@@ -69,7 +69,7 @@ const AnswerAndHistory = ({
                         </>
                     ) : (
                         <div>
-                            <History chatbot={chatbot} />
+                            <History componentRef={componentRef}  chatbot={chatbot} />
                         </div>
                     )
                 }

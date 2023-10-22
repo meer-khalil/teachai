@@ -1,0 +1,13 @@
+Here is your quiz: Arthematic - True or False
+
+1. True or False: Multiplying two positive numbers always results in a positive number.
+
+2. True or False: Dividing a positive number by zero is possible.
+
+3. True or False: The square root of any negative number is always imaginary.
+
+4. True or False: Adding zero to any number changes its value.
+
+5. True or False: The difference between any number and itself is always zero.
+
+Remember, this is a True or False quiz on the topic of Arthematic. Good luck!

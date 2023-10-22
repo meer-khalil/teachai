@@ -24,9 +24,12 @@ const MathLessonPlanner = () => {
     const componentRef = useRef(null);
 
 
-    const { setSelectedCategory } = useContext(ChatbotContext)
+    const { setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     useEffect(() => {
-        setSelectedCategory('Lesson Planning')
+        setSelectedCategory('Lesson Planning');
+        return () => {
+            setLanguage('English')
+        }
     }, [])
 
     return (

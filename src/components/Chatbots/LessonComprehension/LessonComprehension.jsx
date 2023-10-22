@@ -25,11 +25,14 @@ const LessonComprehension = () => {
 
     const componentRef = useRef(null)
 
-    const { language, setSelectedCategory } = useContext(ChatbotContext)
+    const { language, setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     const { fetchUsage } = useContext(UsageContext);
 
     useEffect(() => {
         setSelectedCategory('Lesson Planning')
+        return () => {
+            setLanguage('English')
+        }
     }, [])
 
 

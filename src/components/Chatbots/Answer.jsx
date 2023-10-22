@@ -6,8 +6,17 @@ function Answer({ answer }) {
     console.log('Here I am to scroll');
     let content = document.getElementById('chat_content');
     console.log('content: ', content);
-    content.scrollTop = content.scrollHeight;
+
+    // Get the last child element
+    let lastChild = content.lastElementChild;
+
+    // Calculate the height to subtract (last child's height)
+    let subtractHeight = lastChild ? lastChild.clientHeight : 0;
+
+    // Scroll down, but subtract the height of the last child
+    content.scrollTop = content.scrollHeight - subtractHeight;
   }
+
 
   useEffect(() => {
     slideDown();
@@ -21,19 +30,19 @@ function Answer({ answer }) {
             function wrapLinksWithAnchorTags(text) {
               // Regular expression to match URLs
               var urlRegex = /(https?:\/\/[^\s]+)/g;
-            
+
               // Replace URLs with anchor tags
               var newText = text?.replace(urlRegex, function (url) {
                 return `<a href="${url}" target="_blank" style="color: blue;">${url}</a>`;
               });
-            
+
               return newText;
             }
-            
+
             let newText = wrapLinksWithAnchorTags(el?.answer)
 
             return (
-              <div className="chat_content_item prose prose-xl" style={{ width: '100%'}}>
+              <div className="chat_content_item prose prose-xl" style={{ width: '100%' }}>
                 {
                   el?.question && (
                     <h4 className='mt-20 mb-3 text-xl font-bold'>

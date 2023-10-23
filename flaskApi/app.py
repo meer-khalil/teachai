@@ -66,12 +66,19 @@ def grade():
     data = request.get_json()
 
     print("Data: ", data)
+    print("DataType: ",type(data))
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     
     data = data['prompt']
-    data = data
-    print('gradeEssay: ', data['language'])
+    if isinstance(data, str):
+        try:
+            dictionary = json.loads(data)
+            if isinstance(dictionary, dict):
+                data = dictionary
+        except ValueError as e:
+            print(f"Conversion failed: {e}")
+            
     language = data['language']
     user_input = data
 

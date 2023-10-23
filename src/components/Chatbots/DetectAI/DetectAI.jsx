@@ -120,7 +120,7 @@ const DetectAI = () => {
                   {/* <Answer answer={answer} /> */}
                   {loading && <Loading />}
                   {(answer || plagAnswer) && (
-                    <div className="left-0 top-0 right-0 bottom-0 md:absolute overflow-y-scroll break-words h-[80vh]">
+                    <div className="overflow-y-scroll h-[95vh] pr-4 pt-4">
                       {detect && answer && (
                         <>
                           <div className="mt-3">

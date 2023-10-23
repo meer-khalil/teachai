@@ -14,7 +14,8 @@ const AnswerAndHistory = ({
     componentRef,
     loading, setLoading,
     chatID, url,
-    chatbot, dontFollow, examplePrompts, notPrompts
+    chatbot, dontFollow, examplePrompts, notPrompts,
+    getAnswers
 }) => {
 
     const [showHistory, setShowHistory] = useState(false);
@@ -41,7 +42,15 @@ const AnswerAndHistory = ({
 
                                             <Answer answer={answer} />
                                             {loading && <Loading />}
-
+                                            {
+                                                (chatbot == 'Math Quiz Generator') && (
+                                                    <div>
+                                                        <button onClick={getAnswers} className='px-4 py-2 rounded-md border-2 text-white bg-[#ed7742]'>
+                                                            Reveal Answers
+                                                        </button>
+                                                    </div>
+                                                )
+                                            }
                                         </div>
 
                                         {

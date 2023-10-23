@@ -1,0 +1,16 @@
+Here is your quiz:
+Theme: Arithmetic
+Type: True or False
+
+1. Addition: 29 + 47 = 76
+2. Subtraction: 93 - 58 = 35
+3. Multiplication: 17 * 12 = 204
+4. Division: 108 / 9 = 12
+5. Modulo: 42 % 7 = 1
+6. Exponentiation: 5^4 = 625
+7. Addition: 63 + 89 = 152
+8. Subtraction: 125 - 73 = 52
+9. Multiplication: 18 * 14 = 252
+10. Division: 75 / 5 = 15
+
+Remember to provide your answers in the true or false format for each question.

@@ -78,7 +78,7 @@ const Pricing = () => {
 
 	const navigate = useNavigate();
 	const [showPop, setShowPop] = useState(false);
-	
+
 	const { user } = useContext(UserContext);
 	const { usage, fetchUsage } = useContext(UsageContext)
 
@@ -218,7 +218,10 @@ const Pricing = () => {
 													onClick={() => processPayment(el.title)}
 													class={`  font-medium rounded-lg text-sm px-5 py-2.5 text-center border-2
 													${usage?.plan == el?.plan ? ' bg-orange-500 text-white' : 'border-secondary text-secondary'}  hover:bg-secondary hover:text-white`}>
-													Get started
+													{
+														usage?.plan == el?.plan ? "Current Plan" : "Get started"
+													}
+
 												</button>
 											)
 										}

@@ -147,7 +147,7 @@ export default function Signup() {
                 Privacy Policy
               </Link>
               , and
-              <Link to="/privacy-policy" className=" mx-1 text-blue-400 underline">
+              <Link to="/cookies-policy" className=" mx-1 text-blue-400 underline">
                 Cookie Policy
               </Link>
             </label>

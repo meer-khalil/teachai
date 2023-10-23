@@ -99,6 +99,7 @@ const MathQuiz = () => {
                 </div>
 
                 <AnswerAndHistory
+                    getAnswers={getAnswers}
                     url={'/mathquiz/gen'}
                     answer={answer}
                     setAnswer={setAnswer}

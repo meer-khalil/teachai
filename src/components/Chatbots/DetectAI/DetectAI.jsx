@@ -175,81 +175,82 @@ const DetectAI = () => {
                           </div>
                           <div className="flex flex-col gap-16 justify-center mt-4">
 
-                            {Array.isArray(plagAnswer[0]) ? (
-                              <>
-                                <div className=" flex justify-center">
-                                  <div className=" w-44 h-44">
-                                    <div className="flex gap-2">
-                                      <div
-                                        className=" h-5 w-5"
-                                        style={{ backgroundColor: "yellow" }}
-                                      ></div>
-                                      <span>Plagerism Percentage</span>
+                            {
+                              (/\d/.test(plagAnswer[0].answer)) ? (
+                                <>
+                                  <div className=" flex justify-center">
+                                    <div className=" w-44 h-44">
+                                      <div className="flex gap-2">
+                                        <div
+                                          className=" h-5 w-5"
+                                          style={{ backgroundColor: "yellow" }}
+                                        ></div>
+                                        <span>Plagerism Percentage</span>
+                                      </div>
+                                      <PlagDonutChart
+                                        data={[
+                                          {
+                                            label: "Detect AI",
+                                            percentage:
+                                              100 -
+                                              plagAnswer[0].answer.match(
+                                                /\d+/
+                                              )[0],
+                                          },
+                                          {
+                                            label: "Plagiarism",
+                                            percentage:
+                                              plagAnswer[0].answer.match(
+                                                /\d+/
+                                              )[0],
+                                          },
+                                        ]}
+                                      />
                                     </div>
-                                    <PlagDonutChart
-                                      data={[
-                                        {
-                                          label: "Detect AI",
-                                          percentage:
-                                            100 -
-                                            plagAnswer[0].answer.match(
-                                              /\d+/
-                                            )[0],
-                                        },
-                                        {
-                                          label: "Plagiarism",
-                                          percentage:
-                                            plagAnswer[0].answer.match(
-                                              /\d+/
-                                            )[0],
-                                        },
-                                      ]}
-                                    />
                                   </div>
-                                </div>
-                                <div>
-                                  {plagAnswer && (
-                                    <div
-                                      className=" prose text-sm"
-                                      style={{ minWidth: "100%" }}
-                                      dangerouslySetInnerHTML={{
-                                        __html: plagAnswer[0].answer
-                                          .replace(
-                                            /Average similarity: \d+ %/g,
-                                            "<h2>$&</h2>"
-                                          )
-                                          .replace(
-                                            /Plagiarism occurred in the following/,
-                                            "<h4>$&</h4>"
-                                          )
-                                          .replace(/URLs:/g, "")
-                                          .replace(/-URL:/g, "")
-                                          .replace(
-                                            /(https?:\/\/[^\s]+)/g,
-                                            function (url) {
-                                              return `<a href="${url}" target="_blank" style="color: blue;">${url}</a>`;
-                                            }
-                                          )
-                                          .replace(
-                                            /Similarity: \d+ %/g,
-                                            "<b>$&</b><br/>"
-                                          )
-                                          .replace(
-                                            /Plagiarism occurred in the following sections:/,
-                                            "<h3>Plagiarism occurred in the following sections:</h3>"
-                                          )
-                                          .replace(
-                                            /-section: /g,
-                                            "<br /><br /><b>Section:</b> "
-                                          ),
-                                      }}
-                                    />
-                                  )}
-                                </div>
-                              </>
-                            ) : (
-                              <p>{plagAnswer[0].answer}</p>
-                            )}
+                                  <div>
+                                    {plagAnswer && (
+                                      <div
+                                        className=" prose text-sm"
+                                        style={{ minWidth: "100%" }}
+                                        dangerouslySetInnerHTML={{
+                                          __html: plagAnswer[0].answer
+                                            .replace(
+                                              /Average similarity: \d+ %/g,
+                                              "<h2>$&</h2>"
+                                            )
+                                            .replace(
+                                              /Plagiarism occurred in the following/,
+                                              "<h4>$&</h4>"
+                                            )
+                                            .replace(/URLs:/g, "")
+                                            .replace(/-URL:/g, "")
+                                            .replace(
+                                              /(https?:\/\/[^\s]+)/g,
+                                              function (url) {
+                                                return `<a href="${url}" target="_blank" style="color: blue;">${url}</a>`;
+                                              }
+                                            )
+                                            .replace(
+                                              /Similarity: \d+ %/g,
+                                              "<b>$&</b><br/>"
+                                            )
+                                            .replace(
+                                              /Plagiarism occurred in the following sections:/,
+                                              "<h3>Plagiarism occurred in the following sections:</h3>"
+                                            )
+                                            .replace(
+                                              /-section: /g,
+                                              "<br /><br /><b>Section:</b> "
+                                            ),
+                                        }}
+                                      />
+                                    )}
+                                  </div>
+                                </>
+                              ) : (
+                                <p>{plagAnswer[0].answer}</p>
+                              )}
                           </div>
                         </div>
                       )}
@@ -266,7 +267,7 @@ const DetectAI = () => {
             ) : (
               <div className=" flex justify-center items-center w-full h-full relative">
                 <p>
-                  Try variaty of inputs and input lengths to get the best
+                  Try variety of inputs and input lengths to get the best
                   results
                 </p>
                 {loading && <Loading />}

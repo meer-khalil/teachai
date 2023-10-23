@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 // Lazy load your components
 import Home from "./components/Home/Home";
+import { UsageProvider } from "./context/UsageContext";
 // const LottieAnimation = lazy(() => import("./components/Home/Animation/LottieAnimation"))
 // const LottieAnimation2 = lazy(() => import("./components/Home/Animation/LottieAnimation2"))
 const Teachers = lazy(() => import("./components/Teacher/Teachers"));
@@ -53,7 +54,11 @@ export default function App() {
 
         <Route path="/faq" element={<Suspense fallback={<div>Loading...</div>}><FAQ /></Suspense>} />
 
-        <Route path="/pricing" element={<Suspense fallback={<div>Loading...</div>}><Pricing /></Suspense>} />
+        <Route path="/pricing" element={<Suspense fallback={<div>Loading...</div>}>
+          <UsageProvider>
+            <Pricing />
+          </UsageProvider>
+        </Suspense>} />
 
         <Route path="/privacy" element={<Suspense fallback={<div>Loading...</div>}><Privacy /></Suspense>} />
 

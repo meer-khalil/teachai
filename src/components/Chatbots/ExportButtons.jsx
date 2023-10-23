@@ -255,13 +255,13 @@ const ExportButtons = ({
           {
             image: doc,
             fn: generateDocx,
-            text: 'Export DOCS'
+            text: 'Export WORD DOC'
           },
-          {
-            image: docs,
-            fn: handleGoogleDocClick,
-            text: 'Export Google DOC'
-          }
+          // {
+          //   image: docs,
+          //   fn: handleGoogleDocClick,
+          //   text: 'Export Google DOC'
+          // }
         ].map((el, i) => {
           return (
             <div className="flex flex-col gap-1 justify-center items-center">
@@ -292,7 +292,7 @@ const ExportButtons = ({
             </div>
           );
         })}
-        <Login />
+        {/* <Login /> */}
       </div>
     </div>
   );

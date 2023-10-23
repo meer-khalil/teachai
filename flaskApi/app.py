@@ -64,6 +64,8 @@ def quiz():
 @app.route('/gradeEssay', methods = ['POST'])
 def grade():
     data = request.get_json()
+
+    print("Data: ", data)
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     

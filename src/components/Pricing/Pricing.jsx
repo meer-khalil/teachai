@@ -55,7 +55,7 @@ const data = [
 			'Write in 30+ languages',
 			'24/7 live chat support',
 			'Access to chat history',
-			'Extract responses to word document/pdf/google doc/excel',
+			'Extract responses to word document/pdf/excel',
 			'All Grade Levels',
 			'20 file uploads per month'
 		]

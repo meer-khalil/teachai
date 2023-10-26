@@ -78,7 +78,7 @@ const data = [
         icon: _8_VideotoQuizBot,
         name: 'Hunter',
         url: 'video-to-quiz',
-        category: 'Digital Learning & Teaching Tools'
+        category: 'Student Engagement & Activity Ideas'
     },
     {
         title: "Detect AI-Writing & Plagiarism",

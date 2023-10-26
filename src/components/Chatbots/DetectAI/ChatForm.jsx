@@ -7,6 +7,10 @@ import { ChatbotContext } from '../../../context/ChatbotContext';
 
 const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, plag, setPlag, detect, setDetect }) => {
 
+    const maxWords = 1000;
+    const [content, setContent] = useState('');
+    const [contentCount, setContentCount] = useState(0)
+
     const [data, setData] = useState({ language: "English" })
 
     const [disableDetect, setDisableDetect] = useState(false);
@@ -163,6 +167,34 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
             [name]: value
         })
     }
+
+
+    const handleTextAreaChange = (e, fn, setCount) => {
+
+        const { name } = e.target;
+        const inputText = e.target.value;
+        const wordCount = countWords(inputText);
+
+        if (wordCount <= maxWords) {
+            fn(inputText);
+            setCount(wordCount)
+            handleChange({ target: { name, value: inputText } })
+        } else {
+            // Trim the excess words
+            setCount(1000)
+            const words = inputText.trim().split(/\s+/);
+            words.splice(maxWords);
+            let thaosandStr = words.join(' ')
+            fn(thaosandStr);
+            handleChange({ target: { name, value: thaosandStr } })
+        }
+    };
+
+    const countWords = (text) => {
+        text = text.trim();
+        return text === '' ? 0 : text.split(/\s+/).length;
+    };
+
     return (
         <div className='md:mr-4'>
             <form onSubmit={handleSubmit} className='mt-10'>
@@ -205,12 +237,16 @@ const ChatForm = ({ setAnswer, setPlagAnswer, setLoading, chatID, setChatID, pla
                     <textarea
                         id="essayContent"
                         rows="4"
+                        value={content}
                         name='text'
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Add content here or attach file"
-                        onChange={handleChange}
+                        onChange={(e) => handleTextAreaChange(e, setContent, setContentCount)}
                     >
                     </textarea>
+                    <p className='flex justify-end'>
+                        {contentCount} / 1000
+                    </p>
                     {
                         (usage?.noOfFilesUploaded !== usage?.noOfFilesUploadedLimit) ? (
                             <input class="block mt-2 mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"

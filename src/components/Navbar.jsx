@@ -23,19 +23,23 @@ const Navbar = () => {
     }
     return (
         <div className=''>
-            <header className='flex justify-between pt-5 pb-5 px-2 md:px-4 items-center  relative max-w-[1640px] mx-auto'>
-                <Link to='/' className=' flex items-center gap-3'>
+            <header className='flex justify-between gap-5 pt-5 pb-5 px-2 md:px-4 items-center  relative max-w-[1640px] mx-auto'>
+                <Link to={`${isAuthenticated ?
+                    "/user/dashboard/chatbots"
+                    : "/"
+                    }`} className=' flex items-center gap-3'>
                     {/* <div className='text-3xl ml-8 tracking-wider'>Khalil Ahmad</div> */}
                     <img src={logo} className='h-12 ' alt="logo" />
                     <h2 className=' text-primary text-2xl font-bold'>Teach Assist <span className=' text-orange-600'>AI</span></h2>
                 </Link>
-                <div className='flex gap-14 items-center'>
+                <div className={`flex flex-1 gap-14 ${!isAuthenticated ? 'justify-center' : 'md:pl-20'}`}>
                     {
                         menu && (
                             <div className={`absolute md:static right-0 top-[5rem] w-full h-screen md:h-auto z-10 bg-white md:bg-transparent flex flex-col gap-20`}>
                                 <ul
-                                    className=' md:bg-transparent text-white md:text-secondary pt-10 md:pt-3 md:pb-3 rounded flex flex-col md:flex-row gap-3 md:gap-5'>
+                                    className={` md:bg-transparent ${!isAuthenticated ? 'justify-center' : 'md:pl-20'} text-white md:text-secondary pt-10 md:pt-3 md:pb-3 rounded flex flex-col md:flex-row gap-3 md:gap-5`}>
                                     {
+                                        !isAuthenticated &&
                                         [
                                             { text: 'AI Teachers', url: '/teachers' },
                                             { text: 'Blogs', url: '/blogs' },

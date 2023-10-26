@@ -31,6 +31,9 @@ const Essay = () => {
         }
     }, [])
 
+
+
+
     return (
         <div className='border-b-2 border-black pb-24'>
             <div>

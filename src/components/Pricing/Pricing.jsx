@@ -17,7 +17,7 @@ const data = [
 		premiumSupport: '6 months',
 		freeUpdates: '6 months',
 		features: [
-			'Access To All Chatbots',
+			'Access to Only a Number of Chatbots',
 			'Free 10 chat requests per day',
 			'1 member',
 			'Write in 30+ languages',

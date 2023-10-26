@@ -10,6 +10,7 @@ import "./Stories.css"
 
 import { useNavigate } from "react-router-dom"
 import api from "../../../util/api";
+import { Helmet } from 'react-helmet';
 const Stories = () => {
 
   const search = useLocation().search
@@ -63,6 +64,10 @@ const Stories = () => {
 
   return (
     <div className="max-w-[1640px] mx-auto">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>AI Teachers | Blogs</title>
+      </Helmet>
       {loading ?
 
         <div className="skeleton_emp">

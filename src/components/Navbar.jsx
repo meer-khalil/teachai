@@ -18,9 +18,9 @@ const Navbar = () => {
     const [menu, setMenu] = useState((width > 680) ? true : false)
 
     const handleClick = () => {
-
         setMenu(!menu)
     }
+
     return (
         <div className=''>
             <header className='flex justify-between gap-5 pt-5 pb-5 px-2 md:px-4 items-center  relative max-w-[1640px] mx-auto'>
@@ -65,20 +65,35 @@ const Navbar = () => {
                                         isAuthenticated && (
 
                                             (user?.role === 'admin') ? (
-                                                <Link
-                                                    to={(site ? site : '') + '/admin/dashboard/users'}
-                                                    className='text-md block tracking-wide hover:text-primary'
-                                                    onClick={() => {
-                                                        if (window.innerWidth < 680) {
-                                                            setMenu(false)
-                                                        }
-                                                    }}
+                                                <>
+                                                    <Link
+                                                        to={(site ? site : '') + '/blogs'}
+                                                        className=' tracking-wide hover:text-primary'
+                                                        onClick={() => {
+                                                            if (window.innerWidth < 680) {
+                                                                setMenu(false)
+                                                            }
+                                                        }}
+                                                    >
+                                                        <p className='pl-5 text-2xl md:text-lg'>
+                                                            Blogs
+                                                        </p>
+                                                    </Link>
+                                                    <Link
+                                                        to={(site ? site : '') + '/admin/dashboard/users'}
+                                                        className='text-md block tracking-wide hover:text-primary'
+                                                        onClick={() => {
+                                                            if (window.innerWidth < 680) {
+                                                                setMenu(false)
+                                                            }
+                                                        }}
 
-                                                >
-                                                    <p className='pl-5 text-2xl md:text-lg'>
-                                                        Dashboard
-                                                    </p>
-                                                </Link>
+                                                    >
+                                                        <p className='pl-5 text-2xl md:text-lg'>
+                                                            Dashboard
+                                                        </p>
+                                                    </Link>
+                                                </>
                                             ) : (
                                                 <Link
                                                     to={(site ? site : '') + '/user/dashboard/chatbots'}

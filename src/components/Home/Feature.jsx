@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import LottieAnimation from './Animation/LottieAnimation';
 import LottieAnimation2 from './Animation/LottieAnimation2';
 
-const Feature = ({ title, description, buttonText, image, index }) => {
+const Feature = ({ title, description, buttonText, image, desktop, mobile, index }) => {
 
     return (
         <div
@@ -28,14 +28,16 @@ const Feature = ({ title, description, buttonText, image, index }) => {
             </div>
             <div className='flex-1 w-full'>
                 {
-                    image ? (
+                    image && (
                         <img src={image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
-                    ) : (
+                    )
+                }
+                {
+                    (desktop || mobile) && (
                         (window.innerWidth > 786) ? (
-
-                            <LottieAnimation2 />
+                            <LottieAnimation2 animationData={desktop}/>
                         ) : (
-                            <LottieAnimation />
+                            <LottieAnimation animationData={mobile}/>
                         )
                     )
                 }

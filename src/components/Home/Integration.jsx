@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 import hero_image from '../../images/Edited/webp/hero_image.jpg'
 
+import desktop from '../../animation/Final JSON/Design 1 (Essay Grading).json';
+import mobile from '../../animation/Final JSON/Mobile (Essay Grading).json';
+import LottieAnimation2 from './Animation/LottieAnimation2';
+import LottieAnimation from './Animation/LottieAnimation';
+
 const Integration = () => {
 
     return (
@@ -25,15 +30,22 @@ const Integration = () => {
                     </p>
 
                     <div className='flex gap-5 justify-center md:justify-start mt-8'>
-                    <Link to={'/signup'}>
-                        <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>See More</button>
-                    </Link>
+                        <Link to={'/signup'}>
+                            <button className='px-6 py-3 text-secondary rounded-xl border-2 border-secondary hover:bg-secondary hover:text-white'>See More</button>
+                        </Link>
                     </div>
 
                 </div>
             </div>
             <div className='flex-1'>
-                <img src={hero_image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" />
+                {/* <img src={hero_image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" /> */}
+                {
+                    (window.innerWidth > 786) ? (
+                        <LottieAnimation2 animationData={desktop} />
+                    ) : (
+                        <LottieAnimation animationData={mobile} />
+                    )
+                }
             </div>
         </div>
     )

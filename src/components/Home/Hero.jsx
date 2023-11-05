@@ -34,9 +34,11 @@ const Hero = () => {
                             </button>
                         </Link>
 
+                        <Link to='/how-it-works'>
                         <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
                             Watch How it Works
                         </button>
+                        </Link>
                     </div>
                 </div>
             </div>

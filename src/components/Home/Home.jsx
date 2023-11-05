@@ -11,6 +11,8 @@ import { ChatbotProvider } from '../../context/ChatbotContext';
 import Hero from './Hero';
 import Productivity from './Productivity';
 import Stats from './Stats';
+import animationDesktop from '../../animation/Final JSON/Design 3 (video notes.json'
+import animationMobile from '../../animation/Final JSON/mobile video notes.json'
 import hero_image from '../../images/Edited/webp/hero_image.jpg'
 
 const Features = lazy(() => import('./Features'));
@@ -72,7 +74,8 @@ export const Home = () => {
               title="Transforming Videos into Notes and Quizzes"
               description="Our innovative platform empowers you to effortlessly create guided notes from any YouTube video, regardless of its length. Utilizing advanced technology, we accurately summarize video content, enabling you to capture key information and insights in a condensed format. Take your learning to the next level with the option to generate custom questions based on the video, facilitating active engagement. Say goodbye to tedious note-taking and embrace the efficiency of video-based learning."
               buttonText="See More"
-              image={hero_image}
+              desktop={animationDesktop}
+              mobile={animationMobile}
             />
           </div>
 

@@ -82,15 +82,19 @@ exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
     let chat_id = data.conversation_id;
 
     console.log('Inner: ', 'chatId: ', chat_id);
+
     try {
-        const response = await api.post(url, data)
+        const response = await api.post(url, data, {
+            responseType: 'stream', // Specify the response type as 'stream'
+        })
+
         if (response.statusText === 'OK') {
 
             let _data = response.data
             console.log(`Data From ${url}: `, _data);
 
             let question = body.prompt ? body.prompt : null
-            let answer = _data[result]
+            // let answer = _data[result]
 
             console.log('q: ', question);
             console.log('ans: ', answer);
@@ -111,7 +115,38 @@ exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
 
             console.log('title: ', title);
 
-            updateChatHistory(chat_id, { question, answer }, res, title)
+            // Set up an array to store response data chunks
+            const responseDataChunks = [];
+
+            // Listen for data chunks and collect them
+            response.data.on('data', (chunk) => {
+                console.log('chunk: ', chunk);
+                responseDataChunks.push(chunk);
+            });
+
+            // Listen for the end of the response
+            response.data.on('end', async () => {
+                // Concatenate all the data chunks into a single buffer
+                const responseBodyBuffer = Buffer.concat(responseDataChunks);
+
+                // Convert the buffer to a string (assuming it's a JSON response)
+                const responseBody = responseBodyBuffer.toString('utf8');
+
+                // Parse the response body
+                const responseBodyObject = JSON.parse(responseBody);
+
+                // Now you have the complete response data
+                console.log(`Data From ${url}: `, responseBodyObject);
+
+                const answer = responseBodyObject[result];
+
+                console.log('q: ', question);
+                console.log('ans: ', answer);
+
+                // Update the chat history with the response data
+                updateChatHistory(chat_id, { question, answer }, res, title);
+            });
+            // updateChatHistory(chat_id, { question, answer }, res, title)
 
         } else {
             res.status(500).json({

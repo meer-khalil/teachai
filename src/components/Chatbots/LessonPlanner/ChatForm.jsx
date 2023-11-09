@@ -68,7 +68,8 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
             // });
             // console.log('Res: ', res);
             if (response.statusText === 'OK') {
-                console.log('Response: ', response);
+                // console.log('Response: ', response);
+                console.log('Sucks(Coding)');
                 // // Listen for the end of the response
                 // res.data.on('end', async () => {
                 //     // Concatenate all the data chunks into a single buffer

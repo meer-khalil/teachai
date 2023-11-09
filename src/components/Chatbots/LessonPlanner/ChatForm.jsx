@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
 import { ChatbotContext } from '../../../context/ChatbotContext';
+import { backend_url } from '../../../util/variables';
+import axios from 'axios';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
@@ -23,16 +25,62 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
         }
 
         try {
-            let res = await api.post(`/chatbot/lessonplanner`, _body)
+            // let token = localStorage.getItem('teachai_token');
+            // const eventSource = new EventSource(`${backend_url}/chatbot/stream?token=${token}`); // Replace with your SSE endpoint
+            // eventSource.onmessage = (event) => {
+            //   const chunk = event.data;
+            //   console.log('Received SSE:', chunk);
+            //   // Process the SSE data as needed
+            // };
+            // eventSource.onerror = (error) => {
+            //   console.error('EventSource failed:', error);
+            // };
 
-            if (res.statusText === 'OK') {
+            // let res = await api.post(`/chatbot/lessonplanner`, _body, {
+            //     responseType: 'stream', // Indicate that the response should be treated as a stream
+            // });
 
-                console.log('Response from chatform: ', res);
-                console.log('Here is the answer: ', res.data.answer);
-                setChatID(res.data.chat_id)
-                setAnswer([{ answer: res.data.answer }])
-                setLoading(false)
-                fetchUsage();
+            const response = await axios.post('http://localhost:4000/api/v1/chatbot/lessonplanner', _body, {
+                responseType: 'stream', // Indicate that the response should be treated as a stream
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('teachai_token')}`
+                }
+            });
+            
+            // Handle the streaming response
+            response.data.on('data', (chunk) => {
+                // Process each data chunk as it arrivess
+                setLoading(false);
+                console.log('Received chunk:', chunk);
+                // Update your UI with the data as it arrives
+            });
+
+            response.data.on('end', () => {
+                // All data has been received
+                console.log('Stream finished');
+                // Perform any final actions when the stream ends
+            });
+            // let responseDataChunks = [];
+            // res.data.on('data', (chunk) => {
+            //     console.log('chunk: ', chunk);
+            //     responseDataChunks.push(chunk);
+            // });
+            // console.log('Res: ', res);
+            if (response.statusText === 'OK') {
+                console.log('Response: ', response);
+                // // Listen for the end of the response
+                // res.data.on('end', async () => {
+                //     // Concatenate all the data chunks into a single buffer
+                //     const responseBodyBuffer = Buffer.concat(responseDataChunks);
+                //     // Convert the buffer to a string (assuming it's a JSON response)
+                //     const responseBody = responseBodyBuffer.toString('utf8');
+
+                //     setChatID(res.data.chat_id)
+                //     setAnswer([{ answer: res.data.answer }])
+                //     setLoading(false)
+                //     fetchUsage();
+                // });
             }
         } catch (error) {
 

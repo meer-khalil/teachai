@@ -32,12 +32,12 @@ const Navbar = () => {
                     <img src={logo} className='h-12 ' alt="logo" />
                     <h2 className=' text-primary text-2xl font-bold'>Teach Assist <span className=' text-orange-600'>AI</span></h2>
                 </Link>
-                <div className={`flex flex-1 gap-14 ${!isAuthenticated ? 'justify-center' : 'md:pl-20'}`}>
+                <div className={`flex flex-1 gap-14 ${!isAuthenticated ? 'justify-center' : 'md:pl-2'}`}>
                     {
                         menu && (
-                            <div className={`absolute md:static right-0 top-[5rem] w-full h-screen md:h-auto z-10 bg-white md:bg-transparent flex flex-col gap-20`}>
+                            <div className={`absolute md:static right-0 top-[5rem] w-full h-screen md:h-auto z -10 bg-white md:bg-transparent flex flex-col gap-20`}>
                                 <ul
-                                    className={` md:bg-transparent ${!isAuthenticated ? 'justify-center' : 'md:pl-20'} text-white md:text-secondary pt-10 md:pt-3 md:pb-3 rounded flex flex-col md:flex-row gap-3 md:gap-5`}>
+                                    className={` md:bg-transparent ${!isAuthenticated ? 'justify-center' : 'md:pl-2 bg-red-200'} text-white md:text-secondary pt-10 md:pt-3 md:pb-3 rounded flex flex-col md:flex-row gap-3 md:gap-5`}>
                                     {
                                         !isAuthenticated &&
                                         [
@@ -105,7 +105,7 @@ const Navbar = () => {
                                                     }}
 
                                                 >
-                                                    <p className='pl-5 text-2xl md:text-lg'>
+                                                    <p className='text-2xl md:text-lg'>
                                                         Dashboard
                                                     </p>
                                                 </Link>

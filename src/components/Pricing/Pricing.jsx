@@ -17,11 +17,10 @@ const data = [
 		premiumSupport: '6 months',
 		freeUpdates: '6 months',
 		features: [
-			'Access to Only a Number of Chatbots',
+			'Access to only a number of Chatbots',
 			'Free 10 chat requests per day',
 			'1 member',
 			'Write in 30+ languages',
-			'1 free file upload'
 		]
 	},
 	{
@@ -55,7 +54,7 @@ const data = [
 			'Write in 30+ languages',
 			'24/7 live chat support',
 			'Access to chat history',
-			'Extract responses to word document/pdf/excel',
+			'Extract responses to word document/pdf',
 			'All Grade Levels',
 			'20 file uploads per month'
 		]

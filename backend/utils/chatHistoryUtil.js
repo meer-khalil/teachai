@@ -10,7 +10,10 @@ const path = require('path')
 const pdf = require('pdf-parse');
 const fsPromises = require("fs").promises;
 
-const mammoth = require('mammoth')
+const mammoth = require('mammoth');
+const { getClients, chatStream, name } = require('../controllers/chatController');
+// console.log("Working Directory: ",require('../controllers/chatController'));
+console.log(name)
 
 exports.createChatHistoryAndGiveData = async (req, chatbot_name) => {
 
@@ -63,10 +66,17 @@ const updateChatHistory = async (chat_id, answer, res, title) => {
             console.log('\n\nDocument not found.');
         }
 
-        res.status(200).json({
+        let endData = {
             answer: answer.answer,
             chat_id
-        })
+        }
+
+        res.write(JSON.stringify(endData));
+        res.end();
+        // res.json({
+        //     answer: answer.answer,
+        //     chat_id
+        // })
     }
     catch (error) {
         res.status(500).json({
@@ -78,88 +88,66 @@ const updateChatHistory = async (chat_id, answer, res, title) => {
 }
 
 exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
-
-    let chat_id = data.conversation_id;
-
-    console.log('Inner: ', 'chatId: ', chat_id);
-
     try {
+        const chat_id = data.conversation_id;
+        console.log('Inner: chatId: ', chat_id);
+
         const response = await api.post(url, data, {
-            responseType: 'stream', // Specify the response type as 'stream'
-        })
+            responseType: 'stream'
+        });
 
         if (response.statusText === 'OK') {
+            let question = body.prompt || null;
 
-            let _data = response.data
-            console.log(`Data From ${url}: `, _data);
+            const chatHistory = await ChatHistory.findOne({ _id: chat_id });
 
-            let question = body.prompt ? body.prompt : null
-            // let answer = _data[result]
+            let title = chatHistory.title;
 
-            console.log('q: ', question);
-            console.log('ans: ', answer);
-
-            let chatHistory = await ChatHistory.findOne({ _id: chat_id });
-
-            let title = ''
-            if (!(chatHistory.title)) {
+            if (!title) {
                 console.log('Fetching the title');
-                url = '/chattitles'
-                _data = { user_id: data.user_id, conversation_id: chat_id }
-                let titles = await api.post(url, _data)
-                title = titles.data.title
+                const titleData = { user_id: data.user_id, conversation_id: chat_id };
+                const titles = await api.post('/chattitles', titleData);
+                title = titles.data.title;
             } else {
                 console.log('Title Already Exist');
-                title = chatHistory.title
             }
 
             console.log('title: ', title);
 
-            // Set up an array to store response data chunks
             const responseDataChunks = [];
 
-            // Listen for data chunks and collect them
             response.data.on('data', (chunk) => {
                 console.log('chunk: ', chunk);
                 responseDataChunks.push(chunk);
+                // res.write(chunk.toString());
+                res.write(`Data chunk\n`);
             });
 
-            // Listen for the end of the response
             response.data.on('end', async () => {
-                // Concatenate all the data chunks into a single buffer
                 const responseBodyBuffer = Buffer.concat(responseDataChunks);
-
-                // Convert the buffer to a string (assuming it's a JSON response)
                 const responseBody = responseBodyBuffer.toString('utf8');
 
-                // Parse the response body
-                const responseBodyObject = JSON.parse(responseBody);
+                console.log('response: ', responseBody);
 
-                // Now you have the complete response data
-                console.log(`Data From ${url}: `, responseBodyObject);
-
-                const answer = responseBodyObject[result];
-
+                const answer = responseBody;
                 console.log('q: ', question);
                 console.log('ans: ', answer);
 
-                // Update the chat history with the response data
                 updateChatHistory(chat_id, { question, answer }, res, title);
             });
-            // updateChatHistory(chat_id, { question, answer }, res, title)
-
         } else {
             res.status(500).json({
-                message: `Error from else, after calling to ${url}`
-            })
+                message: `Error from else, after calling to ${url}`,
+            });
         }
     } catch (error) {
-        console.log(`Error From Flask: ${url}: `, error);
+        console.error(`Error From Flask: ${url}: `, error);
         res.status(500).json({
-            message: `Error From ${url}`
-        })
+            message: `Error From ${url}`,
+        });
     }
-}
+};
+
 
 
 exports.uploadInfoUpdateUsageReadPDF = async (req, data) => {

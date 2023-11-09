@@ -27,7 +27,6 @@ const MathQuiz = () => {
 
     const componentRef = useRef(null);
 
-
     const { language, setSelectedCategory, setLanguage } = useContext(ChatbotContext)
     const { fetchUsage } = useContext(UsageContext);
 

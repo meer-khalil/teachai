@@ -31,11 +31,12 @@ you only speak {language}.
         {"role": "system", "content": system},
         {"role": "user", "content": essay}
     ]
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-    with open(filename, "w") as outfile:
-        json.dump(message, outfile)
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    #response = completion.create(model=model, messages=messages)
+    #message = response['choices'][0]['message']
+    #with open(filename, "w") as outfile:
+    #    json.dump(message, outfile)
+    #return message['content'].replace('\n','<br>' )
 
 def grade(essay, user_id, conversation_id, language="English"):
     """
@@ -113,9 +114,10 @@ You only speak {language}"""
     else:
         messages.append({"role": "user", "content": final_prompt})
 
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    #response = completion.create(model=model, messages=messages)
+    #message = response['choices'][0]['message']
+    #messages.append(message)
+    #with open(filename, "w") as outfile:
+    #    json.dump(messages, outfile)
+    #return message['content'].replace('\n','<br>' )

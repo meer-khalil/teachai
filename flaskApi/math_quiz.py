@@ -55,7 +55,7 @@ def reveal_answers(user_id, conversation_id, language="English", fromfunc=False)
     completion = openai.ChatCompletion()
     model = "gpt-3.5-turbo"
     system = f"You are a helpful assistant for teachers, designed to rewrite quizz answers. you only speak {language}"
-    quizfilename = "Quizzes/{}_{}.txt".format(user_id, conversation_id)
+    quizfilename = "ChatHistory/{}_{}.json".format(user_id, conversation_id)
     try:
         with open(quizfilename, 'r') as file:
             quiz = file.read()
@@ -78,12 +78,12 @@ you only speak {language}"""
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": prompt}]
+    if fromfunc == False:
+        return messages, quizfilename
     response = completion.create(model=model, messages=messages)
     message = response['choices'][0]['message']
     all_answers = message['content']
-    if fromfunc == True:
-        return all_answers
-    return all_answers.replace('\n','<br>' )
+    return all_answers
 
 def evaluate_quiz(prompt, user_id, conversation_id, language="English"):
     openai.api_key = config.DevelopmentConfig.OPENAI_KEY
@@ -123,12 +123,13 @@ def evaluate_quiz(prompt, user_id, conversation_id, language="English"):
     else:
         messages.append({"role": "user", "content": final_prompt})
 
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    #response = completion.create(model=model, messages=messages)
+    #message = response['choices'][0]['message']
+    #messages.append(message)
+    #with open(filename, "w") as outfile:
+    #    json.dump(messages, outfile)
+    #return message['content'].replace('\n','<br>' )
 
 def generate_quiz(math_problem, multiple, user_id, conversation_id, language="English"):
     """
@@ -185,11 +186,12 @@ you only speak {language}
     else:
         messages.append({"role": "user", "content": followup_prompt})
 
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    with open(quizfilename, "w") as f:
-        f.write(message['content'])
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    #response = completion.create(model=model, messages=messages)
+    #message = response['choices'][0]['message']
+    #messages.append(message)
+    #with open(filename, "w") as outfile:
+    #    json.dump(messages, outfile)
+    #with open(quizfilename, "w") as f:
+    #    f.write(message['content'])
+    #return message['content'].replace('\n','<br>' )

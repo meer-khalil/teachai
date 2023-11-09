@@ -100,6 +100,8 @@ def summarize(vidUrl, user_id, conversation_id, userinput=None, language="Englis
             {"role": "system", "content": system},
             {"role": "user", "content": prompt}
         ]
+    if userinput != "longv":
+        return messages, filename
     response = completion.create(model=model, messages=messages)
     message = response['choices'][0]['message']
     messages.append(message)
@@ -147,10 +149,10 @@ def get_quiz(vidUrl, user_id, conversation_id, userinput, num_questions, quiz_ty
     if messages:
         message= {"role": "user", "content": userinput}
         messages.append(message)
-        response = completion.create(model=model, messages=messages)
-        message = response['choices'][0]['message']
-        messages.append(message)
-        return message['content'].replace('\n','<br>' )
+        #response = completion.create(model=model, messages=messages)
+        #message = response['choices'][0]['message']
+        #messages.append(message)
+        #return message['content'].replace('\n','<br>' )
 
 
     summary = summarize(vidUrl, user_id,  conversation_id, userinput='longv', language=language)
@@ -160,36 +162,37 @@ def get_quiz(vidUrl, user_id, conversation_id, userinput, num_questions, quiz_ty
     quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
     if not os.path.exists('Quizzes'):
         os.makedirs('Quizzes')
-    quiz = generate_quiz(summary, num_questions, quiz_type, language)
-    messages = [{"role": "user", "content": quiz.replace('<br>', '\n')}]
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    savehistory(quizfile, messages)
-    return quiz
+    #quiz = generate_quiz(summary, num_questions, quiz_type, language)
+    prompt = f"{summary}\n\nBased on the above summary, generate a {quiz_type} quiz with {num_questions} questions.\n\nMake sure to not provide the answers just the questions for the quiz \n\nstart your message with '{quiz_type} quiz:', your response should be in {language}"
+    messages = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt}
+        ]
+    return messages, filename
 
-def generate_answers(vidUrl, user_id, conversation_id, language="English"):
-    video_id = get_video_id(vidUrl)
-    quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
-    try:
-        with open(quizfile, 'r') as openfile:
-            message = json.load(openfile)
-            quiz = message[0]['content'].replace('\n','<br>' )
-    except Exception as e:
-        print(e)
-        quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice', language)
-        quiz  = quiz.replace('\n','<br>' )
-    summary = summarize(vidUrl, user_id, userinput='longv', conversation_id=conversation_id, language=language)
-    if summary == "Invalid YouTube link":
-        return summary
-    print(quiz)
-    prompt = f"{summary}\n\nBased on the above summary, generate answers for this quiz's questions: \n\n{quiz}\n\nstart your message with 'Answers for the quiz:' your response should be in {language} "
-    answers = aicomplete(prompt, filename='dontsave')
-    return answers
+#def generate_answers(vidUrl, user_id, conversation_id, language="English"):
+#    video_id = get_video_id(vidUrl)
+#    quizfile = "Quizzes/{}_{}.json".format(user_id, video_id)
+#    try:
+#        with open(quizfile, 'r') as openfile:
+#            message = json.load(openfile)
+#            quiz = message[0]['content'].replace('\n','<br>' )
+#    except Exception as e:
+#        print(e)
+#        quiz = get_quiz(vidUrl, user_id, '10', 'true/ false and multiple choice', language)
+#        quiz  = quiz.replace('\n','<br>' )
+#    summary = summarize(vidUrl, user_id, userinput='longv', conversation_id=conversation_id, language=language)
+#    if summary == "Invalid YouTube link":
+#        return summary
+#    print(quiz)
+#    prompt = f"{summary}\n\nBased on the above summary, generate answers for this quiz's questions: \n\n{quiz}\n\nstart your message with 'Answers for the quiz:' your response should be in {language} "
+#    answers = aicomplete(prompt, filename='dontsave')
+#    return answers
 
 def chatyoutube(vidUrl, user_id, prompt, language="english"):
     video_id = get_video_id(vidUrl)
     conversation_id = user_id+video_id
-    filename = "Quizzes/{}_{}.json".format(user_id, video_id)
+    filename = "ChatHistory/{}_{}.json".format(user_id, video_id)
     quiz = openhistory(filename)
     summary = summarize(vidUrl, user_id, conversation_id, userinput = 'longv', language=language)
     if summary == "Invalid YouTube link":
@@ -199,5 +202,8 @@ def chatyoutube(vidUrl, user_id, prompt, language="english"):
         #quiz  = quiz.replace('\n','<br>' )
         fprompt = f"This is a summary for a youtube video:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary, respond in {language}"
     fprompt = f"{quiz}\n\nthis is a quiz for a youtube video, this is it's summary:\n\n{summary}\n\nprompt: {prompt}\n\nOnly answer the prompt if its related to the summary, respond in {language}"
-    response =aicomplete(fprompt, filename='dontsave')
-    return response
+    messages = [
+            {"role": "system", "content": "you are a helpfull assistant"},
+            {"role": "user", "content": fprompt}
+        ]
+    return messages, filename

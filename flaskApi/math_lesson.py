@@ -42,29 +42,22 @@ def plan_lessons_chat(prompt, user_id, conversation_id, language="English"):
     else:
         #get_links = False
         messages.append({"role": "user", "content": final_prompt})
-
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-    #if get_links == True:
-    link = []
-    try:
-        que = get_queries(message['content'])
-        queries = ast.literal_eval(que)
-        links_string = "\n links: \n"
-        for j in queries:
-            try:
-                link = get_first_link(j)
-            except Exception as f:
-                print(f)
-            links_string += j + " : " + link + "\n"
-        message['content'] += links_string
-    except Exception as e:
-        print(f"Error: {e}")
-
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    ##if get_links == True:
+    #link = []
+    #try:
+    #    que = get_queries(message['content'])
+    #    queries = ast.literal_eval(que)
+    #    links_string = "\n links: \n"
+    #    for j in queries:
+    #        try:
+    #            link = get_first_link(j)
+    #        except Exception as f:
+    #            print(f)
+    #        links_string += j + " : " + link + "\n"
+    #    message['content'] += links_string
+    #except Exception as e:
+    #    print(f"Error: {e}")
 
 def get_first_link(query):
     """

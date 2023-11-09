@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, send_file
+from flask import Flask, render_template, jsonify, request, send_file, Response
 import config
 import lessonplannerapi
 import quizapi
@@ -12,6 +12,7 @@ from detect_ai import detect_ai
 from plag_cheker import get_plag_report
 from gptutils import get_title
 import json
+import openai
 
 def page_not_found(e):
   return render_template('404.html'), 404
@@ -22,8 +23,30 @@ app.config.from_object(config.config['development'])
 
 app.register_error_handler(404, page_not_found)
 
+openai.api_key = config.DevelopmentConfig.OPENAI_KEY
+def send_messages(messages):
+    return openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        stream=True
+    )
 
-@app.route('/lessonplanner', methods = ['POST'])
+def event_stream(messages, filename):
+    full_message = []
+    for line in send_messages(messages=messages):
+        #print(line)
+        text = line.choices[0].delta.get('content', '')
+        if len(text): 
+            full_message.append(text)
+            yield text
+    str_message = ''.join(full_message)
+    message = {"role": "assistant", "content": str_message}
+    messages.append(message)
+    with open(filename, "w") as outfile:
+        json.dump(messages, outfile)
+    
+
+@app.route('/lessonplanner', methods = ['GET', 'POST'])
 def lessonplanner():
     data = request.get_json()
 
@@ -36,9 +59,12 @@ def lessonplanner():
     language = data['language']
     question = str(data)
 
-    res = {}
-    res['lesson_plan'] = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id, language)
-    return jsonify(res), 200
+    #res = {}
+    #res['lesson_plan'] = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id, language)
+    messages, filename = lessonplannerapi.plan_lessons_chat(question, user_id,conversation_id, language)
+    
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
+    #return jsonify(res), 200
 
 @app.route('/quiz', methods = ['POST'])
 def quiz():
@@ -58,33 +84,24 @@ def quiz():
     language = data['language']
     user_input = f"Generate a quiz for grade {grade}, subject: {subject}, topic: {quiz_topic}, type: {quiz_type}, note: {summary}, number of questions: {qn}"
     res = {}
-    res['quiz'] = quizapi.generate_quiz(user_input, user_id, conversation_id, language)
-    return jsonify(res), 200
+    #res['quiz'] = quizapi.generate_quiz(user_input, user_id, conversation_id, language)
+    #return jsonify(res), 200
+    messages, filename = quizapi.generate_quiz(user_input, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/gradeEssay', methods = ['POST'])
 def grade():
     data = request.get_json()
-
-    print("Data: ", data)
-    print("DataType: ",type(data))
     user_id = data['user_id']
     conversation_id = data['conversation_id']
     
     data = data['prompt']
-    if isinstance(data, str):
-        try:
-            dictionary = json.loads(data)
-            if isinstance(dictionary, dict):
-                data = dictionary
-        except ValueError as e:
-            print(f"Conversion failed: {e}")
-            
+    data = json.loads(data)
+    print('gradeEssay: ', data['language'])
     language = data['language']
     user_input = data
-
-    res = {}
-    res['grades'] = grade_essay.grade(user_input, user_id, conversation_id, language)
-    return jsonify(res), 200
+    messages, filename = grade_essay.grade(user_input, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/gradeEssay/rubric', methods=['POST'])
 def rubric():
@@ -95,9 +112,8 @@ def rubric():
     grade = data["grade"]
     language = data['language']
     essay_question = essay_question + "for grade:" + grade
-    rubric = grade_essay.generate_rubric(essay_question, user_id, conversation_id, language)
-    result = {"rubric": rubric}
-    return jsonify(result), 200
+    messages, filename = grade_essay.generate_rubric(essay_question, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/lessonComp/chat', methods = ['POST'])
 def gen_questions_chat():
@@ -105,16 +121,12 @@ def gen_questions_chat():
     data = request.get_json()
     user_id = data['user_id']
     conversation_id = data['conversation_id']
-    
-    print("Data: ", data)
-    
+
     data = data['prompt']
     user_input = data
     language = data['language']
-
-    res = {}
-    res['questions'] = lesson_comp.generate_questions(user_input, user_id, conversation_id, language)
-    return jsonify(res), 200
+    messages, filename = lesson_comp.generate_questions(user_input, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route("/lessonComp/questions", methods=['POST'])
 def gen_questions():
@@ -128,25 +140,8 @@ def gen_questions():
     qnumber = data["qnumber"]
     language = data['language']
     notes = f"question type: {qtype}, number of questions: {qnumber}"
-    # Generate questions
-    questions = lesson_comp.generate_questions(writeup, user_id, conversation_id, notes, language)
-    # Return the result as JSON
-    result = {"questions": questions}
-    return jsonify(result), 200
-
-@app.route("/lessonComp/answer", methods=["POST"])
-def answer():
-    data = request.get_json()
-    user_id = data['user_id']
-    conversation_id = data['conversation_id']
-
-    print("Data: ", data)
-    data = data['prompt']
-    language = data['language']
-
-    answers = lesson_comp.generate_answers(user_id, conversation_id, language)
-    result = {"answers": answers}
-    return jsonify(result), 200
+    messages, filename = lesson_comp.generate_questions(writeup, user_id, conversation_id, notes, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/mathquiz/evaluate', methods = ['POST'])
 def index():
@@ -155,9 +150,8 @@ def index():
     conversation_id = data['conversation_id']
     user_input = data["prompt"]
     language = data['language']
-    res = {}
-    res['evaluation'] = math_quiz.evaluate_quiz(user_input, user_id, conversation_id, language)
-    return jsonify(res), 200
+    messages, filename = math_quiz.evaluate_quiz(user_input, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route("/mathquiz/gen", methods=["POST"])
 def gen_quiz():
@@ -169,11 +163,8 @@ def gen_quiz():
     language = data['language']
     mathproblem = data["mathproblem"]
     multiple = data["type"]
-    mathquiz = math_quiz.generate_quiz(mathproblem, multiple, user_id, conversation_id, language)
-    # Return the result as JSON
-
-    result = {"math_quiz": mathquiz}
-    return jsonify(result), 200
+    messages, filename = math_quiz.generate_quiz(mathproblem, multiple, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route("/mathquiz/answer", methods=["POST"])
 def answers():
@@ -182,10 +173,8 @@ def answers():
     conversation_id = data['conversation_id']
     data = data['prompt']
     language = data['language']
-    answers = math_quiz.reveal_answers(user_id, conversation_id, language)
-    # Return the result as JSON
-    result = {"answers": answers}
-    return jsonify(result), 200
+    messages, filename = math_quiz.reveal_answers(user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/math/lesson', methods = ['POST'])
 def lesson():
@@ -198,9 +187,8 @@ def lesson():
     question = data
     language = data['language']
 
-    res = {}
-    res['response'] = math_lesson.plan_lessons_chat(question, user_id, conversation_id, language)
-    return jsonify(res), 200
+    messages, filename = math_lesson.plan_lessons_chat(question, user_id, conversation_id, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/video/summarize', methods = ['POST'])
 def summarizevid():
@@ -213,9 +201,8 @@ def summarizevid():
     url =  data['url']
     userinput = data['userinput']
     language = data['language']
-    res = {}
-    res['summary'] = ytgpt.summarize(url, user_id, conversation_id, userinput, language)
-    return jsonify(res), 200
+    messages, filename = ytgpt.summarize(url, user_id, conversation_id, userinput, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/video/quiz', methods = ['POST'])
 def videoquiz():
@@ -231,40 +218,21 @@ def videoquiz():
     userinput = data['userinput']
     language = data['language']
 
-    res = {}
-    res['video_quiz'] = ytgpt.get_quiz(vidUrl, user_id, conversation_id, userinput, num_questions, quiz_type, language)
-    return jsonify(res), 200
-
-@app.route('/video/answers', methods = ['POST'])
-def videoquizanswers():
-    data = request.get_json()
-    print('Recieved Data: ', data)
-    user_id = data['user_id']
-    conversation_id = data['conversation_id']
-
-    data = data['prompt']
-    vidUrl =  data['url']
-    language = data['language']
-    res = {}
-    res['answers'] = ytgpt.generate_answers(vidUrl, user_id, conversation_id, language)
-    return jsonify(res), 200
+    messages, filename = ytgpt.get_quiz(vidUrl, user_id, conversation_id, userinput, num_questions, quiz_type, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/video/chat', methods = ['POST'])
 def videochat():
-  data = request.get_json()
-  print('Recieved Data: ', data)
-
-  user_id = data['user_id']
-
-  data = data['prompt']
-  vidUrl =  data['url']
-  language = data['language']
-  #conversation_id = data['conversation_id']
-  prompt = data['videoChatPrompt']
-
-  res = {}
-  res['answer'] = ytgpt.chatyoutube(vidUrl, user_id, prompt, language)
-  return jsonify(res), 200
+    data = request.get_json()
+    print('Recieved Data: ', data)  
+    user_id = data['user_id']   
+    data = data['prompt']
+    vidUrl =  data['url']
+    language = data['language']
+    #conversation_id = data['conversation_id']
+    prompt = data['videoChatPrompt']
+    messages, filename =  ytgpt.chatyoutube(vidUrl, user_id, prompt, language)
+    return Response(event_stream(messages, filename), mimetype='text/event-stream')
 
 @app.route('/detectai', methods = ['POST'])
 def aidetect():

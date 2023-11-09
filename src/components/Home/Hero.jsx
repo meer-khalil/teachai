@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import hero_image from '../../images/Edited/webp/hero_image.jpg'
 
-const Hero = () => {
+const Hero = ({ setShowPopup }) => {
 
 
     return (
@@ -29,16 +29,16 @@ const Hero = () => {
 
                     <div className='flex flex-col md:flex-row gap-5 items-center mt-8'>
                         <Link to='/signup'>
-                            <button className='bg-primary px-6 py-3 rounded-md border-2 text-white border-primary'>
+                            <button className='bg-primary  px-6 py-3 rounded-md border-2 text-white border-primary'>
                                 Try for free for 7 days
                             </button>
                         </Link>
 
-                        <Link to='/how-it-works'>
-                        <button className='px-6 py-3 rounded-md border-2 text-white bg-[#ed7742]'>
+                        <button
+                            onClick={() => setShowPopup(true)}
+                            className='px-6 py-3 rounded-md border-2 cursor-pointer text-white bg-[#ed7742]'>
                             Watch How it Works
                         </button>
-                        </Link>
                     </div>
                 </div>
             </div>

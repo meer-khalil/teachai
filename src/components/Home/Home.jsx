@@ -14,6 +14,8 @@ import Stats from './Stats';
 import animationDesktop from '../../animation/Final JSON/Design 3 (video notes.json'
 import animationMobile from '../../animation/Final JSON/mobile video notes.json'
 import hero_image from '../../images/Edited/webp/hero_image.jpg'
+import PopUp from './Video/PopUp';
+import { useState } from 'react';
 
 const Features = lazy(() => import('./Features'));
 const History = lazy(() => import('./History'));
@@ -28,6 +30,7 @@ const Banner = lazy(() => import('./Banner'));
 export const Home = () => {
 
   const location = useLocation()
+  const [showPopup, setShowPopup] = useState(false);
 
   const { isLoggedin, isAuthenticated, getUserData } = useContext(UserContext)
 
@@ -48,7 +51,7 @@ export const Home = () => {
           <title>Teach Assist AI</title>
         </Helmet>
 
-        <Hero />
+        <Hero setShowPopup={setShowPopup}/>
 
         {/* <Logos /> */}
         <Productivity />
@@ -89,6 +92,11 @@ export const Home = () => {
 
         </Suspense>
       </div>
+      {
+        showPopup && (
+          <PopUp setShowPopup={setShowPopup} />
+        )
+      }
     </ChatbotProvider>
   )
 }

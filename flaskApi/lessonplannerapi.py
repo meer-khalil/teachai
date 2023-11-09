@@ -28,16 +28,10 @@ def plan_lessons_chat(prompt, user_id, conversation_id, language="English"):
     try:
         with open(filename, 'r') as openfile:
             messages = json.load(openfile)
-    except FileNotFoundError:
+    except:
         messages = None
         first_message = f"{prompt}, chatbot name: lesson planner"
         create_chat_data(user_id, conversation_id, first_message)
-    except json.decoder.JSONDecodeError:
-        # Handle JSON decoding error (if the file is not properly formatted)
-        messages = None
-        first_message = f"{prompt}, chatbot name: lesson planner"
-        create_chat_data(user_id, conversation_id, first_message)
-
 
     final_prompt = f"""As a helpful assistant for teachers, your task is to provide relevant resources and activities for lesson planning, focusing on the subject, grade level, and learning objectives. When a teacher asks for recommendations on specific topics or skills, offer a list of resources and activities tailored to their needs. Be proactive in offering assistance, clarifying any ambiguities, and guiding teachers through the process of selecting and using the resources provided. Maintain a polite, respectful, and empathetic tone, and always strive to exceed the teacher's expectations with your helpfulness and resourcefulness. Do not provide any links if you're providing resources or videos but instead give the teacher a precise query to search on google.Only answer questions related to your task do not engage in anything outside the scope of helping the teacher to plan their lessons, the teacher's message: "{
                 prompt}", Do not respond if the message is not related to lesson planning, remember do not provide links. You only speak {language}"""
@@ -50,28 +44,33 @@ def plan_lessons_chat(prompt, user_id, conversation_id, language="English"):
     else:
         messages.append({"role": "user", "content": followup_prompt})
 
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
+    #response = completion.create(model=model, messages=messages)
+    return messages, filename
+    #message = response['choices'][0]['message']
     #if get_links == True:
-    link = []
-    try:
-        que = get_queries(message['content'])
-        queries = ast.literal_eval(que)
-        links_string = "\n links: \n"
-        for j in queries:
-            try:
-                link = get_first_link(j)
-            except Exception as f:
-                print(f)
-            links_string += j + " : " + link + "\n"
-        message['content'] += links_string
-    except Exception as e:
-        print(f"Error: {e}")
-
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    return message['content'].replace('\n','<br>' )
+    
+    
+#    def get_links(message):
+#        
+#    link = []
+#    try:
+#        que = get_queries(message['content'])
+#        queries = ast.literal_eval(que)
+#        links_string = "\n links: \n"
+#        for j in queries:
+#            try:
+#                link = get_first_link(j)
+#            except Exception as f:
+#                print(f)
+#            links_string += j + " : " + link + "\n"
+#        message['content'] += links_string
+#    except Exception as e:
+#        print(f"Error: {e}")
+#
+#    messages.append(message)
+#    with open(filename, "w") as outfile:
+#        json.dump(messages, outfile)
+#    return message['content'].replace('\n','<br>' )
 
 def get_first_link(query):
     """

@@ -242,11 +242,11 @@ const ExportButtons = ({
       </div>
       <div className=" flex gap-5 relative overflow-hidden">
         {[
-          {
-            image: excel,
-            fn: handleToXLSX,
-            text: 'Export Excel'
-          },
+          // {
+          //   image: excel,
+          //   fn: handleToXLSX,
+          //   text: 'Export Excel'
+          // },
           {
             image: pdf,
             fn: handleToPrint,

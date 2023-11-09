@@ -47,10 +47,11 @@ You only speak {language}."""
     else:
         messages.append({"role": "user", "content": final_prompt})
 
-    response = completion.create(model=model, messages=messages)
-    message = response['choices'][0]['message']
-
-    messages.append(message)
-    with open(filename, "w") as outfile:
-        json.dump(messages, outfile)
-    return message['content'].replace('\n','<br>' )
+    return messages, filename
+    #response = completion.create(model=model, messages=messages)
+    #message = response['choices'][0]['message']
+    #messages.append(message)
+    
+    #with open(filename, "w") as outfile:
+    #    json.dump(messages, outfile)
+    #return message['content'].replace('\n','<br>' )

@@ -10,11 +10,34 @@ const path = require('path')
 const pdf = require('pdf-parse');
 const fsPromises = require("fs").promises;
 
+exports.chatStream = (req, res) => {
+    // Perform any necessary form data processing here
+    const formData = req.body;
+    console.log('FormData: ', formData);
+
+    // Set up a response as a stream
+    res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
+
+    // Simulate streaming response (you can replace this with your actual stream)
+    // Introduce a 2-second delay between sending chunks
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            res.write(`Data chunk ${i}\n`);
+
+            // Close the response after sending the last chunk
+            if (i === 9) {
+                res.end();
+            }
+        }, i * 2000); // Delay in milliseconds (i * 2000 = 2 seconds per chunk)
+    }
+    // End the response to signal completion
+    // res.end();
+}
 
 exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
     res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
     res.write('Hello');
-    
+
     /*
         make sure that Chatbot model contains the bot name
     */

@@ -16,6 +16,196 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
     const { setLanguage, language } = useContext(ChatbotContext);
 
 
+    // const submitForm = async (e) => {
+    //     e.preventDefault();
+
+    //     let data = {
+    //         body: {
+    //             gradeLevel: "12",
+    //             keyLearning: "Learning",
+    //             language: "English",
+    //             lessonDuration: "12",
+    //             subject: "Calculus",
+    //             topic: "Derivation"
+    //         }
+    //     }
+
+    //     try {
+    //         let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTE1MmViYjA3MTgyN2RmOTgyNTRjNCIsImlhdCI6MTY5OTUyODk4OSwiZXhwIjoxNzAwMTMzNzg5fQ.uTKnseZ7yRW_XigPGzXk0NwGXzF0idtuNWFXvv_WyF0'
+
+    //         const response = await axios.post('http://localhost:4000/api/v1/chatbot/lessonplanner', data, {
+    //             responseType: 'stream', // Indicate that the response should be treated as a stream
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${token}`
+    //             }
+    //         });
+
+    //         // Handle the streaming response
+    //         response.data.on('data', (chunk) => {
+    //             // Process each data chunk as it arrives
+    //             console.log('Received chunk:', chunk.toString());
+    //             // Update your UI with the data as it arrives
+    //         });
+
+    //         response.data.on('end', () => {
+    //             // All data has been received
+    //             console.log('Stream finished');
+    //             // Perform any final actions when the stream ends
+    //         });
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         // Handle any errors from the request
+    //     }
+    // };
+
+
+    // const submitForm = async (e) => {
+    //     e.preventDefault();
+
+    //     let data = {
+    //         body: {
+    //             gradeLevel: "12",
+    //             keyLearning: "Learning",
+    //             language: "English",
+    //             lessonDuration: "12",
+    //             subject: "Calculus",
+    //             topic: "Derivation"
+    //         }
+    //     };
+
+    //     // const token = 'YOUR_AUTH_TOKEN'; // Replace with your actual token
+    //     let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTE1MmViYjA3MTgyN2RmOTgyNTRjNCIsImlhdCI6MTY5OTUyODk4OSwiZXhwIjoxNzAwMTMzNzg5fQ.uTKnseZ7yRW_XigPGzXk0NwGXzF0idtuNWFXvv_WyF0'
+
+    //     const xhr = new XMLHttpRequest();
+
+    //     console.log('Data: ', data);
+
+    //     xhr.open('POST', 'http://localhost:4000/api/v1/chatbot/lessonplanner', true);
+    //     xhr.responseType = 'blob'; // Use 'blob' for binary response data
+
+    //     xhr.setRequestHeader('Content-Type', 'application/json');
+    //     xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+
+    //     xhr.onprogress = (event) => {
+    //         if (event.lengthComputable) {
+    //             // Calculate the progress if needed
+    //             const percentComplete = (event.loaded / event.total) * 100;
+    //             console.log(`Progress: ${percentComplete}%`);
+    //         }
+
+    //         // Process each chunk as it arrives
+    //         const chunk = new Uint8Array(xhr.response, xhr.response.byteLength - event.loaded, event.loaded);
+    //         console.log('Received chunk:', chunk);
+
+    //         // Handle the chunk data here
+    //     };
+
+    //     xhr.onreadystatechange = () => {
+    //         if (xhr.readyState === 4) {
+    //             if (xhr.status === 200) {
+    //                 console.log('Stream finished');
+    //                 // Perform any final actions when the stream ends
+    //             } else {
+    //                 console.error('Error:', xhr.status, xhr.statusText);
+    //                 // Handle any errors from the request
+    //             }
+    //         }
+    //     };
+
+    //     xhr.send(JSON.stringify(data));
+    // };
+
+
+    const fetchData = async () => {
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTE1MmViYjA3MTgyN2RmOTgyNTRjNCIsImlhdCI6MTY5OTUyODk4OSwiZXhwIjoxNzAwMTMzNzg5fQ.uTKnseZ7yRW_XigPGzXk0NwGXzF0idtuNWFXvv_WyF0'
+
+        try {
+            const response = await fetch('http://localhost:4000/api/v1/chatbot/lessonplanner');
+            if (!response.ok || !response.body) {
+                throw response.statusText;
+            }
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    setLoading(false);
+                    break;
+                }
+
+                const decodedChunk = decoder.decode(value, { stream: true });
+                setData(prevValue => `${prevValue}${decodedChunk}`);
+            }
+        } catch (error) {
+            setLoading(false);
+            // Handle other errors
+        }
+    };
+
+    const submitForm = async (e) => {
+        e.preventDefault();
+
+        const data = {
+            body: {
+                gradeLevel: "12",
+                keyLearning: "Learning",
+                language: "English",
+                lessonDuration: "12",
+                subject: "Calculus",
+                topic: "Derivation"
+            }
+        };
+
+        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTE1MmViYjA3MTgyN2RmOTgyNTRjNCIsImlhdCI6MTY5OTUyODk4OSwiZXhwIjoxNzAwMTMzNzg5fQ.uTKnseZ7yRW_XigPGzXk0NwGXzF0idtuNWFXvv_WyF0'
+
+
+        try {
+            const response = await fetch('http://localhost:4000/api/v1/chatbot/lessonplanner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Check if the response is successful (status code 200)
+            if (response.status === 200) {
+                const reader = response.body.getReader();
+                let receivedChunks = [];
+
+                const read = async () => {
+                    const { done, value } = await reader.read();
+
+                    if (done) {
+                        // All data has been received
+                        console.log('Stream finished');
+                        // Perform any final actions when the stream ends
+                    } else {
+                        // Process the received chunk
+                        receivedChunks.push(value);
+                        console.log('Received chunk:', new TextDecoder().decode(value));
+
+                        // Call read() again to receive the next chunk
+                        read();
+                    }
+                };
+
+                read();
+            } else {
+                console.error('Error:', response.status, response.statusText);
+                // Handle any errors from the request
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle any network or other errors
+        }
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(data);
@@ -47,7 +237,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                     'Authorization': `Bearer ${localStorage.getItem('teachai_token')}`
                 }
             });
-            
+
             // Handle the streaming response
             response.data.on('data', (chunk) => {
                 // Process each data chunk as it arrivess
@@ -111,7 +301,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
 
     return (
         <div className='md:mr-4'>
-            <form onSubmit={handleSubmit} className='mt-10'>
+            <form onSubmit={submitForm} className='mt-10'>
 
                 <div className='flex flex-col mb-5'>
                     <label htmlFor="topic" className='font-medium'>

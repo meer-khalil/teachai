@@ -21,12 +21,16 @@ const {
     checkPlag,
     videoQuizAnswer,
     videoToQuizChat,
+    chatStream
 } = require('../controllers/chatController')
 const { requestLimit } = require('../middlewares/requestLimit')
 const pdfUpload = require('../utils/lib/pdfUpload')
 const fileUpload = require('../utils/lib/pdfUpload')
 
 const router = express.Router()
+
+
+router.route('/stream').post(chatStream);
 
 /*
     Lesson Planning Bot

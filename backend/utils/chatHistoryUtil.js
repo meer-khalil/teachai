@@ -11,9 +11,9 @@ const pdf = require('pdf-parse');
 const fsPromises = require("fs").promises;
 
 const mammoth = require('mammoth');
-const { getClients, chatStream, name } = require('../controllers/chatController');
+// const { getClients, chatStream, name } = require('../controllers/chatController');
 // console.log("Working Directory: ",require('../controllers/chatController'));
-console.log(name)
+// console.log(name)
 
 exports.createChatHistoryAndGiveData = async (req, chatbot_name) => {
 
@@ -119,8 +119,8 @@ exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
             response.data.on('data', (chunk) => {
                 console.log('chunk: ', chunk);
                 responseDataChunks.push(chunk);
-                // res.write(chunk.toString());
-                res.write(`Data chunk\n`);
+                res.write(chunk);
+                // res.write(`Data chunk\n`);
             });
 
             response.data.on('end', async () => {

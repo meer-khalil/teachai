@@ -9,7 +9,7 @@ const PopUp = ({ setShowPopup }) => {
       <div className=' h-[438px] w-[780px] bg-white relative px-3 py-5 rounded-md'>
         <span
           onClick={() => setShowPopup(false)}
-          className=' absolute -top-10 -right-10 text-2xl text-red-800 border-2 border-black rounded-full cursor-pointer w-8 h-8 flex justify-center items-center'
+          className=' absolute -top-10 -right-10 text-2xl text-white border-4 border-white rounded-full cursor-pointer w-8 h-8 flex justify-center items-center bg-primary'
         >X</span>
         <Video />
       </div>

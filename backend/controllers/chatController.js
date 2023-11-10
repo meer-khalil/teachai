@@ -36,8 +36,7 @@ exports.chatStream = (req, res) => {
 
 exports.lessonPlanner = asyncErrorHandler(async (req, res, next) => {
     res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
-    res.write('Hello');
-
+    res.write('\n')
     /*
         make sure that Chatbot model contains the bot name
     */
@@ -78,6 +77,7 @@ exports.quiz = asyncErrorHandler(async (req, res, next) => {
 
 /* Essay Grading */
 exports.gradeEssay = asyncErrorHandler(async (req, res, next) => {
+    console.log('body: ', req.body);
 
     /*
     make sure that Chatbot model contains the bot name

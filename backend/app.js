@@ -168,9 +168,10 @@ app.post(
   }
 );
 
+
 app.use(bodyParser.json({ limit: "30mb" }));
-app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
+app.use(express.json());
 app.use(cookieParser());
 app.use(compression());
 

@@ -67,7 +67,7 @@ const updateChatHistory = async (chat_id, answer, res, title) => {
         }
 
         let endData = {
-            answer: answer.answer,
+            // answer: answer.answer,
             chat_id
         }
 
@@ -117,7 +117,7 @@ exports.fetchDataFromFlaskAPI = async (res, url, data, result, body) => {
             const responseDataChunks = [];
 
             response.data.on('data', (chunk) => {
-                console.log('chunk: ', chunk);
+                console.log('chunk: ', chunk.toString());
                 responseDataChunks.push(chunk);
                 res.write(chunk);
                 // res.write(`Data chunk\n`);

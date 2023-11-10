@@ -9,9 +9,9 @@ function Answer({ answer }) {
   const { setAnswerForPrint } = useContext(ChatbotContext)
 
   const slideDown = () => {
-    console.log('Here I am to scroll');
+    // console.log('Here I am to scroll');
     let content = document.getElementById('chat_content');
-    console.log('content: ', content);
+    // console.log('content: ', content);
 
     // Get the last child element
     let lastChild = content.lastElementChild;

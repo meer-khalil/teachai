@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { UsageContext } from '../../../context/UsageContext';
 import { toast } from 'react-toastify';
 import { ChatbotContext } from '../../../context/ChatbotContext';
+import { backend_url } from '../../../util/variables';
 
 
 const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
@@ -41,30 +42,76 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
         formData.append('body', JSON.stringify(data));
         // console.log(formData.get('body'));
 
-        // Override the Content-Type for this request
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data', // Set the desired Content-Type
-            },
-        };
-
-
         try {
             for (var pair of formData.entries()) {
                 console.log(pair[0]);
                 console.log(pair[1]);
             }
             console.log(formData);
-            let res = await api.post(`/chatbot/gradeEssay`, formData, config)
+            // /chatbot/gradeEssay
+            const headers = new Headers();
+            headers.append('Authorization', `Bearer ${localStorage.getItem("teachai_token")}`);
+            // headers.append('Content-Type', `multipart/form-data; boundary=${formData._boundary}`);
+            
+            const response = await fetch(`${backend_url}/chatbot/gradeEssay`, {
+                method: 'POST',
+                headers,
+                body: formData,
+            });
+            
 
-            if (res.statusText === 'OK') {
+            // Check if the response is successful (status code 200)
+            if (response.status === 200) {
+                const reader = response.body.getReader();
+                let receivedChunks = [];
 
-                console.log('Response from chatform: ', res);
-                console.log('Here is the answer: ', res.data.answer);
-                setChatID(res.data.chat_id)
-                setAnswer([{ answer: res.data.answer }])
-                setLoading(false)
-                fetchUsage();
+                let answer = 'Wait a moment...<br />';
+
+                const read = async () => {
+                    const { done, value } = await reader.read();
+
+                    if (done) {
+                        // All data has been received
+                        console.log('Stream finished');
+                        answer = answer.replace(/Wait a moment...<br \/>/g, '');
+                        setAnswer([{ answer }])
+                        fetchUsage();
+                    } else {
+                        // Process the received chunk
+                        setLoading(false);
+                        // receivedChunks.push(value);
+                        let text = new TextDecoder().decode(value)
+                        text = text.replace(/\n/g, '<br />');
+
+                        if (text.includes('chat_id')) {
+                            try {
+                                // Attempt to parse the string as JSON
+                                let jsonResult = JSON.parse(text);
+                                setChatID(jsonResult['chat_id'])
+
+                                console.log("Parsed JSON:", jsonResult);
+                            } catch (error) {
+                                // If parsing fails, handle the error
+                                console.error("Error parsing JSON:", error);
+                            }
+                        } else {
+                            answer += text;
+                        }
+
+                        setAnswer([{ answer }])
+                        // console.log('Received chunk:', text);
+
+                        // Call read() again to receive the next chunk
+                        read();
+                    }
+                };
+
+                read();
+            } else {
+                console.error('Error:', response.status, response.statusText);
+                setLoading(false);
+                toast('Something Wrong!')
+                // Handle any errors from the request
             }
         } catch (error) {
 

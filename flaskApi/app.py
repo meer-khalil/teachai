@@ -96,7 +96,7 @@ def grade():
     conversation_id = data['conversation_id']
     
     data = data['prompt']
-    data = json.loads(data)
+    # data = json.loads(data)
     print('gradeEssay: ', data['language'])
     language = data['language']
     user_input = data

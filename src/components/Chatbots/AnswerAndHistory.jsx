@@ -58,6 +58,7 @@ const AnswerAndHistory = ({
                                             <ShortForm
                                                 url={url}
                                                 setLoading={setLoading}
+                                                realAnswer={answer}
                                                 setAnswer={setAnswer}
                                                 chatID={chatID}
                                             />

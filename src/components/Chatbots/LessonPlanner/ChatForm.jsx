@@ -56,7 +56,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         let text = new TextDecoder().decode(value)
                         text = text.replace(/\n/g, '<br />');
 
-                        if (text.includes('chat_id')) {
+                        if (text.includes('"chat_id":')) {
                             try {
                                 // Attempt to parse the string as JSON
                                 console.log('chatID: ', text);

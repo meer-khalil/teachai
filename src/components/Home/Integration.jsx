@@ -37,7 +37,7 @@ const Integration = () => {
 
                 </div>
             </div>
-            <div className='flex-1'>
+            <div className='flex-1 w-full'>
                 {/* <img src={hero_image} className=' rounded-lg md:rounded-[2rem]' alt="hero imgae" /> */}
                 {
                     (window.innerWidth > 786) ? (

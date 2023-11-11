@@ -59,6 +59,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         if (text.includes('chat_id')) {
                             try {
                                 // Attempt to parse the string as JSON
+                                console.log('chatID: ', text);
                                 let jsonResult = JSON.parse(text);
                                 setChatID(jsonResult['chat_id'])
 
@@ -73,7 +74,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
                         }
 
                         setAnswer([{ answer }])
-                        // console.log('Received chunk:', text);
+                        console.log('Received chunk:', text);
 
                         // Call read() again to receive the next chunk
                         read();

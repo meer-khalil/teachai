@@ -71,17 +71,9 @@ const ShortForm = ({ url, setLoading, realAnswer, setAnswer, chatID }) => {
 
 
         try {
-            // let res = await api.post(`/chatbot${url}`, data);
 
-            // if (res.statusText === 'OK') {
-
-            //     console.log('Here is the answer: ', res.data.answer);
-
-            //     setAnswer((prev) => ([...prev, { question: prompt, answer: res.data.answer }]))
-            //     setPrompt('')
-            //     setLoading(false)
-            //     fetchUsage();
-            // }
+            console.log('Here is Data For Request: ', data);
+            
             const response = await fetch(`${backend_url}/chatbot${url}`, {
                 method: 'POST',
                 headers: {

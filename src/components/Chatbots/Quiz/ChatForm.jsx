@@ -53,6 +53,7 @@ const ChatForm = ({ setAnswer, setLoading, setChatID }) => {
         e.preventDefault();
         console.log(data);
         setLoading(true)
+        setQuizRequest(data);
 
         try {
             const response = await fetch(`${backend_url}/chatbot/quiz`, {

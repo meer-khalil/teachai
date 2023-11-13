@@ -96,8 +96,9 @@ def grade():
     conversation_id = data['conversation_id']
     
     data = data['prompt']
-    # data = json.loads(data)
-    print('gradeEssay: ', data['language'])
+    if isinstance(data, str):
+        data = json.loads(data)
+            
     language = data['language']
     user_input = data
     messages, filename = grade_essay.grade(user_input, user_id, conversation_id, language)

@@ -15,13 +15,13 @@ export const UsageProvider = ({ children }) => {
             const { data } = await api.get('/getUsage');
             const { usage } = data
             setUsage(usage)
-            console.log('Usage: ', usage);
-            let width = Math.floor(((usage?.usageCount - 1 ) * 100) / usage?.usageLimit)
+            // console.log('Usage: ', usage);
+            let width = Math.floor(((usage?.usageCount - 1) * 100) / usage?.usageLimit)
             let upload = Math.floor(((usage?.noOfFilesUploaded) * 100) / usage?.noOfFilesUploadedLimit)
             setCreditWidth(width);
             setUploadBarWidth(upload)
         } catch (error) {
-            toast("Error Usage Data")
+            // toast("Error Usage Data")
         }
     }
 

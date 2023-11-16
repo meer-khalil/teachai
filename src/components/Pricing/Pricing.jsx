@@ -95,16 +95,29 @@ const Pricing = () => {
 			localStorage.setItem("plan", plan)
 			navigate("/signup")
 		}
+		// const links = {
+		// 	'Starter': 'https://buy.stripe.com/test_9AQ8A5a9j6lF8368ww',
+		// 	'Professional': 'https://buy.stripe.com/test_4gw3fLa9jcK3dnq001'
+		// }
+
+
+		// window.location.href = links[plan];
+
 		api.post('/payment/process', { plan })
 			.then(response => {
+				alert("Get Ready");
 				window.location.href = response.data.url
 				console.log('Response:', response.data);
 			})
 			.catch(error => {
 				console.error('Error:', error.message);
+				alert("Error");
 			});
 	}
 
+	// const createPayment = (plan) => {
+	// 	navigate('/payment');
+	// }
 	return (
 		<>
 			<div className=' max-w-[1440px] mx-auto'>

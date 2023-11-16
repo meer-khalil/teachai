@@ -12,11 +12,16 @@ const plans = new Map([
 ]);
 
 
+const priceIDs = {
+    "Starter": 'price_1OCktILFLZPxO7T9nAnMZLuy',
+    "Professional": "price_1OCl5YLFLZPxO7T9kYM5ILkK"
+}
+
 exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 
-    console.log(plans);
+    // console.log(plans);
     let plan = plans.get(req.body.plan);
-    console.log(plan);
+    // console.log(plan);
 
     const customer = await stripe.customers.create({
         metadata: {
@@ -28,19 +33,23 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
     try {
 
         const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            mode: 'payment',
             customer: customer.id,
+            // line_items: [{
+            //     price_data: {
+            //         currency: 'usd',
+            //         unit_amount: plan.priceInCent,
+            //         product_data: {
+            //             name: plan.name
+            //         },
+            //     },
+            //     quantity: 1,
+            // }],
+            payment_method_types: ['card'],
             line_items: [{
-                price_data: {
-                    currency: 'usd',
-                    unit_amount: plan.priceInCent,
-                    product_data: {
-                        name: plan.name
-                    },
-                },
+                price: priceIDs[req.body.plan],
                 quantity: 1,
             }],
+            mode: 'subscription',
             success_url: `${site}/success`,
             cancel_url: `${site}/cancel`
         })
@@ -55,3 +64,51 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
         res.status(500).json({ error: 'An error occurred while creating the payment intent.' });
     }
 });
+
+
+exports.createSubscription = asyncErrorHandler(async (req, res, next) => {
+
+    // const user_Id = req.user.id
+
+    let plan = plans.get(req.body.plan);
+    // create a stripe customer
+    const customer = await this.stripe.customers.create({
+        name: req.name,
+        email: req.email,
+        metadata: {
+            userId: req.user.id,
+            plan: JSON.stringify(plan)
+        },
+        payment_method: req.paymentMethod,
+        invoice_settings: {
+            default_payment_method: req.paymentMethod,
+        },
+    });
+
+
+    // get the price id from the front-end
+    const priceId = req.priceId;
+
+    // create a stripe subscription
+    const subscription = await this.stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{ price: priceId }],
+        payment_settings: {
+            payment_method_options: {
+                card: {
+                    request_three_d_secure: 'any',
+                },
+            },
+            payment_method_types: ['card'],
+            save_default_payment_method: 'on_subscription',
+        },
+        expand: ['latest_invoice.payment_intent'],
+    });
+
+    // return the client secret and subscription id
+    return {
+        clientSecret: subscription.latest_invoice.payment_intent.client_secret,
+        subscriptionId: subscription.id,
+    };
+
+})

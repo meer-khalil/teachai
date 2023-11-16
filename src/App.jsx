@@ -26,7 +26,7 @@ const AdminDashboard = lazy(() => import("./components/Admin/Dashbaord/AdminDash
 const UserDashboard = lazy(() => import("./components/Dashboard/UserDashboard"));
 const Stories = lazy(() => import("./components/Blog/Stories/Stories"));
 const DetailStory = lazy(() => import("./components/Blog/Stories/DetailStory"));
-const Stripe = lazy(() => import("./components/Stripe/Stripe"));
+const Stripe = lazy(() => import("./components/Stripe/Payment"));
 const Success = lazy(() => import("./components/Stripe/Success"));
 const Cancel = lazy(() => import("./components/Stripe/Cancel"));
 const YourComponent = lazy(() => import("./components/Pdf/YourComponent"));

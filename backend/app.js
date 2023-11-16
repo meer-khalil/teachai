@@ -59,7 +59,7 @@ const emailBody = {
 app.post(
   "/api/v1/stripe/webhook",
   express.json({ type: "application/json" }),
-  (request, response) => {
+  async (request, response) => {
     // console.log('Here is your WebhooKL: ', request.body);
 
     console.log("Here is your Webhook Request: ");
@@ -68,6 +68,50 @@ app.post(
 
     // Handle the event
     switch (event.type) {
+      case 'invoice.payment_succeeded': {
+        const dataObject = event.data.object;
+        if (dataObject['billing_reason'] == 'subscription_create') {
+          // The subscription automatically activates after successful payment
+          // Set the payment method used to pay the first invoice
+          // as the default payment method for that subscription
+          const subscription_id = dataObject['subscription']
+          const payment_intent_id = dataObject['payment_intent']
+
+          // Retrieve the payment intent used to pay the subscription
+          const payment_intent = await stripe.paymentIntents.retrieve(payment_intent_id);
+
+          try {
+            const subscription = await stripe.subscriptions.update(
+              subscription_id,
+              {
+                default_payment_method: payment_intent.payment_method,
+              },
+            );
+
+            console.log("Default payment method set for subscription:" + payment_intent.payment_method);
+          } catch (err) {
+            console.log(err);
+            console.log(`⚠️  Falied to update the default payment method for subscription: ${subscription_id}`);
+          }
+        };
+      }
+        break;
+      case 'invoice.finalized':
+        console.log('Event: invoice.finalized');
+        // If you want to manually send out invoices to your customers
+        // or store them locally to reference to avoid hitting Stripe rate limits.
+        break;
+      case 'customer.subscription.deleted':
+        if (event.request != null) {
+          // handle a subscription cancelled by your request
+          // from above.
+          console.log('Event: customer.subscription.deleted: (event.request != null)');
+        } else {
+          console.log('Event: customer.subscription.deleted: (event.request == null)');
+          // handle subscription cancelled automatically based
+          // upon your subscription settings.
+        }
+        break;
       case "payment_intent.succeeded":
         const paymentIntent = event.data.object;
         // Then define and call a method to handle the successful payment intent.
@@ -125,9 +169,8 @@ app.post(
                     subject: "Purchased Plan Information",
                     html: `
                                         <h1>Congratulations!</h1>
-                                        <h4>You have successfully purchased the ${
-                                          plan["name"]
-                                        } Plan</h4>
+                                        <h4>You have successfully purchased the ${plan["name"]
+                      } Plan</h4>
                                         <h6>You now have the following benefits</h6>
                                         ${emailBody[plan["name"]]}
                                         <p>Thank You!</p>
@@ -208,7 +251,7 @@ app.post('/submit-form', (req, res) => {
   // Perform any necessary form data processing here
   const formData = req.body;
   console.log('FormData: ', formData);
-  
+
   // Set up a response as a stream
   res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
 

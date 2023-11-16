@@ -1,110 +1,90 @@
-import React, { useEffect, useState } from "react";
-import {
-  PaymentElement,
-  LinkAuthenticationElement,
-  useStripe,
-  useElements
-} from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Button, Input } from "antd";
+import React, { useState } from "react";
+import { backend_url } from "../../util/variables";
 
-export default function CheckoutForm({ clientSecret }) {
+function CheckoutForm() {
+  
+  // collect data from the user
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [priceId, setPriceId] = useState("");
+  
+  // stripe items
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    // const clientSecret = new URLSearchParams(window.location.search).get(
-    //   "payment_intent_client_secret"
-    // );
-
-    console.log('Client Secret : ', clientSecret)
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret)
-      .then(({ paymentIntent }) => {
-        switch (paymentIntent.status) {
-          case "succeeded":
-            setMessage("Payment succeeded!");
-            break;
-          case "processing":
-            setMessage("Your payment is processing.");
-            break;
-          case "requires_payment_method":
-            setMessage("Your payment was not successful. Please try again with a different payment method.");
-            break;
-          default:
-            setMessage("Something went wrong.");
-            break;
-        }
-      })
-      .catch((error) => {
-        // Handle the error
-        setMessage("An error occurred while retrieving the payment status.");
+  // main function
+  const createSubscription = async () => {
+    try {
+      
+      // create a payment method
+      const paymentMethod = await stripe?.createPaymentMethod({
+        type: "card",
+        card: elements?.getElement(CardElement),
+        billing_details: {
+          name,
+          email,
+        },
       });
 
-  }, [stripe]);
+      // call the backend to create subscription
+      const response = await fetch(`${backend_url}/payment/create-subscription`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          paymentMethod: paymentMethod?.paymentMethod?.id,
+          name,
+          email,
+          priceId,
+          plan: 'Starter'
+        }),
+      }).then((res) => res.json());
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+      const confirmPayment = await stripe?.confirmCardPayment(
+        response.clientSecret
+      );
 
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
+      if (confirmPayment?.error) {
+        alert(confirmPayment.error.message);
+      } else {
+        alert("Success! Check your email for the invoice.");
+      }
+    } catch (error) {
+      console.log(error);
     }
-
-    setIsLoading(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:3000",
-      },
-      redirect: 'if_required'
-    });
-
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
-    if (error?.type === "card_error" || error?.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      console.log('Error: ', error);
-      setMessage("An unexpected error occurred.");
-    }
-
-    setIsLoading(false);
   };
 
-  const paymentElementOptions = {
-    layout: "tabs"
-  }
-
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      {/* <LinkAuthenticationElement
-        id="link-authentication-element"
-        onChange={(e) => { setEmail(e?.target.value) }}
+    <div className="grid gap-4 m-auto">
+      {/* <input  // this should not be a text field. maybe a radio button ro something
+        placeholder="Price Id"
+        type="text"
+        value={name}
+        onChange={(e) => setPriceId(e.target.value)}
+      />
+      <input
+        placeholder="Name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <br />
+      <input
+        placeholder="Email"
+        type="text"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       /> */}
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit" className="checkoutbutton">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
+
+      <CardElement />
+      <button onClick={createSubscription} disabled={!stripe}>
+        Subscribe
       </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    </div>
   );
 }
+
+export default CheckoutForm;

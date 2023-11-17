@@ -4,14 +4,16 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const stripe = require("./config/stripe");
+const compression = require("compression");
+
 const Payment = require("./models/paymentModel");
 const Usage = require("./models/usageModel");
-const { requestLimit } = require("./middlewares/requestLimit");
-const { isAuthenticatedUser } = require("./middlewares/auth");
 const User = require("./models/userModel");
 
-const compression = require("compression");
+const { requestLimit } = require("./middlewares/requestLimit");
+const { isAuthenticatedUser } = require("./middlewares/auth");
+const stripe = require("./config/stripe");
+
 const app = express();
 
 app.use(cors());
@@ -88,6 +90,10 @@ app.post(
               },
             );
 
+            let payment = await Payment.findOne({ "payment.subscription": subscription_id })
+            let usage = await Usage.findOne({ user: payment.user });
+            usage.payment = true;
+            await usage.save();
             console.log("Default payment method set for subscription:" + payment_intent.payment_method);
           } catch (err) {
             console.log(err);
@@ -100,6 +106,42 @@ app.post(
         console.log('Event: invoice.finalized');
         // If you want to manually send out invoices to your customers
         // or store them locally to reference to avoid hitting Stripe rate limits.
+        break;
+      case 'invoice.payment_failed':
+
+        const subscription_id = dataObject['subscription']
+        const payment_intent_id = dataObject['payment_intent']
+
+        let entry = null;
+
+        try {
+          // Fetch the payment entry
+          entry = await Payment.findOne({ user: req.user.id });
+          console.log('Deleted: ', entry);
+        } catch (error) {
+          console.error('Error fetching payment entry:', error);
+          // return res.status(400).send({ error: { message: 'Error fetching payment entry.' } });
+        }
+        // Cancel the subscription
+        try {
+          const deletedSubscription = await stripe.subscriptions.del(
+            entry.payment.subscription
+          );
+          let usage = await Usage.findOne({ user: req.user.id });
+          usage.payment = false;
+          usage.usageLimit = 10;
+          usage.plan = 'Free';
+          await usage.save();
+
+          await Payment.deleteOne({ _id: entry._id });
+          console.log('Deleted Payment: ', entry);
+          // res.send({ subscription: deletedSubscription });
+        } catch (error) {
+          console.error('Error canceling subscription:', error);
+          // return res.status(400).send({ error: { message: error.message } });
+        }
+        // Handle the payment failure, e.g., notify the customer, update payment information, etc.
+        console.log('Payment failed for invoice:', event.data.object.id);
         break;
       case 'customer.subscription.deleted':
         if (event.request != null) {

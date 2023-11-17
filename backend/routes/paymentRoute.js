@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.route('/payment/process').post(isAuthenticatedUser ,processPayment);
 router.route('/payment/create-subscription').post(isAuthenticatedUser , createSubscription);
-router.route('/payment/cancel-subscription').post(isAuthenticatedUser , cancelSubscription);
+router.route('/payment/cancel-subscription').delete(isAuthenticatedUser , cancelSubscription);
 
 
 module.exports = router;

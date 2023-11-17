@@ -72,14 +72,15 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 exports.cancelSubscription = asyncErrorHandler(async (req, res, next) => {
 
     let entry = null;
-
+    console.log('Going to delete subscription');
+    
     try {
         // Fetch the payment entry
         entry = await Payment.findOne({ user: req.user.id });
         console.log('Deleted: ', entry);
     } catch (error) {
         console.error('Error fetching payment entry:', error);
-        return res.status(400).send({ error: { message: 'Error fetching payment entry.' } });
+        return res.status(404).send({ error: { message: 'Error fetching payment entry.' } });
     }
     // Cancel the subscription
     try {

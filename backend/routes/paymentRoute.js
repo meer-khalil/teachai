@@ -1,7 +1,7 @@
 const express = require('express');
 const { 
     
-    processPayment, createSubscription
+    processPayment, createSubscription, cancelSubscription
 
 } = require('../controllers/paymentController');
 
@@ -11,5 +11,7 @@ const router = express.Router();
 
 router.route('/payment/process').post(isAuthenticatedUser ,processPayment);
 router.route('/payment/create-subscription').post(isAuthenticatedUser , createSubscription);
+router.route('/payment/cancel-subscription').post(isAuthenticatedUser , cancelSubscription);
+
 
 module.exports = router;

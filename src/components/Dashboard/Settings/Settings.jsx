@@ -3,6 +3,7 @@ import React from 'react'
 import Profile from './components/Profile';
 import ChangePassword from './components/ChangePassword';
 import DeleteAccount from './components/DeleteAccount';
+import CancelSubscription from './components/CancelSubscription';
 import ChangeEmail from './components/ChangeEmail';
 import TwoFA from './components/TwoFA';
 
@@ -15,6 +16,7 @@ const Settings = () => {
                 <ChangePassword />
                 <ChangeEmail />
                 <DeleteAccount />
+                <CancelSubscription />
             </div>
         </div>
     )

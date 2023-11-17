@@ -1,6 +1,9 @@
 require('dotenv').config()
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 
+let Usage = require('../models/usageModel');
+let Payment = require('../models/paymentModel');
+
 const site = 'https://www.teachassistai.com'
 
 const stripe = require('../config/stripe');
@@ -65,6 +68,38 @@ exports.processPayment = asyncErrorHandler(async (req, res, next) => {
     }
 });
 
+
+exports.cancelSubscription = asyncErrorHandler(async (req, res, next) => {
+
+    let entry = null;
+
+    try {
+        // Fetch the payment entry
+        entry = await Payment.findOne({ user: req.user.id });
+        console.log('Deleted: ', entry);
+    } catch (error) {
+        console.error('Error fetching payment entry:', error);
+        return res.status(400).send({ error: { message: 'Error fetching payment entry.' } });
+    }
+    // Cancel the subscription
+    try {
+        const deletedSubscription = await stripe.subscriptions.del(
+            entry.payment.subscription
+        );
+        let usage = await Usage.findOne({ user: req.user.id });
+        usage.payment = false;
+        usage.usageLimit = 10;
+        usage.plan = 'Free';
+        await usage.save();
+
+        await Payment.deleteOne({ _id: entry._id });
+        console.log('Deleted Payment: ', entry);
+        res.send({ subscription: deletedSubscription });
+    } catch (error) {
+        console.error('Error canceling subscription:', error);
+        return res.status(400).send({ error: { message: error.message } });
+    }
+});
 
 exports.createSubscription = asyncErrorHandler(async (req, res, next) => {
 

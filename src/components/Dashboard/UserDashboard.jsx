@@ -21,65 +21,65 @@ import Settings from './Settings/Settings'
 
 const UserDashboard = () => {
 
-    const { isAuthenticated } = useContext(UserContext)
+	const { isAuthenticated } = useContext(UserContext)
 
-    if (!isAuthenticated) return <div>Loading....</div>
+	if (!isAuthenticated) return <div>Loading....</div>
 
-    return (
-        <UsageProvider>
-            <ChatbotProvider>
-                <div className=' max-w-[1640px] mx-auto'>
-                    <div className="flex flex-col md:flex-row">
-                        {/* <div className='flex flex-col'> */}
-                            {/* <div>
+	return (
+		<UsageProvider>
+			<ChatbotProvider>
+				<div className=' max-w-[1640px] mx-auto'>
+					<div className="flex flex-col md:flex-row">
+						{/* <div className='flex flex-col'> */}
+						{/* <div>
                                 <h3 className=' text-xl font-bold'>Package Details</h3>
                             </div> */}
-                            <div className=" md:flex-[2] md:mt-52">
-                                <Aside />
-                            </div>
-                        {/* </div> */}
+						<div className=" md:flex-[2] md:mt-52">
+							<Aside />
+						</div>
+						{/* </div> */}
 
-                        <main className="mt-5 min-h-screen md:mt-0 md:flex-[10]">
-                            <div className="px-2 md:px-6 pt-2">
+						<main className="mt-5 min-h-screen md:mt-0 md:flex-[10]">
+							<div className="px-2 md:px-6 pt-2">
 
-                                <Routes>
+								<Routes>
 
 
-                                    {/* <Route path={`history/*`} element={<ChatHistory />} /> */}
+									{/* <Route path={`history/*`} element={<ChatHistory />} /> */}
 
-                                    <Route path={`chatbots`} element={<Chatbots />} />
+									<Route path={`chatbots`} element={<Chatbots />} />
 
-                                    <Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
+									<Route path={`chatbot/lesson-planner`} element={<LessonPlanner />} />
 
-                                    <Route path={`chatbot/quiz`} element={<Quiz />} />
+									<Route path={`chatbot/quiz`} element={<Quiz />} />
 
-                                    <Route path={`chatbot/essay`} element={<Essay />} />
+									<Route path={`chatbot/essay`} element={<Essay />} />
 
-                                    <Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
+									<Route path={`chatbot/lessonComp`} element={<LessonComprehension />} />
 
-                                    <Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
+									<Route path={`chatbot/mathquiz`} element={<MathQuiz />} />
 
-                                    <Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
+									<Route path={`chatbot/math-lesson-planner`} element={<MathLessonPlanner />} />
 
-                                    <Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
+									<Route path={`chatbot/video-summarize`} element={<VideoToNotes />} />
 
-                                    <Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
+									<Route path={`chatbot/video-to-quiz`} element={<VideoToQuiz />} />
 
-                                    <Route path={`chatbot/detect-ai`} element={<DetectAI />} />
+									<Route path={`chatbot/detect-ai`} element={<DetectAI />} />
 
-                                    <Route path={`chatbot/powerpoint-presentation`} element={<PowerPoint />} />
+									<Route path={`chatbot/powerpoint-presentation`} element={<PowerPoint />} />
 
-                                    <Route path={`settings`} element={<Settings />} />
+									<Route path={`settings`} element={<Settings />} />
 
-                                </Routes>
+								</Routes>
 
-                            </div>
-                        </main>
-                    </div>
-                </div>
-            </ChatbotProvider>
-        </UsageProvider>
-    )
+							</div>
+						</main>
+					</div>
+				</div>
+			</ChatbotProvider>
+		</UsageProvider>
+	)
 }
 
 export default UserDashboard

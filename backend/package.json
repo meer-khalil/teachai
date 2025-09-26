@@ -39,6 +39,11 @@
     "express-mongo-sanitize": "^2.2.0",
     "xss-clean": "^0.1.1",
     "hpp": "^0.2.3",
-    "joi": "^17.9.2"
+    "joi": "^17.9.2",
+    "redis": "^4.6.0",
+    "ioredis": "^5.3.2",
+    "response-time": "^2.3.2",
+    "express-slow-down": "^1.6.0",
+    "cluster": "^0.7.7"
   }
 }

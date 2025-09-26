@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import config
 import json
-from langchain import LLMMathChain, OpenAI
+from langchain.chains import LLMMathChain
+from langchain_community.llms import OpenAI
 import ast
 #from googlesearch import search
 import openai

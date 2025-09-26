@@ -4,7 +4,9 @@ class Config(object):
     TESTING = False
 
 class DevelopmentConfig(Config):
-    OPENAI_KEY = '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'
+    # Please replace with your actual OpenAI API key
+    # Get your key from: https://platform.openai.com/account/api-keys
+    OPENAI_KEY = 'your_openai_api_key_here'
 
 config = {
     'development': DevelopmentConfig,

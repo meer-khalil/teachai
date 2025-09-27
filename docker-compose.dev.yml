@@ -1,0 +1,122 @@
+version: '3.8'
+
+# Development environment Docker Compose override
+services:
+  # MongoDB with development settings
+  mongodb:
+    command: mongod --auth --bind_ip_all --replSet rs0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: devpassword123
+      MONGO_INITDB_DATABASE: teachai_dev
+    ports:
+      - "27017:27017"
+
+  # Redis with development settings
+  redis:
+    command: redis-server --requirepass devredis123 --maxmemory 128mb
+    ports:
+      - "6379:6379"
+
+  # Backend in development mode
+  backend:
+    build:
+      target: development
+    environment:
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:devpassword123@mongodb:27017/teachai_dev?authSource=admin
+      REDIS_URL: redis://:devredis123@redis:6379
+      LOG_LEVEL: debug
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - backend_logs:/app/logs
+      - backend_uploads:/app/public
+    command: npm run dev
+
+  # Flask AI in development mode
+  flask-ai:
+    build:
+      target: development
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+      LOG_LEVEL: DEBUG
+    volumes:
+      - ./flaskApi:/app
+      - flask_cache:/app/Cache
+      - flask_data:/app/ChatData
+      - flask_history:/app/ChatHistory
+      - flask_presentations:/app/GeneratedPresentations
+      - flask_questions:/app/Questions
+      - flask_quizzes:/app/Quizzes
+      - flask_uploads:/app/demo/uploads
+      - flask_logs:/app/logs
+    command: python app.py
+
+  # Frontend in development mode
+  frontend:
+    build:
+      target: development
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: true
+      REACT_APP_API_URL: http://localhost:4000/api/v1
+      REACT_APP_FLASK_URL: http://localhost:5000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+      - /app/node_modules
+    command: npm start
+
+  # Development tools container
+  dev-tools:
+    image: node:18-alpine
+    container_name: teachai-dev-tools
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - /workspace/node_modules
+    networks:
+      - teachai-network
+    profiles:
+      - dev-tools
+    command: tail -f /dev/null
+
+  # MongoDB admin interface
+  mongo-express:
+    image: mongo-express:latest
+    container_name: teachai-mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: devpassword123
+      ME_CONFIG_MONGODB_URL: mongodb://admin:devpassword123@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: devpassword123
+    ports:
+      - "8081:8081"
+    networks:
+      - teachai-network
+    depends_on:
+      - mongodb
+    profiles:
+      - dev-tools
+
+  # Redis admin interface
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: teachai-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379:0:devredis123
+    ports:
+      - "8082:8081"
+    networks:
+      - teachai-network
+    depends_on:
+      - redis
+    profiles:
+      - dev-tools

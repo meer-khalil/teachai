@@ -14,7 +14,42 @@ const { requestLimit } = require("./middlewares/requestLimit");
 const { isAuthenticatedUser } = require("./middlewares/auth");
 const stripe = require("./config/stripe");
 
+// Import error handling and monitoring
+const { errorHandler, notFound } = require("./middlewares/error-handler");
+const { requestLogger, requestTimer } = require("./middlewares/logger");
+const { healthCheck } = require("./middlewares/health-check");
+const { applicationMonitor } = require("./utils/monitoring");
+const { AppError, ValidationError } = require("./utils/errors");
+
 const app = express();
+
+// Enable trust proxy for deployment behind reverse proxy
+app.set('trust proxy', true);
+
+// Add request logging and timing middleware early
+app.use(requestLogger);
+app.use(requestTimer);
+
+// Add monitoring middleware to track requests
+app.use((req, res, next) => {
+    const startTime = Date.now();
+    
+    res.on('finish', () => {
+        const responseTime = Date.now() - startTime;
+        const success = res.statusCode < 400;
+        
+        applicationMonitor.emit('request', {
+            method: req.method,
+            url: req.originalUrl || req.url,
+            statusCode: res.statusCode,
+            responseTime,
+            userAgent: req.get('User-Agent'),
+            success
+        });
+    });
+    
+    next();
+});
 
 app.use(cors());
 
@@ -262,6 +297,31 @@ app.use(compression());
 
 app.use(express.static(path.join(__dirname, "public")));
 
+// Health check endpoints
+app.use('/health', healthCheck);
+app.use('/api/v1/health', healthCheck);
+
+// Monitoring endpoints
+app.get('/api/v1/monitoring/metrics', (req, res) => {
+    try {
+        const metrics = applicationMonitor.getMetrics();
+        res.json(metrics);
+    } catch (error) {
+        applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/metrics' });
+        res.status(500).json({ error: 'Failed to retrieve metrics' });
+    }
+});
+
+app.get('/api/v1/monitoring/alerts', (req, res) => {
+    try {
+        const alerts = applicationMonitor.getAlerts();
+        res.json(alerts);
+    } catch (error) {
+        applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/alerts' });
+        res.status(500).json({ error: 'Failed to retrieve alerts' });
+    }
+});
+
 const user = require("./routes/userRoute");
 const post = require("./routes/postRoute");
 const story = require("./routes/storyRoute");
@@ -350,7 +410,10 @@ app.put("/updateUsage", async (req, res) => {
   });
 });
 
-// error middleware
-// app.use(errorMiddleware);
+// Handle 404 for undefined routes
+app.use(notFound);
+
+// Global error handling middleware (must be last)
+app.use(errorHandler);
 
 module.exports = app;

@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachAI API Documentation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-pills {
+            background: var(--card-background);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-pills ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .nav-pills a {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-pills a:hover,
+        .nav-pills a.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .content {
+            padding: 3rem 0;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-left: 0.5rem;
+        }
+
+        .badge.get { background-color: var(--success-color); color: white; }
+        .badge.post { background-color: var(--primary-color); color: white; }
+        .badge.put { background-color: var(--warning-color); color: white; }
+        .badge.delete { background-color: var(--error-color); color: white; }
+
+        .endpoint {
+            background: var(--background-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .endpoint-url {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-language);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.2);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--card-background);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .status-indicators {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--background-color);
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-online { background-color: var(--success-color); }
+        .status-maintenance { background-color: var(--warning-color); }
+        .status-offline { background-color: var(--error-color); }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--card-background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table th {
+            background: var(--background-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .table tr:hover {
+            background: var(--background-color);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .nav-pills ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .endpoint-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quick-links {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 4rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>TeachAI API Documentation</h1>
+            <p>Comprehensive Interactive API Documentation for Educational AI Services</p>
+            <div class="status-indicators">
+                <div class="status-indicator">
+                    <div class="status-dot status-online"></div>
+                    Backend API Online
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot status-online"></div>
+                    Flask AI Services Online
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot status-online"></div>
+                    Documentation Updated
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-pills">
+        <div class="container">
+            <ul>
+                <li><a href="#overview" class="nav-link active">Overview</a></li>
+                <li><a href="#authentication" class="nav-link">Authentication</a></li>
+                <li><a href="#backend-api" class="nav-link">Backend API</a></li>
+                <li><a href="#flask-ai" class="nav-link">AI Services</a></li>
+                <li><a href="#examples" class="nav-link">Examples</a></li>
+                <li><a href="#postman" class="nav-link">Postman</a></li>
+                <li><a href="#sdks" class="nav-link">SDKs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <!-- Overview Section -->
+            <section id="overview" class="section active">
+                <div class="card">
+                    <h2>🚀 TeachAI API Overview</h2>
+                    <p>Welcome to the TeachAI API documentation. Our platform provides comprehensive AI-powered educational services through two main API endpoints:</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔐</div>
+                            <h3>Backend API</h3>
+                            <p>User management, authentication, chat history, and content management services</p>
+                            <code>http://localhost:5000/api</code>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤖</div>
+                            <h3>AI Services API</h3>
+                            <p>AI-powered quiz generation, lesson planning, essay grading, and content analysis</p>
+                            <code>http://localhost:8000</code>
+                        </div>
+                    </div>
+
+                    <div class="quick-links">
+                        <a href="#authentication" class="quick-link">
+                            🔑 Authentication Guide
+                        </a>
+                        <a href="/api-docs" class="quick-link" target="_blank">
+                            📖 Interactive Swagger UI
+                        </a>
+                        <a href="/redoc" class="quick-link" target="_blank">
+                            📋 ReDoc Documentation
+                        </a>
+                        <a href="docs/postman/" class="quick-link">
+                            📫 Postman Collections
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🌟 Key Features</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h3>AI Chat</h3>
+                            <p>Conversational AI for educational support with context awareness and subject specialization</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📝</div>
+                            <h3>Quiz Generation</h3>
+                            <p>Automatically generate quizzes and assessments based on topics and difficulty levels</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <h3>Lesson Planning</h3>
+                            <p>AI-powered lesson plan creation with objectives, activities, and assessment criteria</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✍️</div>
+                            <h3>Essay Grading</h3>
+                            <p>Automated essay evaluation with detailed feedback and rubric-based scoring</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎥</div>
+                            <h3>Video Analysis</h3>
+                            <p>YouTube video content analysis for educational value and study material generation</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔍</div>
+                            <h3>Content Verification</h3>
+                            <p>Plagiarism detection and AI-generated content identification</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication Section -->
+            <section id="authentication" class="section">
+                <div class="card">
+                    <h2>🔐 Authentication</h2>
+                    <p>TeachAI uses JWT (JSON Web Tokens) for authentication. All protected endpoints require a valid bearer token.</p>
+
+                    <h3>Getting Started</h3>
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="endpoint-url">POST /api/auth/register</span>
+                            <span class="badge post">POST</span>
+                        </div>
+                        <p>Register a new user account</p>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "securePassword123",
+  "role": "student"
+}</div>
+                    </div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="endpoint-url">POST /api/auth/login</span>
+                            <span class="badge post">POST</span>
+                        </div>
+                        <p>Authenticate and receive access token</p>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "email": "john.doe@example.com",
+  "password": "securePassword123"
+}</div>
+                    </div>
+
+                    <h3>Using Authentication Tokens</h3>
+                    <p>Include the JWT token in the Authorization header for all protected requests:</p>
+                    <div class="code-block" data-language="bash">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+     -H "Content-Type: application/json" \
+     http://localhost:5000/api/auth/profile</div>
+
+                    <h3>Token Management</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Tokens expire after 24 hours by default</li>
+                        <li>Refresh tokens are automatically issued for seamless authentication</li>
+                        <li>Store tokens securely (localStorage, sessionStorage, or secure cookies)</li>
+                        <li>Handle token expiration with automatic refresh or redirect to login</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Backend API Section -->
+            <section id="backend-api" class="section">
+                <div class="card">
+                    <h2>🏗️ Backend API Endpoints</h2>
+                    <p>Core application services for user management, chat functionality, and content operations.</p>
+
+                    <h3>User Management</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Auth Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/api/auth/register</td>
+                                <td>Register new user account</td>
+                                <td>❌</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/api/auth/login</td>
+                                <td>User authentication</td>
+                                <td>❌</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge get">GET</span></td>
+                                <td>/api/auth/profile</td>
+                                <td>Get user profile</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge put">PUT</span></td>
+                                <td>/api/auth/profile</td>
+                                <td>Update user profile</td>
+                                <td>✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Chat Management</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Auth Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/api/chat/send</td>
+                                <td>Send chat message to AI</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge get">GET</span></td>
+                                <td>/api/chat/history</td>
+                                <td>Get chat conversation history</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge get">GET</span></td>
+                                <td>/api/chat/conversation/:id</td>
+                                <td>Get specific conversation</td>
+                                <td>✅</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge delete">DELETE</span></td>
+                                <td>/api/chat/conversation/:id</td>
+                                <td>Delete conversation</td>
+                                <td>✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>📝 Example: Chat Interaction</h2>
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="endpoint-url">POST /api/chat/send</span>
+                            <span class="badge post">POST</span>
+                        </div>
+                        <p>Send a message to AI and receive intelligent response</p>
+                        
+                        <h4>Request:</h4>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "message": "Explain photosynthesis in simple terms",
+  "subject": "biology",
+  "grade": "10",
+  "conversationId": null
+}</div>
+
+                        <h4>Response:</h4>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "success": true,
+  "data": {
+    "response": "Photosynthesis is the process by which plants make their own food using sunlight, carbon dioxide from air, and water from roots. During this process, plants produce glucose (sugar) for energy and release oxygen as a byproduct.",
+    "conversationId": "conv_1234567890",
+    "messageId": "msg_abcdef123456",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "usage": {
+      "tokens": 156,
+      "cost": 0.002
+    }
+  }
+}</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flask AI Section -->
+            <section id="flask-ai" class="section">
+                <div class="card">
+                    <h2>🤖 AI Services API</h2>
+                    <p>Advanced AI-powered educational tools and content generation services.</p>
+
+                    <h3>Quiz & Assessment Generation</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Processing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/quiz/generate</td>
+                                <td>Generate topic-based quiz</td>
+                                <td>5-15s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/quiz/math</td>
+                                <td>Generate mathematics quiz</td>
+                                <td>5-15s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/quiz/evaluate</td>
+                                <td>Evaluate quiz answers</td>
+                                <td>2-5s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Lesson Planning & Education</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Processing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/lesson/generate</td>
+                                <td>Generate comprehensive lesson plan</td>
+                                <td>10-20s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/lesson/math</td>
+                                <td>Generate math-specific lesson</td>
+                                <td>10-20s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/lesson/assessment</td>
+                                <td>Create lesson completion assessment</td>
+                                <td>5-10s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Content Analysis & Grading</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Processing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/essay/grade</td>
+                                <td>AI-powered essay grading</td>
+                                <td>5-15s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/content/plagiarism-check</td>
+                                <td>Check content for plagiarism</td>
+                                <td>10-25s</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge post">POST</span></td>
+                                <td>/content/ai-detect</td>
+                                <td>Detect AI-generated content</td>
+                                <td>3-8s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Example: Quiz Generation</h2>
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="endpoint-url">POST /quiz/generate</span>
+                            <span class="badge post">POST</span>
+                        </div>
+                        <p>Generate a customized quiz based on topic and parameters</p>
+                        
+                        <h4>Request:</h4>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "topic": "Photosynthesis",
+  "grade_level": "10th grade",
+  "num_questions": 5,
+  "question_types": ["multiple_choice", "true_false"],
+  "difficulty": "medium",
+  "subject": "biology"
+}</div>
+
+                        <h4>Response:</h4>
+                        <div class="code-block" data-language="json">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>{
+  "quiz": {
+    "id": "quiz_12345",
+    "title": "Photosynthesis Quiz - Grade 10",
+    "topic": "Photosynthesis",
+    "questions": [
+      {
+        "id": "q1",
+        "type": "multiple_choice",
+        "question": "What is the primary purpose of photosynthesis?",
+        "options": [
+          "To produce glucose and oxygen",
+          "To absorb carbon dioxide",
+          "To create chlorophyll",
+          "To store water"
+        ],
+        "correct_answer": "A",
+        "explanation": "Photosynthesis converts light energy into chemical energy (glucose) and produces oxygen as a byproduct."
+      }
+    ],
+    "answer_key": {...},
+    "estimated_time": "15 minutes",
+    "difficulty": "medium"
+  }
+}</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Examples Section -->
+            <section id="examples" class="section">
+                <div class="card">
+                    <h2>💡 Code Examples</h2>
+                    <p>Ready-to-use code examples in multiple programming languages.</p>
+
+                    <h3>JavaScript/Node.js</h3>
+                    <div class="code-block" data-language="javascript">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>const axios = require('axios');
+
+// Authentication
+async function loginUser(email, password) {
+    try {
+        const response = await axios.post('http://localhost:5000/api/auth/login', {
+            email: email,
+            password: password
+        });
+        
+        const token = response.data.data.token;
+        localStorage.setItem('auth_token', token);
+        return token;
+    } catch (error) {
+        console.error('Login failed:', error.response.data);
+        throw error;
+    }
+}
+
+// Send chat message
+async function sendChatMessage(message, token) {
+    try {
+        const response = await axios.post('http://localhost:5000/api/chat/send', {
+            message: message,
+            subject: 'general',
+            grade: '10'
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        return response.data.data.response;
+    } catch (error) {
+        console.error('Chat request failed:', error.response.data);
+        throw error;
+    }
+}
+
+// Generate quiz
+async function generateQuiz(topic, gradeLevel) {
+    try {
+        const response = await axios.post('http://localhost:8000/quiz/generate', {
+            topic: topic,
+            grade_level: gradeLevel,
+            num_questions: 5,
+            question_types: ['multiple_choice', 'true_false'],
+            difficulty: 'medium'
+        });
+        
+        return response.data.quiz;
+    } catch (error) {
+        console.error('Quiz generation failed:', error.response.data);
+        throw error;
+    }
+}</div>
+
+                    <h3>Python</h3>
+                    <div class="code-block" data-language="python">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>import requests
+import json
+
+class TeachAIClient:
+    def __init__(self, backend_url="http://localhost:5000/api", ai_url="http://localhost:8000"):
+        self.backend_url = backend_url
+        self.ai_url = ai_url
+        self.token = None
+    
+    def login(self, email, password):
+        """Authenticate user and store token"""
+        response = requests.post(f"{self.backend_url}/auth/login", 
+                               json={"email": email, "password": password})
+        response.raise_for_status()
+        
+        self.token = response.json()["data"]["token"]
+        return self.token
+    
+    def send_chat_message(self, message, subject="general", grade="10"):
+        """Send message to AI chat"""
+        headers = {"Authorization": f"Bearer {self.token}"}
+        data = {
+            "message": message,
+            "subject": subject,
+            "grade": grade
+        }
+        
+        response = requests.post(f"{self.backend_url}/chat/send", 
+                               json=data, headers=headers)
+        response.raise_for_status()
+        
+        return response.json()["data"]["response"]
+    
+    def generate_quiz(self, topic, grade_level="10th grade", num_questions=5):
+        """Generate AI-powered quiz"""
+        data = {
+            "topic": topic,
+            "grade_level": grade_level,
+            "num_questions": num_questions,
+            "question_types": ["multiple_choice", "true_false"],
+            "difficulty": "medium"
+        }
+        
+        response = requests.post(f"{self.ai_url}/quiz/generate", json=data)
+        response.raise_for_status()
+        
+        return response.json()["quiz"]
+    
+    def grade_essay(self, essay_text, prompt, grade_level="high_school"):
+        """Grade essay using AI"""
+        data = {
+            "essay_text": essay_text,
+            "prompt": prompt,
+            "grade_level": grade_level,
+            "rubric_criteria": [
+                "thesis_clarity", "evidence_support", 
+                "organization", "grammar_mechanics"
+            ],
+            "max_score": 100
+        }
+        
+        response = requests.post(f"{self.ai_url}/essay/grade", json=data)
+        response.raise_for_status()
+        
+        return response.json()
+
+# Usage example
+client = TeachAIClient()
+token = client.login("user@example.com", "password123")
+
+# Send chat message
+response = client.send_chat_message("Explain photosynthesis")
+print(f"AI Response: {response}")
+
+# Generate quiz
+quiz = client.generate_quiz("Cell Biology", "9th grade", 10)
+print(f"Generated quiz with {len(quiz['questions'])} questions")</div>
+
+                    <h3>cURL Commands</h3>
+                    <div class="code-block" data-language="bash">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button># Login and get token
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@example.com", "password": "password123"}'
+
+# Use token for authenticated requests
+TOKEN="your_jwt_token_here"
+
+# Send chat message
+curl -X POST http://localhost:5000/api/chat/send \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"message": "What is photosynthesis?", "subject": "biology", "grade": "10"}'
+
+# Generate quiz using AI service
+curl -X POST http://localhost:8000/quiz/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "topic": "Photosynthesis",
+    "grade_level": "10th grade",
+    "num_questions": 5,
+    "question_types": ["multiple_choice", "true_false"],
+    "difficulty": "medium"
+  }'
+
+# Grade an essay
+curl -X POST http://localhost:8000/essay/grade \
+  -H "Content-Type: application/json" \
+  -d '{
+    "essay_text": "Your essay content here...",
+    "prompt": "Write about climate change impacts",
+    "grade_level": "high_school",
+    "rubric_criteria": ["thesis_clarity", "evidence_support", "organization"],
+    "max_score": 100
+  }'</div>
+                </div>
+            </section>
+
+            <!-- Postman Section -->
+            <section id="postman" class="section">
+                <div class="card">
+                    <h2>📫 Postman Collections</h2>
+                    <p>Ready-to-import Postman collections with pre-configured requests, tests, and environments.</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔧</div>
+                            <h3>Backend API Collection</h3>
+                            <p>Complete collection for user authentication, chat management, and core backend services</p>
+                            <div style="margin-top: 1rem;">
+                                <a href="docs/postman/TeachAI-Backend-API.json" download class="quick-link" style="text-decoration: none; display: inline-flex;">
+                                    📥 Download Collection
+                                </a>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤖</div>
+                            <h3>AI Services Collection</h3>
+                            <p>AI-powered services including quiz generation, lesson planning, and content analysis</p>
+                            <div style="margin-top: 1rem;">
+                                <a href="docs/postman/TeachAI-Flask-AI-API.json" download class="quick-link" style="text-decoration: none; display: inline-flex;">
+                                    📥 Download Collection
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Collection Features</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.8;">
+                        <li>✅ Pre-configured environments with variables</li>
+                        <li>✅ Automated token management and refresh</li>
+                        <li>✅ Response validation tests</li>
+                        <li>✅ Error handling examples</li>
+                        <li>✅ Performance and response time tests</li>
+                        <li>✅ Environment-specific configurations</li>
+                    </ul>
+
+                    <h3>Quick Setup</h3>
+                    <div class="code-block" data-language="bash">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button># 1. Import collections into Postman
+# 2. Set up environment variables:
+base_url: http://localhost:5000/api
+flask_base_url: http://localhost:8000
+auth_token: (will be set automatically)
+
+# 3. Run the collections or individual requests
+# 4. Authentication tokens are managed automatically</div>
+
+                    <div class="endpoint">
+                        <div class="endpoint-header">
+                            <span class="endpoint-url">Environment Variables</span>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Default Value</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>base_url</td>
+                                    <td>http://localhost:5000/api</td>
+                                    <td>Backend API base URL</td>
+                                </tr>
+                                <tr>
+                                    <td>flask_base_url</td>
+                                    <td>http://localhost:8000</td>
+                                    <td>Flask AI services base URL</td>
+                                </tr>
+                                <tr>
+                                    <td>auth_token</td>
+                                    <td>(auto-managed)</td>
+                                    <td>JWT authentication token</td>
+                                </tr>
+                                <tr>
+                                    <td>conversation_id</td>
+                                    <td>(auto-managed)</td>
+                                    <td>Current chat conversation ID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SDKs Section -->
+            <section id="sdks" class="section">
+                <div class="card">
+                    <h2>🛠️ SDKs & Client Libraries</h2>
+                    <p>Official and community-maintained SDKs for seamless integration with TeachAI APIs.</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📦</div>
+                            <h3>JavaScript/TypeScript</h3>
+                            <p>Full-featured SDK with TypeScript support, automatic token management, and React hooks</p>
+                            <div class="code-block" data-language="bash">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>npm install @teachai/sdk
+# or
+yarn add @teachai/sdk</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🐍</div>
+                            <h3>Python</h3>
+                            <p>Python SDK with async support, automatic retry logic, and comprehensive error handling</p>
+                            <div class="code-block" data-language="bash">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>pip install teachai-python
+# or
+pip install teachai-python[async]</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">☕</div>
+                            <h3>Java</h3>
+                            <p>Java SDK with Spring Boot integration, reactive programming support, and comprehensive testing utilities</p>
+                            <div class="code-block" data-language="xml">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button><dependency>
+    <groupId>com.teachai</groupId>
+    <artifactId>teachai-java-sdk</artifactId>
+    <version>1.0.0</version>
+</dependency></div>
+                        </div>
+                    </div>
+
+                    <h3>SDK Quick Start - JavaScript</h3>
+                    <div class="code-block" data-language="javascript">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>import { TeachAIClient } from '@teachai/sdk';
+
+const client = new TeachAIClient({
+    backendUrl: 'http://localhost:5000/api',
+    aiServiceUrl: 'http://localhost:8000',
+    apiKey: 'your-api-key' // Optional for development
+});
+
+// Authenticate
+await client.auth.login('user@example.com', 'password123');
+
+// Send chat message
+const response = await client.chat.sendMessage({
+    message: 'Explain photosynthesis',
+    subject: 'biology',
+    grade: '10'
+});
+
+// Generate quiz
+const quiz = await client.quiz.generate({
+    topic: 'Cell Biology',
+    gradeLevel: '10th grade',
+    numQuestions: 5,
+    difficulty: 'medium'
+});
+
+// Grade essay
+const grading = await client.essay.grade({
+    text: 'Student essay content...',
+    prompt: 'Write about climate change',
+    gradeLevel: 'high_school'
+});</div>
+
+                    <h3>SDK Quick Start - Python</h3>
+                    <div class="code-block" data-language="python">
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>from teachai import TeachAIClient
+
+# Initialize client
+client = TeachAIClient(
+    backend_url="http://localhost:5000/api",
+    ai_service_url="http://localhost:8000"
+)
+
+# Authenticate
+await client.auth.login("user@example.com", "password123")
+
+# Send chat message
+response = await client.chat.send_message(
+    message="What is photosynthesis?",
+    subject="biology",
+    grade="10"
+)
+
+# Generate quiz
+quiz = await client.quiz.generate(
+    topic="Cell Biology",
+    grade_level="10th grade",
+    num_questions=5,
+    difficulty="medium"
+)
+
+# Grade essay
+grading = await client.essay.grade(
+    text="Student essay content...",
+    prompt="Write about climate change",
+    grade_level="high_school"
+)</div>
+
+                    <h3>SDK Features</h3>
+                    <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.8;">
+                        <li>🔐 Automatic authentication and token management</li>
+                        <li>🔄 Retry logic and error handling</li>
+                        <li>📊 Built-in request/response logging</li>
+                        <li>⚡ Async/await support (where applicable)</li>
+                        <li>🎯 Type-safe interfaces (TypeScript/Java)</li>
+                        <li>🧪 Comprehensive testing utilities</li>
+                        <li>📖 Extensive documentation and examples</li>
+                        <li>🔧 Framework integrations (React, Spring, etc.)</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const targetSection = document.querySelector(this.getAttribute('href'));
+                targetSection.classList.add('active');
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.textContent.replace('Copy', '').trim();
+            
+            navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.style.background = 'rgba(16, 185, 129, 0.8)';
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.style.background = 'rgba(255, 255, 255, 0.1)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Failed';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Auto-update status indicators (simulation)
+        function updateStatusIndicators() {
+            const indicators = document.querySelectorAll('.status-dot');
+            indicators.forEach(dot => {
+                // Simulate occasional status changes
+                if (Math.random() > 0.95) {
+                    dot.className = 'status-dot status-maintenance';
+                    setTimeout(() => {
+                        dot.className = 'status-dot status-online';
+                    }, 3000);
+                }
+            });
+        }
+
+        // Update status every 30 seconds
+        setInterval(updateStatusIndicators, 30000);
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TeachAI API Documentation loaded');
+            
+            // Show overview section by default
+            document.querySelector('#overview').classList.add('active');
+            document.querySelector('.nav-link[href="#overview"]').classList.add('active');
+        });
+    </script>
+</body>
+</html>

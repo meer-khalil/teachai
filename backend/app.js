@@ -6,6 +6,12 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 const compression = require("compression");
 
+// Import Swagger components
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const redoc = require('redoc-express');
+const YAML = require('yamljs');
+
 const Payment = require("./models/paymentModel");
 const Usage = require("./models/usageModel");
 const User = require("./models/userModel");
@@ -21,10 +27,63 @@ const { healthCheck } = require("./middlewares/health-check");
 const { applicationMonitor } = require("./utils/monitoring");
 const { AppError, ValidationError } = require("./utils/errors");
 
+// Import Swagger configuration
+const swaggerConfig = require('./swagger/swagger.config');
+
 const app = express();
 
 // Enable trust proxy for deployment behind reverse proxy
 app.set('trust proxy', true);
+
+// Initialize Swagger documentation
+const specs = swaggerJsdoc(swaggerConfig.options);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerConfig.uiOptions));
+
+// Serve ReDoc
+app.get('/redoc', redoc({
+  title: 'TeachAI Backend API Documentation',
+  specUrl: '/api-docs.json',
+  nonce: '', // <= it is optional,we can omit this key and value
+  // we are now start supporting the redocOptions object
+  // you can omit the options object if you don't need it
+  // https://redocly.github.io/redoc/deployment/html/
+  redocOptions: {
+    theme: {
+      colors: {
+        primary: {
+          main: '#2563eb'
+        }
+      },
+      typography: {
+        fontSize: '14px'
+      }
+    }
+  }
+}));
+
+// Serve OpenAPI spec as JSON
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(specs);
+});
+
+// Load and serve OpenAPI YAML spec
+try {
+  const openApiSpec = YAML.load(path.join(__dirname, '..', 'docs', 'api', 'openapi.yaml'));
+  app.get('/api-docs.yaml', (req, res) => {
+    res.setHeader('Content-Type', 'application/yaml');
+    res.send(YAML.stringify(openApiSpec));
+  });
+} catch (error) {
+  console.warn('OpenAPI YAML spec not found or invalid, skipping YAML endpoint');
+}
+
+// Serve interactive documentation
+app.get('/docs', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'docs', 'interactive-documentation.html'));
+});
 
 // Add request logging and timing middleware early
 app.use(requestLogger);

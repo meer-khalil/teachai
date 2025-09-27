@@ -1,4 +1,6 @@
 from flask import Flask, render_template, jsonify, request, send_file, Response
+from flask_cors import CORS
+from flask_restx import Api, Resource
 import config
 import lessonplannerapi
 import quizapi
@@ -13,13 +15,37 @@ from plag_cheker import get_plag_report
 from gptutils import get_title
 import json
 import openai
+import os
+import sys
+import traceback
+from datetime import datetime
+
+# Import API documentation configuration
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from api_docs.flask_restx_config import (
+    api, quiz_ns, lesson_ns, essay_ns, content_ns, 
+    presentation_ns, video_ns, health_ns,
+    quiz_generation_model, quiz_response_model,
+    lesson_plan_model, lesson_plan_response_model,
+    essay_grading_model, essay_grading_response_model,
+    plagiarism_check_model, ai_detection_model,
+    video_analysis_model, presentation_model,
+    health_response_model, error_response_model,
+    validate_request_data, create_error_response,
+    QuizGenerationSchema, LessonPlanSchema, EssayGradingSchema
+)
 
 def page_not_found(e):
   return render_template('404.html'), 404
 
-
 app = Flask(__name__)
 app.config.from_object(config.config['development'])
+
+# Enable CORS for all origins  
+CORS(app)
+
+# Initialize Flask-RESTX API
+api.init_app(app)
 
 app.register_error_handler(404, page_not_found)
 

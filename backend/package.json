@@ -72,6 +72,11 @@
     "nock": "^13.3.3",
     "sinon": "^15.2.0",
     "@faker-js/faker": "^8.1.0",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "redoc-express": "^2.1.0",
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "yamljs": "^0.3.0"
   }
 }

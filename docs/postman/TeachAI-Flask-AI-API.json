@@ -1,0 +1,840 @@
+{
+	"info": {
+		"_postman_id": "b2c3d4e5-f6g7-8901-2345-678901bcdefg",
+		"name": "TeachAI Flask AI Services",
+		"description": "AI services API collection for TeachAI Flask backend including quiz generation, lesson planning, essay grading, and more",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345679"
+	},
+	"item": [
+		{
+			"name": "Quiz Generation",
+			"item": [
+				{
+					"name": "Generate Quiz",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Quiz generated successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('quiz');",
+									"    pm.expect(response.quiz).to.have.property('questions');",
+									"    pm.expect(response.quiz.questions).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    // Store quiz ID for further operations",
+									"    if (response.quiz.id) {",
+									"        pm.environment.set('quiz_id', response.quiz.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic\": \"Photosynthesis\",\n  \"grade_level\": \"10th grade\",\n  \"num_questions\": 5,\n  \"question_types\": [\"multiple_choice\", \"true_false\"],\n  \"difficulty\": \"medium\",\n  \"subject\": \"biology\"\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/quiz/generate",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"quiz",
+								"generate"
+							]
+						},
+						"description": "Generate a quiz based on topic and parameters"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Math Quiz",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Math quiz generated successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('quiz');",
+									"    pm.expect(response.quiz).to.have.property('questions');",
+									"    pm.expect(response.quiz).to.have.property('answer_key');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic\": \"Quadratic Equations\",\n  \"grade_level\": \"algebra2\",\n  \"num_questions\": 8,\n  \"difficulty\": \"medium\",\n  \"include_solutions\": true\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/quiz/math",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"quiz",
+								"math"
+							]
+						},
+						"description": "Generate a mathematics-specific quiz with solutions"
+					},
+					"response": []
+				},
+				{
+					"name": "Evaluate Quiz Answers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Quiz evaluation completed\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('score');",
+									"    pm.expect(response).to.have.property('feedback');",
+									"    pm.expect(response).to.have.property('correct_answers');",
+									"    pm.expect(response.score).to.be.a('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quiz_id\": \"{{quiz_id}}\",\n  \"answers\": {\n    \"question_1\": \"A\",\n    \"question_2\": \"True\",\n    \"question_3\": \"B\",\n    \"question_4\": \"False\",\n    \"question_5\": \"C\"\n  },\n  \"provide_feedback\": true\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/quiz/evaluate",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"quiz",
+								"evaluate"
+							]
+						},
+						"description": "Evaluate student answers and provide feedback"
+					},
+					"response": []
+				}
+			],
+			"description": "Quiz generation and evaluation services"
+		},
+		{
+			"name": "Lesson Planning",
+			"item": [
+				{
+					"name": "Generate Lesson Plan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Lesson plan generated successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('lesson_plan');",
+									"    pm.expect(response.lesson_plan).to.have.property('title');",
+									"    pm.expect(response.lesson_plan).to.have.property('objectives');",
+									"    pm.expect(response.lesson_plan).to.have.property('activities');",
+									"    ",
+									"    // Store lesson plan ID",
+									"    if (response.lesson_plan.id) {",
+									"        pm.environment.set('lesson_plan_id', response.lesson_plan.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"subject\": \"Biology\",\n  \"topic\": \"Cell Division\",\n  \"grade_level\": \"9th grade\",\n  \"duration_minutes\": 50,\n  \"learning_objectives\": [\n    \"Understand mitosis process\",\n    \"Identify phases of cell division\"\n  ],\n  \"teaching_style\": \"interactive\",\n  \"resources_available\": [\"microscopes\", \"slides\", \"projector\"]\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/lesson/generate",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"lesson",
+								"generate"
+							]
+						},
+						"description": "Generate a comprehensive lesson plan"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Math Lesson",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Math lesson generated successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('lesson');",
+									"    pm.expect(response.lesson).to.have.property('practice_problems');",
+									"    pm.expect(response.lesson).to.have.property('worked_examples');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic\": \"Solving Linear Equations\",\n  \"grade_level\": \"algebra1\",\n  \"duration_minutes\": 45,\n  \"include_examples\": true,\n  \"include_practice\": true,\n  \"difficulty_progression\": true\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/lesson/math",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"lesson",
+								"math"
+							]
+						},
+						"description": "Generate mathematics-specific lesson plan"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lesson Completion Assessment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Assessment created successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('assessment');",
+									"    pm.expect(response.assessment).to.have.property('completion_criteria');",
+									"    pm.expect(response.assessment).to.have.property('rubric');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lesson_plan_id\": \"{{lesson_plan_id}}\",\n  \"assessment_type\": \"formative\",\n  \"include_rubric\": true,\n  \"assessment_methods\": [\"observation\", \"quiz\", \"discussion\"]\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/lesson/assessment",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"lesson",
+								"assessment"
+							]
+						},
+						"description": "Generate assessment criteria for lesson completion"
+					},
+					"response": []
+				}
+			],
+			"description": "AI-powered lesson planning services"
+		},
+		{
+			"name": "Essay & Content Analysis",
+			"item": [
+				{
+					"name": "Grade Essay",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Essay graded successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('grade');",
+									"    pm.expect(response).to.have.property('feedback');",
+									"    pm.expect(response).to.have.property('rubric_scores');",
+									"    pm.expect(response.grade).to.be.a('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"essay_text\": \"The impact of climate change on biodiversity is a critical issue facing our planet today. Climate change affects ecosystems in numerous ways, from rising temperatures to changing precipitation patterns. These changes can lead to habitat loss, species migration, and in some cases, extinction. For example, polar bears are losing their ice habitat due to warming temperatures in the Arctic. Similarly, coral reefs are experiencing bleaching events due to increased ocean temperatures. To address this issue, we need comprehensive conservation strategies that include reducing greenhouse gas emissions, protecting critical habitats, and supporting species adaptation efforts.\",\n  \"prompt\": \"Write an essay about the impact of climate change on biodiversity\",\n  \"grade_level\": \"high_school\",\n  \"rubric_criteria\": [\n    \"thesis_clarity\",\n    \"evidence_support\",\n    \"organization\",\n    \"grammar_mechanics\",\n    \"conclusion_strength\"\n  ],\n  \"max_score\": 100\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/essay/grade",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"essay",
+								"grade"
+							]
+						},
+						"description": "Grade an essay using AI with detailed feedback and rubric scoring"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Plagiarism",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Plagiarism check completed\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('plagiarism_score');",
+									"    pm.expect(response).to.have.property('similarity_report');",
+									"    pm.expect(response.plagiarism_score).to.be.a('number').within(0, 100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"The impact of climate change on biodiversity is a critical issue facing our planet today. Climate change affects ecosystems in numerous ways, from rising temperatures to changing precipitation patterns.\",\n  \"check_online\": true,\n  \"check_internal_db\": true,\n  \"detailed_report\": true\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/content/plagiarism-check",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"content",
+								"plagiarism-check"
+							]
+						},
+						"description": "Check content for plagiarism and similarity"
+					},
+					"response": []
+				},
+				{
+					"name": "Detect AI Generated Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"AI detection completed\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('ai_probability');",
+									"    pm.expect(response).to.have.property('confidence_score');",
+									"    pm.expect(response).to.have.property('analysis');",
+									"    pm.expect(response.ai_probability).to.be.a('number').within(0, 1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"Artificial intelligence has revolutionized many aspects of modern life, from healthcare and education to transportation and entertainment. Machine learning algorithms can process vast amounts of data to identify patterns and make predictions with remarkable accuracy. Natural language processing enables computers to understand and generate human language, facilitating better human-computer interactions.\",\n  \"provide_analysis\": true,\n  \"detailed_metrics\": true\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/content/ai-detect",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"content",
+								"ai-detect"
+							]
+						},
+						"description": "Detect if content was generated by AI"
+					},
+					"response": []
+				}
+			],
+			"description": "Content analysis, grading, and authenticity verification"
+		},
+		{
+			"name": "Presentation Generation",
+			"item": [
+				{
+					"name": "Generate AI Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Presentation generated successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('presentation');",
+									"    pm.expect(response.presentation).to.have.property('slides');",
+									"    pm.expect(response.presentation.slides).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    // Store presentation ID",
+									"    if (response.presentation.id) {",
+									"        pm.environment.set('presentation_id', response.presentation.id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic\": \"Introduction to Machine Learning\",\n  \"audience\": \"high school students\",\n  \"duration_minutes\": 30,\n  \"slide_count\": 15,\n  \"include_examples\": true,\n  \"include_images\": true,\n  \"presentation_style\": \"educational\",\n  \"key_points\": [\n    \"What is machine learning\",\n    \"Types of machine learning\",\n    \"Real-world applications\",\n    \"Future prospects\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/presentation/generate",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"presentation",
+								"generate"
+							]
+						},
+						"description": "Generate a complete presentation with slides and content"
+					},
+					"response": []
+				},
+				{
+					"name": "Export Presentation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Presentation exported successfully\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('download_url');",
+									"    pm.expect(response).to.have.property('format');",
+									"    pm.expect(response).to.have.property('file_size');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"presentation_id\": \"{{presentation_id}}\",\n  \"format\": \"pptx\",\n  \"include_notes\": true,\n  \"quality\": \"high\"\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/presentation/export",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"presentation",
+								"export"
+							]
+						},
+						"description": "Export presentation in various formats"
+					},
+					"response": []
+				}
+			],
+			"description": "AI-powered presentation generation and export"
+		},
+		{
+			"name": "YouTube & Video Analysis",
+			"item": [
+				{
+					"name": "Analyze YouTube Video",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Video analysis completed\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('summary');",
+									"    pm.expect(response).to.have.property('key_points');",
+									"    pm.expect(response).to.have.property('transcript');",
+									"    pm.expect(response).to.have.property('educational_value');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"youtube_url\": \"https://www.youtube.com/watch?v=example\",\n  \"analysis_type\": \"educational\",\n  \"include_transcript\": true,\n  \"generate_summary\": true,\n  \"extract_key_points\": true,\n  \"target_grade_level\": \"high_school\"\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/video/analyze-youtube",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"video",
+								"analyze-youtube"
+							]
+						},
+						"description": "Analyze YouTube video for educational content"
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Study Questions from Video",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Study questions generated\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('questions');",
+									"    pm.expect(response.questions).to.be.an('array').that.is.not.empty;",
+									"    pm.expect(response).to.have.property('answer_key');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"youtube_url\": \"https://www.youtube.com/watch?v=example\",\n  \"question_count\": 10,\n  \"question_types\": [\"multiple_choice\", \"short_answer\", \"essay\"],\n  \"difficulty_level\": \"medium\",\n  \"focus_areas\": [\"key_concepts\", \"applications\", \"critical_thinking\"]\n}"
+						},
+						"url": {
+							"raw": "{{flask_base_url}}/video/generate-questions",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"video",
+								"generate-questions"
+							]
+						},
+						"description": "Generate study questions based on video content"
+					},
+					"response": []
+				}
+			],
+			"description": "YouTube video analysis and educational content extraction"
+		},
+		{
+			"name": "Health Check & Status",
+			"item": [
+				{
+					"name": "API Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"API is healthy\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('status', 'healthy');",
+									"    pm.expect(response).to.have.property('version');",
+									"    pm.expect(response).to.have.property('timestamp');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flask_base_url}}/health",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check API health and status"
+					},
+					"response": []
+				},
+				{
+					"name": "Get API Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"API info retrieved\", function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('name');",
+									"    pm.expect(response).to.have.property('version');",
+									"    pm.expect(response).to.have.property('endpoints');",
+									"    pm.expect(response).to.have.property('documentation_url');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flask_base_url}}/info",
+							"host": [
+								"{{flask_base_url}}"
+							],
+							"path": [
+								"info"
+							]
+						},
+						"description": "Get API information and available endpoints"
+					},
+					"response": []
+				}
+			],
+			"description": "API health monitoring and information endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set Flask API base URL if not already set",
+					"if (!pm.environment.get('flask_base_url')) {",
+					"    pm.environment.set('flask_base_url', 'http://localhost:8000');",
+					"}",
+					"",
+					"// Add timestamp to requests",
+					"pm.environment.set('timestamp', new Date().toISOString());",
+					"",
+					"// Set content type for requests",
+					"pm.request.headers.add({",
+					"    key: 'Accept',",
+					"    value: 'application/json'",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global response time test (Flask may be slower due to AI processing)",
+					"pm.test('Response time is less than 30000ms', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+					"});",
+					"",
+					"// Global content type test",
+					"if (pm.response.headers.get('Content-Type') && pm.response.headers.get('Content-Type').includes('application/json')) {",
+					"    pm.test('Response is valid JSON', function () {",
+					"        pm.response.to.be.json;",
+					"    });",
+					"}",
+					"",
+					"// Check for common error patterns",
+					"if (pm.response.code >= 400) {",
+					"    pm.test('Error response includes message', function () {",
+					"        const response = pm.response.json();",
+					"        pm.expect(response).to.have.property('error');",
+					"    });",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "flask_base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "quiz_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "lesson_plan_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "presentation_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,192 @@
+# GitHub Actions Workflow for API Documentation Deployment
+name: Deploy API Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - 'backend/swagger/**'
+      - 'flaskApi/api_docs/**'
+      - '.github/workflows/deploy-docs.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'backend/swagger/**'
+      - 'flaskApi/api_docs/**'
+
+jobs:
+  deploy-documentation:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm ci
+
+    - name: Install Python dependencies
+      run: |
+        cd flaskApi
+        pip install -r requirements.txt
+        pip install flask-restx marshmallow
+
+    - name: Validate OpenAPI specs
+      run: |
+        cd backend
+        npm install -g @apidevtools/swagger-parser
+        swagger-parser validate ../docs/api/openapi.yaml
+        
+    - name: Generate API documentation
+      run: |
+        # Generate Backend API docs
+        cd backend
+        node -e "
+        const swaggerJsdoc = require('swagger-jsdoc');
+        const fs = require('fs');
+        const config = require('./swagger/swagger.config');
+        const spec = swaggerJsdoc(config.options);
+        fs.writeFileSync('../docs/generated/backend-api.json', JSON.stringify(spec, null, 2));
+        "
+        
+        # Generate Flask API docs
+        cd ../flaskApi
+        python -c "
+        import json
+        from api_docs.flask_restx_config import api
+        from flask import Flask
+        app = Flask(__name__)
+        api.init_app(app)
+        with app.app_context():
+            spec = api.__schema__
+            with open('../docs/generated/flask-api.json', 'w') as f:
+                json.dump(spec, f, indent=2)
+        " || echo "Flask API doc generation skipped"
+
+    - name: Build documentation site
+      run: |
+        mkdir -p docs/build
+        
+        # Copy static documentation files
+        cp docs/interactive-documentation.html docs/build/index.html
+        cp -r docs/api docs/build/
+        cp -r docs/postman docs/build/
+        
+        # Copy generated specs
+        mkdir -p docs/build/generated
+        cp docs/generated/*.json docs/build/generated/ 2>/dev/null || true
+        
+        # Create sitemap
+        cat > docs/build/sitemap.xml << EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url>
+            <loc>https://teachai-docs.github.io/</loc>
+            <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>1.0</priority>
+          </url>
+          <url>
+            <loc>https://teachai-docs.github.io/api-docs</loc>
+            <lastmod>$(date -u +%Y-%m-%d)</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+          </url>
+        </urlset>
+        EOF
+        
+        # Create robots.txt
+        cat > docs/build/robots.txt << EOF
+        User-agent: *
+        Allow: /
+        Sitemap: https://teachai-docs.github.io/sitemap.xml
+        EOF
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build
+        publish_branch: gh-pages
+        cname: docs.teachai.com # Optional: if you have a custom domain
+
+    - name: Create deployment summary
+      if: always()
+      run: |
+        echo "## 📚 API Documentation Deployment" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🚀 Deployment Status" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ job.status }}" == "success" ]; then
+          echo "✅ **Successfully deployed**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Documentation Links" >> $GITHUB_STEP_SUMMARY
+          echo "- 📖 [Interactive Documentation](https://teachai-docs.github.io/)" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔧 [Backend API Docs](https://teachai-docs.github.io/api-docs/)" >> $GITHUB_STEP_SUMMARY
+          echo "- 📋 [ReDoc Documentation](https://teachai-docs.github.io/redoc/)" >> $GITHUB_STEP_SUMMARY
+          echo "- 📫 [Postman Collections](https://teachai-docs.github.io/postman/)" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ **Deployment failed**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the workflow logs for details." >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📊 Build Information" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Branch:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+        echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Build Time:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+
+  validate-postman-collections:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Newman
+      run: npm install -g newman
+
+    - name: Validate Postman Collections
+      run: |
+        # Validate Backend API collection
+        if [ -f "docs/postman/TeachAI-Backend-API.json" ]; then
+          echo "✅ Validating Backend API collection..."
+          newman collection validate docs/postman/TeachAI-Backend-API.json
+        fi
+        
+        # Validate Flask AI API collection
+        if [ -f "docs/postman/TeachAI-Flask-AI-API.json" ]; then
+          echo "✅ Validating Flask AI API collection..."
+          newman collection validate docs/postman/TeachAI-Flask-AI-API.json
+        fi
+
+    - name: Collection validation summary
+      run: |
+        echo "## 📫 Postman Collection Validation" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### ✅ Validation Results" >> $GITHUB_STEP_SUMMARY
+        echo "- **Backend API Collection:** Valid" >> $GITHUB_STEP_SUMMARY
+        echo "- **Flask AI API Collection:** Valid" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All Postman collections are properly formatted and ready for import." >> $GITHUB_STEP_SUMMARY

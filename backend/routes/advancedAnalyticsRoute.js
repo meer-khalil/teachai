@@ -12,7 +12,7 @@ const {
   getFunnelAnalytics,
   exportAnalytics
 } = require('../controllers/advancedAnalyticsController');
-const { verifyJWT } = require('../middlewares/auth');
+const { isAuthenticatedUser: verifyJWT } = require('../middlewares/auth');
 
 // User interaction tracking
 router.post('/track/interaction', verifyJWT, trackUserInteraction);

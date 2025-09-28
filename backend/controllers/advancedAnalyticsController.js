@@ -6,7 +6,7 @@ const {
 } = require('../models/advancedAnalyticsModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const CustomError = require('../utils/errorHandler');
-const ApiFeatures = require('../utils/api');
+const SearchFeatures = require('../utils/searchFeatures');
 
 // Track user interaction
 const trackUserInteraction = asyncErrorHandler(async (req, res, next) => {
@@ -136,7 +136,7 @@ const getUserAnalytics = asyncErrorHandler(async (req, res, next) => {
     if (endDate) query.createdAt.$lte = new Date(endDate);
   }
 
-  const features = new ApiFeatures(
+  const features = new SearchFeatures(
     UserAnalytics.find(query)
       .populate('userId', 'name email')
       .sort({ createdAt: -1 })

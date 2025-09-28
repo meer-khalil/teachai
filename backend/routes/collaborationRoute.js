@@ -15,10 +15,10 @@ const {
   updateSessionSettings,
   getUserSessions
 } = require('../controllers/collaborationController');
-const { protect } = require('../middlewares/auth');
+const { isAuthenticatedUser } = require('../middlewares/auth');
 
 // Protect all routes
-router.use(protect);
+router.use(isAuthenticatedUser);
 
 // Session management routes
 router.post('/content/:contentId/session', createOrJoinSession);

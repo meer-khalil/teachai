@@ -1,5 +1,18 @@
 const Usage = require("../models/usageModel");
 const asyncErrorHandler = require("./asyncErrorHandler");
+const rateLimit = require("express-rate-limit");
+
+// Create rate limiter function
+exports.createLimiter = (options) => {
+    return rateLimit({
+        windowMs: options.windowMs || 15 * 60 * 1000, // 15 minutes default
+        max: options.max || 100, // limit each IP to 100 requests per windowMs
+        message: options.message || 'Too many requests from this IP, please try again later',
+        standardHeaders: true,
+        legacyHeaders: false,
+        ...options
+    });
+};
 
 exports.requestLimit = asyncErrorHandler(async (req, res, next) => {
 

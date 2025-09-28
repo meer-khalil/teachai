@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middlewares/auth');
+const { isAuthenticatedUser } = require('../middlewares/auth');
 const requestLimit = require('../middlewares/requestLimit');
 
 const {
@@ -36,7 +36,7 @@ router.get('/similar/:type/:id', getSimilarContent);
 router.post('/advanced', advancedSearch);
 
 // Protected routes - require authentication
-router.use(auth);
+router.use(isAuthenticatedUser);
 
 // Analytics routes (admin only - checked in controller)
 router.get('/analytics', getSearchAnalytics);

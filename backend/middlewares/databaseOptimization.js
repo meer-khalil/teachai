@@ -5,7 +5,6 @@ const { cacheService } = require('../utils/cacheService');
 const optimizeDbConnection = () => {
   // Set mongoose options for performance
   mongoose.set('bufferCommands', false);
-  mongoose.set('bufferMaxEntries', 0);
   mongoose.set('maxTimeMS', 30000);
   
   // Connection pool settings

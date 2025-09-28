@@ -1,0 +1,487 @@
+.content-settings {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+/* Loading State */
+.settings-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f0f2f5;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Header */
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+.settings-header h2 {
+  color: #333;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reset-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-button:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.save-button {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.save-button:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.save-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-icon {
+  font-size: 16px;
+}
+
+/* Settings Container */
+.settings-container {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* Settings Navigation */
+.settings-nav {
+  width: 240px;
+  background: #f8f9fa;
+  border-right: 2px solid #e9ecef;
+  padding: 20px 0;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: #e9ecef;
+  color: #333;
+}
+
+.nav-item.active {
+  background: #fff;
+  color: #007bff;
+  border-left-color: #007bff;
+}
+
+.nav-icon {
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Settings Content */
+.settings-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.settings-section h3 {
+  color: #333;
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f2f5;
+}
+
+/* Setting Groups */
+.setting-group {
+  margin-bottom: 24px;
+}
+
+.setting-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.setting-input,
+.setting-select,
+.setting-textarea {
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.setting-input:focus,
+.setting-select:focus,
+.setting-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.setting-textarea {
+  resize: vertical;
+  font-family: 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Checkbox Settings */
+.setting-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+}
+
+.setting-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  margin-top: 1px;
+}
+
+.checkbox-custom::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.setting-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.setting-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.setting-description {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Warning Section */
+.setting-warning {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.warning-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Unsaved Changes Notice */
+.unsaved-changes-notice {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.notice-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffc107;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notice-icon {
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .header-actions {
+    justify-content: flex-end;
+  }
+
+  .settings-container {
+    flex-direction: column;
+  }
+
+  .settings-nav {
+    width: 100%;
+    max-height: none;
+    border-right: none;
+    border-bottom: 2px solid #e9ecef;
+    padding: 16px 0;
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 12px 20px;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .nav-item.active {
+    border-left: none;
+    border-bottom-color: #007bff;
+  }
+
+  .settings-content {
+    padding: 16px;
+  }
+
+  .settings-section h3 {
+    font-size: 18px;
+  }
+
+  .unsaved-changes-notice {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-header {
+    padding: 16px;
+  }
+
+  .settings-header h2 {
+    font-size: 20px;
+  }
+
+  .settings-content {
+    padding: 12px;
+  }
+
+  .settings-section h3 {
+    font-size: 16px;
+  }
+
+  .setting-group {
+    margin-bottom: 20px;
+  }
+
+  .setting-warning {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .unsaved-changes-notice {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .notice-content {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Dark theme adjustments */
+@media (prefers-color-scheme: dark) {
+  .content-settings {
+    background: #1a1a1a;
+  }
+
+  .settings-header {
+    border-bottom-color: #333;
+  }
+
+  .settings-header h2 {
+    color: #fff;
+  }
+
+  .settings-nav {
+    background: #2a2a2a;
+    border-right-color: #444;
+  }
+
+  .nav-item {
+    color: #ccc;
+  }
+
+  .nav-item:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .nav-item.active {
+    background: #333;
+    color: #007bff;
+  }
+
+  .settings-section h3 {
+    color: #fff;
+    border-bottom-color: #333;
+  }
+
+  .setting-label {
+    color: #fff;
+  }
+
+  .setting-input,
+  .setting-select,
+  .setting-textarea {
+    background: #333;
+    border-color: #444;
+    color: #fff;
+  }
+
+  .setting-checkbox {
+    color: #fff;
+  }
+
+  .checkbox-custom {
+    background: #333;
+    border-color: #444;
+  }
+
+  .setting-description {
+    color: #bbb;
+  }
+
+  .setting-warning {
+    background: #3d3d00;
+    border-color: #666600;
+  }
+}

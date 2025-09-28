@@ -4,7 +4,7 @@ const http = require('http');
 
 const app = require('./app');
 const connectDatabase = require('./config/database');
-const WebSocketService = require('./services/websocketService');
+const CollaborationWebSocket = require('./utils/collaborationWebSocket');
 // const cloudinary = require('cloudinary');
 const { appLogger, errorLogger } = require('./middlewares/logger');
 const { applicationMonitor } = require('./utils/monitoring');
@@ -44,11 +44,11 @@ connectDatabase();
 // Create HTTP server
 const server = http.createServer(app);
 
-// Initialize WebSocket service
-const wsService = new WebSocketService(server);
+// Initialize Collaboration WebSocket service
+const collaborationWS = new CollaborationWebSocket(server);
 
 // Make WebSocket service available to the app
-app.set('wsService', wsService);
+app.set('collaborationWS', collaborationWS);
 
 server.listen(PORT, () => {
     const message = `Server running on http://localhost:${PORT}`;
@@ -107,9 +107,10 @@ process.on('SIGTERM', () => {
     applicationMonitor.stopMonitoring();
     analyticsJobScheduler.stopAllJobs();
     
-    // Shutdown WebSocket service
-    if (wsService) {
-        wsService.shutdown();
+    // Shutdown Collaboration WebSocket service
+    if (collaborationWS) {
+        collaborationWS.io.close();
+        console.log('Collaboration WebSocket service closed');
     }
     
     server.close(() => {
@@ -123,9 +124,10 @@ process.on('SIGINT', () => {
     applicationMonitor.stopMonitoring();
     analyticsJobScheduler.stopAllJobs();
     
-    // Shutdown WebSocket service
-    if (wsService) {
-        wsService.shutdown();
+    // Shutdown Collaboration WebSocket service
+    if (collaborationWS) {
+        collaborationWS.io.close();
+        console.log('Collaboration WebSocket service closed');
     }
     
     server.close(() => {

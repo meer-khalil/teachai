@@ -21,6 +21,8 @@ const {
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 const { resetLimit } = require('../middlewares/requestLimit');
+const { cacheMiddleware, cacheInvalidationMiddleware } = require('../middlewares/cacheMiddleware');
+const { CACHE_PRESETS } = require('../utils/cacheUtils');
 
 const router = express.Router();
 
@@ -31,8 +33,22 @@ router.route('/logout').get(logoutUser);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').put(resetPassword);
 
-router.route('/me').get(isAuthenticatedUser, getUserDetails);
-router.route('/me').put(isAuthenticatedUser, updateUserDetails);
+// User profile routes with caching
+router.route('/me').get(
+    isAuthenticatedUser, 
+    cacheMiddleware({
+        ttl: 900, // 15 minutes
+        keyGenerator: (req) => `user:${req.user._id}:profile`,
+        varyBy: ['user']
+    }),
+    getUserDetails
+);
+
+router.route('/me').put(
+    isAuthenticatedUser,
+    cacheInvalidationMiddleware([`user:${'{userId}'}:*`]),
+    updateUserDetails
+);
 
 router.route("/admin/users").get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers);
 router.route("/admin/users/:userId").delete(isAuthenticatedUser, authorizeRoles("admin"), userDeletedByAdmin);

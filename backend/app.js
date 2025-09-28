@@ -37,6 +37,11 @@ const {
 // Import analytics job scheduler
 const { analyticsJobScheduler } = require("./jobs/analyticsJobs");
 
+// Import cache service
+const { cacheService } = require('./utils/cacheService');
+const { cacheWarmer, healthMonitor } = require('./utils/cacheUtils');
+const { cacheMiddleware, sessionCacheMiddleware, userCacheMiddleware } = require('./middlewares/cacheMiddleware');
+
 // Import Swagger configuration
 const swaggerConfig = require('./swagger/swagger.config');
 
@@ -102,6 +107,10 @@ app.use(requestTimer);
 // Add analytics tracking middleware
 app.use(analyticsMiddleware);
 app.use(sessionTrackingMiddleware);
+
+// Add caching middleware
+app.use(sessionCacheMiddleware());
+app.use(userCacheMiddleware());
 
 // Add monitoring middleware to track requests
 app.use((req, res, next) => {
@@ -404,6 +413,7 @@ const chat = require("./routes/chatRoute");
 const chatHistory = require("./routes/chatHistoryRoute");
 const contact = require("./routes/contactRoute");
 const analytics = require("./routes/analyticsRoute");
+const cache = require("./routes/cacheRoute");
 const sendEmail = require("./utils/sendEmail");
 
 app.use("/api/v1", user);
@@ -415,6 +425,7 @@ app.use("/api/v1/chatbot", isAuthenticatedUser, requestLimit, chat);
 app.use("/api/v1", chatHistory);
 app.use("/api/v1", contact);
 app.use("/api/v1/analytics", analytics);
+app.use("/api/v1/cache", cache);
 
 app.get("/updateUsage", async (req, res) => {
   let data = await Usage.find({ _id: "64fa041a77c59af3e0b4413d" });
@@ -495,6 +506,16 @@ app.use(errorHandler);
 if (process.env.NODE_ENV !== 'test') {
   analyticsJobScheduler.startAllJobs();
   console.log('Analytics job scheduler started');
+  
+  // Initialize cache service
+  cacheService.initializeCache().then(() => {
+    console.log('Cache service initialized');
+    
+    // Start cache warmer
+    cacheWarmer.startPeriodicWarmup();
+  }).catch(error => {
+    console.error('Cache service initialization failed:', error);
+  });
 }
 
 module.exports = app;

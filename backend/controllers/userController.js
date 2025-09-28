@@ -5,6 +5,9 @@ const ErrorHandler = require('../utils/errorHandler');
 const Usage = require('../models/usageModel');
 const UserOTPVerification = require('../models/userOTPVerification');
 const sendEmail = require('../utils/sendEmail');
+const { createUserCache } = require('../utils/userCache');
+const { CACHE_PRESETS, CacheKeyGenerators } = require('../utils/cacheUtils');
+const { cacheService } = require('../utils/cacheService');
 
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto');
@@ -364,19 +367,33 @@ exports.logoutUser = asyncErrorHandler(async (req, res, next) => {
     });
 });
 
-// Get User Details
+// Get User Details (with caching)
 exports.getUserDetails = asyncErrorHandler(async (req, res, next) => {
+    const userId = req.user.id;
+    const userCache = createUserCache(userId);
 
-    const user = await User.findById(req.user.id);
+    // Try to get user details from cache first
+    const cachedUser = await userCache.getProfile(async () => {
+        // Fallback to database if not in cache
+        const user = await User.findById(userId);
+        return user;
+    });
+
+    if (!cachedUser) {
+        return next(new ErrorHandler('User not found', 404));
+    }
 
     res.status(200).json({
         success: true,
-        user,
+        user: cachedUser,
+        cached: cachedUser.cached || false
     });
 });
 
-// Update User Details
+// Update User Details (with cache invalidation)
 exports.updateUserDetails = asyncErrorHandler(async (req, res, next) => {
+    const userId = req.user.id;
+    const userCache = createUserCache(userId);
 
     try {
         const body = req.body;
@@ -389,8 +406,18 @@ exports.updateUserDetails = asyncErrorHandler(async (req, res, next) => {
         if (!updatedUser) {
             res.status(404).json({ success: false, message: 'User not found' });
         } else {
-            console.log('Updated the details of user');
-            res.status(200).json({ success: true, user: updatedUser });
+            // Invalidate user cache after successful update
+            await userCache.invalidate('profile');
+            
+            // Cache the updated user data
+            await userCache.cacheProfile(updatedUser);
+            
+            console.log('Updated the details of user and invalidated cache');
+            res.status(200).json({ 
+                success: true, 
+                user: updatedUser,
+                cacheInvalidated: true
+            });
         }
     } catch (error) {
         console.error(error);

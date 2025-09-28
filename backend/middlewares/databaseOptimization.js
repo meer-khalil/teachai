@@ -7,17 +7,17 @@ const optimizeDbConnection = () => {
   mongoose.set('bufferCommands', false);
   mongoose.set('maxTimeMS', 30000);
   
-  // Connection pool settings
+  // Connection pool settings - using only supported options
   const connectionOptions = {
     maxPoolSize: 10, // Maintain up to 10 socket connections
     serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     bufferCommands: false, // Disable mongoose buffering
-    bufferMaxEntries: 0, // Disable mongoose buffering
+    // bufferMaxEntries: 0, // DEPRECATED - Removed this option
     
     // Connection management
     maxIdleTimeMS: 30000, // Close connections after 30 seconds of inactivity
-    waitQueueTimeoutMS: 2000, // Make the MongoDB driver wait up to 2 seconds for a connection
+    // waitQueueTimeoutMS: 2000, // DEPRECATED - Removed this option
     
     // Performance optimizations
     compressors: ['zlib'], // Enable compression

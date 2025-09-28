@@ -17,7 +17,28 @@ const path = require('path');
 const User = require('../models/userModel');
 const Usage = require('../models/usageModel');
 const connectDatabase = require('../config/database');
-require('dotenv').config({ path: '../config/.env' });
+
+// Try to load environment variables from multiple possible locations
+const possibleEnvPaths = [
+  path.join(__dirname, '../config/.env'),
+  path.join(__dirname, '../.env'),
+  path.join(__dirname, '../../.env'),
+  '.env'
+];
+
+let envLoaded = false;
+for (const envPath of possibleEnvPaths) {
+  if (fs.existsSync(envPath)) {
+    require('dotenv').config({ path: envPath });
+    console.log(`📝 Loaded environment variables from: ${envPath}`);
+    envLoaded = true;
+    break;
+  }
+}
+
+if (!envLoaded) {
+  console.log('⚠️  No .env file found, using fallback configuration');
+}
 
 // Test user credentials for different roles
 const TEST_USERS = [

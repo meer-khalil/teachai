@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 // Lazy load your components
 import Home from "./components/Home/Home";
 import { UsageProvider } from "./context/UsageContext";
+import { AnalyticsProvider } from './contexts/AnalyticsContext';
 import HowItWorks from "./components/HowItWorks/HowItWorks";
 // const LottieAnimation = lazy(() => import("./components/Home/Animation/LottieAnimation"))
 // const LottieAnimation2 = lazy(() => import("./components/Home/Animation/LottieAnimation2"))
@@ -78,7 +79,11 @@ export default function App() {
 
         <Route path="/admin/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}><AdminDashboard /></Suspense>} />
 
-        <Route path="/user/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}><UserDashboard /></Suspense>} />
+        <Route path="/user/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}>
+          <AnalyticsProvider>
+            <UserDashboard />
+          </AnalyticsProvider>
+        </Suspense>} />
 
         {/* <Route path="/blogs" element={<Blog />} /> */}
 
@@ -100,7 +105,11 @@ export default function App() {
 
         <Route path="/contact-submitted" element={<Suspense fallback={<div>Loading...</div>}><ContactSubmit /></Suspense>} />
 
-        <Route path="/analytics/*" element={<Suspense fallback={<div>Loading...</div>}><AnalyticsDashboard /></Suspense>} />
+        <Route path="/analytics/*" element={<Suspense fallback={<div>Loading...</div>}>
+          <AnalyticsProvider>
+            <AnalyticsDashboard />
+          </AnalyticsProvider>
+        </Suspense>} />
 
         <Route path="/how-it-works" element={<HowItWorks />} />
 

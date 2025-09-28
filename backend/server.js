@@ -6,6 +6,7 @@ const connectDatabase = require('./config/database');
 // const cloudinary = require('cloudinary');
 const { appLogger, errorLogger } = require('./middlewares/logger');
 const { applicationMonitor } = require('./utils/monitoring');
+const { analyticsJobScheduler } = require('./jobs/analyticsJobs');
 const PORT = process.env.PORT || 4000;
 
 
@@ -46,6 +47,10 @@ const server = app.listen(PORT, () => {
         environment: process.env.NODE_ENV || 'development',
         pid: process.pid
     });
+    
+    // Start analytics job scheduler
+    analyticsJobScheduler.startAllJobs();
+    appLogger.info('Analytics job scheduler started');
 });
 
 
@@ -73,6 +78,7 @@ process.on('unhandledRejection', (err) => {
 process.on('SIGTERM', () => {
     appLogger.info('SIGTERM received, shutting down gracefully');
     applicationMonitor.stopMonitoring();
+    analyticsJobScheduler.stopAllJobs();
     
     server.close(() => {
         appLogger.info('Process terminated');
@@ -83,6 +89,7 @@ process.on('SIGTERM', () => {
 process.on('SIGINT', () => {
     appLogger.info('SIGINT received, shutting down gracefully');
     applicationMonitor.stopMonitoring();
+    analyticsJobScheduler.stopAllJobs();
     
     server.close(() => {
         appLogger.info('Process terminated');

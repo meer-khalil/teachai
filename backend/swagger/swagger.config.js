@@ -562,9 +562,10 @@ const redocOptions = {
 };
 
 module.exports = {
+  options,
   swaggerSpec,
   swaggerUi,
-  swaggerUiOptions,
+  uiOptions: swaggerUiOptions,
   redoc,
   redocOptions
 };

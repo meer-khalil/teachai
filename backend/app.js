@@ -21,11 +21,21 @@ const { isAuthenticatedUser } = require("./middlewares/auth");
 const stripe = require("./config/stripe");
 
 // Import error handling and monitoring
-const { errorHandler, notFound } = require("./middlewares/error-handler");
+const { globalErrorHandler: errorHandler, handleNotFound: notFound } = require("./middlewares/error-handler");
 const { requestLogger, requestTimer } = require("./middlewares/logger");
-const { healthCheck } = require("./middlewares/health-check");
+const { basicHealthCheck: healthCheck } = require("./middlewares/health-check");
 const { applicationMonitor } = require("./utils/monitoring");
 const { AppError, ValidationError } = require("./utils/errors");
+
+// Import analytics middleware
+const { 
+  analyticsMiddleware, 
+  sessionTrackingMiddleware,
+  authTrackingMiddleware 
+} = require("./middlewares/analytics");
+
+// Import analytics job scheduler
+const { analyticsJobScheduler } = require("./jobs/analyticsJobs");
 
 // Import Swagger configuration
 const swaggerConfig = require('./swagger/swagger.config');
@@ -88,6 +98,10 @@ app.get('/docs', (req, res) => {
 // Add request logging and timing middleware early
 app.use(requestLogger);
 app.use(requestTimer);
+
+// Add analytics tracking middleware
+app.use(analyticsMiddleware);
+app.use(sessionTrackingMiddleware);
 
 // Add monitoring middleware to track requests
 app.use((req, res, next) => {
@@ -389,6 +403,7 @@ const payment = require("./routes/paymentRoute");
 const chat = require("./routes/chatRoute");
 const chatHistory = require("./routes/chatHistoryRoute");
 const contact = require("./routes/contactRoute");
+const analytics = require("./routes/analyticsRoute");
 const sendEmail = require("./utils/sendEmail");
 
 app.use("/api/v1", user);
@@ -399,6 +414,7 @@ app.use("/api/v1", payment);
 app.use("/api/v1/chatbot", isAuthenticatedUser, requestLimit, chat);
 app.use("/api/v1", chatHistory);
 app.use("/api/v1", contact);
+app.use("/api/v1/analytics", analytics);
 
 app.get("/updateUsage", async (req, res) => {
   let data = await Usage.find({ _id: "64fa041a77c59af3e0b4413d" });
@@ -474,5 +490,11 @@ app.use(notFound);
 
 // Global error handling middleware (must be last)
 app.use(errorHandler);
+
+// Initialize analytics job scheduler
+if (process.env.NODE_ENV !== 'test') {
+  analyticsJobScheduler.startAllJobs();
+  console.log('Analytics job scheduler started');
+}
 
 module.exports = app;

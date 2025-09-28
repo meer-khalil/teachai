@@ -370,6 +370,21 @@ const expressErrorLogger = (err, req, res, next) => {
     next(err);
 };
 
+// Request timing middleware
+const requestTimer = (req, res, next) => {
+    req.startTime = Date.now();
+    
+    // Override res.end to capture end time
+    const originalEnd = res.end;
+    res.end = function(...args) {
+        const responseTime = Date.now() - req.startTime;
+        res.set('X-Response-Time', `${responseTime}ms`);
+        originalEnd.apply(this, args);
+    };
+    
+    next();
+};
+
 module.exports = {
     // Loggers
     appLogger,
@@ -381,6 +396,7 @@ module.exports = {
     // Middleware
     requestIdMiddleware,
     requestLogger,
+    requestTimer,
     slowQueryLogger,
     expressErrorLogger,
     

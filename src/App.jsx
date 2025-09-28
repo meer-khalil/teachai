@@ -33,6 +33,7 @@ const YourComponent = lazy(() => import("./components/Pdf/YourComponent"));
 const VerifyOTP = lazy(() => import("./components/OTP/VerifyOTP"));
 const DonutChart = lazy(() => import("./components/Donut/DonutChart"));
 const ContactSubmit = lazy(() => import("./components/Contact/ContactSubmit"));
+const AnalyticsDashboard = lazy(() => import("./components/Dashboard/Analytics/AnalyticsDashboard"));
 
 export default function App() {
 
@@ -98,6 +99,8 @@ export default function App() {
         <Route path="/donut" element={<Suspense fallback={<div>Loading...</div>}><DonutChart /></Suspense>} />
 
         <Route path="/contact-submitted" element={<Suspense fallback={<div>Loading...</div>}><ContactSubmit /></Suspense>} />
+
+        <Route path="/analytics/*" element={<Suspense fallback={<div>Loading...</div>}><AnalyticsDashboard /></Suspense>} />
 
         <Route path="/how-it-works" element={<HowItWorks />} />
 

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\teachai\\backend\\logs\\.security-audit.json",
+    "files": [
+        {
+            "date": 1759046399359,
+            "name": "E:\\teachai\\backend\\logs\\security-2025-09-28.log",
+            "hash": "6c96432ddd6cd510ab8b1c6a0eeeecd79a360e0918f11aac10c022177ccc471e"
+        }
+    ],
+    "hashType": "sha256"
+}

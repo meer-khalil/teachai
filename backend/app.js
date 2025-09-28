@@ -38,9 +38,30 @@ const {
 const { analyticsJobScheduler } = require("./jobs/analyticsJobs");
 
 // Import cache service
-const { cacheService } = require('./utils/cacheService');
+const { cacheService } = require('./services/cacheService');
 const { cacheWarmer, healthMonitor } = require('./utils/cacheUtils');
 const { cacheMiddleware, sessionCacheMiddleware, userCacheMiddleware } = require('./middlewares/cacheMiddleware');
+
+// Import performance middleware
+const { 
+  compressionMiddleware,
+  securityMiddleware,
+  createRateLimit,
+  requestLoggingMiddleware,
+  responseTimeMiddleware,
+  performanceErrorMiddleware,
+  healthCheckMiddleware,
+  performanceStatsMiddleware
+} = require('./middlewares/performanceMiddleware');
+
+// Import database optimization
+const { 
+  optimizeDbConnection,
+  queryOptimizationMiddleware,
+  dbCacheMiddleware,
+  connectionMonitor,
+  dbPerformanceMonitor
+} = require('./middlewares/databaseOptimization');
 
 // Import WebSocket service
 const WebSocketService = require('./services/websocketService');
@@ -106,6 +127,31 @@ app.get('/docs', (req, res) => {
 // Add request logging and timing middleware early
 app.use(requestLogger);
 app.use(requestTimer);
+
+// Add performance optimization middleware
+app.use(securityMiddleware);
+app.use(compressionMiddleware);
+app.use(responseTimeMiddleware);
+app.use(requestLoggingMiddleware);
+
+// Add rate limiting for API endpoints
+app.use('/api/', createRateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // Max 1000 requests per IP per 15 minutes
+  message: 'Too many API requests from this IP, please try again later',
+  keyPrefix: 'api:'
+}));
+
+// Strict rate limiting for authentication endpoints
+app.use('/api/v1/auth/', createRateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // Max 10 auth attempts per IP per 15 minutes
+  message: 'Too many authentication attempts, please try again later',
+  keyPrefix: 'auth:'
+}));
+
+// Add database performance monitoring
+app.use(dbPerformanceMonitor);
 
 // Add analytics tracking middleware
 app.use(analyticsMiddleware);
@@ -385,6 +431,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // Health check endpoints
 app.use('/health', healthCheck);
 app.use('/api/v1/health', healthCheck);
+app.get('/api/v1/performance/health', healthCheckMiddleware);
+app.get('/api/v1/performance/stats', performanceStatsMiddleware);
 
 // Monitoring endpoints
 app.get('/api/v1/monitoring/metrics', (req, res) => {
@@ -511,6 +559,9 @@ app.put("/updateUsage", async (req, res) => {
 
 // Handle 404 for undefined routes
 app.use(notFound);
+
+// Performance error handling middleware
+app.use(performanceErrorMiddleware);
 
 // Global error handling middleware (must be last)
 app.use(errorHandler);

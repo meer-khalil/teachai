@@ -1,33 +1,71 @@
-const { cacheService, cacheKey, userCacheKey, apiCacheKey } = require('../utils/cacheService');
+const { cacheService } = require('../services/cacheService');
 
-// Cache middleware for Express routes
+// Generic cache middleware
 const cacheMiddleware = (options = {}) => {
   const {
-    ttl = 600, // 10 minutes default
-    keyGenerator = null,
-    skipCache = null,
-    onlyStatus = [200],
-    varyBy = [],
-    useMemory = true,
-    useRedis = true
+    ttl = 3600, // 1 hour default
+    keyGenerator = (req) => `${req.method}:${req.path}:${JSON.stringify(req.query)}`,
+    condition = () => true,
+    invalidatePatterns = []
   } = options;
 
   return async (req, res, next) => {
-    // Skip caching for non-GET requests by default
+    // Skip caching if condition not met
+    if (!condition(req)) {
+      return next();
+    }
+
+    // Skip caching for non-GET requests
     if (req.method !== 'GET') {
       return next();
     }
 
-    // Check if caching should be skipped
-    if (skipCache && await skipCache(req, res)) {
-      return next();
-    }
-
+    const cacheKey = keyGenerator(req);
+    
     try {
-      // Generate cache key
-      let key;
-      if (keyGenerator) {
-        key = await keyGenerator(req, res);
+      // Try to get cached response
+      const cachedResponse = await cacheService.get(cacheKey);
+      
+      if (cachedResponse) {
+        // Add cache hit header
+        res.set('X-Cache', 'HIT');
+        res.set('X-Cache-Key', cacheKey);
+        
+        return res.status(cachedResponse.statusCode || 200).json(cachedResponse.data);
+      }
+
+      // Cache miss - continue with request
+      res.set('X-Cache', 'MISS');
+      res.set('X-Cache-Key', cacheKey);
+
+      // Store original json method
+      const originalJson = res.json;
+
+      // Override json method to cache response
+      res.json = function(data) {
+        const statusCode = res.statusCode;
+        
+        // Only cache successful responses
+        if (statusCode >= 200 && statusCode < 300) {
+          const responseData = { data, statusCode };
+          
+          // Cache asynchronously
+          cacheService.set(cacheKey, responseData, ttl).catch(error => {
+            console.error('Cache set error:', error);
+          });
+        }
+
+        // Call original json method
+        return originalJson.call(this, data);
+      };
+
+      next();
+    } catch (error) {
+      console.error('Cache middleware error:', error);
+      next();
+    }
+  };
+};
       } else {
         const varyParts = varyBy.map(field => {
           if (field.startsWith('header:')) {

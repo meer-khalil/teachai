@@ -1,77 +1,102 @@
-# Multi-stage Docker build for TeachAI Frontend (React)
-# Stage 1: Build stage
-FROM node:18-alpine AS builder
+# Multi-stage build for production optimization
+FROM node:18-alpine AS base
+
+# Install system dependencies
+RUN apk add --no-cache \
+    python3 \
+    py3-pip \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    musl-dev \
+    giflib-dev \
+    pixman-dev \
+    pangomm-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    curl \
+    dumb-init
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
+# Development stage
+FROM base AS development
+ENV NODE_ENV=development
 COPY package*.json ./
-
-# Install dependencies
-RUN npm ci --silent
-
-# Copy source code
+RUN npm ci
 COPY . .
-
-# Build the application
-RUN npm run build
-
-# Stage 2: Development stage
-FROM node:18-alpine AS development
-
-# Set working directory
-WORKDIR /app
-
-# Copy package files
-COPY package*.json ./
-
-# Install all dependencies (including dev dependencies)
-RUN npm ci --silent
-
-# Copy source code
-COPY . .
-
-# Expose port
 EXPOSE 3000
-
-# Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000 || exit 1
-
-# Start development server
+    CMD curl -f http://localhost:3000/health || exit 1
 CMD ["npm", "start"]
 
-# Stage 3: Production stage with Nginx
-FROM nginx:alpine AS production
+# Backend build stage
+FROM base AS backend-build
+ENV NODE_ENV=production
+COPY backend/package*.json ./backend/
+WORKDIR /app/backend
+RUN npm ci --only=production && npm cache clean --force
+COPY backend/ .
 
-# Copy custom nginx configuration
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Frontend build stage  
+FROM node:18-alpine AS frontend-build
+ENV NODE_ENV=production
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY src/ ./src/
+COPY public/ ./public/
+COPY tailwind.config.js ./
+COPY webpack.config.js ./
+RUN npm run build
 
-# Copy built application from builder stage
-COPY --from=builder /app/build /usr/share/nginx/html
+# Production Node.js stage
+FROM node:18-alpine AS production-api
 
 # Create non-root user
-RUN addgroup -g 1001 -S nginx-user && \
-    adduser -S nginx-user -u 1001
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S teachai -u 1001
 
-# Set proper permissions
-RUN chown -R nginx-user:nginx-user /usr/share/nginx/html && \
-    chown -R nginx-user:nginx-user /var/cache/nginx && \
-    chown -R nginx-user:nginx-user /var/log/nginx && \
-    chown -R nginx-user:nginx-user /etc/nginx/conf.d && \
-    touch /var/run/nginx.pid && \
-    chown -R nginx-user:nginx-user /var/run/nginx.pid
+# Install production system dependencies
+RUN apk add --no-cache \
+    curl \
+    dumb-init \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy built backend
+COPY --from=backend-build --chown=teachai:nodejs /app/backend ./backend
+COPY --from=frontend-build --chown=teachai:nodejs /app/build ./build
+
+# Copy production files
+COPY --chown=teachai:nodejs package*.json ./
+COPY --chown=teachai:nodejs start-project.sh ./
+
+# Make script executable
+RUN chmod +x start-project.sh
 
 # Switch to non-root user
-USER nginx-user
-
-# Expose port
-EXPOSE 80
+USER teachai
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:80 || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/health || exit 1
 
-# Start nginx
+# Expose port
+EXPOSE 5000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "backend/server.js"]
+
+# Nginx stage for serving static files
+FROM nginx:alpine AS nginx
+COPY --from=frontend-build /app/build /usr/share/nginx/html
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

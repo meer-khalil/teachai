@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { cacheService } = require('../services/cacheService');
+const { cacheService } = require('../utils/cacheService');
 
 // Database connection optimization
 const optimizeDbConnection = () => {

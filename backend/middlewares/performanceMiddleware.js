@@ -1,7 +1,7 @@
 const compression = require('compression');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const { cacheService } = require('../services/cacheService');
+const { cacheService } = require('../utils/cacheService');
 
 // Compression middleware with smart filtering
 const compressionMiddleware = compression({

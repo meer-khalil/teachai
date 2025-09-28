@@ -1,12 +1,30 @@
-const { cacheService } = require('../services/cacheService');
+const { cacheService } = require('../utils/cacheService');
+
+// Helper function to generate cache keys
+const generateCacheKey = (req, options = {}) => {
+  const { includeUser = false, includeQuery = true } = options;
+  let key = `${req.method}:${req.path}`;
+  
+  if (includeQuery && Object.keys(req.query).length > 0) {
+    key += `:${JSON.stringify(req.query)}`;
+  }
+  
+  if (includeUser && req.user) {
+    key += `:user:${req.user._id}`;
+  }
+  
+  return key;
+};
 
 // Generic cache middleware
 const cacheMiddleware = (options = {}) => {
   const {
     ttl = 3600, // 1 hour default
-    keyGenerator = (req) => `${req.method}:${req.path}:${JSON.stringify(req.query)}`,
+    keyGenerator = (req) => generateCacheKey(req),
     condition = () => true,
-    invalidatePatterns = []
+    onlyStatus = [200],
+    useMemory = true,
+    useRedis = true
   } = options;
 
   return async (req, res, next) => {
@@ -24,90 +42,31 @@ const cacheMiddleware = (options = {}) => {
     
     try {
       // Try to get cached response
-      const cachedResponse = await cacheService.get(cacheKey);
-      
-      if (cachedResponse) {
-        // Add cache hit header
-        res.set('X-Cache', 'HIT');
-        res.set('X-Cache-Key', cacheKey);
-        
-        return res.status(cachedResponse.statusCode || 200).json(cachedResponse.data);
-      }
-
-      // Cache miss - continue with request
-      res.set('X-Cache', 'MISS');
-      res.set('X-Cache-Key', cacheKey);
-
-      // Store original json method
-      const originalJson = res.json;
-
-      // Override json method to cache response
-      res.json = function(data) {
-        const statusCode = res.statusCode;
-        
-        // Only cache successful responses
-        if (statusCode >= 200 && statusCode < 300) {
-          const responseData = { data, statusCode };
-          
-          // Cache asynchronously
-          cacheService.set(cacheKey, responseData, ttl).catch(error => {
-            console.error('Cache set error:', error);
-          });
-        }
-
-        // Call original json method
-        return originalJson.call(this, data);
-      };
-
-      next();
-    } catch (error) {
-      console.error('Cache middleware error:', error);
-      next();
-    }
-  };
-};
-      } else {
-        const varyParts = varyBy.map(field => {
-          if (field.startsWith('header:')) {
-            return req.get(field.substring(7)) || '';
-          } else if (field.startsWith('query:')) {
-            return req.query[field.substring(6)] || '';
-          } else if (field === 'user') {
-            return req.user ? req.user._id : 'anonymous';
-          }
-          return '';
-        });
-        
-        key = apiCacheKey(req.originalUrl, ...varyParts);
-      }
-
-      // Try to get cached response
-      const cachedResponse = await cacheService.get(key, {
+      const cachedResponse = await cacheService.get(cacheKey, {
         useMemory,
         useRedis,
         ttl
       });
-
+      
       if (cachedResponse) {
         console.log(`🎯 Cache HIT for route: ${req.originalUrl}`);
         
         // Set cache headers
         res.set({
           'X-Cache': 'HIT',
-          'X-Cache-Key': key,
+          'X-Cache-Key': cacheKey,
           'Content-Type': cachedResponse.contentType || 'application/json'
         });
-
+        
         return res.status(cachedResponse.status || 200).send(cachedResponse.data);
       }
 
       console.log(`❌ Cache MISS for route: ${req.originalUrl}`);
 
-      // Override res.json and res.send to cache the response
+      // Store original methods
       const originalJson = res.json.bind(res);
       const originalSend = res.send.bind(res);
       
-      let responseData;
       let responseSent = false;
 
       const cacheResponse = (data, status) => {
@@ -115,12 +74,12 @@ const cacheMiddleware = (options = {}) => {
           const responseToCache = {
             data,
             status,
-            contentType: res.get('Content-Type'),
+            contentType: res.get('Content-Type') || 'application/json',
             timestamp: new Date().toISOString()
           };
 
           // Cache the response asynchronously
-          cacheService.set(key, responseToCache, {
+          cacheService.set(cacheKey, responseToCache, {
             ttl,
             useMemory,
             useRedis
@@ -133,32 +92,30 @@ const cacheMiddleware = (options = {}) => {
         responseSent = true;
       };
 
+      // Override response methods
       res.json = function(data) {
-        responseData = data;
         cacheResponse(data, res.statusCode);
         
         res.set({
           'X-Cache': 'MISS',
-          'X-Cache-Key': key
+          'X-Cache-Key': cacheKey
         });
         
         return originalJson(data);
       };
 
       res.send = function(data) {
-        responseData = data;
         cacheResponse(data, res.statusCode);
         
         res.set({
           'X-Cache': 'MISS',
-          'X-Cache-Key': key
+          'X-Cache-Key': cacheKey
         });
         
         return originalSend(data);
       };
 
       next();
-
     } catch (error) {
       console.error('Cache middleware error:', error);
       next();
@@ -179,11 +136,7 @@ const sessionCacheMiddleware = (options = {}) => {
       const sessionKey = `session:${req.sessionID}`;
       
       // Try to get session from cache first
-      const cachedSession = await cacheService.get(sessionKey, {
-        useRedis: true,
-        useMemory: false, // Sessions should be in Redis only
-        ttl
-      });
+      const cachedSession = await cacheService.get(sessionKey);
 
       if (cachedSession) {
         req.session = Object.assign(req.session || {}, cachedSession);
@@ -191,15 +144,11 @@ const sessionCacheMiddleware = (options = {}) => {
       }
 
       // Override session save to cache it
-      if (req.session && req.session.save) {
+      if (req.session && typeof req.session.save === 'function') {
         const originalSave = req.session.save.bind(req.session);
         req.session.save = function(callback) {
           // Save session to cache
-          cacheService.set(sessionKey, req.session, {
-            ttl,
-            useRedis: true,
-            useMemory: false
-          }).catch(error => {
+          cacheService.set(sessionKey, req.session, ttl).catch(error => {
             console.error('Session cache error:', error);
           });
 
@@ -229,7 +178,7 @@ const userCacheMiddleware = (options = {}) => {
     }
 
     try {
-      const userKey = userCacheKey(req.user._id, 'profile');
+      const userKey = `user:${req.user._id}:profile`;
       
       // Cache user data for quick access
       await cacheService.set(userKey, {
@@ -238,11 +187,7 @@ const userCacheMiddleware = (options = {}) => {
         name: req.user.name,
         role: req.user.role,
         lastActive: new Date()
-      }, {
-        ttl,
-        useMemory: true,
-        useRedis: true
-      });
+      }, ttl);
 
       next();
     } catch (error) {
@@ -278,7 +223,7 @@ const cacheInvalidationMiddleware = (patterns = []) => {
               keyPattern = pattern;
             }
 
-            if (keyPattern) {
+            if (keyPattern && cacheService.delPattern) {
               const deletedCount = await cacheService.delPattern(keyPattern);
               console.log(`🗑️ Cache invalidated: ${keyPattern} (${deletedCount} keys)`);
             }
@@ -328,10 +273,16 @@ const rateLimitCache = (options = {}) => {
         ? keyGenerator(req) 
         : `ratelimit:${req.ip}:${Math.floor(Date.now() / windowMs)}`;
 
-      const current = await cacheService.increment(key, 1, {
-        ttl: Math.ceil(windowMs / 1000),
-        useRedis: true
-      });
+      // Use simple increment if available, otherwise simulate
+      let current;
+      if (cacheService.increment) {
+        current = await cacheService.increment(key, 1, Math.ceil(windowMs / 1000));
+      } else {
+        // Fallback implementation
+        const existing = await cacheService.get(key) || 0;
+        current = existing + 1;
+        await cacheService.set(key, current, Math.ceil(windowMs / 1000));
+      }
 
       const remaining = Math.max(0, max - current);
       const resetTime = Date.now() + windowMs;

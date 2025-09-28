@@ -38,7 +38,7 @@ const {
 const { analyticsJobScheduler } = require("./jobs/analyticsJobs");
 
 // Import cache service
-const { cacheService } = require('./services/cacheService');
+const { cacheService } = require('./utils/cacheService');
 const { cacheWarmer, healthMonitor } = require('./utils/cacheUtils');
 const { cacheMiddleware, sessionCacheMiddleware, userCacheMiddleware } = require('./middlewares/cacheMiddleware');
 

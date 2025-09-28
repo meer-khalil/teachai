@@ -9,6 +9,11 @@
             "date": 1759046399359,
             "name": "E:\\teachai\\backend\\logs\\security-2025-09-28.log",
             "hash": "6c96432ddd6cd510ab8b1c6a0eeeecd79a360e0918f11aac10c022177ccc471e"
+        },
+        {
+            "date": 1759097112581,
+            "name": "E:\\teachai\\backend\\logs\\security-2025-09-29.log",
+            "hash": "dd4b16eaa85b0a22d0a79dcec42110df78650699e7fc2d97e9ffa85861f455e5"
         }
     ],
     "hashType": "sha256"

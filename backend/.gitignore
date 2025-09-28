@@ -1,3 +1,7 @@
 .vercel
 
 /node_modules
+
+# Test user credentials - contains sensitive data
+credentials/*.json
+!credentials/.gitkeep

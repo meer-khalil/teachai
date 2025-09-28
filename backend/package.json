@@ -13,7 +13,10 @@
     "test:unit": "jest --testPathPattern=unit",
     "test:e2e": "jest --testPathPattern=e2e",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "lint:test": "eslint tests/ --ext .js"
+    "lint:test": "eslint tests/ --ext .js",
+    "seed:users": "node scripts/seed-users.js",
+    "seed:users:cleanup": "node scripts/seed-users.js cleanup",
+    "db:seed": "node scripts/seed-users.js"
   },
   "keywords": [],
   "author": "",

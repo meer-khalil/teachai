@@ -42,6 +42,9 @@ const { cacheService } = require('./utils/cacheService');
 const { cacheWarmer, healthMonitor } = require('./utils/cacheUtils');
 const { cacheMiddleware, sessionCacheMiddleware, userCacheMiddleware } = require('./middlewares/cacheMiddleware');
 
+// Import WebSocket service
+const WebSocketService = require('./services/websocketService');
+
 // Import Swagger configuration
 const swaggerConfig = require('./swagger/swagger.config');
 
@@ -414,6 +417,7 @@ const chatHistory = require("./routes/chatHistoryRoute");
 const contact = require("./routes/contactRoute");
 const analytics = require("./routes/analyticsRoute");
 const cache = require("./routes/cacheRoute");
+const websocket = require("./routes/websocketRoute");
 const sendEmail = require("./utils/sendEmail");
 
 app.use("/api/v1", user);
@@ -426,6 +430,7 @@ app.use("/api/v1", chatHistory);
 app.use("/api/v1", contact);
 app.use("/api/v1/analytics", analytics);
 app.use("/api/v1/cache", cache);
+app.use("/api/v1/websocket", websocket);
 
 app.get("/updateUsage", async (req, res) => {
   let data = await Usage.find({ _id: "64fa041a77c59af3e0b4413d" });

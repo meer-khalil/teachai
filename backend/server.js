@@ -1,8 +1,10 @@
 require('dotenv').config()
 const cloudinary = require('cloudinary');
+const http = require('http');
 
 const app = require('./app');
 const connectDatabase = require('./config/database');
+const WebSocketService = require('./services/websocketService');
 // const cloudinary = require('cloudinary');
 const { appLogger, errorLogger } = require('./middlewares/logger');
 const { applicationMonitor } = require('./utils/monitoring');
@@ -39,7 +41,16 @@ cloudinary.config({
 
 connectDatabase();
 
-const server = app.listen(PORT, () => {
+// Create HTTP server
+const server = http.createServer(app);
+
+// Initialize WebSocket service
+const wsService = new WebSocketService(server);
+
+// Make WebSocket service available to the app
+app.set('wsService', wsService);
+
+server.listen(PORT, () => {
     const message = `Server running on http://localhost:${PORT}`;
     console.log(message);
     appLogger.info('Server Started', { 
@@ -51,6 +62,22 @@ const server = app.listen(PORT, () => {
     // Start analytics job scheduler
     analyticsJobScheduler.startAllJobs();
     appLogger.info('Analytics job scheduler started');
+    
+    // Initialize cache service
+    if (process.env.NODE_ENV !== 'test') {
+      const { cacheService } = require('./utils/cacheService');
+      const { cacheWarmer } = require('./utils/cacheUtils');
+      
+      cacheService.initializeCache().then(() => {
+        console.log('✅ Cache service initialized successfully');
+        
+        // Start cache warmer
+        cacheWarmer.startPeriodicWarmup();
+        console.log('🔥 Cache warmer started');
+      }).catch(error => {
+        console.error('❌ Cache service initialization failed:', error);
+      });
+    }
 });
 
 
@@ -80,6 +107,11 @@ process.on('SIGTERM', () => {
     applicationMonitor.stopMonitoring();
     analyticsJobScheduler.stopAllJobs();
     
+    // Shutdown WebSocket service
+    if (wsService) {
+        wsService.shutdown();
+    }
+    
     server.close(() => {
         appLogger.info('Process terminated');
         process.exit(0);
@@ -90,6 +122,11 @@ process.on('SIGINT', () => {
     appLogger.info('SIGINT received, shutting down gracefully');
     applicationMonitor.stopMonitoring();
     analyticsJobScheduler.stopAllJobs();
+    
+    // Shutdown WebSocket service
+    if (wsService) {
+        wsService.shutdown();
+    }
     
     server.close(() => {
         appLogger.info('Process terminated');

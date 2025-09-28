@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ScrollToTop from './util/ScrollToTop';
 
 import { UserProvider } from './context/UserContext';
+import { WebSocketProvider } from './contexts/WebSocketContext';
 import IsAuthenticated from './util/IsAuthenticated';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,9 +19,11 @@ root.render(
     <BrowserRouter>
       <ScrollToTop />
       <UserProvider>
-        <IsAuthenticated />
-        <ToastContainer />
-        <App />
+        <WebSocketProvider>
+          <IsAuthenticated />
+          <ToastContainer />
+          <App />
+        </WebSocketProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

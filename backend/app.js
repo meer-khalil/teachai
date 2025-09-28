@@ -419,6 +419,7 @@ const analytics = require("./routes/analyticsRoute");
 const cache = require("./routes/cacheRoute");
 const websocket = require("./routes/websocketRoute");
 const search = require("./routes/searchRoute");
+const content = require("./routes/contentRoute");
 const sendEmail = require("./utils/sendEmail");
 
 app.use("/api/v1", user);
@@ -433,6 +434,7 @@ app.use("/api/v1/analytics", analytics);
 app.use("/api/v1/cache", cache);
 app.use("/api/v1/websocket", websocket);
 app.use("/api/v1/search", search);
+app.use("/api/v1/content", content);
 
 app.get("/updateUsage", async (req, res) => {
   let data = await Usage.find({ _id: "64fa041a77c59af3e0b4413d" });

@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 // Lazy load your components
 import Home from "./components/Home/Home";
 import { UsageProvider } from "./context/UsageContext";
+import { ChatbotProvider } from "./context/ChatbotContext";
 import { AnalyticsProvider } from './contexts/AnalyticsContext';
 import HowItWorks from "./components/HowItWorks/HowItWorks";
 // const LottieAnimation = lazy(() => import("./components/Home/Animation/LottieAnimation"))
@@ -81,7 +82,11 @@ export default function App() {
 
         <Route path="/user/dashboard/*" element={<Suspense fallback={<div>Loading...</div>}>
           <AnalyticsProvider>
-            <UserDashboard />
+            <UsageProvider>
+              <ChatbotProvider>
+                <UserDashboard />
+              </ChatbotProvider>
+            </UsageProvider>
           </AnalyticsProvider>
         </Suspense>} />
 

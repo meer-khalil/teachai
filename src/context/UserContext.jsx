@@ -69,24 +69,46 @@ export const UserProvider = ({ children }) => {
     };
 
     const register = async (data, setLoading) => {
+        // Ensure loading indicator is set by caller, guard here as well
         try {
             const res = await api.post('/register', data);
-
             console.log('User registered successfully:', res.data);
 
-            toast("OTP sent to Your Email!")
+            // Handle expected response shapes (safe checks)
+            const status = res?.data?.status;
+            const payload = res?.data?.data || null;
 
-            setTempUser(res.data.data)
-            setLoading(false);
-            navigate('/verify-otp')
-        } catch (error) {
-            if (error.response.status) {
-                toast("Email is Already Used!")
-                // toast("Use Another Email! Thank You!")
+            if (status === 'PENDING' && payload) {
+                toast('OTP sent to Your Email!');
+                setTempUser(payload);
+                navigate('/verify-otp');
+            } else if (payload) {
+                // Some backends may return data without a status
+                toast('Registration successful — please verify your email');
+                setTempUser(payload);
+                navigate('/verify-otp');
+            } else {
+                // Fallback
+                toast('Registration completed');
             }
-            console.log("Error", error.response.status);
-            console.error('Failed to register user:', error?.response.data);
-            setLoading(false)
+
+        } catch (error) {
+            const status = error?.response?.status;
+            const errData = error?.response?.data;
+
+            if (status === 409) {
+                toast('Email is already used!');
+            } else if (status === 400) {
+                toast(errData?.message || 'Invalid registration data');
+            } else {
+                toast('Registration failed. Please try again.');
+            }
+
+            console.error('Failed to register user:', errData || error?.message || error);
+
+        } finally {
+            // Ensure loading is cleared even on errors
+            try { setLoading(false); } catch (e) { /* ignore if not provided */ }
         }
     };
 

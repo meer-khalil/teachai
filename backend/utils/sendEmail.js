@@ -10,8 +10,8 @@ const sendEmail = async (options) => {
         port: 465,
         secure: true, // use SSL
         auth: {
-            user: 'info@teachassistai.com',
-            pass: 'lzirrqyedfdfxwkw'
+            user: 'info.escstack@gmail.com',
+            pass: 'wytu vlek bcym ihoj'
         }
     });
 

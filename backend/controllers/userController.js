@@ -79,7 +79,7 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     // formulating the message
     mailOptions.html = messageToAdmin;
     // changing email to admin email
-    mailOptions.to = 'info@teachassistai.com'
+    mailOptions.to = 'arzishjani1613@gmail.com'
     mailOptions.subject = 'New Free Plan Subscribed'
     await sendEmail(mailOptions)
     const usage = await Usage.create({

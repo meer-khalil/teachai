@@ -6,14 +6,9 @@
     "auditLog": "E:\\teachai\\backend\\logs\\.combined-audit.json",
     "files": [
         {
-            "date": 1759046399338,
-            "name": "E:\\teachai\\backend\\logs\\combined-2025-09-28.log",
-            "hash": "019f24451ebbce187acc1e8436900c44126bc49807df6060e0323b5b5148b00f"
-        },
-        {
-            "date": 1759097112559,
-            "name": "E:\\teachai\\backend\\logs\\combined-2025-09-29.log",
-            "hash": "f6c73efada42d85b792586a868666cc3fc8095b63f16ad38ea62085207c51ea1"
+            "date": 1764101950701,
+            "name": "E:\\teachai\\backend\\logs\\combined-2025-11-26.log",
+            "hash": "1c8bf857058a8143c72431b423ecec255f7d3f534b5df882883f4a6fea597d4d"
         }
     ],
     "hashType": "sha256"

@@ -45,7 +45,7 @@ const { cacheMiddleware, sessionCacheMiddleware, userCacheMiddleware } = require
 // Import performance middleware
 const { 
   compressionMiddleware,
-  securityMiddleware,
+  // securityMiddleware,
   createRateLimit,
   requestLoggingMiddleware,
   responseTimeMiddleware,
@@ -64,7 +64,7 @@ const {
 } = require('./middlewares/databaseOptimization');
 
 // Import WebSocket service
-const WebSocketService = require('./services/websocketService');
+// const WebSocketService = require('./services/websocketService');
 
 // Import Swagger configuration
 const swaggerConfig = require('./swagger/swagger.config');
@@ -103,86 +103,139 @@ app.get('/redoc', redoc({
 }));
 
 // Serve OpenAPI spec as JSON
-app.get('/api-docs.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(specs);
-});
+// app.get('/api-docs.json', (req, res) => {
+//   res.setHeader('Content-Type', 'application/json');
+//   res.send(specs);
+// });
 
 // Load and serve OpenAPI YAML spec
-try {
-  const openApiSpec = YAML.load(path.join(__dirname, '..', 'docs', 'api', 'openapi.yaml'));
-  app.get('/api-docs.yaml', (req, res) => {
-    res.setHeader('Content-Type', 'application/yaml');
-    res.send(YAML.stringify(openApiSpec));
-  });
-} catch (error) {
-  console.warn('OpenAPI YAML spec not found or invalid, skipping YAML endpoint');
-}
+// try {
+//   const openApiSpec = YAML.load(path.join(__dirname, '..', 'docs', 'api', 'openapi.yaml'));
+//   app.get('/api-docs.yaml', (req, res) => {
+//     res.setHeader('Content-Type', 'application/yaml');
+//     res.send(YAML.stringify(openApiSpec));
+//   });
+// } catch (error) {
+//   console.warn('OpenAPI YAML spec not found or invalid, skipping YAML endpoint');
+// }
 
 // Serve interactive documentation
 app.get('/docs', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'docs', 'interactive-documentation.html'));
 });
 
+
+
 // Add request logging and timing middleware early
-app.use(requestLogger);
-app.use(requestTimer);
+// app.use(requestLogger);
+// app.use(requestTimer);
+
+
 
 // Add performance optimization middleware
-app.use(securityMiddleware);
-app.use(compressionMiddleware);
-app.use(responseTimeMiddleware);
-app.use(requestLoggingMiddleware);
+// app.use(securityMiddleware);
+// app.use(compressionMiddleware);
+// app.use(responseTimeMiddleware);
+// app.use(requestLoggingMiddleware);
+
 
 // Add rate limiting for API endpoints
-app.use('/api/', createRateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000, // Max 1000 requests per IP per 15 minutes
-  message: 'Too many API requests from this IP, please try again later',
-  keyPrefix: 'api:'
-}));
+// app.use('/api/', createRateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 1000, // Max 1000 requests per IP per 15 minutes
+//   message: 'Too many API requests from this IP, please try again later',
+//   keyPrefix: 'api:'
+// }));
 
 // Strict rate limiting for authentication endpoints
-app.use('/api/v1/auth/', createRateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Max 10 auth attempts per IP per 15 minutes
-  message: 'Too many authentication attempts, please try again later',
-  keyPrefix: 'auth:'
-}));
+// app.use('/api/v1/auth/', createRateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 10, // Max 10 auth attempts per IP per 15 minutes
+//   message: 'Too many authentication attempts, please try again later',
+//   keyPrefix: 'auth:'
+// }));
 
 // Add database performance monitoring
-app.use(dbPerformanceMonitor);
+// app.use(dbPerformanceMonitor);
 
 // Add analytics tracking middleware
-app.use(analyticsMiddleware);
-app.use(sessionTrackingMiddleware);
+// app.use(analyticsMiddleware);
+// app.use(sessionTrackingMiddleware);
 
 // Add caching middleware
-app.use(sessionCacheMiddleware());
-app.use(userCacheMiddleware());
+// app.use(sessionCacheMiddleware());
+// app.use(userCacheMiddleware());
 
 // Add monitoring middleware to track requests
-app.use((req, res, next) => {
-    const startTime = Date.now();
+// app.use((req, res, next) => {
+//     const startTime = Date.now();
     
-    res.on('finish', () => {
-        const responseTime = Date.now() - startTime;
-        const success = res.statusCode < 400;
+//     res.on('finish', () => {
+//         const responseTime = Date.now() - startTime;
+//         const success = res.statusCode < 400;
         
-        applicationMonitor.emit('request', {
-            method: req.method,
-            url: req.originalUrl || req.url,
-            statusCode: res.statusCode,
-            responseTime,
-            userAgent: req.get('User-Agent'),
-            success
-        });
-    });
+//         applicationMonitor.emit('request', {
+//             method: req.method,
+//             url: req.originalUrl || req.url,
+//             statusCode: res.statusCode,
+//             responseTime,
+//             userAgent: req.get('User-Agent'),
+//             success
+//         });
+//     });
     
-    next();
-});
+//     next();
+// });
 
-app.use(cors());
+// Configure CORS properly for frontend-backend communication
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // List of allowed origins
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:3001', 
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3001'
+    ];
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Enable cookies/credentials
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+  preflightContinue: false,
+  optionsSuccessStatus: 200
+}));
+
+// Debug middleware to log all requests
+// app.use((req, res, next) => {
+//   console.log(`📥 ${req.method} ${req.originalUrl} - IP: ${req.ip} - Started: ${new Date().toISOString()}`);
+  
+//   // Only log headers for login requests to avoid spam
+//   if (req.originalUrl.includes('/login') || req.originalUrl.includes('/auth')) {
+//     console.log('Request Headers:', JSON.stringify(req.headers, null, 2));
+//   }
+  
+//   // Log response
+//   const originalSend = res.send;
+//   res.send = function(data) {
+//     console.log(`📤 ${req.method} ${req.originalUrl} - Status: ${res.statusCode}`);
+//     if (req.originalUrl.includes('/login')) {
+//       console.log('Response data length:', typeof data === 'string' ? data.length : JSON.stringify(data).length);
+//     }
+//     return originalSend.call(this, data);
+//   };
+  
+//   next();
+// });
 
 /*
     Email Body for the Plans
@@ -420,40 +473,56 @@ app.post(
 );
 
 
-app.use(bodyParser.json({ limit: "30mb" }));
-app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
-app.use(express.json());
-app.use(cookieParser());
-app.use(compression());
+// app.use(bodyParser.json({ limit: "30mb" }));
+// app.use(bodyParser.urlencoded({ extended: true, limit: "30mb" }));
+// app.use(express.json());
+// app.use(cookieParser());
+// app.use(compression());
 
-app.use(express.static(path.join(__dirname, "public")));
+// Debug middleware to log request body after parsing
+// app.use((req, res, next) => {
+//   if (req.originalUrl.includes('/login') && req.body) {
+//     console.log('📋 Parsed Request Body:', JSON.stringify(req.body, null, 2));
+//   }
+//   next();
+// });
+
+// app.use(express.static(path.join(__dirname, "public")));
 
 // Health check endpoints
+// app.get('/health', async (req, res) => {
+ 
+//     res.status(200).json({
+//         status: 'healthy',
+//         timestamp: new Date().toISOString(),
+//     });
+//   res.status(200).send('OK');
+// });
 app.use('/health', healthCheck);
-app.use('/api/v1/health', healthCheck);
-app.get('/api/v1/performance/health', healthCheckMiddleware);
-app.get('/api/v1/performance/stats', performanceStatsMiddleware);
+// app.use('/api/v1/health', healthCheck);
+// app.get('/api/v1/performance/health', healthCheckMiddleware);
+// app.get('/api/v1/performance/stats', performanceStatsMiddleware);
 
 // Monitoring endpoints
-app.get('/api/v1/monitoring/metrics', (req, res) => {
-    try {
-        const metrics = applicationMonitor.getMetrics();
-        res.json(metrics);
-    } catch (error) {
-        applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/metrics' });
-        res.status(500).json({ error: 'Failed to retrieve metrics' });
-    }
-});
+// app.get('/api/v1/monitoring/metrics', (req, res) => {
+//     try {
+//         const metrics = applicationMonitor.getMetrics();
+//         res.json(metrics);
+//     } catch (error) {
+//         applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/metrics' });
+//         res.status(500).json({ error: 'Failed to retrieve metrics' });
+//     }
+// });
 
-app.get('/api/v1/monitoring/alerts', (req, res) => {
-    try {
-        const alerts = applicationMonitor.getAlerts();
-        res.json(alerts);
-    } catch (error) {
-        applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/alerts' });
-        res.status(500).json({ error: 'Failed to retrieve alerts' });
-    }
-});
+// app.get('/api/v1/monitoring/alerts', (req, res) => {
+//     try {
+//         const alerts = applicationMonitor.getAlerts();
+//         res.json(alerts);
+//     } catch (error) {
+//         applicationMonitor.emit('error', error, { endpoint: '/api/v1/monitoring/alerts' });
+//         res.status(500).json({ error: 'Failed to retrieve alerts' });
+//     }
+// });
 
 const user = require("./routes/userRoute");
 const post = require("./routes/postRoute");
@@ -463,8 +532,8 @@ const payment = require("./routes/paymentRoute");
 const chat = require("./routes/chatRoute");
 const chatHistory = require("./routes/chatHistoryRoute");
 const contact = require("./routes/contactRoute");
-const analytics = require("./routes/analyticsRoute");
-const advancedAnalytics = require("./routes/advancedAnalyticsRoute");
+// const analytics = require("./routes/analyticsRoute");
+// const advancedAnalytics = require("./routes/advancedAnalyticsRoute");
 const cache = require("./routes/cacheRoute");
 const websocket = require("./routes/websocketRoute");
 const search = require("./routes/searchRoute");
@@ -480,8 +549,8 @@ app.use("/api/v1", payment);
 app.use("/api/v1/chatbot", isAuthenticatedUser, requestLimit, chat);
 app.use("/api/v1", chatHistory);
 app.use("/api/v1", contact);
-app.use("/api/v1/analytics", analytics);
-app.use("/api/v1/advanced-analytics", advancedAnalytics);
+// app.use("/api/v1/analytics", analytics);
+// app.use("/api/v1/advanced-analytics", advancedAnalytics);
 app.use("/api/v1/cache", cache);
 app.use("/api/v1/websocket", websocket);
 app.use("/api/v1/search", search);
@@ -496,51 +565,51 @@ app.get("/updateUsage", async (req, res) => {
   });
 });
 
-app.post('/submit-form', (req, res) => {
-  // Perform any necessary form data processing here
-  const formData = req.body;
-  console.log('FormData: ', formData);
+// app.post('/submit-form', (req, res) => {
+//   // Perform any necessary form data processing here
+//   const formData = req.body;
+//   console.log('FormData: ', formData);
 
-  // Set up a response as a stream
-  res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
+//   // Set up a response as a stream
+//   res.setHeader('Content-Type', 'application/octet-stream'); // Adjust the content type as needed
 
-  // Simulate streaming response (you can replace this with your actual stream)
-  // Introduce a 2-second delay between sending chunks
-  for (let i = 0; i < 10; i++) {
-    setTimeout(() => {
-      res.write(`Data chunk ${i}\n`);
+//   // Simulate streaming response (you can replace this with your actual stream)
+//   // Introduce a 2-second delay between sending chunks
+//   for (let i = 0; i < 10; i++) {
+//     setTimeout(() => {
+//       res.write(`Data chunk ${i}\n`);
 
-      // Close the response after sending the last chunk
-      if (i === 9) {
-        res.end();
-      }
-    }, i * 2000); // Delay in milliseconds (i * 2000 = 2 seconds per chunk)
-  }
-  // End the response to signal completion
-  // res.end();
-});
+//       // Close the response after sending the last chunk
+//       if (i === 9) {
+//         res.end();
+//       }
+//     }, i * 2000); // Delay in milliseconds (i * 2000 = 2 seconds per chunk)
+//   }
+//   // End the response to signal completion
+//   // res.end();
+// });
 
-let environment = "prod";
-if (environment === "dev") {
-  app.get("/", (req, res) => {
-    res.json({
-      message: "Server is Running!",
-    });
-  });
-} else {
-  let root = path.join(__dirname, "..", "build/");
-  app.use(express.static(root));
-  app.use(function (req, res, next) {
-    if (
-      req.method === "GET" &&
-      req.accepts("html") &&
-      !req.is("json") &&
-      !req.path.includes(".")
-    ) {
-      res.sendFile("index.html", { root });
-    } else next();
-  });
-}
+// let environment = "prod";
+// if (environment === "dev") {
+//   app.get("/", (req, res) => {
+//     res.json({
+//       message: "Server is Running!",
+//     });
+//   });
+// } else {
+//   let root = path.join(__dirname, "..", "build/");
+//   app.use(express.static(root));
+//   app.use(function (req, res, next) {
+//     if (
+//       req.method === "GET" &&
+//       req.accepts("html") &&
+//       !req.is("json") &&
+//       !req.path.includes(".")
+//     ) {
+//       res.sendFile("index.html", { root });
+//     } else next();
+//   });
+// }
 
 app.put("/updateUsage", async (req, res) => {
   let id = "64fa041a77c59af3e0b4413d";
@@ -558,28 +627,28 @@ app.put("/updateUsage", async (req, res) => {
 });
 
 // Handle 404 for undefined routes
-app.use(notFound);
+// app.use(notFound);
 
 // Performance error handling middleware
-app.use(performanceErrorMiddleware);
+// app.use(performanceErrorMiddleware);
 
 // Global error handling middleware (must be last)
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // Initialize analytics job scheduler
-if (process.env.NODE_ENV !== 'test') {
-  analyticsJobScheduler.startAllJobs();
-  console.log('Analytics job scheduler started');
+// if (process.env.NODE_ENV !== 'test') {
+//   analyticsJobScheduler.startAllJobs();
+//   console.log('Analytics job scheduler started');
   
-  // Initialize cache service
-  cacheService.initializeCache().then(() => {
-    console.log('Cache service initialized');
+//   // Initialize cache service
+//   cacheService.initializeCache().then(() => {
+//     console.log('Cache service initialized');
     
-    // Start cache warmer
-    cacheWarmer.startPeriodicWarmup();
-  }).catch(error => {
-    console.error('Cache service initialization failed:', error);
-  });
-}
+//     // Start cache warmer
+//     cacheWarmer.startPeriodicWarmup();
+//   }).catch(error => {
+//     console.error('Cache service initialization failed:', error);
+//   });
+// }
 
 module.exports = app;

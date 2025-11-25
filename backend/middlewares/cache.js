@@ -5,6 +5,13 @@ const crypto = require('crypto');
 let redisClient;
 
 const connectRedis = async () => {
+    // Skip Redis in development mode unless forced
+    if (process.env.NODE_ENV !== 'production' && !process.env.FORCE_REDIS) {
+        console.log('⚠️ Skipping Redis in development mode - using memory cache only');
+        redisClient = null;
+        return;
+    }
+    
     try {
         redisClient = new Redis({
             host: process.env.REDIS_HOST || 'localhost',

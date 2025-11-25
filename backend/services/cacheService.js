@@ -28,29 +28,35 @@ const redisConfig = {
 
 const currentConfig = redisConfig[process.env.NODE_ENV] || redisConfig.development;
 
-// Create Redis instance
-const redis = new Redis(currentConfig);
+// Skip Redis in development mode unless forced
+let redis = null;
+if (process.env.NODE_ENV === 'production' || process.env.FORCE_REDIS === 'true') {
+  // Create Redis instance
+  redis = new Redis(currentConfig);
+  
+  // Redis event handlers (only if Redis is enabled)
+  redis.on('connect', () => {
+    console.log('🔗 Redis connected successfully');
+  });
 
-// Redis event handlers
-redis.on('connect', () => {
-  console.log('🔗 Redis connected successfully');
-});
+  redis.on('ready', () => {
+    console.log('🚀 Redis ready for operations');
+  });
 
-redis.on('ready', () => {
-  console.log('🚀 Redis ready for operations');
-});
+  redis.on('error', (error) => {
+    console.error('❌ Redis connection error:', error);
+  });
 
-redis.on('error', (error) => {
-  console.error('❌ Redis connection error:', error);
-});
+  redis.on('close', () => {
+    console.log('🔒 Redis connection closed');
+  });
 
-redis.on('close', () => {
-  console.log('🔒 Redis connection closed');
-});
-
-redis.on('reconnecting', () => {
-  console.log('🔄 Redis reconnecting...');
-});
+  redis.on('reconnecting', () => {
+    console.log('🔄 Redis reconnecting...');
+  });
+} else {
+  console.log('⚠️ Skipping Redis in development mode - using memory cache only');
+}
 
 // Cache service class
 class CacheService {
@@ -59,13 +65,16 @@ class CacheService {
     this.defaultTTL = 3600; // 1 hour in seconds
     this.isConnected = false;
     
-    this.redis.on('ready', () => {
-      this.isConnected = true;
-    });
-    
-    this.redis.on('error', () => {
-      this.isConnected = false;
-    });
+    // Only set up event listeners if Redis is enabled
+    if (this.redis) {
+      this.redis.on('ready', () => {
+        this.isConnected = true;
+      });
+      
+      this.redis.on('error', () => {
+        this.isConnected = false;
+      });
+    }
   }
 
   // Check if Redis is available

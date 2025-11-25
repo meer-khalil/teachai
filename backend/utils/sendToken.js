@@ -14,12 +14,25 @@ const sendToken = (user, statusCode, res, verifiedDevice) => {
   console.log('Device: ', verifiedDevice);
   console.log('UserID: ', user._id);
 
-  let objectID = new ObjectId(verifiedDevice?.split('-')[0])
-  console.log('Check Result: ', objectID.equals(user._id));
+  let objectID = null;
+  let deviceMatches = false;
+  
+  // Only check device verification if verifiedDevice exists
+  if (verifiedDevice) {
+    try {
+      objectID = new ObjectId(verifiedDevice.split('-')[0]);
+      deviceMatches = objectID.equals(user._id);
+      console.log('Check Result: ', deviceMatches);
+    } catch (error) {
+      console.log('Device verification error: ', error.message);
+      deviceMatches = false;
+    }
+  }
 
 
   // If 2FA is not Enabled
   if (!user.TwoFA) {
+    console.log('2FA disabled - allowing login');
     res.status(statusCode)
       .cookie('token', token, options)
       .json({
@@ -28,7 +41,7 @@ const sendToken = (user, statusCode, res, verifiedDevice) => {
         token,
       });
   }
-  else if (verifiedDevice && objectID.equals(user._id)) {
+  else if (verifiedDevice && deviceMatches) {
     console.log('User And Device are Verified For Login: ', verifiedDevice);
     res.status(statusCode)
       .cookie('token', token, options)

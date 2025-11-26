@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
@@ -13,17 +15,18 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleSubmit = (event) => {
-    console.log('Event: ', event);
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data = {
-      email: formData.get("email"),
-      password: formData.get("password"),
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: { email: '', password: '' }
+  })
+
+  const onSubmit = async (data) => {
+    try {
+      await login(data)
+    } catch (err) {
+      console.error('Login handler error:', err)
+      toast.error('Login failed. Please try again.')
     }
-    console.log(data);
-    login(data)
-  };
+  }
 
   return (
     <div className="h-[80vh] flex justify-center items-center" style={{
@@ -38,8 +41,9 @@ export default function Login() {
         }
       >
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className=" w-full"
+          noValidate
         >
 
           <div className="flex-1 flex flex-col gap-2 my-7">
@@ -50,9 +54,12 @@ export default function Login() {
             <input
               required
               id="email"
-              name="email"
+              type="email"
+              autoComplete="email"
+              {...register('email', { required: 'Email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Enter a valid email' } })}
               className="bg-transparent border h-10 px-3 rounded"
             />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
 
 
@@ -63,9 +70,10 @@ export default function Login() {
             <div className="relative">
               <input
                 required
-                name="password"
-                type={showPassword ? 'text' : 'password'}
                 id="password"
+                {...register('password', { required: 'Password is required', minLength: { value: 6, message: 'Password must be at least 6 characters' } })}
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
                 className="bg-transparent border h-10 px-3 rounded w-full"
               />
               <button
@@ -76,20 +84,21 @@ export default function Login() {
               >
                 {showPassword ? <FiEyeOff className="h-5 w-5 text-gray-600" /> : <FiEye className="h-5 w-5 text-gray-600" />}
               </button>
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
             </div>
           </div>
 
 
-          <div className="flex justify-between items-center">
-            <Link to="/password/forgot">
-              <p className=" text-xl">Forget Password?</p>
-            </Link>
-            <button type="submit" className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded">
-              Login
-            </button>
-          </div>
+            <div className="flex justify-between items-center">
+              <Link to="/password/forgot" aria-label="Forgot password" className="text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-300 rounded">
+                <span className="text-lg md:text-xl">Forgot password?</span>
+              </Link>
+              <button type="submit" disabled={isSubmitting} className="border-2 border-primary bg-primary text-white hover:text-secodnary hover:bg-secondary px-5 py-3 rounded disabled:opacity-60">
+                {isSubmitting ? 'Logging in…' : 'Login'}
+              </button>
+            </div>
 
-          <p className="my-8 text-xl">Don't Have an Account? <Link to="/signup" className="font-semibold">Register</Link> </p>
+          <p className="my-8 text-xl">Don't have an account? <Link to="/signup" aria-label="Sign up" className="font-semibold text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-300 rounded">Register</Link></p>
         </form>
       </div>
     </div>

@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
 
 import image from '../../images/Edited/webp/login.jpeg'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 
 export default function Login() {
 
   const { login } = useContext(UserContext)
+
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (event) => {
     console.log('Event: ', event);
@@ -57,14 +60,23 @@ export default function Login() {
             <label  htmlFor="password">
               Password
             </label>
-            <input
-              required
-              name="password"
-              type="password"
-              // value="password"
-              id="password"
-              className="bg-transparent border h-10 px-3 rounded"
-            />
+            <div className="relative">
+              <input
+                required
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                className="bg-transparent border h-10 px-3 rounded w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(s => !s)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+              >
+                {showPassword ? <FiEyeOff className="h-5 w-5 text-gray-600" /> : <FiEye className="h-5 w-5 text-gray-600" />}
+              </button>
+            </div>
           </div>
 
 

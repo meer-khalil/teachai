@@ -11,6 +11,7 @@ import { UserContext } from "../../context/UserContext";
 import image from '../../images/Edited/webp/login.jpeg'
 import SignupLoader from "../commons/SignupLoader";
 import { Link } from "react-router-dom";
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 export default function Signup() {
 
@@ -22,6 +23,9 @@ export default function Signup() {
 
   // Initialize state using the useState hook
   const [allow, setAllow] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showRePassword, setShowRePassword] = useState(false)
 
 
   // Function to update the 'allow' state
@@ -113,26 +117,35 @@ export default function Signup() {
               <label htmlFor="password">
                 Password <span className=" text-red-500 text-xl">*</span>
               </label>
-              <input
-                name="password"
-                type="password"
-                id="password"
-                className="bg-transparent border h-10 px-3 rounded text-black"
-                required
-              />
+              <div className="relative">
+                <input
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  className="bg-transparent border h-10 px-3 rounded text-black w-full"
+                  required
+                />
+                <button type="button" onClick={() => setShowPassword(s => !s)} aria-label={showPassword ? 'Hide password' : 'Show password'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1">
+                  {showPassword ? <FiEyeOff className="h-5 w-5 text-gray-600" /> : <FiEye className="h-5 w-5 text-gray-600" />}
+                </button>
+              </div>
             </div>
             <div className="flex-1 flex flex-col gap-2">
               <label htmlFor="password1">
                 Re-Password <span className=" text-red-500 text-xl">*</span>
               </label>
-              <input
-
-                name="password1"
-                type="password"
-                id="password1"
-                className="bg-transparent border h-10 px-3 rounded text-black"
-                required
-              />
+              <div className="relative">
+                <input
+                  name="password1"
+                  type={showRePassword ? 'text' : 'password'}
+                  id="password1"
+                  className="bg-transparent border h-10 px-3 rounded text-black w-full"
+                  required
+                />
+                <button type="button" onClick={() => setShowRePassword(s => !s)} aria-label={showRePassword ? 'Hide password' : 'Show password'} className="absolute right-2 top-1/2 -translate-y-1/2 p-1">
+                  {showRePassword ? <FiEyeOff className="h-5 w-5 text-gray-600" /> : <FiEye className="h-5 w-5 text-gray-600" />}
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex items-start gap-2 my-7">

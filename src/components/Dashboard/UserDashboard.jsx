@@ -83,7 +83,7 @@ const UserDashboard = () => {
 									<span className="mx-2">/</span>
 									<span className="text-gray-700">{title}</span>
 								</nav>
-								<h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
+								{/* <h1 className="text-2xl font-semibold text-gray-900">{title}</h1> */}
 							</div>
 							<div className="flex items-center gap-3">
 								<Link to="/user/dashboard/chatbots" className="bg-blue-600 text-white px-3 py-2 rounded-md text-sm">New Chat</Link>
